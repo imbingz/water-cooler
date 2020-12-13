@@ -10,7 +10,7 @@ const SocialSpaceChatSchema = new mongoose.Schema({
     required: true
   },
   timestamp: {
-    type: DataCue,
+    type: Date,
     default: Date.now
   },
   userID: {

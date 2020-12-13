@@ -1,16 +1,14 @@
 {
-  "name": "water-cooler",
+  "name": "class-demo",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node server/server.js",
-    "install": "cd server && npm install && cd ../client && npm install",
-    "build": "cd client && npm run build",
-    "heroku-postbuild": "npm run build"
+    "start": "node server/server.js"
   },
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.11.7"
+    "mongoose": "^5.11.7",
+    "yarn": "^1.22.10"
   }
 }
