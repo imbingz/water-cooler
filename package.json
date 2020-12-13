@@ -8,6 +8,7 @@
     "lint": "eslint \"**/*.js\""
   },
   "dependencies": {
+    "eslint": "^7.15.0",
     "express": "^4.17.1",
     "mongoose": "^5.11.7",
     "yarn": "^1.22.10"
