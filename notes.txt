@@ -1,0 +1,6 @@
+routes 
+- post "/api/signup"
+- 
+
+
+issues: sign up form validation on matching password - if not match, will not submit? 
