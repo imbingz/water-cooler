@@ -42,12 +42,12 @@ const Login = () => {
 
 	return (
 		<main>
-			<form className='Signup-form' onSubmit={handleLogin}>
-				<div className='Signup-form-group'>
+			<form className='Login-form' onSubmit={handleLogin}>
+				<div className='Login-form-group'>
 					<label htmlFor='email'>Email: </label>
 					<input required type='email' id='email' name='email' ref={emailRef} />
 				</div>
-				<div className='Signup-form-group'>
+				<div className='Login-form-group'>
 					<label htmlFor='password'>Password: </label>
 					<input required type='password' id='password' name='password' ref={passwordRef} />
 				</div>
