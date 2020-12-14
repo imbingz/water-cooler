@@ -6,38 +6,38 @@ const Login = () => {
 	const emailRef = useRef();
 	const passwordRef = useRef();
 
-	const handleLogin = e => {
+	const handleLogin = async e => {
 		e.preventDefault();
 		const email = emailRef.current.value;
 		const password = passwordRef.current.value;
+
+		// ***  DELETE CONSOLE LOG LATER ****//
 		console.log(email, password);
 
-		fetch('/api/login', {
-			method: 'post',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				password,
-				email
-			})
-		})
-			.then(response => {
-				if (response) {
-					response.json();
-				}
-			})
-			.then(data => {
-				if (data.error) {
-					//**** Note: we may want to do some notification to user here instead of log error*****/
-					console.log(data.error.message);
-				} else {
-					history.push('/room');
-				}
-			})
-			.catch(error => {
-				console.error(error);
+		try {
+			const response = await fetch('/api/user/login', {
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					email,
+					password
+				}),
+				method: 'POST'
 			});
+
+			const json = await response.json();
+
+			//**** Note: we may want to do some notification to user here instead of log error  *****//
+			if (json.data.error) console.log(json.data.error.message);
+
+			emailRef.current.value = '';
+			passwordRef.current.value = '';
+
+			history.push('/room');
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	return (
@@ -51,7 +51,7 @@ const Login = () => {
 					<label htmlFor='password'>Password: </label>
 					<input required type='password' id='password' name='password' ref={passwordRef} />
 				</div>
-				<button type='submit'>Sign Up</button>
+				<button type='submit'>Log In</button>
 			</form>
 			<p>
 				Don't have an account?
