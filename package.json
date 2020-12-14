@@ -1,0 +1,16 @@
+{
+  "name": "class-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server/server.js",
+    "lint": "eslint \"**/*.js\""
+  },
+  "dependencies": {
+    "eslint": "^7.15.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.11.7",
+    "yarn": "^1.22.10"
+  }
+}
