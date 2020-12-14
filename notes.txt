@@ -1,6 +1,15 @@
 routes 
-- post "/api/signup"
-- 
+- post "/api/signup" - signup page 
+- post "api/login"  - login page
 
 
-issues: sign up form validation on matching password - if not match, will not submit? 
+issues reminder: 
+- sign up form validation on matching password - if not match, will not submit? 
+- may need to add "reset password link" in login form 
+
+
+
+
+bing branches:
+- signup
+- login
