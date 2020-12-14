@@ -1,8 +1,8 @@
 module.exports = {
-  Users: require('./users'),
-  DMChats: require('./dmchats'),
-  Rooms: require('./rooms'),
-  RoomChats: require('./roomchats'),
-  SocialSpaces: require('./socialspaces'),
-  SocialSpaceChats: require('./socialspacechats')
+	User: require('./users'),
+	DMChat: require('./dmchats'),
+	Room: require('./rooms'),
+	RoomChat: require('./roomchats'),
+	SocialSpace: require('./socialspaces'),
+	SocialSpaceChat: require('./socialspacechats')
 };

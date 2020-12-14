@@ -1,24 +1,24 @@
 const mongoose = require('mongoose');
 
 const DMSchema = new mongoose.Schema({
-  message: {
-    type: String,
-    required: true
-  },
-  userID: {
-    type: Number,
-    required: true
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now
-  },
-  read: {
-    type: Boolean,
-    required: true
-  }
+	message: {
+		type: String,
+		required: 'Message is required'
+	},
+	userID: {
+		type: Number,
+		required: 'userID is required'
+	},
+	timestamp: {
+		type: Date,
+		default: Date.now
+	},
+	read: {
+		type: Boolean,
+		default: false
+	}
 });
 
-const DMChats = mongoose.model('DMChats', DMSchema);
+const DMChat = mongoose.model('DMChat', DMSchema);
 
-module.exports = DMChats;
+module.exports = DMChat;
