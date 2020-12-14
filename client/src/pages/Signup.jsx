@@ -8,41 +8,35 @@ const Signup = () => {
 	const [ password, setPassword ] = useState('');
 	const [ confirmPass, setConfirmPass ] = useState('');
 
-	const handleSignup = e => {
+	const handleSignup = async e => {
 		e.preventDefault();
 
-		fetch('/api/signup', {
-			method: 'post',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			body: JSON.stringify({
-				username,
-				password,
-				email
-			})
-		})
-			.then(response => {
-				if (response) {
-					response.json();
-				}
-			})
-			.then(data => {
-				if (data.error) {
-					//**** Note: we may want to do some notification to user here instead of log error*****/
-					console.log(data.error.message);
-				} else {
-					history.push('/login');
-				}
-			})
-			.catch(error => {
-				console.error(error);
+		try {
+			const response = await fetch('/api/user/signup', {
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					username,
+					password,
+					email
+				}),
+				method: 'POST'
 			});
+			const json = await response.json();
 
-		setUsername('');
-		setEmail('');
-		setPassword('');
-		setConfirmPass('');
+			//**** Note: we may want to do some notification to user here instead of log error  *****//
+			if (json.data.error) console.log(json.data.error.message);
+
+			history.push('/login');
+
+			setUsername('');
+			setEmail('');
+			setPassword('');
+			setConfirmPass('');
+		} catch (error) {
+			console.error(error);
+		}
 	};
 
 	return (

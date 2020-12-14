@@ -1,6 +1,8 @@
 routes 
-- post "/api/signup" - signup page 
-- post "api/login"  - login page
+
+- post "/api/user/signup"
+- post "api/user/login"
+
 
 
 issues reminder: 
