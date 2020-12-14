@@ -1,43 +1,48 @@
 const mongoose = require('mongoose');
 
 const UserSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    required: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  username: {
-    type: String,
-    require: true
-  },
-  firstName: {
-    type: String,
-    required: true
-  },
-  lastName: {
-    type: String,
-    required: true
-  },
-  status: {
-    type: Number
-  },
-  inboundPendingFriends: {
-    type: Array
-  },
-  outboundPendingFriends: {
-    type: Array
-  },
-  friends: {
-    type: Array
-  },
-  blocked: {
-    type: Array
-  }
+	email: {
+		type: String,
+		required: 'Email is required'
+	},
+	password: {
+		type: String,
+		required: 'Password is required'
+	},
+	username: {
+		type: String,
+		require: 'Usernameeee is required'
+	},
+	firstName: {
+		type: String,
+		deault: ''
+	},
+	lastName: {
+		type: String,
+		deault: ''
+	},
+	status: {
+		type: Number,
+		default: 0
+	},
+	inboundPendingFriends: {
+		type: Array,
+		default: []
+	},
+	outboundPendingFriends: {
+		type: Array,
+		default: []
+	},
+	friends: {
+		type: Array,
+		default: []
+	},
+	blocked: {
+		type: Array,
+		default: []
+	}
 });
 
-const Users = mongoose.model('Users', UserSchema);
+const User = mongoose.model('User', UserSchema);
 
-module.exports = Users;
+module.exports = User;

@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
-const RoomSchema = new mongoose.Schema ({
-  users: {
-    type: Array,
-    required: true
-  }
+const RoomSchema = new mongoose.Schema({
+	users: {
+		type: Array,
+		refault: []
+	}
 });
 
-const Rooms = mongoose.model('Rooms', RoomSchema);
+const Room = mongoose.model('Room', RoomSchema);
 
-module.exports = Rooms;
+module.exports = Room;
