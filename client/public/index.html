@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
+    <meta name="theme-color" content="#2194a6" />
     <link rel="icon" href="%PUBLIC_URL%/assets/pwa-assets/favicon.ico" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/assets/pwa-assets/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/assets/pwa-assets/manifest.webmanifest" />
@@ -19,7 +19,7 @@
       window.addEventListener('load', () => {
         navigator
           .serviceWorker
-            .register('/assets/pwa-assets/service-worker.js')
+            .register('/service-worker.js')
               .then(registration => {
                 console.log("Successfully Registered Service Worker: ", registration)
               })

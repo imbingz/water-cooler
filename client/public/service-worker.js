@@ -1,6 +1,6 @@
 const cacheFileName = "wc-cache-v1.6";
 const filesToCache = [
-  './offline.html'
+  './assets/pwa-assets/offline.html'
 ]
 
 
@@ -46,8 +46,11 @@ self.addEventListener('fetch', (e) => {
     caches
       .match(e.request)
       .then(response => {
-        return response || fetch(event.request)
+        return fetch(e.request)
       })
-      .catch(err => console.log("On SW Fetch Intercept, response error: ", err))
+      .catch(err => {
+        console.log("On SW Fetch Intercept, response error: ", err);
+        return caches.match('/assets/pwa-assets/offline.html')
+      })  
   )
 });
