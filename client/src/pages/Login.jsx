@@ -28,11 +28,15 @@ const Login = () => {
 
 			const json = await response.json();
 
-			//**** Note: we may want to do some notification to user here instead of log error  *****//
-			if (json.data.error) console.log(json.data.error.message);
-
-			emailRef.current.value = '';
-			passwordRef.current.value = '';
+			if (json.error) {
+				console.log(json.error);
+				// *** NEED TO GET A BETTER WAY THAN ALERT TO NOTIFY USER **** //
+				alert('Password and Email do not match');
+				emailRef.current.value = '';
+				passwordRef.current.value = '';
+				emailRef.current.focus();
+				return;
+			}
 
 			history.push('/room');
 		} catch (error) {
