@@ -1,11 +1,16 @@
 {
-  "name": "class-demo",
+  "name": "water-cooler",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
     "start": "node server/server.js",
-    "lint": "eslint \"**/*.js\""
+    "start:server": "nodemon server/server.js",
+    "start:client": "cd client && npm start",
+    "dev": "concurrently \"npm run start:server\" \"npm run start:client\"",
+    "install": "cd client && npm i",
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "eslint": "^7.15.0",

@@ -1,24 +1,24 @@
 const mongoose = require('mongoose');
 
-const RoomChatSchema = new mongoose.Schema ({
-  roomID: {
-    type: Number,
-    required: true
-  },
-  messages: {
-    type: String,
-    required: true
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now
-  },
-  userID: {
-    type: Number,
-    required: true
-  }
+const RoomChatSchema = new mongoose.Schema({
+	roomID: {
+		type: Number,
+		required: 'roomID is required'
+	},
+	messages: {
+		type: String,
+		required: 'Message is required'
+	},
+	timestamp: {
+		type: Date,
+		default: Date.now
+	},
+	userID: {
+		type: Number,
+		required: 'userID is required'
+	}
 });
 
-const RoomChats = mongoose.model('RoomChats', RoomChatSchema);
+const RoomChat = mongoose.model('RoomChat', RoomChatSchema);
 
-module.exports = RoomChats;
+module.exports = RoomChat;

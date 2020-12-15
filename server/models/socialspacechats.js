@@ -1,24 +1,24 @@
 const mongoose = require('mongoose');
 
 const SocialSpaceChatSchema = new mongoose.Schema({
-  socialSpaceID: {
-    type: Number,
-    required: true
-  },
-  messages: {
-    type: String,
-    required: true
-  },
-  timestamp: {
-    type: Date,
-    default: Date.now
-  },
-  userID: {
-    type: Number,
-    required: true
-  }
+	socialSpaceID: {
+		type: Number,
+		required: 'SocialspaceID is required'
+	},
+	messages: {
+		type: String,
+		required: 'Message is required'
+	},
+	timestamp: {
+		type: Date,
+		default: Date.now
+	},
+	userID: {
+		type: Number,
+		required: 'UserID is required'
+	}
 });
 
-const SocialSpaceChats = mongoose.model('SocialSpaceChats', SocialSpaceChatSchema);
+const SocialSpaceChat = mongoose.model('SocialSpaceChat', SocialSpaceChatSchema);
 
-module.exports = SocialSpaceChats;
+module.exports = SocialSpaceChat;
