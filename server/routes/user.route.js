@@ -18,7 +18,7 @@ router.post('/signup', ({ body }, res) => {
 		});
 });
 
-// api/use/login
+// api/user/login
 router.post('/login', ({ body }, res) => {
 	const { email, password } = body;
 	db.User
@@ -33,6 +33,47 @@ router.post('/login', ({ body }, res) => {
 			const { _id, username, email } = savedUser;
 
 			res.json({ user: { _id, username, email } });
+		})
+		.catch(err => {
+			console.log(err);
+		});
+});
+
+// post api/user/profile
+/***** NEED TO ADD AUTHENTICATION LATER ***/
+// router.post('/profile', ({ body }, res) => {
+// 	console.log(body);
+// 	const { _id } = body;
+// 	db.User
+// 		.findById(_id)
+// 		.then(savedUser => {
+// 			if (!savedUser) {
+// 				return res.status(422).json({ error: 'Could not find this user' });
+// 			}
+// 			// console.log("find the saved user for POST 'api/user/profile", savedUser);
+
+// 			res.json({ success: true, user: savedUser });
+// 		})
+// 		.catch(err => {
+// 			console.log(err);
+// 		});
+// });
+
+// patch api/user/profile
+router.patch('/profile', ({ body }, res) => {
+	console.log('patch route /profile body obj: ', body);
+	console.log(body.user.email);
+
+	db.User
+		.findByIdAndUpdate({ _id: body.user._id }, body.user, { new: true })
+		.then(savedUser => {
+			if (!savedUser) {
+				return res.status(422).json({ error: 'Could not find this user' });
+			}
+
+			console.log("updated user PATCH 'api/user/profile", savedUser);
+
+			res.json({ success: true, user: savedUser });
 		})
 		.catch(err => {
 			console.log(err);
