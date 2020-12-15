@@ -38,6 +38,8 @@ const Login = () => {
 				return;
 			}
 
+			localStorage.setItem('USER', JSON.stringify(json.user));
+
 			history.push('/room');
 		} catch (error) {
 			console.error(error);

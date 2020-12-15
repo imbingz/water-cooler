@@ -15,11 +15,11 @@ const UserSchema = new mongoose.Schema({
 	},
 	firstName: {
 		type: String,
-		deault: ''
+		default: ''
 	},
 	lastName: {
 		type: String,
-		deault: ''
+		default: ''
 	},
 	status: {
 		type: Number,
@@ -40,6 +40,10 @@ const UserSchema = new mongoose.Schema({
 	blocked: {
 		type: Array,
 		default: []
+	},
+	imageSrc: {
+		type: String,
+		default: ''
 	}
 });
 
