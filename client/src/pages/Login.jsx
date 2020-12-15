@@ -34,6 +34,7 @@ const Login = () => {
 				alert('Password and Email do not match');
 				emailRef.current.value = '';
 				passwordRef.current.value = '';
+				emailRef.current.focus();
 				return;
 			}
 
