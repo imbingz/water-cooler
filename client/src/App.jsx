@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import GlobalProvider from "./utils/GlobalContext";
 import Homepage from './pages/Homepage';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
@@ -12,6 +13,8 @@ import Navbar from './components/Navbar';
 function App() {
   return (
     <Router>
+      <GlobalProvider>
+
         <Navbar />
 
         <div className="App">
@@ -28,6 +31,7 @@ function App() {
             <Route exact path='/socialspace' component={SocialSpace} />
           </Switch>
         </div>
+      </GlobalProvider>
     </Router>
   );
 }

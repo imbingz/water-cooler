@@ -6,7 +6,7 @@ const RoomSchema = new mongoose.Schema({
 		required: true
 	},
 	publicID: {
-		type: Number,
+		type: String,
 		required: true
 	},
 	users: {
