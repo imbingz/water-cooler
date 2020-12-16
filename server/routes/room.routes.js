@@ -21,7 +21,7 @@ router
   .post((req, res) => {
     Room
       .create({
-        name:  req.body.name,
+        name: req.body.name,
         publicID: req.body.publicID
       })
       .then(data => {
@@ -32,7 +32,8 @@ router
       });
   });
 
-  router
+// gathers unique room data
+router
   .route('/find')
   .post((req, res) => {
 

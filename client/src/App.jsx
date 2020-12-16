@@ -7,6 +7,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
 import Rooms from './pages/Rooms';
+import UserRoom from './pages/UserRoom'
 import SocialSpace from './pages/SocialSpace';
 import Navbar from './components/Navbar';
 
@@ -25,8 +26,8 @@ function App() {
             <Route exact path='/search' component={Search} />
             {/* will be profile:id */}
             <Route exact path='/profile' component={Profile} />
-            {/* will be room:id */}
             <Route exact path='/rooms' component={Rooms} />
+            <Route exact path='/rooms/:id' component={UserRoom} />
             {/* will be socialspace:id */}
             <Route exact path='/socialspace' component={SocialSpace} />
           </Switch>

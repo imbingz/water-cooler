@@ -54,7 +54,6 @@ const Rooms = () => {
   const routeToRoom = async (e) => {
     e.preventDefault();
     try {
-      const roomID = document.activeElement.parentElement.id;
       const response = await fetch(
         '/api/room/find',
         {
