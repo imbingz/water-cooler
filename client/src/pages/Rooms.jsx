@@ -1,25 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useGlobalContext } from '../utils/GlobalContext';
+
+const { v4: uuidv4 } = require('uuid');
+const urlID = uuidv4();
 
 const Rooms = () => {
   const [state, dispatch] = useGlobalContext();
   const [roomName, setRoomName] = useState('');
+
+  const history = useHistory();
 
   useEffect(() => {
     async function fetchRooms() {
       try {
         const response = await fetch('/api/room');
         const json = await response.json();
-        console.log({ json })
-
         dispatch({ type: 'addRooms', payload: json.data });
       } catch (err) {
         console.log({ err })
       }
     }
-
     fetchRooms();
-  }, []);
+  }, [dispatch]);
 
   const createRoom = async (e) => {
     e.preventDefault();
@@ -30,7 +33,10 @@ const Rooms = () => {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ name: roomName }),
+          body: JSON.stringify({ 
+            name: roomName,
+            publicID: urlID
+          }),
           method: 'POST'
         }
       );
@@ -39,6 +45,7 @@ const Rooms = () => {
 
       dispatch({ type: 'createRoom', payload: json.data });
       setRoomName('');
+      history.push('/rooms/' + urlID)
     } catch (err) {
       console.log(err);
     }

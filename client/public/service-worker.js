@@ -57,14 +57,14 @@ self.addEventListener('fetch', (e) => {
           // We can return just this fetch req. I added the .then() so I can see the log of the server response
           fetch(e.request)
             .then(serverResponse => {
-              console.log("Fetch Listener Server Response: ", serverResponse);
+              // console.log("Fetch Listener Server Response: ", serverResponse);
                 return serverResponse
             })
         )
           
       })
       .catch(err => {
-        console.log("On SW Fetch Intercept, response error: ", err);
+        // console.log("On SW Fetch Intercept, response error: ", err);
         return caches.match('/assets/pwa-assets/offline.html')
       }) 
   )

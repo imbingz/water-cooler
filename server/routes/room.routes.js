@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const { uuid } = require('uuidv4')
 const { Room } = require('../models');
 
 // populates rooms page with public rooms
@@ -12,7 +11,7 @@ router
         res.json({ success: true, data });
       })
       .catch(err => {
-        res.json({ success: false });
+        res.json({ success: false } + err);
       });
   })
 
@@ -23,7 +22,7 @@ router
     Room
       .create({
         name:  req.body.name,
-        publicID: uuid()
+        publicID: req.body.publicID
       })
       .then(data => {
         res.json({ success: true, data })
@@ -33,8 +32,7 @@ router
       });
   });
 
-// router.get('/:id', (req, res) => {
-//   res.render('id', { roomID: req.params.room })
-// })
+router
+  .route('/:id')
 
 module.exports = router;
