@@ -51,6 +51,29 @@ const Rooms = () => {
     }
   };
 
+  const routeToRoom = async (e) => {
+    e.preventDefault();
+    try {
+      const roomID = document.activeElement.parentElement.id;
+      const response = await fetch(
+        '/api/room/find',
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            id: document.activeElement.parentElement.id
+          }),
+          method: 'POST'
+        }
+      );
+      const json = await response.json();
+      const urlID = json.data.publicID;
+      history.push('/rooms/' + urlID)
+    } catch (err) {
+      console.log({ err })
+    }
+  }
 
   return (
     <>
@@ -71,10 +94,10 @@ const Rooms = () => {
         <h3>Open Rooms</h3>
         <ul>
         {state.rooms.map(room => (
-          <li key={room._id}>
-            <span>
+          <li id={room._id} key={room._id}>
+            <button onClick={routeToRoom}>
               {room.name}
-            </span>
+            </button>
           </li>
         ))}
       </ul>

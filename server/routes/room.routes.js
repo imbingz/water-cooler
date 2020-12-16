@@ -32,6 +32,20 @@ router
       });
   });
 
+  router
+  .route('/find')
+  .post((req, res) => {
+
+    Room
+      .findOne({ _id: req.body.id })
+      .then(data => {
+        res.json({ success: true, data });
+      })
+      .catch(err => {
+        res.json({ success: false } + err);
+      });
+  })
+
 router
   .route('/:id')
 
