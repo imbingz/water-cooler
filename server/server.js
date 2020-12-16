@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const routes = require('./routes');
 const path = require('path');
@@ -19,5 +20,5 @@ app.get('*', (req, res) => {
 // }
 
 app.listen(PORT, () => {
-  console.log('app running on PORT: ' + PORT);
+	console.log('app running on PORT: ' + PORT);
 });
