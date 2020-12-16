@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
-const RoomChatSchema = new mongoose.Schema ({
+const RoomChatSchema = new mongoose.Schema({
   roomID: {
     type: Number,
-    required: true
+    required: 'roomID is required'
   },
   messages: {
     type: String,
-    required: true
+    required: 'Message is required'
   },
   timestamp: {
     type: Date,
@@ -15,10 +15,10 @@ const RoomChatSchema = new mongoose.Schema ({
   },
   userID: {
     type: Number,
-    required: true
+    required: 'userID is required'
   }
 });
 
-const RoomChats = mongoose.model('RoomChats', RoomChatSchema);
+const RoomChat = mongoose.model('RoomChat', RoomChatSchema);
 
-module.exports = RoomChats;
+module.exports = RoomChat;

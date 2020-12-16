@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 
-const SocialSpaceSchema = new mongoose.Schema ({
+const SocialSpaceSchema = new mongoose.Schema({
   roomID: {
     type: Number,
-    required: true
+    required: 'RoomID is required'
   },
   users: {
     type: Array,
-    required: true
+    required: 'Users are required'
   }
 });
 
-const SocialSpaces = mongoose.model('SocialSpaces', SocialSpaceSchema);
+const SocialSpace = mongoose.model('SocialSpace', SocialSpaceSchema);
 
-module.exports = SocialSpaces;
+module.exports = SocialSpace;
