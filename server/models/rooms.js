@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const RoomSchema = new mongoose.Schema({
+<<<<<<< HEAD
 	name: {
 		type: String,
 		required: true
@@ -13,6 +14,12 @@ const RoomSchema = new mongoose.Schema({
 		type: Array,
 		default: []
 	}
+=======
+    users: {
+        type: Array,
+        refault: []
+    }
+>>>>>>> master
 });
 
 const Room = mongoose.model('Room', RoomSchema);

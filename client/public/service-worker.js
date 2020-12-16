@@ -1,3 +1,4 @@
+/* eslint-disable */
 // * Global Variables
 const cacheFileName = "wc-cache-v1.6";
 const filesToCache = [
