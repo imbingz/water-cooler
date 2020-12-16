@@ -2,6 +2,7 @@ const express = require('express');
 const routes = require('./routes');
 const path = require('path');
 const app = express();
+const server = require('http').Server(app);
 require('./config/db')();
 
 const PORT = process.env.PORT || 5000;
