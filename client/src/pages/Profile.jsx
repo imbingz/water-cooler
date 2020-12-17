@@ -7,7 +7,9 @@ const Profile = props => {
 	const emailRef = useRef();
 
 	const storedUser = JSON.parse(localStorage.getItem('USER'));
-	console.log('storedUser: ', storedUser);
+    console.log('storedUser: ', storedUser);
+    
+
 
 	//prefill the user info
 	useEffect(() => {
@@ -34,19 +36,20 @@ const Profile = props => {
 		try {
 			const response = await fetch('/api/user/profile', {
 				headers: {
-					'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer '+ localStorage.getItem('JWT')
 				},
 				body: JSON.stringify({
 					user
 				}),
-				method: 'PATCH'
+				method: 'PUT'
 			});
 
-			const json = await response.json();
+			const data = await response.json();
 			// console.log(json);
-			if (json.user) {
-				console.log(json.user);
-				localStorage.clear();
+			if (data.user) {
+                console.log(data.user);
+                
 				// *** NEED A BETTER WAY TO REPLACE ALERT  *** //
 				alert('Your profile is updated successfully');
 			}

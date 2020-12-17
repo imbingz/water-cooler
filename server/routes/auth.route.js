@@ -40,10 +40,10 @@ router.post('/signup', ({body}, res) => {
                     .then( () => {
                         res.json({ message: ' saved in db successfully' });
                     })
-                    .catch(err => console.log(err));
+                    .catch(err => console.error(err));
             });
         })
-        .catch(err => console.log(err));
+        .catch(err => console.error(err));
 });
 
 //login route
@@ -63,7 +63,6 @@ router.post('/login', ({body}, res) => {
                 .compare(password, savedUser.password)
                 .then(doMatch => {
                     if (doMatch) {
-                    // res.json({ message: 'succssfully signed in' });
                     //use JWT to give authenticated user a koten based on user ID
                         const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET);
 
@@ -74,13 +73,13 @@ router.post('/login', ({body}, res) => {
                         return res.status(422).json({ error: 'Invalid email or password.' });
                     }
                 })
-                .catch(err => console.log(err));
+                .catch(err => console.error(err));
         });
 });
 
 // api/user/profile  *** protected route that requires user login
-router.patch('/profile', isAuthenticated, ({ body }, res) => {
-    console.log('patch route /profile body obj: ', body);
+router.put('/profile', isAuthenticated, ({ body }, res) => {
+    console.log('put route /profile body obj: ', body);
     
     /********* TEST PURPOSE ********/
     // res.send('hello user');
@@ -97,7 +96,7 @@ router.patch('/profile', isAuthenticated, ({ body }, res) => {
             res.json({ success: true, user: savedUser });
         })
         .catch(err => {
-            console.log(err);
+            console.error(err);
         });
 });
 

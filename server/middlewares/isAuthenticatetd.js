@@ -3,6 +3,9 @@ const db = require('../models');
 const JWT_SECRET = process.env.JWT_SECRET;
 
 module.exports = (req, res, next) => {
+    // ***** DELETE LATER
+    console.log(req.headers);
+
     const { authorization } = req.headers;
     if (!authorization) {
         //401 Not Authorized
