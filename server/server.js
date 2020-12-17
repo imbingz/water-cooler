@@ -26,4 +26,6 @@ app.get('*', (req, res) => {
 
 app.listen(PORT, () => {
     console.log('app running on PORT: ' + PORT);
+    // console.log(process.env.MONGODB_URI);
+    // console.log(process.env.JWT_SECRET);
 });

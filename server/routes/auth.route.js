@@ -6,6 +6,8 @@ const isAuthenticated = require('../middlewares/isAuthenticatetd');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
+
+
 // protected route for authenticated user (with token) to access resources ===> test codes
 router.patch('/protected', isAuthenticated, (req, res) => {
     res.send('hello user');
@@ -14,7 +16,7 @@ router.patch('/protected', isAuthenticated, (req, res) => {
 //signup route
 router.post('/signup', ({body}, res) => {
     const { email, password, username } = body;
-
+    // console.log(process.env.JWT_SECRET);
     if (!email || !password || !username) {
         //when encounter this type of error, earlier return
         return res.status(422).json({ error: 'Please fill all the fields' });
@@ -49,6 +51,7 @@ router.post('/signup', ({body}, res) => {
 //login route
 router.post('/login', ({body}, res) => {
     const { email, password } = body;
+    console.log(JWT_SECRET);
     if (!email || !password) {
         return res.status(422).json({ error: 'Email and Password are required.' });
     }
@@ -65,7 +68,7 @@ router.post('/login', ({body}, res) => {
                     if (doMatch) {
                     //use JWT to give authenticated user a koten based on user ID
                         const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET);
-
+                        
                         const { _id, username, email } = savedUser;
                         //send token
                         res.json({ token, user: { _id, username, email } });
