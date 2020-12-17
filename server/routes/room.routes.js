@@ -13,7 +13,7 @@ router
             .catch(err => {
                 res.json({ success: false } + err);
             });
-    })
+    });
 
 // creates room
 router
@@ -25,7 +25,7 @@ router
                 publicID: req.body.publicID
             })
             .then(data => {
-                res.json({ success: true, data })
+                res.json({ success: true, data });
             })
             .catch(err => {
                 res.json({ success: false } + err);
@@ -45,7 +45,7 @@ router
             .catch(err => {
                 res.json({ success: false } + err);
             });
-    })
+    });
 
 // gathers rooms based on publicID
 router
@@ -60,6 +60,6 @@ router
             .catch(err => {
                 res.json({ success: false } + err);
             });
-    })
+    });
 
 module.exports = router;
