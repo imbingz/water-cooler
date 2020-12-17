@@ -22,7 +22,7 @@ const Rooms = () => {
             }
         }
         fetchRooms();
-    }, [dispatch, state.rooms]);
+    }, [dispatch]);
 
     const createRoom = async (e) => {
         e.preventDefault();
