@@ -1,35 +1,40 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import GlobalProvider from "./utils/GlobalContext";
 import Homepage from './pages/Homepage';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Search from './pages/Search';
-import Room from './pages/Room';
+import Rooms from './pages/Rooms';
+import UserRoom from './pages/UserRoom'
 import SocialSpace from './pages/SocialSpace';
 import Navbar from './components/Navbar';
 
 function App() {
-  return (
-    <Router>
-        <Navbar />
+    return (
+        <Router>
+            <GlobalProvider>
 
-        <div className="App">
-          <Switch>
-            <Route exact path='/' component={Homepage} />
-            <Route exact path='/signup' component={Signup} />
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/search' component={Search} />
-            {/* will be profile:id */}
-            <Route exact path='/profile' component={Profile} />
-            {/* will be room:id */}
-            <Route exact path='/room' component={Room} />
-            {/* will be socialspace:id */}
-            <Route exact path='/socialspace' component={SocialSpace} />
-          </Switch>
-        </div>
-    </Router>
-  );
+                <Navbar />
+
+                <div className="App">
+                    <Switch>
+                        <Route exact path='/' component={Homepage} />
+                        <Route exact path='/signup' component={Signup} />
+                        <Route exact path='/login' component={Login} />
+                        <Route exact path='/search' component={Search} />
+                        {/* will be profile:id */}
+                        <Route exact path='/profile' component={Profile} />
+                        <Route exact path='/rooms' component={Rooms} />
+                        <Route exact path='/rooms/:id' component={UserRoom} />
+                        {/* will be socialspace:id */}
+                        <Route exact path='/socialspace' component={SocialSpace} />
+                    </Switch>
+                </div>
+            </GlobalProvider>
+        </Router>
+    );
 }
 
 

@@ -81,7 +81,7 @@ const Profile = props => {
 						id='firstName'
 						name='firstName'
 						ref={firstNameRef}
-						// value={user.firstName} onChange={handleInputChange}
+					// value={user.firstName} onChange={handleInputChange}
 					/>
 				</div>
 				<div className='Profile-form-group'>
@@ -92,8 +92,8 @@ const Profile = props => {
 						name='lastName'
 						// defaultValue={user.lastName}
 						ref={lastNameRef}
-						// value={user.lastName}
-						// onChange={handleInputChange}
+					// value={user.lastName}
+					// onChange={handleInputChange}
 					/>
 				</div>
 				<div className='Profile-form-group'>
@@ -104,9 +104,9 @@ const Profile = props => {
 						name='username'
 						type='text'
 						ref={usernameRef}
-						// defaultValue={user.username}
-						// value={user.username}
-						// onChange={handleInputChange}
+					// defaultValue={user.username}
+					// value={user.username}
+					// onChange={handleInputChange}
 					/>
 				</div>
 				<div className='Profile-form-group'>
@@ -118,8 +118,8 @@ const Profile = props => {
 						name='email'
 						// defaultValue={user.email}
 						ref={emailRef}
-						// value={user.email}
-						// onChange={handleInputChange}
+					// value={user.email}
+					// onChange={handleInputChange}
 					/>
 				</div>
 				<button className='Profile-update-btn' type='submit'>

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#2194a6" />
@@ -8,23 +9,25 @@
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/assets/pwa-assets/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/assets/pwa-assets/manifest.webmanifest" />
     <title>Water Cooler</title>
-  </head>
-  <body>
+</head>
+
+<body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-  </body>
+</body>
 
-  <script>
+<script>
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator
-          .serviceWorker
-            .register('/service-worker.js')
-              .then(registration => {
-                console.log("Successfully Registered Service Worker: ", registration)
-              })
-              .catch(err => console.log("Service Worker Registration Error: " , err))
-      })
+        window.addEventListener('load', () => {
+            navigator
+                .serviceWorker
+                .register('/service-worker.js')
+                .then(registration => {
+                    console.log("Successfully Registered Service Worker: ", registration)
+                })
+                .catch(err => console.log("Service Worker Registration Error: ", err))
+        })
     }
-  </script>
+</script>
+
 </html>
