@@ -2,13 +2,14 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const db = require('../models');
+const isAuthenticated = require('../middlewares/isAuthenticatetd');
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-//protected route for authenticated user (with token) to access resources
-// router.get('/protected', isAuthenticated, (req, res) => {
-// 	res.send('hello user');
-// });
+// protected route for authenticated user (with token) to access resources ===> test codes
+router.patch('/protected', isAuthenticated, (req, res) => {
+    res.send('hello user');
+});
 
 //signup route
 router.post('/signup', ({body}, res) => {
@@ -65,13 +66,38 @@ router.post('/login', ({body}, res) => {
                     // res.json({ message: 'succssfully signed in' });
                     //use JWT to give authenticated user a koten based on user ID
                         const token = jwt.sign({ _id: savedUser._id }, JWT_SECRET);
+
+                        const { _id, username, email } = savedUser;
                         //send token
-                        res.json({ token });
+                        res.json({ token, user: { _id, username, email } });
                     } else {
                         return res.status(422).json({ error: 'Invalid email or password.' });
                     }
                 })
                 .catch(err => console.log(err));
+        });
+});
+
+// api/user/profile  *** protected route that requires user login
+router.patch('/profile', isAuthenticated, ({ body }, res) => {
+    console.log('patch route /profile body obj: ', body);
+    
+    /********* TEST PURPOSE ********/
+    // res.send('hello user');
+
+    db.User
+        .findByIdAndUpdate({ _id: body.user._id }, body.user, { new: true })
+        .then(savedUser => {
+            if (!savedUser) {
+                return res.status(422).json({ error: 'Could not find this user' });
+            }
+
+            console.log('updated user PATCH \'api/user/profile', savedUser);
+
+            res.json({ success: true, user: savedUser });
+        })
+        .catch(err => {
+            console.log(err);
         });
 });
 

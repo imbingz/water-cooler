@@ -26,10 +26,16 @@ const Login = () => {
 				method: 'POST'
 			});
 
-			const json = await response.json();
+            const data = await response.json();
+            
+            console.log(data);
 
-			if (json.error) {
-				console.log(json.error);
+            /****** json response obj 
+             {token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Z…xNjd9.Wf7nRWsOiPXTwB-BVNPd9FSNv2JPGtjvGmW3GyksY3I", user: {…}}
+              ****** */
+
+			if (data.error) {
+				console.log(data.error);
 				// *** NEED TO GET A BETTER WAY THAN ALERT TO NOTIFY USER **** //
 				alert('Password and Email do not match');
 				emailRef.current.value = '';
@@ -38,11 +44,12 @@ const Login = () => {
 				return;
 			}
 
-			localStorage.setItem('USER', JSON.stringify(json.user));
+            localStorage.setItem('JWT', data.token)
+			localStorage.setItem('USER', JSON.stringify(data.user));
 
 			history.push('/room');
-		} catch (error) {
-			console.error(error);
+		} catch (err) {
+			console.error(err);
 		}
 	};
 
