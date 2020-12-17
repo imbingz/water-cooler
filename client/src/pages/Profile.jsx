@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const Profile = props => {
+    const history = useHistory();
 	const firstNameRef = useRef();
 	const lastNameRef = useRef();
 	const usernameRef = useRef();
@@ -13,7 +15,13 @@ const Profile = props => {
 
 	//prefill the user info
 	useEffect(() => {
-		if (!storedUser) return;
+        const token = localStorage.getItem('JWT');
+        if (!token || !storedUser) {
+            return history.push('/login');  
+        } 
+        
+        console.log(token, storedUser);
+
 		firstNameRef.current.value = storedUser.firstName || '';
 		lastNameRef.current.value = storedUser.lastName || '';
 		usernameRef.current.value = storedUser.username || '';
