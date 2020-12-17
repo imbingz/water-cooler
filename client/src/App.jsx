@@ -12,29 +12,29 @@ import SocialSpace from './pages/SocialSpace';
 import Navbar from './components/Navbar';
 
 function App() {
-  return (
-    <Router>
-      <GlobalProvider>
+    return (
+        <Router>
+            <GlobalProvider>
 
-        <Navbar />
+                <Navbar />
 
-        <div className="App">
-          <Switch>
-            <Route exact path='/' component={Homepage} />
-            <Route exact path='/signup' component={Signup} />
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/search' component={Search} />
-            {/* will be profile:id */}
-            <Route exact path='/profile' component={Profile} />
-            <Route exact path='/rooms' component={Rooms} />
-            <Route exact path='/rooms/:id' component={UserRoom} />
-            {/* will be socialspace:id */}
-            <Route exact path='/socialspace' component={SocialSpace} />
-          </Switch>
-        </div>
-      </GlobalProvider>
-    </Router>
-  );
+                <div className="App">
+                    <Switch>
+                        <Route exact path='/' component={Homepage} />
+                        <Route exact path='/signup' component={Signup} />
+                        <Route exact path='/login' component={Login} />
+                        <Route exact path='/search' component={Search} />
+                        {/* will be profile:id */}
+                        <Route exact path='/profile' component={Profile} />
+                        <Route exact path='/rooms' component={Rooms} />
+                        <Route exact path='/rooms/:id' component={UserRoom} />
+                        {/* will be socialspace:id */}
+                        <Route exact path='/socialspace' component={SocialSpace} />
+                    </Switch>
+                </div>
+            </GlobalProvider>
+        </Router>
+    );
 }
 
 
