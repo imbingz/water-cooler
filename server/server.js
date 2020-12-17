@@ -2,13 +2,13 @@ require('dotenv').config();
 const express = require('express');
 const routes = require('./routes');
 const path = require('path');
-const cors = require('cors');
+// const cors = require('cors');
 const app = express();
 require('./config/db')();
 
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+// app.use(cors());
 
 // parsing middleware
 app.use(express.urlencoded({ extended: true }));
