@@ -48,17 +48,17 @@ router
     });
 
 // gathers social space based on publicSocialSpaceID
-// router
-//     .route('/:id')
-//     .post((req, res) => {
-//         SocialSpace
-//             .findOne({ publicRoomId: req.body.publicRoomId })
-//             .then(data => {
-//                 res.json({ success: true, data });
-//             })
-//             .catch(err => {
-//                 res.json({ success: false } + err);
-//             });
-//     });
+router
+    .route('/:id')
+    .post((req, res) => {
+        SocialSpace
+            .findOne({ publicSocialSpaceId: req.body.publicSocialSpaceId })
+            .then(data => {
+                res.json({ success: true, data });
+            })
+            .catch(err => {
+                res.json({ success: false } + err);
+            });
+    });
 
 module.exports = router;

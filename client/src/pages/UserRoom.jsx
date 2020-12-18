@@ -13,7 +13,6 @@ const UserRoom = () => {
     
     useEffect(() => {
         async function fetchSocialSpaces() {
-            console.log('reached fetch social spaces');
             try {
                 const response = await fetch(
                     '/api/socialspace',
@@ -118,13 +117,13 @@ const UserRoom = () => {
 
                 <ul id={state.currentRoom._id} key={state.currentRoom._id}>
                     <li>
-                        {state.currentRoom.roomName}
+                        Room Name: {state.currentRoom.roomName}
                     </li>
                     <li>
-                        {state.currentRoom._id}
+                        Room ID: {state.currentRoom._id}
                     </li>
                     <li>
-                        {state.currentRoom.publicRoomId}
+                        Room Public ID: {state.currentRoom.publicRoomId}
                     </li>
                 </ul>
             </div>
