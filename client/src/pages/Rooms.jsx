@@ -2,15 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useGlobalContext } from '../utils/GlobalContext';
 
-const { v4: uuidv4 } = require('uuid');
-const roomUrlId = uuidv4();
 
 const Rooms = () => {
     const [state, dispatch] = useGlobalContext();
     const [inputRoomName, setRoomName] = useState('');
-
+    
     const history = useHistory();
-
+    
     useEffect(() => {
         async function fetchRooms() {
             try {
@@ -23,9 +21,11 @@ const Rooms = () => {
         }
         fetchRooms();
     }, [dispatch]);
-
+    
     const createRoom = async (e) => {
         e.preventDefault();
+        const { v4: uuidv4 } = require('uuid');
+        const roomUrlId = uuidv4();
         try {
             const response = await fetch(
                 '/api/room/create',
@@ -65,9 +65,8 @@ const Rooms = () => {
                 }
             );
             const json = await response.json();
-            // const roomUrlId = json.data.publicRoomId;
-            console.log(json);
-            // history.push('/rooms/' + roomUrlId);
+            const roomUrlId = json.data.publicRoomId;
+            history.push('/rooms/' + roomUrlId);
         } catch (err) {
             console.log({ err });
         }

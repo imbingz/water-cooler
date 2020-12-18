@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useGlobalContext } from '../utils/GlobalContext';
 
-const {v4: uuidv4 } = require('uuid');
-const socialSpaceUrlId = uuidv4();
-
 const UserRoom = () => {
     const [state, dispatch] = useGlobalContext();
     const [inputSocialSpaceName, setSocialSpaceName] = useState('');
@@ -31,7 +28,6 @@ const UserRoom = () => {
                     }
                 );
                 const json = await response.json();
-                console.log(json);
                 dispatch({ type: 'getAll', payload: json.data });
             } catch (err) {
                 console.log({ err });
@@ -64,6 +60,8 @@ const UserRoom = () => {
     
     const createSocialSpace = async (e) => {
         e.preventDefault();
+        const {v4: uuidv4 } = require('uuid');
+        const socialSpaceUrlId = uuidv4();
         try {
             const response = await fetch(
                 '/api/socialspace/create',
