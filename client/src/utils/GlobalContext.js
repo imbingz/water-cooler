@@ -13,12 +13,12 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 rooms: action.payload
-            }
+            };
         case 'popRoom':
             return {
                 ...state,
                 currentRoom: action.payload
-            }
+            };
         default: return state;
     }
 };
@@ -28,12 +28,12 @@ const GlobalProvider = (props) => {
 
     return (
         <GlobalContext.Provider value={[state, dispatch]} {...props} />
-    )
+    );
 
-}
+};
 
 export default GlobalProvider;
 
 export const useGlobalContext = () => {
-    return useContext(GlobalContext)
-}
+    return useContext(GlobalContext);
+};
