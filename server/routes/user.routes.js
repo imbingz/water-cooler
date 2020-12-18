@@ -80,4 +80,10 @@ router.patch('/profile', ({ body }, res) => {
         });
 });
 
+
+router.post('/search', (req, res) => {
+    console.log('Hit API: ', req.body);
+});
+
+
 module.exports = router;
