@@ -18,7 +18,7 @@ const Rooms = () => {
                 const json = await response.json();
                 dispatch({ type: 'addRooms', payload: json.data });
             } catch (err) {
-                console.log({ err })
+                console.log({ err });
             }
         }
         fetchRooms();
@@ -43,7 +43,7 @@ const Rooms = () => {
             const json = await response.json();
             dispatch({ type: 'createRoom', payload: json.data });
             setRoomName('');
-            history.push('/rooms/' + urlID)
+            history.push('/rooms/' + urlID);
         } catch (err) {
             console.log(err);
         }
@@ -66,11 +66,11 @@ const Rooms = () => {
             );
             const json = await response.json();
             const urlID = json.data.publicID;
-            history.push('/rooms/' + urlID)
+            history.push('/rooms/' + urlID);
         } catch (err) {
-            console.log({ err })
+            console.log({ err });
         }
-    }
+    };
 
     return (
         <>

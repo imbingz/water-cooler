@@ -1,7 +1,10 @@
 {
   "parserOptions": {
-    "ecmaVersion": 2017,
-    "sourceType": "module"
+    "ecmaVersion": 2020,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
   },
   "env": {
     "es6": true,
@@ -33,5 +36,6 @@
     "semi": ["error", "always"],
     "vars-on-top": "error",
     "yoda": "error"
-  }
+  },
+  "extends": "react-app"
 }

@@ -24,7 +24,7 @@ const UserRoom = () => {
                 const json = await response.json();
                 dispatch({ type: 'popRoom', payload: json.data });
             } catch (err) {
-                console.log({ err })
+                console.log({ err });
             }
         }
         populateRoom();
