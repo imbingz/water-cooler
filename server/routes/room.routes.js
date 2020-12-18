@@ -21,8 +21,8 @@ router
     .post((req, res) => {
         Room
             .create({
-                name: req.body.name,
-                publicID: req.body.publicID
+                roomName: req.body.roomName,
+                publicRoomId: req.body.publicRoomId
             })
             .then(data => {
                 res.json({ success: true, data });
@@ -47,13 +47,13 @@ router
             });
     });
 
-// gathers rooms based on publicID
+// gathers rooms based on publicRoomId
 router
     .route('/:id')
     .post((req, res) => {
 
         Room
-            .findOne({ publicID: req.body.publicID })
+            .findOne({ publicRoomId: req.body.publicRoomId })
             .then(data => {
                 res.json({ success: true, data });
             })

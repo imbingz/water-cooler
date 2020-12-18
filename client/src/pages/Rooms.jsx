@@ -3,11 +3,11 @@ import { useHistory } from 'react-router-dom';
 import { useGlobalContext } from '../utils/GlobalContext';
 
 const { v4: uuidv4 } = require('uuid');
-const urlID = uuidv4();
+const roomUrlId = uuidv4();
 
 const Rooms = () => {
     const [state, dispatch] = useGlobalContext();
-    const [roomName, setRoomName] = useState('');
+    const [inputRoomName, setRoomName] = useState('');
 
     const history = useHistory();
 
@@ -34,8 +34,8 @@ const Rooms = () => {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        name: roomName,
-                        publicID: urlID
+                        roomName: inputRoomName,
+                        publicRoomId: roomUrlId
                     }),
                     method: 'POST'
                 }
@@ -43,7 +43,7 @@ const Rooms = () => {
             const json = await response.json();
             dispatch({ type: 'createRoom', payload: json.data });
             setRoomName('');
-            history.push('/rooms/' + urlID);
+            history.push('/rooms/' + roomUrlId);
         } catch (err) {
             console.log(err);
         }
@@ -65,8 +65,8 @@ const Rooms = () => {
                 }
             );
             const json = await response.json();
-            const urlID = json.data.publicID;
-            history.push('/rooms/' + urlID);
+            const roomUrlId = json.data.publicRoomId;
+            history.push('/rooms/' + roomUrlId);
         } catch (err) {
             console.log({ err });
         }
@@ -80,8 +80,8 @@ const Rooms = () => {
                     <input
                         required
                         type="text"
-                        name="roomName"
-                        value={roomName}
+                        name="inputRoomName"
+                        value={inputRoomName}
                         onChange={(e) => setRoomName(e.target.value)}
                     />
                     <button>Create Room</button>
@@ -93,7 +93,7 @@ const Rooms = () => {
                     {state.rooms.map(room => (
                         <li id={room._id} key={room._id}>
                             <button onClick={routeToRoom}>
-                                {room.name}
+                                {room.roomName}
                             </button>
                         </li>
                     ))}

@@ -6,8 +6,8 @@ const UserRoom = () => {
 
     useEffect(() => {
         async function populateRoom() {
-            const pageURL = document.URL;
-            let urlID = pageURL.substring((pageURL.length) - 36);
+            const roomPageUrl = document.URL;
+            let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
             try {
                 const response = await fetch(
                     '/api/room/:id',
@@ -16,7 +16,7 @@ const UserRoom = () => {
                             'Content-Type': 'application/json'
                         },
                         body: JSON.stringify({
-                            publicID: urlID
+                            publicRoomId: roomUrlId
                         }),
                         method: 'POST'
                     }
@@ -38,13 +38,13 @@ const UserRoom = () => {
 
                 <ul id={state.currentRoom._id} key={state.currentRoom._id}>
                     <li>
-                        {state.currentRoom.name}
+                        {state.currentRoom.roomName}
                     </li>
                     <li>
                         {state.currentRoom._id}
                     </li>
                     <li>
-                        {state.currentRoom.publicID}
+                        {state.currentRoom.publicRoomId}
                     </li>
                 </ul>
             </div>
