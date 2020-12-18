@@ -2,12 +2,16 @@ const mongoose = require('mongoose');
 
 const SocialSpaceSchema = new mongoose.Schema({
     publicRoomId: {
-        type: Number,
+        type: String,
         required: 'RoomID is required'
     },
-    socialSpacePublicId: {
-        type: Number,
-        required: 'socialSpacePublicId is required'
+    socialSpaceName: {
+        type: String,
+        required: 'SocialSpaceName is required'
+    },
+    publicSocialSpaceId: {
+        type: String,
+        required: 'publicSocialSpaceId is required'
     },
     socialSpaceUsers: {
         type: Array,

@@ -29,7 +29,7 @@ function App() {
                         <Route exact path='/rooms' component={Rooms} />
                         <Route exact path='/rooms/:id' component={UserRoom} />
                         {/* will be socialspace:id */}
-                        <Route exact path='/socialspace' component={SocialSpace} />
+                        <Route exact path='/rooms/:id/:id' component={SocialSpace} />
                     </Switch>
                 </div>
             </GlobalProvider>

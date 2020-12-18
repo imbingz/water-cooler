@@ -36,7 +36,6 @@ router
 router
     .route('/find')
     .post((req, res) => {
-
         Room
             .findOne({ _id: req.body.id })
             .then(data => {
@@ -51,7 +50,6 @@ router
 router
     .route('/:id')
     .post((req, res) => {
-
         Room
             .findOne({ publicRoomId: req.body.publicRoomId })
             .then(data => {

@@ -16,7 +16,7 @@ const Rooms = () => {
             try {
                 const response = await fetch('/api/room');
                 const json = await response.json();
-                dispatch({ type: 'addRooms', payload: json.data });
+                dispatch({ type: 'getAll', payload: json.data });
             } catch (err) {
                 console.log({ err });
             }
@@ -65,8 +65,9 @@ const Rooms = () => {
                 }
             );
             const json = await response.json();
-            const roomUrlId = json.data.publicRoomId;
-            history.push('/rooms/' + roomUrlId);
+            // const roomUrlId = json.data.publicRoomId;
+            console.log(json);
+            // history.push('/rooms/' + roomUrlId);
         } catch (err) {
             console.log({ err });
         }
