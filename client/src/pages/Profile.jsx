@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
+import { useHistory } from 'react-router-dom';
 
 const Profile = props => {
+    const history = useHistory();
     const firstNameRef = useRef();
     const lastNameRef = useRef();
     const usernameRef = useRef();
@@ -8,10 +10,18 @@ const Profile = props => {
 
     const storedUser = JSON.parse(localStorage.getItem('USER'));
     console.log('storedUser: ', storedUser);
+    
+
 
     //prefill the user info
     useEffect(() => {
-        if (!storedUser) {return;}
+        const token = localStorage.getItem('JWT');
+        if (!token || !storedUser) {
+            return history.push('/login');  
+        } 
+        
+        console.log(token, storedUser);
+
         firstNameRef.current.value = storedUser.firstName || '';
         lastNameRef.current.value = storedUser.lastName || '';
         usernameRef.current.value = storedUser.username || '';
@@ -34,19 +44,20 @@ const Profile = props => {
         try {
             const response = await fetch('/api/user/profile', {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer '+ localStorage.getItem('JWT')
                 },
                 body: JSON.stringify({
                     user
                 }),
-                method: 'PATCH'
+                method: 'PUT'
             });
 
-            const json = await response.json();
+            const data = await response.json();
             // console.log(json);
-            if (json.user) {
-                console.log(json.user);
-                localStorage.clear();
+            if (data.user) {
+                console.log(data.user);
+                
                 // *** NEED A BETTER WAY TO REPLACE ALERT  *** //
                 alert('Your profile is updated successfully');
             }
