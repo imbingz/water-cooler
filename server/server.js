@@ -1,7 +1,8 @@
-require('dotenv').config();
+require('dotenv').config({ path: __dirname + '/.env' });
 const express = require('express');
 const routes = require('./routes');
 const path = require('path');
+// const cors = require('cors');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
@@ -14,6 +15,8 @@ require('./config/db')();
 
 const PORT = process.env.PORT || 5000;
 const socketPORT = 8080;
+
+// app.use(cors());
 
 // parsing middleware
 app.use(express.urlencoded({ extended: true }));
@@ -34,6 +37,8 @@ if (process.env.NODE_ENV === 'production') {
 
 app.listen(PORT, () => {
     console.log('app running on PORT: ' + PORT);
+    // console.log(process.env.MONGODB_URI);
+    // console.log(process.env.JWT_SECRET);
 });
 
 http.listen(socketPORT, () => {
