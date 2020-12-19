@@ -10,6 +10,11 @@ const UserRoom = () => {
 
     const roomPageUrl = document.URL;
     let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
+
+    const messageContainer = document.getElementById('message-container')
+    const messageForm = document.getElementById('send-container')
+    const messageInput = document.getElementById('message-input')
+
     
     useEffect(() => {
         async function fetchSocialSpaces() {
@@ -109,6 +114,12 @@ const UserRoom = () => {
         }
     };
 
+    const sendChat = async (e) => {
+        e.preventDefault();
+        const message = messageInput.value;
+        
+    }
+
     return (
         <>
             <h1>This is the UserRoom page</h1>
@@ -161,6 +172,7 @@ const UserRoom = () => {
                 <button
                     type='submit'
                     id='send-button'
+                    onClick={roomChat}
                 >
                     Send
                 </button>
