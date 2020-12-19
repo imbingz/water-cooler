@@ -45,12 +45,6 @@ const Navbar = () => {
                         Rooms
                     </Link>
                 </li>
-
-                <li className="Navbar-link">
-                    <Link to="/socialspace">
-                        Social Space
-                    </Link>
-                </li>
             </ul>
         </nav>
     );

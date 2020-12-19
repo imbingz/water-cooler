@@ -1,12 +1,12 @@
 const router = require('express').Router();
-const { Room } = require('../models');
+const { SocialSpace } = require('../models');
 
-// populates rooms page with public rooms
+// populates room with social spaces in the room
 router
     .route('/')
-    .get((req, res) => {
-        Room
-            .find({})
+    .post((req, res) => {
+        SocialSpace
+            .find({ publicRoomId: req.body.publicRoomId })
             .then(data => {
                 res.json({ success: true, data });
             })
@@ -15,14 +15,15 @@ router
             });
     });
 
-// creates room
+// creates social space
 router
     .route('/create')
     .post((req, res) => {
-        Room
+        SocialSpace
             .create({
-                roomName: req.body.roomName,
-                publicRoomId: req.body.publicRoomId
+                publicRoomId: req.body.publicRoomId,
+                publicSocialSpaceId: req.body.publicSocialSpaceId,
+                socialSpaceName: req.body.socialSpaceName
             })
             .then(data => {
                 res.json({ success: true, data });
@@ -32,11 +33,11 @@ router
             });
     });
 
-// gathers rooms based on id
+// gathers social space based on id
 router
     .route('/find')
     .post((req, res) => {
-        Room
+        SocialSpace
             .findOne({ _id: req.body.id })
             .then(data => {
                 res.json({ success: true, data });
@@ -46,12 +47,12 @@ router
             });
     });
 
-// gathers rooms based on publicRoomId
+// gathers social space based on publicSocialSpaceID
 router
     .route('/:id')
     .post((req, res) => {
-        Room
-            .findOne({ publicRoomId: req.body.publicRoomId })
+        SocialSpace
+            .findOne({ publicSocialSpaceId: req.body.publicSocialSpaceId })
             .then(data => {
                 res.json({ success: true, data });
             })

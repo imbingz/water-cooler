@@ -4,20 +4,24 @@ export const GlobalContext = createContext();
 
 const defaultState = {
     rooms: [],
-    currentRoom: []
+    socialSpaces: [],
+    currentRoom: [],
+    currentSocialSpace: []
 };
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case 'addRooms':
+        case 'getAll':
             return {
                 ...state,
-                rooms: action.payload
+                rooms: action.payload,
+                socialSpaces: action.payload
             };
-        case 'popRoom':
+        case 'popOne':
             return {
                 ...state,
-                currentRoom: action.payload
+                currentRoom: action.payload,
+                currentSocialSpace: action.payload
             };
         default: return state;
     }
