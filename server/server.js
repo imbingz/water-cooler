@@ -6,7 +6,7 @@ const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
     cors: {
-        origin: 'https://water-cooler-dev-one.herokuapp.com' || 'http://localhost:3000', 
+        origin: process.env.URL || 'http://localhost:3000', 
         methods: ['GET', 'POST']
     }
 });
@@ -26,7 +26,7 @@ let i = 1;
 
 io.on('connection', (socket) => {
     console.log('new user joined')
-
+    
     socket.on('send-chat-message', messageInput => {
         socket.broadcast.emit('chat-message', messageInput)
     })
