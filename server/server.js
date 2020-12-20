@@ -6,7 +6,7 @@ const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
     cors: {
-        origin: process.env.MONGODB_URI || 'http://localhost:3000', 
+        origin: 'https://water-cooler-dev-one.herokuapp.com' || 'http://localhost:3000', 
         methods: ['GET', 'POST']
     }
 });
@@ -25,9 +25,8 @@ app.use(routes);
 let i = 1;
 
 io.on('connection', (socket) => {
-    socket.on('new-user', () => {
-        console.log('new user joined')
-    })
+    console.log('new user joined')
+
     socket.on('send-chat-message', messageInput => {
         socket.broadcast.emit('chat-message', messageInput)
     })
