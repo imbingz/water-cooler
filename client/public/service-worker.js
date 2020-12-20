@@ -49,6 +49,7 @@ self.addEventListener('activate', (e) => {
 // ** On All Fetch Request, Intercept and Serve Through SW; If Offline, Serve Cached offline.html Page
 self.addEventListener('fetch', (e) => {
     // console.log("Fetch Listener Intercept: ", e.request);
+    // console.log();
     e.respondWith(
         caches
             .match(e.request)
@@ -61,7 +62,6 @@ self.addEventListener('fetch', (e) => {
                             return serverResponse
                         })
                 )
-
             })
             .catch(err => {
                 // console.log("On SW Fetch Intercept, response error: ", err);

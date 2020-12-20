@@ -12,8 +12,8 @@ router.post('/signup', ({ body }, res) => {
         .then(data => {
             res.json({ success: true, data });
         })
-        .catch(e => {
-            console.error(e);
+        .catch(err => {
+            console.error(err);
             res.json({ success: false });
         });
 });
@@ -60,8 +60,8 @@ router.post('/login', ({ body }, res) => {
 // });
 
 // patch api/user/profile
-router.patch('/profile', ({ body }, res) => {
-    console.log('patch route /profile body obj: ', body);
+router.put('/profile', ({ body }, res) => {
+    console.log('put route /profile body obj: ', body);
     console.log(body.user.email);
 
     db.User

@@ -4,21 +4,25 @@ export const GlobalContext = createContext();
 
 const defaultState = {
     rooms: [],
-    currentRoom: []
+    socialSpaces: [],
+    currentRoom: [],
+    currentSocialSpace: []
 };
 
 const reducer = (state, action) => {
     switch (action.type) {
-        case 'addRooms':
+        case 'getAll':
             return {
                 ...state,
-                rooms: action.payload
-            }
-        case 'popRoom':
+                rooms: action.payload,
+                socialSpaces: action.payload
+            };
+        case 'popOne':
             return {
                 ...state,
-                currentRoom: action.payload
-            }
+                currentRoom: action.payload,
+                currentSocialSpace: action.payload
+            };
         default: return state;
     }
 };
@@ -28,12 +32,12 @@ const GlobalProvider = (props) => {
 
     return (
         <GlobalContext.Provider value={[state, dispatch]} {...props} />
-    )
+    );
 
-}
+};
 
 export default GlobalProvider;
 
 export const useGlobalContext = () => {
-    return useContext(GlobalContext)
-}
+    return useContext(GlobalContext);
+};
