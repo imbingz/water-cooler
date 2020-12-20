@@ -2,7 +2,6 @@ require('dotenv').config({ path: __dirname + '/.env' });
 const express = require('express');
 const routes = require('./routes');
 const path = require('path');
-// const cors = require('cors');
 const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
@@ -23,9 +22,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(routes);
 
+let i = 1;
+
 io.on('connection', (socket) => {
-    console.log('new client connected');
-    socket.emit('newConnection', 'backend connected');
+    socket.on('send-chat-message', messageInput => {
+        socket.broadcast.emit('chat-message', messageInput)
+    })
 });
 
 if (process.env.NODE_ENV === 'production') {
@@ -37,8 +39,6 @@ if (process.env.NODE_ENV === 'production') {
 
 app.listen(PORT, () => {
     console.log('app running on PORT: ' + PORT);
-    // console.log(process.env.MONGODB_URI);
-    // console.log(process.env.JWT_SECRET);
 });
 
 http.listen(socketPORT, () => {

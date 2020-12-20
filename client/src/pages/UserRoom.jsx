@@ -11,9 +11,9 @@ const UserRoom = () => {
     const roomPageUrl = document.URL;
     let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
 
-    const messageContainer = document.getElementById('message-container')
-    const messageForm = document.getElementById('send-container')
-    const messageInput = document.getElementById('message-input')
+    // const messageContainer = document.getElementById('message-container')
+    // const messageForm = document.getElementById('send-container')
+    // const messageInput = document.getElementById('message-input')
 
     
     useEffect(() => {
@@ -114,11 +114,11 @@ const UserRoom = () => {
         }
     };
 
-    const sendChat = async (e) => {
-        e.preventDefault();
-        const message = messageInput.value;
+    // const sendChat = async (e) => {
+    //     e.preventDefault();
+    //     const message = messageInput.value;
         
-    }
+    // }
 
     return (
         <>
@@ -143,8 +143,8 @@ const UserRoom = () => {
                 <form onSubmit={createSocialSpace}>
                     <input
                         required
-                        type="text"
-                        name="inputSocialSpaceName"
+                        type='text'
+                        name='inputSocialSpaceName'
                         value={inputSocialSpaceName}
                         onChange={(e) => setSocialSpaceName(e.target.value)}
                     />
@@ -163,20 +163,7 @@ const UserRoom = () => {
                     ))}
                 </ul>
             </div>
-            <div id='message-container'></div>
-            <form id='send-container'>
-                <input
-                    type="text"
-                    id='message-input'
-                />
-                <button
-                    type='submit'
-                    id='send-button'
-                    onClick={roomChat}
-                >
-                    Send
-                </button>
-            </form>
+
         </>
     );
 };

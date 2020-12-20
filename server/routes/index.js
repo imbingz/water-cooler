@@ -1,19 +1,16 @@
 const router = require('express').Router();
-<<<<<<< HEAD
-// const users = require('./user.route');
 const auth = require('./auth.route');
-
-//  api/user route
-// router.use('/api/user', users);
-router.use('/api/user', auth); // ===> parallell with users
-=======
-const users = require('./user.routes');
 const rooms = require('./room.routes');
 const socialSpaces = require('./socialspace.routes');
+const ioRoutes = require('./socket.routes');
+
 //  api/user route
-router.use('/api/user', users);
+router.use('/api/user', auth);
+// api/room route
 router.use('/api/room', rooms);
+// api/social space route
 router.use('/api/socialspace', socialSpaces);
->>>>>>> master
+// api/socket io  route
+router.use('/api/socketio', ioRoutes);
 
 module.exports = router;

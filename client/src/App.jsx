@@ -10,14 +10,8 @@ import Rooms from './pages/Rooms';
 import UserRoom from './pages/UserRoom';
 import SocialSpace from './pages/SocialSpace';
 import Navbar from './components/Navbar';
-import socketClient from 'socket.io-client';
 
 function App() {
-    const socket = socketClient('http://localhost:8080');
-    socket.on('newConnection', (data) => {
-        console.log(data);
-    });
-
     return (
         <Router>
             <GlobalProvider>
