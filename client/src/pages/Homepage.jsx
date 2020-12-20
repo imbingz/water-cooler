@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { useGlobalContext } from '../utils/GlobalContext';
+// import { useGlobalContext } from '../utils/GlobalContext';
 
 const socketClient = require('socket.io-client');
 const socket = socketClient('http://localhost:8080');
 
 const Homepage = () => {
-    const [state, dispatch] = useGlobalContext();
+    // const [state, dispatch] = useGlobalContext();
     const [messageInput, setMessageValue] = useState('');
-    
+
     const sendMessage = async (e) => {
         e.preventDefault();
         try {
@@ -18,27 +18,26 @@ const Homepage = () => {
         }
     };
 
-    const receiveMessage = async (messageRecieved) => {
+    const receiveMessage = async (message) => {
         try {
-            dispatch({ type: 'getMessage', payload: messageRecieved });
-            console.log(state.messages);
+            const messageContainer = document.getElementById('messageContainer');
+            const messageElement = document.createElement('p');
+            messageElement.innerText = message;
+            messageContainer.append(messageElement);
+            
         } catch (err) {
             console.log(err);
         }
     };
 
-    
+
     socket.on('chat-message', (receivedMessage) => {
         receiveMessage(receivedMessage);
     });
 
     return (
         <>
-            {/* <div>
-                {state.messages.map(message => (
-                    <p>{message}</p>
-                ))}
-            </div> */}
+            <div id='messageContainer'></div>
             <form>
                 <input
                     required
@@ -50,7 +49,7 @@ const Homepage = () => {
                 <button
                     type='submit'
                     id='send-button'
-                    onClick = {sendMessage}
+                    onClick={sendMessage}
                 >
                     Send
                 </button>

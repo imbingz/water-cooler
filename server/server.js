@@ -13,7 +13,7 @@ const io = require('socket.io')(http, {
 require('./config/db')();
 
 const PORT = process.env.PORT || 5000;
-const socketPORT = 8080;
+const socketPORT = process.env.socketPORT || 8080;
 
 // app.use(cors());
 
@@ -27,6 +27,9 @@ let i = 1;
 io.on('connection', (socket) => {
     socket.on('send-chat-message', messageInput => {
         socket.broadcast.emit('chat-message', messageInput)
+    })
+    socket.on('disconnect', () => {
+        console.log('user disconnected')
     })
 });
 
