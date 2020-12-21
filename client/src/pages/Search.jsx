@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 
 // Might need to add a dropdown with option to search by name, username, or email, with default being username
@@ -9,24 +9,25 @@ const Search = () => {
     const [searchQuery, setSearchQuery] = useState('');
 
 
-    useEffect(() => {
-        // console.log(searchQuery);
-        // Move this into a functions. when searchQuery.length > 3, run the function
+    const searchDB = () => {
+        
         try{
-            const response = fetch(
-                '/api/user/search',
-                {
-                    body: "Diegopie",
-                    method: 'POST'
-                }
-            );
+            const response = fetch('/api/user/search', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({search: searchQuery}),
+                method: 'POST'
+            });
             console.log(response);
         } catch (err) {
-            console.log({ err })
+            console.log({ err });
         }
+    };
 
-    }, [searchQuery])
-
+    // useEffect(() => {
+    //     // console.log(searchQuery);
+    //     // Move this into a functions. when searchQuery.length > 3, run the function
+       
+    // }, []);
 
 
     return (
@@ -42,6 +43,12 @@ const Search = () => {
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     ></input>
+                    <button 
+                        onClick={(e) => {
+                            e.preventDefault();
+                            searchDB();
+                        }} 
+                    >Click Me</button>
                 </article>
             </form>
         </>

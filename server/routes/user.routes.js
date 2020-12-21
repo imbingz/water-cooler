@@ -60,8 +60,8 @@ router.post('/login', ({ body }, res) => {
 // });
 
 // patch api/user/profile
-router.put('/profile', ({ body }, res) => {
-    console.log('put route /profile body obj: ', body);
+router.put('/profile', ( req, res) => {
+    console.log('put route /profile body obj: ', req);
     console.log(body.user.email);
 
     db.User
@@ -81,8 +81,16 @@ router.put('/profile', ({ body }, res) => {
 });
 
 
-router.post('/search', (req, res) => {
-    console.log('Hit API: ', req.body);
+router.post('/search', ({body}, res) => {
+    console.log('Hit API: ', body);
+    db.User.find({username: body.search})
+        .then((query) => {
+            console.log(query);
+            if (query.length === 0) {
+                console.log('No Match 😮');
+            }
+        })
+
 });
 
 
