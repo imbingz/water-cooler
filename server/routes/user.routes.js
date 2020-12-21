@@ -81,17 +81,59 @@ router.put('/profile', ( req, res) => {
 });
 
 
-router.post('/search', ({body}, res) => {
-    console.log('Hit API: ', body);
-    db.User.find({username: body.search})
+router.post('/search', ({ body }, res) => {
+    // console.log('Hit API: ', body);
+    db.User.find({ $text: { $search: body.search }})
         .then((query) => {
             console.log(query);
+            const response = [];
             if (query.length === 0) {
                 console.log('No Match 😮');
+                return;
             }
+            for (let users of query) {
+                let user = {
+                    username: users.username,
+                    firstName: users.firstName,
+                    lastName: users.lastName,
+                    imageSrc: users.imageSrc,
+                    ref: users._id,
+                }
+                response.push(user);
+            }
+            console.log(response);
+            res.json({ success: true, query: response })
         })
-
 });
+
+router.put('/friends', ({ body }, res) => {
+    // let invited = false;
+    // let inviter = false;
+    console.log('Hit Friend Put API: ', body);
+    db.User.findByIdAndUpdate(
+            {_id: body.invited},
+            {$push: { outboundPendingFriends: body.invited}},
+            { new: true }
+        )
+        .then(invited => {
+            console.log(invited);
+            db.User.findOneAndUpdate(
+                {_id: body.inviter},
+                {$push: { inboundPendingFriends: body.inviter}},
+                { new: true }
+            )
+            .then(inviter => {
+                console.log(inviter);
+                res.json({ success: true})
+            })
+        })
+    
+    // console.log(invited, inviter);
+    // if (invited && inviter) {
+    //     console.log("Done it");
+    //     res.json({ success: true})
+    // }
+})
 
 
 module.exports = router;
