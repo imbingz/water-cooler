@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import SearchResults from '../components/Navbar/SearchResults';
+import SearchResults from '../components/SearchResults';
 import SearchContext from '../utils/SearchContext';
 
 
@@ -40,6 +40,7 @@ const Search = () => {
         <SearchContext.Provider value={{ searchResults }}>
             <>
                 <h1>This is the Search page</h1>
+                {/* Should prolly put this in a component? Depends if we put the search in navbar or something */}
                 <form>
                     <section>
                         <label htmlFor='search'>Search For Users: </label>

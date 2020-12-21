@@ -80,7 +80,7 @@ router.put('/profile', ( req, res) => {
         });
 });
 
-
+// Search is working. Need to find a way to return partial matches
 router.post('/search', ({ body }, res) => {
     // console.log('Hit API: ', body);
     db.User.find({ $text: { $search: body.search }})
@@ -88,7 +88,9 @@ router.post('/search', ({ body }, res) => {
             console.log(query);
             const response = [];
             if (query.length === 0) {
+                // !! Still need to send do something on the client side if no match
                 console.log('No Match 😮');
+                res.json({ success: false})
                 return;
             }
             for (let users of query) {
@@ -97,6 +99,7 @@ router.post('/search', ({ body }, res) => {
                     firstName: users.firstName,
                     lastName: users.lastName,
                     imageSrc: users.imageSrc,
+                    pending: users.inboundPendingFriends,
                     ref: users._id,
                 }
                 response.push(user);
@@ -107,19 +110,21 @@ router.post('/search', ({ body }, res) => {
 });
 
 router.put('/friends', ({ body }, res) => {
-    // let invited = false;
-    // let inviter = false;
+    
     console.log('Hit Friend Put API: ', body);
+    
+
+    // Maybe make this promise based to have less .then and a catch? 
     db.User.findByIdAndUpdate(
             {_id: body.invited},
-            {$push: { outboundPendingFriends: body.invited}},
+            {$push: { inboundPendingFriends: body.inviter}},
             { new: true }
         )
         .then(invited => {
             console.log(invited);
             db.User.findOneAndUpdate(
                 {_id: body.inviter},
-                {$push: { inboundPendingFriends: body.inviter}},
+                {$push: { outboundPendingFriends: body.invited}},
                 { new: true }
             )
             .then(inviter => {
@@ -128,11 +133,7 @@ router.put('/friends', ({ body }, res) => {
             })
         })
     
-    // console.log(invited, inviter);
-    // if (invited && inviter) {
-    //     console.log("Done it");
-    //     res.json({ success: true})
-    // }
+    
 })
 
 
