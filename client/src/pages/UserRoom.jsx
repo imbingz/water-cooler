@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useGlobalContext } from '../utils/GlobalContext';
+import Chat from '../components/Chat';
 
 const UserRoom = () => {
     const [state, dispatch] = useGlobalContext();
@@ -114,12 +115,6 @@ const UserRoom = () => {
         }
     };
 
-    // const sendChat = async (e) => {
-    //     e.preventDefault();
-    //     const message = messageInput.value;
-        
-    // }
-
     return (
         <>
             <h1>This is the UserRoom page</h1>
@@ -163,7 +158,10 @@ const UserRoom = () => {
                     ))}
                 </ul>
             </div>
-
+            <div>
+                <h3>Chats</h3>
+                <Chat></Chat>
+            </div>
         </>
     );
 };
