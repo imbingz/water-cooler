@@ -3,10 +3,10 @@ import { createContext, useContext, useReducer } from 'react';
 export const GlobalContext = createContext();
 
 const defaultState = {
-    // rooms: [],
-    // socialSpaces: [],
-    // currentRoom: [],
-    // currentSocialSpace: [],
+    rooms: [],
+    socialSpaces: [],
+    currentRoom: [],
+    currentSocialSpace: [],
     messages: []
 };
 
