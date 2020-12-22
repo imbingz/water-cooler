@@ -38,7 +38,7 @@ io.on('connect', (socket) => {
         } else {
             socket.leave(socket.room);
             socket.join(roomUrlId);
-            socket.room = roomUrlId
+            socket.room = roomUrlId;
             socket.to(socket.room).broadcast.emit('user-connected', roomUrlId, name);
         }
     })
