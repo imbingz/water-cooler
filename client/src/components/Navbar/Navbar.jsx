@@ -45,6 +45,11 @@ const Navbar = () => {
                         Rooms
                     </Link>
                 </li>
+                <li className="Navbar-link">
+                    <Link to="/game">
+                        GameRPG
+                    </Link>
+                </li>
             </ul>
         </nav>
     );
