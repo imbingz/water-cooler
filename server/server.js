@@ -10,6 +10,7 @@ const io = require('socket.io')(http, {
         methods: ['GET', 'POST']
     }
 });
+
 require('./config/db')();
 
 const PORT = process.env.PORT || 5000;
@@ -22,14 +23,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(routes);
 
-let i = 1;
-
-io.on('connection', (socket) => {
-    console.log('new user joined')
-    
-    socket.on('send-chat-message', messageInput => {
-        socket.broadcast.emit('chat-message', messageInput)
+io.on('connect', (socket) => {
+    socket.on('new-user', (roomUrlId, name) => {
+        console.log('user connected in room: ' + roomUrlId);
+        socket.join(roomUrlId);
+        socket.to(roomUrlId).broadcast.emit('user-connected', roomUrlId, name);
     })
+    
+    socket.on('send-chat-message', (roomUrlId, name, messageInput) => {
+        socket.to(roomUrlId).emit('receive-sent-message', roomUrlId, name, messageInput)
+    })
+    
     socket.on('disconnect', () => {
         console.log('user disconnected')
     })

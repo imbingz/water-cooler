@@ -1,35 +1,26 @@
 import React, { useState } from 'react';
-// import { useGlobalContext } from '../utils/GlobalContext';
+import { useGlobalContext } from '../../utils/GlobalContext';
 import io from 'socket.io-client';
 let socket;
 
 const Chat = () => {
-    // const [state, dispatch] = useGlobalContext();
+    const [, dispatch] = useGlobalContext();
     const [messageInput, setMessageValue] = useState('');
-
-    if (!socket) {
-        socket = io('http://localhost:8080', {
-            transports: ['websocket']
-        }); //this is the  client connection. it starts when client connects
-
-        socket.on('connect', () => {
-            console.log('Socket Connected');
-        });
-
-        socket.on('connect_error', err => {
-            console.log(err);
-        });
-
-        socket.on('chat-message', message => {
-            receiveMessage(message);
-        });
-
-    }
+    const roomPageUrl = document.URL;
+    const name = 'Name' + Math.random(100).toFixed(2);
+    let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
 
     const sendMessage = async (e) => {
         e.preventDefault();
         try {
-            socket.emit('send-chat-message', messageInput);
+            receiveMessage('You: ' + messageInput);
+            let chatDetails = {
+                messageInput: messageInput,
+                roomUrlId: roomUrlId,
+                name: name
+            };
+            dispatch({ type: 'getMessage', chatDetails });
+            socket.emit('send-chat-message', roomUrlId, name, messageInput);
             setMessageValue('');
         } catch (err) {
             console.log(err);
@@ -46,7 +37,32 @@ const Chat = () => {
         } catch (err) {
             console.log(err);
         }
-    };
+    };    
+    
+
+    if (!socket) {
+        socket = io('http://localhost:8080', {
+            transports: ['websocket']
+        }); //this is the  client connection. it starts when client connects
+
+        socket.on('connect', () => {
+            receiveMessage('You connected');
+            socket.emit('new-user', roomUrlId, name);
+        });
+
+        socket.on('connect_error', err => {
+            console.log(err);
+        });
+
+        socket.on('user-connected', (roomUrlId, name) => {
+            receiveMessage(name + 'has joined the chat');
+        });
+
+        socket.on('receive-sent-message', (roomUrlId, name, messageInput) => {
+            receiveMessage(name + ': ' + messageInput);
+        });
+
+    }
 
     return (
         <>
