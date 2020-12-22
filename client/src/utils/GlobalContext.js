@@ -6,8 +6,7 @@ const defaultState = {
     rooms: [],
     socialSpaces: [],
     currentRoom: [],
-    currentSocialSpace: [],
-    messages: []
+    currentSocialSpace: []
 };
 
 const reducer = (state, action) => {
@@ -23,11 +22,6 @@ const reducer = (state, action) => {
                 ...state,
                 currentRoom: action.payload,
                 currentSocialSpace: action.payload
-            };
-        case 'getMessage':
-            return {
-                ...state,
-                messages: action.payload
             };
         default: return state;
     }

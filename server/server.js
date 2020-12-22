@@ -6,7 +6,7 @@ const app = express();
 const http = require('http').createServer(app);
 const io = require('socket.io')(http, {
     cors: {
-        origin: process.env.URL || 'http://localhost:3000', 
+        origin: process.env.URL || 'http://localhost:3000',
         methods: ['GET', 'POST']
     }
 });
@@ -16,8 +16,6 @@ require('./config/db')();
 const PORT = process.env.PORT || 5000;
 const socketPORT = process.env.socketPORT || 8080;
 
-// app.use(cors());
-
 // parsing middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -25,17 +23,28 @@ app.use(routes);
 
 io.on('connect', (socket) => {
     socket.on('new-user', (roomUrlId, name) => {
-        console.log('user connected in room: ' + roomUrlId);
-        socket.join(roomUrlId);
-        socket.to(roomUrlId).broadcast.emit('user-connected', roomUrlId, name);
+        socket.join(roomUrlId)
+        socket.room = roomUrlId;
+        socket.to(socket.room).broadcast.emit('user-connected', roomUrlId, name);
     })
-    
+
     socket.on('send-chat-message', (roomUrlId, name, messageInput) => {
-        socket.to(roomUrlId).emit('receive-sent-message', roomUrlId, name, messageInput)
+        socket.to(socket.room).emit('receive-sent-message', roomUrlId, name, messageInput)
     })
-    
+
+    socket.on('check-room', (roomUrlId, name) => {
+        if (roomUrlId === socket.room) {
+            return;
+        } else {
+            socket.leave(socket.room);
+            socket.join(roomUrlId);
+            socket.room = roomUrlId
+            socket.to(socket.room).broadcast.emit('user-connected', roomUrlId, name);
+        }
+    })
+
     socket.on('disconnect', () => {
-        console.log('user disconnected')
+        socket.to(socket.room).broadcast.emit('user-disconnected');
     })
 });
 

@@ -12,11 +12,6 @@ const UserRoom = () => {
     const roomPageUrl = document.URL;
     let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
 
-    // const messageContainer = document.getElementById('message-container')
-    // const messageForm = document.getElementById('send-container')
-    // const messageInput = document.getElementById('message-input')
-
-    
     useEffect(() => {
         async function fetchSocialSpaces() {
             try {
@@ -62,10 +57,10 @@ const UserRoom = () => {
         populateRoom();
     }, [dispatch, roomUrlId]);
 
-    
+
     const createSocialSpace = async (e) => {
         e.preventDefault();
-        const {v4: uuidv4 } = require('uuid');
+        const { v4: uuidv4 } = require('uuid');
         const socialSpaceUrlId = uuidv4();
         try {
             const response = await fetch(
@@ -86,7 +81,6 @@ const UserRoom = () => {
             dispatch({ type: 'createSocialSpace', payload: json.data });
             setSocialSpaceName('');
             history.push('/rooms/' + roomUrlId + '/' + socialSpaceUrlId);
-            window.location.reload(false);
         } catch (err) {
             console.log(err);
         }
@@ -111,7 +105,6 @@ const UserRoom = () => {
             const roomUrlId = json.data.publicRoomId;
             const socialSpaceUrlId = json.data.publicSocialSpaceId;
             history.push('/rooms/' + roomUrlId + '/' + socialSpaceUrlId);
-            window.location.reload(false);
         } catch (err) {
             console.log({ err });
         }

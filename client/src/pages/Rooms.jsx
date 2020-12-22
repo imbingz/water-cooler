@@ -44,7 +44,6 @@ const Rooms = () => {
             dispatch({ type: 'createRoom', payload: json.data });
             setRoomName('');
             history.push('/rooms/' + roomUrlId);
-            window.location.reload(false);
         } catch (err) {
             console.log(err);
         }
@@ -68,7 +67,6 @@ const Rooms = () => {
             const json = await response.json();
             const roomUrlId = json.data.publicRoomId;
             history.push('/rooms/' + roomUrlId);
-            window.location.reload(false);
         } catch (err) {
             console.log({ err });
         }
