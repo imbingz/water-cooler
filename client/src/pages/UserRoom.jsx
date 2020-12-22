@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useGlobalContext } from '../utils/GlobalContext';
+import Chat from '../components/Chat';
 
 const UserRoom = () => {
     const [state, dispatch] = useGlobalContext();
@@ -10,7 +11,7 @@ const UserRoom = () => {
 
     const roomPageUrl = document.URL;
     let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
-    
+
     useEffect(() => {
         async function fetchSocialSpaces() {
             try {
@@ -56,10 +57,10 @@ const UserRoom = () => {
         populateRoom();
     }, [dispatch, roomUrlId]);
 
-    
+
     const createSocialSpace = async (e) => {
         e.preventDefault();
-        const {v4: uuidv4 } = require('uuid');
+        const { v4: uuidv4 } = require('uuid');
         const socialSpaceUrlId = uuidv4();
         try {
             const response = await fetch(
@@ -132,8 +133,8 @@ const UserRoom = () => {
                 <form onSubmit={createSocialSpace}>
                     <input
                         required
-                        type="text"
-                        name="inputSocialSpaceName"
+                        type='text'
+                        name='inputSocialSpaceName'
                         value={inputSocialSpaceName}
                         onChange={(e) => setSocialSpaceName(e.target.value)}
                     />
@@ -151,6 +152,10 @@ const UserRoom = () => {
                         </li>
                     ))}
                 </ul>
+            </div>
+            <div>
+                <h3>Chats</h3>
+                <Chat></Chat>
             </div>
         </>
     );
