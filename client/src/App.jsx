@@ -10,6 +10,7 @@ import Rooms from './pages/Rooms';
 import UserRoom from './pages/UserRoom';
 import SocialSpace from './pages/SocialSpace';
 import Navbar from './components/Navbar';
+import GameRPG from './pages/GameRPG';
 
 function App() {
     return (
@@ -30,6 +31,8 @@ function App() {
                         <Route exact path='/rooms/:id' component={UserRoom} />
                         {/* will be socialspace:id */}
                         <Route exact path='/rooms/:id/:id' component={SocialSpace} />
+                        {/* Temporary Game Page  */}
+                        <Route exact path='/game' component={ GameRPG} />
                     </Switch>
                 </div>
             </GlobalProvider>
