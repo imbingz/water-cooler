@@ -86,6 +86,7 @@ const UserRoom = () => {
             dispatch({ type: 'createSocialSpace', payload: json.data });
             setSocialSpaceName('');
             history.push('/rooms/' + roomUrlId + '/' + socialSpaceUrlId);
+            window.location.reload(false);
         } catch (err) {
             console.log(err);
         }
@@ -110,6 +111,7 @@ const UserRoom = () => {
             const roomUrlId = json.data.publicRoomId;
             const socialSpaceUrlId = json.data.publicSocialSpaceId;
             history.push('/rooms/' + roomUrlId + '/' + socialSpaceUrlId);
+            window.location.reload(false);
         } catch (err) {
             console.log({ err });
         }
