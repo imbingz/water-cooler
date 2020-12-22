@@ -7,10 +7,35 @@ const ProfileInboundFriends = (props) => {
     // console.log(props.id);
 
     const [inboundFriends, setInboundFriends] = useState([]);
+    const [displayResults, setDisplayResults] = useState();
 
-    console.log(typeof(inboundFriends));
+    console.log(typeof (inboundFriends));
     console.log(inboundFriends);
     // * Send userId to Server and Check inboundPendingFriends
+
+
+    const renderResults = () => {
+        const results = 
+        inboundFriends.map((user, index) => (
+            <div className="ProfInbFrie-cont" key={index}>
+                <img className="ProfInbFrie-img"
+                    src={user.imageSrc}
+                    alt="user's profile icon"
+                />
+                <h3>Username: {user.username}</h3>
+                <h3>Name: {user.firstName} {user.lastName}</h3>
+                {/* * Send Props to SearchButton To Conditionally Render Buttons */}
+                <button
+
+                >Accept Friend Request</button>
+            </div>
+        ));
+        console.log(results);
+        setDisplayResults(results);
+    };
+
+
+
     useEffect(() => {
         const checkFriendReqs = async () => {
 
@@ -25,8 +50,9 @@ const ProfileInboundFriends = (props) => {
                 const data = await response.json();
                 console.log(data);
                 console.log(data.friends);
-                console.log(typeof(data.friends));
+                console.log(typeof (data.friends));
                 setInboundFriends(data.friends);
+                renderResults();
             } catch (err) {
                 console.log({ err });
             }
@@ -38,8 +64,7 @@ const ProfileInboundFriends = (props) => {
     return (
         <article>
             <h1>Blah</h1>
-            
-
+            <>{displayResults}</>
         </article>
     );
 };
