@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import ProfileInbFriendsResults from '../ProfileInbFriendsResults';
-import ProfileContext from '../../utils/ProfileContext';
+// import ProfileInbFriendsResults from '../ProfileInbFriendsResults';
+// import ProfileContext from '../../utils/ProfileContext';
 
 const ProfileInboundFriends = (props) => {
 
     // console.log(props.id);
 
-    const [ inboundFriends, setInboundFriends ] = useState([]);
+    const [inboundFriends, setInboundFriends] = useState([]);
 
-
+    console.log(typeof(inboundFriends));
+    console.log(inboundFriends);
     // * Send userId to Server and Check inboundPendingFriends
     useEffect(() => {
         const checkFriendReqs = async () => {
@@ -23,7 +24,9 @@ const ProfileInboundFriends = (props) => {
 
                 const data = await response.json();
                 console.log(data);
-                setInboundFriends(data);
+                console.log(data.friends);
+                console.log(typeof(data.friends));
+                setInboundFriends(data.friends);
             } catch (err) {
                 console.log({ err });
             }
@@ -35,11 +38,8 @@ const ProfileInboundFriends = (props) => {
     return (
         <article>
             <h1>Blah</h1>
-            <ProfileContext.Provider value={{ inboundFriends }}>
-                <ProfileInbFriendsResults/>
-            </ProfileContext.Provider>
-
             
+
         </article>
     );
 };
