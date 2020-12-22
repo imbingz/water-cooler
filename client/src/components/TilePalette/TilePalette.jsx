@@ -28,7 +28,8 @@ function TilePalette({ position, tileset, setTileset, activeTile, setActiveTile,
     ****************/
 
     //split the actively selectetd tileset (img) into  variants and tileset using destructuring - rpg-nature-tileset/spring
-    const [tilesetGroup, tilesetVariant] = tileset.split('/');
+    // const [tilesetGroup, tilesetVariant] = tileset.split('/');
+    const [tilesetGroup, ] = tileset.split('/');
 
     //use tilesetGroup and tilesetData to get the size
     const { width, height } = tilesetData[tilesetGroup].size;

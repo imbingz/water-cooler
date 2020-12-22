@@ -1,5 +1,5 @@
 import React from 'react';
-import Sprite from '../sprite';
+import Sprite from '../Sprite';
 
 //each aninmation has three steps, default at 0 which is the current step
 function Actor({ sprite, data, step = 0, dir = 0, position = { x: 0, y: 0 } }) {
