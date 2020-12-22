@@ -79,8 +79,8 @@ const Rooms = () => {
                 <form onSubmit={createRoom}>
                     <input
                         required
-                        type="text"
-                        name="inputRoomName"
+                        type='text'
+                        name='inputRoomName'
                         value={inputRoomName}
                         onChange={(e) => setRoomName(e.target.value)}
                     />
