@@ -2,42 +2,37 @@ import React from 'react';
 // import SearchContext from '../../utils/SearchContext';
 
 const SearchButton = (props) => {
-    console.log(props.pending);
-    console.log(props.id);
-
+    // * Send IDs of inviter and invited to server to make friend req
     const friendRequest = async (id) => {
-        console.log(id);
         try {
-            const request = await fetch('/api/user/friends', {
+            const request = await fetch('/api/user/friends/req', {
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ invited: id, inviter: '5fe084c2ea6ea08764a64fc7' }),
+                body: JSON.stringify({ invited: id, inviter: props.inviterId }),
                 method: 'PUT'
             });
             const status = await request.json();
-            console.log(status.success);
             if (status.success) {
                 window.alert('Done it');
             }
         } catch (err) {
-            console.log(err);
+            console.log({ err });
         }
     };
 
 
-
+    // * Default Button To Render
     let button =
         <button
             onClick={e => {
                 e.preventDefault();
-                friendRequest(props.id);
+                friendRequest(props.invitedId);
             }}
         >Send Friend Request</button>;
-
-    // So fun fact, forEach won't run if the array is empty :)
-    props.pending.forEach(req => {
-        console.log({ req });
-        if (req === '5fe084c2ea6ea08764a64fc7') {
-            console.log('Hit');
+    
+    // * Check if User Has Already Sent a Request { note: need to add another condition if they're already friends }
+    //    // So fun fact, forEach won't run if the array is empty :)
+    props.pending.forEach(invitedReqs => {
+        if (invitedReqs === props.inviterId) {
             button =
                 <button
                     onClick={e => e.preventDefault()}
@@ -48,9 +43,6 @@ const SearchButton = (props) => {
         <> {button} </>
 
     );
-
-
-
 };
 
 export default SearchButton;

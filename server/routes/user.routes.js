@@ -60,7 +60,7 @@ router.post('/login', ({ body }, res) => {
 // });
 
 // patch api/user/profile
-router.put('/profile', ( req, res) => {
+router.put('/profile', (req, res) => {
     console.log('put route /profile body obj: ', req);
     console.log(body.user.email);
 
@@ -83,14 +83,12 @@ router.put('/profile', ( req, res) => {
 // Search is working. Need to find a way to return partial matches
 router.post('/search', ({ body }, res) => {
     // console.log('Hit API: ', body);
-    db.User.find({ $text: { $search: body.search }})
+    db.User.find({ $text: { $search: body.search } })
         .then((query) => {
             console.log(query);
             const response = [];
             if (query.length === 0) {
-                // !! Still need to send do something on the client side if no match
-                console.log('No Match 😮');
-                res.json({ success: false})
+                res.json({ success: false })
                 return;
             }
             for (let users of query) {
@@ -100,7 +98,7 @@ router.post('/search', ({ body }, res) => {
                     lastName: users.lastName,
                     imageSrc: users.imageSrc,
                     pending: users.inboundPendingFriends,
-                    ref: users._id,
+                    invitedId: users._id,
                 }
                 response.push(user);
             }
@@ -109,32 +107,63 @@ router.post('/search', ({ body }, res) => {
         })
 });
 
-router.put('/friends', ({ body }, res) => {
-    
+// Send Friend Request
+router.put('/friends/req', ({ body }, res) => {
+
     console.log('Hit Friend Put API: ', body);
-    
+
 
     // Maybe make this promise based to have less .then and a catch? 
     db.User.findByIdAndUpdate(
-            {_id: body.invited},
-            {$push: { inboundPendingFriends: body.inviter}},
-            { new: true }
-        )
+        { _id: body.invited },
+        { $push: { inboundPendingFriends: body.inviter } },
+        { new: true }
+    )
         .then(invited => {
             console.log(invited);
             db.User.findOneAndUpdate(
-                {_id: body.inviter},
-                {$push: { outboundPendingFriends: body.invited}},
+                { _id: body.inviter },
+                { $push: { outboundPendingFriends: body.invited } },
                 { new: true }
             )
-            .then(inviter => {
-                console.log(inviter);
-                res.json({ success: true})
-            })
+                .then(inviter => {
+                    console.log(inviter);
+                    res.json({ success: true })
+                })
         })
-    
-    
-})
+});
 
+router.post('/friends/inpending', ({ body }, res) => {
+    console.log("Hit Inbound Friend Req API: ", body);
+    const response = [];
+    db.User.find({ _id: body.id })
+        .then(user => {
+            console.log("User's Info");
+            console.log(user);
+            const idArray = user[0].inboundPendingFriends;
+            console.log(idArray);
+            db.User.find({ _id: { $in: idArray } })
+                .then(data => {
+                    console.log("WORK>!!>!>");
+                    console.log(data);
+                    data.map(userRaw => {
+                        let userParsed = {
+                            username: userRaw.username,
+                            firstName: userRaw.firstName,
+                            lastName: userRaw.lastName,
+                            imageSrc: userRaw.imageSrc,
+                            userID: userRaw._id,
+                        }
+                        console.log('parsed');
+                        console.log(userParsed);
+                        response.push(userParsed);
+                    })
+                    console.log("response");
+                    console.log(response);
+                    res.json({ success: true, friends: response})
+                })
+        })
+
+});
 
 module.exports = router;
