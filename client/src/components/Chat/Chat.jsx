@@ -35,9 +35,7 @@ const Chat = () => {
 
 
     if (!socket) {
-        socket = io('http://localhost:8080', {
-            transports: ['websocket']
-        }); //this is the  client connection. it starts when client connects
+        socket = io.connect('/'); //this is the  client connection. it starts when client connects
 
         socket.on('connect', () => {
             socket.emit('new-user', roomUrlId, name);
