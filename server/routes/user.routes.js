@@ -80,17 +80,21 @@ router.put('/profile', (req, res) => {
         });
 });
 
+// * Search for other users
 // Search is working. Need to find a way to return partial matches
 router.post('/search', ({ body }, res) => {
     // console.log('Hit API: ', body);
+    // ** Search DB with Indexed Text Fields
     db.User.find({ $text: { $search: body.search } })
         .then((query) => {
-            console.log(query);
+            // ** End Function if No Results
+            // console.log(query);
             const response = [];
             if (query.length === 0) {
                 res.json({ success: false })
                 return;
             }
+            // ** Loop Through Results to Store Relevant Data in an Object
             for (let users of query) {
                 let user = {
                     username: users.username,
@@ -100,52 +104,58 @@ router.post('/search', ({ body }, res) => {
                     pending: users.inboundPendingFriends,
                     invitedId: users._id,
                 }
+                // ** Push Each Result to response
                 response.push(user);
             }
-            console.log(response);
+            // console.log(response);
+            // ** Send Filtered Response to Client
             res.json({ success: true, query: response })
         })
 });
 
-// Send Friend Request
+// * Send Friend Request
 router.put('/friends/req', ({ body }, res) => {
 
-    console.log('Hit Friend Put API: ', body);
-
-
     // Maybe make this promise based to have less .then and a catch? 
+    // ** Find Invited User's db and Push the Id of the User to inboundPendingFriends Array
     db.User.findByIdAndUpdate(
         { _id: body.invited },
-        { $push: { inboundPendingFriends: body.inviter } },
+        { $push: { inboundPendingFriends: body.user } },
         { new: true }
     )
         .then(invited => {
-            console.log(invited);
+            // console.log(invited);
+            // ** Find User's db and Push the Invited User's Id to outboundPendingFriends
             db.User.findOneAndUpdate(
-                { _id: body.inviter },
+                { _id: body.user },
                 { $push: { outboundPendingFriends: body.invited } },
                 { new: true }
             )
-                .then(inviter => {
-                    console.log(inviter);
+                .then(user => {
+                    // console.log(user);
                     res.json({ success: true })
                 })
         })
 });
 
+// * Find User's Pending Friend Requests
 router.post('/friends/inpending', ({ body }, res) => {
-    console.log("Hit Inbound Friend Req API: ", body);
+    // console.log("Hit Inbound Friend Req API: ", body);
     const response = [];
+    // * Find User's DB Info
     db.User.find({ _id: body.id })
         .then(user => {
-            console.log("User's Info");
-            console.log(user);
+            // console.log("User's Info");
+            // console.log(user);
+            // ** Store Their inboundPendingFriends in a Variable
             const idArray = user[0].inboundPendingFriends;
-            console.log(idArray);
+            // console.log(idArray);
+            // ** Get DB Info for All IDs in idArray
             db.User.find({ _id: { $in: idArray } })
                 .then(data => {
-                    console.log("WORK>!!>!>");
-                    console.log(data);
+                    // console.log('Data');
+                    // console.log(data);
+                    // ** Loop Through Results to Store Relevant Data in an Object
                     data.map(userRaw => {
                         let userParsed = {
                             username: userRaw.username,
@@ -154,16 +164,59 @@ router.post('/friends/inpending', ({ body }, res) => {
                             imageSrc: userRaw.imageSrc,
                             userID: userRaw._id,
                         }
-                        console.log('parsed');
-                        console.log(userParsed);
+                        // ** Push Each Result to response
+                        // console.log('parsed');
+                        // console.log(userParsed);
                         response.push(userParsed);
                     })
-                    console.log("response");
-                    console.log(response);
+                    // ** Send Filtered Response to Client
+                    // console.log("response");
+                    // console.log(response);
                     res.json({ success: true, friends: response})
                 })
         })
-
 });
+
+// * Accepting Friend Request
+router.put('/friends/accept', ({ body }, res) => {
+    console.log("Hit Accept Friend Req API: ", body);
+    // ** Access User's Friend'S Db and Update friends Array
+    db.User.findByIdAndUpdate(
+        { _id: body.friend},
+        { $push: { friends: body.user } },
+        { new: true }
+    )
+        .then((first) => {
+            // console.log({first});
+        })
+        // ** Access User's Friend's db and Update outbound array 
+        db.User.findByIdAndUpdate(
+            { _id: body.friend },
+            { $pull: { outboundPendingFriends: body.user }},
+            { new: true }
+        )
+            .then((second) => {
+                // console.log({second});
+            })
+            // ** Access User's db and Update Friends Array
+            db.User.findOneAndUpdate(
+                { _id: body.user },
+                { $push: { friends: body.friend } },
+                { new: true }
+            )
+                .then();
+                // ** Access User's db and Update inbound Array
+                db.User.findByIdAndUpdate(
+                    { _id: body.user },
+                    { $pull: { inboundPendingFriends: body.friend } },
+                    { new: true }
+                )
+                    .then(() => {
+                        res.json({ success: true })
+                    })
+})
+
+
+
 
 module.exports = router;

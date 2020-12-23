@@ -1,46 +1,33 @@
 import React, { useEffect, useState } from 'react';
+import './ProfileInboundFriends.css';
 // import ProfileInbFriendsResults from '../ProfileInbFriendsResults';
 // import ProfileContext from '../../utils/ProfileContext';
 
 const ProfileInboundFriends = (props) => {
 
-    // console.log(props.id);
-
     const [inboundFriends, setInboundFriends] = useState([]);
-    const [displayResults, setDisplayResults] = useState();
 
-    console.log(typeof (inboundFriends));
-    console.log(inboundFriends);
-    // * Send userId to Server and Check inboundPendingFriends
-
-
-    const renderResults = () => {
-        const results = 
-        inboundFriends.map((user, index) => (
-            <div className="ProfInbFrie-cont" key={index}>
-                <img className="ProfInbFrie-img"
-                    src={user.imageSrc}
-                    alt="user's profile icon"
-                />
-                <h3>Username: {user.username}</h3>
-                <h3>Name: {user.firstName} {user.lastName}</h3>
-                {/* * Send Props to SearchButton To Conditionally Render Buttons */}
-                <button
-
-                >Accept Friend Request</button>
-            </div>
-        ));
-        console.log(results);
-        setDisplayResults(results);
+    // * Send User and Friend's IDs to Server To Process Accepting Friend Request
+    const acceptRequest = async (id) => {
+        try {
+            const request = await fetch('/api/user/friends/accept', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ friend: id, user: props.id }),
+                method: 'PUT'
+            });
+            const status = await request.json();
+            if (status.success) {
+                window.alert('Done it');
+            }
+        } catch (err) {
+            console.log({ err });
+        }
     };
 
-
-
+    // * On Page Load, Send User Id to Server To Process User's Inbound Friend Reqs
     useEffect(() => {
         const checkFriendReqs = async () => {
-
             try {
-                console.log();
                 const response = await fetch('/api/user/friends/inpending', {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: props.id }),
@@ -48,23 +35,37 @@ const ProfileInboundFriends = (props) => {
                 });
 
                 const data = await response.json();
-                console.log(data);
-                console.log(data.friends);
-                console.log(typeof (data.friends));
+                // console.log(data);
                 setInboundFriends(data.friends);
-                renderResults();
             } catch (err) {
                 console.log({ err });
             }
         };
         checkFriendReqs();
-    }, [props.id, setInboundFriends]);
+    }, [props.id]);
 
 
     return (
         <article>
-            <h1>Blah</h1>
-            <>{displayResults}</>
+            <h1>Inbound Friend Requests</h1>
+            {/* <>{displayResults}</> */}
+            {inboundFriends.map((user, index) => (
+                <div className="ProfInbFrie-cont" key={index}>
+                    <img className="ProfInbFrie-img"
+                        src={user.imageSrc}
+                        alt="user's profile icon"
+                    />
+                    <h3>Username: {user.username}</h3>
+                    <h3>Name: {user.firstName} {user.lastName}</h3>
+                    {/* * Send Props to SearchButton To Conditionally Render Buttons */}
+                    <button
+                        onClick={e => {
+                            e.preventDefault();
+                            acceptRequest(user.userID);
+                        }}
+                    >Accept Friend Request</button>
+                </div>
+            ))}
         </article>
     );
 };

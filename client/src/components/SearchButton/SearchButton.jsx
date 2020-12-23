@@ -2,12 +2,12 @@ import React from 'react';
 // import SearchContext from '../../utils/SearchContext';
 
 const SearchButton = (props) => {
-    // * Send IDs of inviter and invited to server to make friend req
+    // * Send IDs of user and invited to server to make friend req
     const friendRequest = async (id) => {
         try {
             const request = await fetch('/api/user/friends/req', {
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ invited: id, inviter: props.inviterId }),
+                body: JSON.stringify({ invited: id, user: props.userId }),
                 method: 'PUT'
             });
             const status = await request.json();
@@ -32,7 +32,7 @@ const SearchButton = (props) => {
     // * Check if User Has Already Sent a Request { note: need to add another condition if they're already friends }
     //    // So fun fact, forEach won't run if the array is empty :)
     props.pending.forEach(invitedReqs => {
-        if (invitedReqs === props.inviterId) {
+        if (invitedReqs === props.userId) {
             button =
                 <button
                     onClick={e => e.preventDefault()}

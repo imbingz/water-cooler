@@ -25,7 +25,7 @@ const SearchResults = () => {
                             <SearchButton
                                 pending={user.pending}
                                 invitedId={user.invitedId}
-                                inviterId={context.userID}
+                                userId={context.userID}
                             />
                         </article>
                     ))
