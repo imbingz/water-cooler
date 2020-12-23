@@ -4,17 +4,11 @@ const routes = require('./routes');
 const path = require('path');
 const app = express();
 const http = require('http').createServer(app);
-const io = require('socket.io')(http, {
-    cors: {
-        origin: process.env.URL || 'http://localhost:3000',
-        methods: ['GET', 'POST']
-    }
-});
+const io = require('socket.io')(http);
 
 require('./config/db')();
 
 const PORT = process.env.PORT || 5000;
-const socketPORT = process.env.socketPORT || 8080;
 
 // parsing middleware
 app.use(express.urlencoded({ extended: true }));
@@ -55,10 +49,6 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-app.listen(PORT, () => {
-    console.log('app running on PORT: ' + PORT);
-});
-
-http.listen(socketPORT, () => {
-    console.log('socket is running on port: ' + socketPORT)
+http.listen(PORT, () => {
+    console.log('Server is running on PORT: ' + PORT)
 });
