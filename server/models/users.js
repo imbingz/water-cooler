@@ -47,6 +47,18 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
+// UserSchema.methods.setFullName = function () {
+//     this.fullName = this.firstName + " " + this.lastName;
+// }
+
+UserSchema.index({ 
+    username: 'text',
+    firstName: 'text',
+    lastName: 'text',
+    email: 'text'
+});
+
 const User = mongoose.model('User', UserSchema);
+// User.createIndexes();
 
 module.exports = User;

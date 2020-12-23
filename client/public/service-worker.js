@@ -62,7 +62,6 @@ self.addEventListener('fetch', (e) => {
                             return serverResponse
                         })
                 )
-
             })
             .catch(err => {
                 // console.log("On SW Fetch Intercept, response error: ", err);

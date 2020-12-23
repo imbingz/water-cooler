@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
+import ProfileInboundFriends from '../components/ProfileInboundFriends';
 
 const Profile = props => {
     const history = useHistory();
@@ -10,16 +11,16 @@ const Profile = props => {
 
     const storedUser = JSON.parse(localStorage.getItem('USER'));
     console.log('storedUser: ', storedUser);
-    
+
 
 
     //prefill the user info
     useEffect(() => {
         const token = localStorage.getItem('JWT');
         if (!token || !storedUser) {
-            return history.push('/login');  
-        } 
-        
+            return history.push('/login');
+        }
+
         console.log(token, storedUser);
 
         firstNameRef.current.value = storedUser.firstName || '';
@@ -45,7 +46,7 @@ const Profile = props => {
             const response = await fetch('/api/user/profile', {
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer '+ localStorage.getItem('JWT')
+                    'Authorization': 'Bearer ' + localStorage.getItem('JWT')
                 },
                 body: JSON.stringify({
                     user
@@ -57,7 +58,7 @@ const Profile = props => {
             // console.log(json);
             if (data.user) {
                 console.log(data.user);
-                
+
                 // *** NEED A BETTER WAY TO REPLACE ALERT  *** //
                 alert('Your profile is updated successfully');
             }
@@ -68,75 +69,80 @@ const Profile = props => {
 
     return (
         <main>
-            <form className='Profile-form' onSubmit={handleSubmitForm}>
-                {/* <div className='Profile-form-group'>
-					<img className='Profile-image' src='assets/images/avarta.png' alt='avarta' />
-					<input
-						type='file'
-						onChange={() => {
-							console.log('upload image later');
-						}}
-					/>
-					<button
-						className='Profile-image-btn'
-						onClick={() => {
-							console.log('upload avarta later');
-						}}>
-						Upload
-					</button>
-				</div> */}
-                <div className='Profile-form-group'>
-                    <label htmlFor='firstName'>First Name: </label>
-                    <input
-                        type='text'
-                        id='firstName'
-                        name='firstName'
-                        ref={firstNameRef}
+            <section>
+                <form className='Profile-form' onSubmit={handleSubmitForm}>
+                    {/* <div className='Profile-form-group'>
+                        <img className='Profile-image' src='assets/images/avarta.png' alt='avarta' />
+                        <input
+                            type='file'
+                            onChange={() => {
+                                console.log('upload image later');
+                            }}
+                        />
+                        <button
+                            className='Profile-image-btn'
+                            onClick={() => {
+                                console.log('upload avarta later');
+                            }}>
+                            Upload
+                        </button>
+                    </div> */}
+                    <div className='Profile-form-group'>
+                        <label htmlFor='firstName'>First Name: </label>
+                        <input
+                            type='text'
+                            id='firstName'
+                            name='firstName'
+                            ref={firstNameRef}
                         // value={user.firstName} onChange={handleInputChange}
-                    />
-                </div>
-                <div className='Profile-form-group'>
-                    <label htmlFor='lastName'>Last Name: </label>
-                    <input
-                        type='text'
-                        id='lastName'
-                        name='lastName'
-                        // defaultValue={user.lastName}
-                        ref={lastNameRef}
+                        />
+                    </div>
+                    <div className='Profile-form-group'>
+                        <label htmlFor='lastName'>Last Name: </label>
+                        <input
+                            type='text'
+                            id='lastName'
+                            name='lastName'
+                            // defaultValue={user.lastName}
+                            ref={lastNameRef}
                         // value={user.lastName}
                         // onChange={handleInputChange}
-                    />
-                </div>
-                <div className='Profile-form-group'>
-                    <label htmlFor='username'>Username: </label>
-                    <input
-                        required
-                        id='username'
-                        name='username'
-                        type='text'
-                        ref={usernameRef}
+                        />
+                    </div>
+                    <div className='Profile-form-group'>
+                        <label htmlFor='username'>Username: </label>
+                        <input
+                            required
+                            id='username'
+                            name='username'
+                            type='text'
+                            ref={usernameRef}
                         // defaultValue={user.username}
                         // value={user.username}
                         // onChange={handleInputChange}
-                    />
-                </div>
-                <div className='Profile-form-group'>
-                    <label htmlFor='email'>Email: </label>
-                    <input
-                        required
-                        type='email'
-                        id='email'
-                        name='email'
-                        // defaultValue={user.email}
-                        ref={emailRef}
+                        />
+                    </div>
+                    <div className='Profile-form-group'>
+                        <label htmlFor='email'>Email: </label>
+                        <input
+                            required
+                            type='email'
+                            id='email'
+                            name='email'
+                            // defaultValue={user.email}
+                            ref={emailRef}
                         // value={user.email}
                         // onChange={handleInputChange}
-                    />
-                </div>
-                <button className='Profile-update-btn' type='submit'>
-					Update Now
-                </button>
-            </form>
+                        />
+                    </div>
+                    <button className='Profile-update-btn' type='submit'>
+                        Update Now
+                    </button>
+                </form>
+            </section>
+            <section>
+                <ProfileInboundFriends id={storedUser._id}/>
+            </section>
         </main>
     );
 };
