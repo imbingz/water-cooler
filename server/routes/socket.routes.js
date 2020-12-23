@@ -16,7 +16,7 @@ router
             })
             .catch(err => {
                 res.json({ success: false } + err);
-            })
-    })
+            });
+    });
 
 module.exports = router;

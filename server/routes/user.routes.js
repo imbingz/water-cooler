@@ -91,7 +91,7 @@ router.post('/search', ({ body }, res) => {
             // console.log(query);
             const response = [];
             if (query.length === 0) {
-                res.json({ success: false })
+                res.json({ success: false });
                 return;
             }
             // ** Loop Through Results to Store Relevant Data in an Object
@@ -103,14 +103,14 @@ router.post('/search', ({ body }, res) => {
                     imageSrc: users.imageSrc,
                     pending: users.inboundPendingFriends,
                     invitedId: users._id,
-                }
+                };
                 // ** Push Each Result to response
                 response.push(user);
             }
             // console.log(response);
             // ** Send Filtered Response to Client
-            res.json({ success: true, query: response })
-        })
+            res.json({ success: true, query: response });
+        });
 });
 
 // * Send Friend Request
@@ -123,19 +123,19 @@ router.put('/friends/req', ({ body }, res) => {
         { $push: { inboundPendingFriends: body.user } },
         { new: true }
     )
-        .then(invited => {
-            // console.log(invited);
+        .then(() => {
+            // console.log(invited); // place invited in cb
             // ** Find User's db and Push the Invited User's Id to outboundPendingFriends
             db.User.findOneAndUpdate(
                 { _id: body.user },
                 { $push: { outboundPendingFriends: body.invited } },
                 { new: true }
             )
-                .then(user => {
-                    // console.log(user);
-                    res.json({ success: true })
-                })
-        })
+                .then(() => {
+                    // console.log(user); // place user in cb
+                    res.json({ success: true });
+                });
+        });
 });
 
 // * Find User's Pending Friend Requests
@@ -156,65 +156,65 @@ router.post('/friends/inpending', ({ body }, res) => {
                     // console.log('Data');
                     // console.log(data);
                     // ** Loop Through Results to Store Relevant Data in an Object
-                    data.map(userRaw => {
+                    data.forEach(userRaw => {
                         let userParsed = {
                             username: userRaw.username,
                             firstName: userRaw.firstName,
                             lastName: userRaw.lastName,
                             imageSrc: userRaw.imageSrc,
                             userID: userRaw._id,
-                        }
+                        };
                         // ** Push Each Result to response
                         // console.log('parsed');
                         // console.log(userParsed);
                         response.push(userParsed);
-                    })
+                    });
                     // ** Send Filtered Response to Client
                     // console.log("response");
                     // console.log(response);
-                    res.json({ success: true, friends: response})
-                })
-        })
+                    res.json({ success: true, friends: response});
+                });
+        });
 });
 
 // * Accepting Friend Request
 router.put('/friends/accept', ({ body }, res) => {
-    console.log("Hit Accept Friend Req API: ", body);
+    console.log('Hit Accept Friend Req API: ', body);
     // ** Access User's Friend'S Db and Update friends Array
     db.User.findByIdAndUpdate(
         { _id: body.friend},
         { $push: { friends: body.user } },
         { new: true }
     )
-        .then((first) => {
-            // console.log({first});
-        })
-        // ** Access User's Friend's db and Update outbound array 
-        db.User.findByIdAndUpdate(
-            { _id: body.friend },
-            { $pull: { outboundPendingFriends: body.user }},
-            { new: true }
-        )
-            .then((second) => {
-                // console.log({second});
-            })
-            // ** Access User's db and Update Friends Array
-            db.User.findOneAndUpdate(
-                { _id: body.user },
-                { $push: { friends: body.friend } },
-                { new: true }
-            )
-                .then();
-                // ** Access User's db and Update inbound Array
-                db.User.findByIdAndUpdate(
-                    { _id: body.user },
-                    { $pull: { inboundPendingFriends: body.friend } },
-                    { new: true }
-                )
-                    .then(() => {
-                        res.json({ success: true })
-                    })
-})
+        .then(() => {
+            // console.log({first}); // place first in cb
+        });
+    // ** Access User's Friend's db and Update outbound array 
+    db.User.findByIdAndUpdate(
+        { _id: body.friend },
+        { $pull: { outboundPendingFriends: body.user }},
+        { new: true }
+    )
+        .then(() => {
+            // console.log({second}); // place second in cb
+        });
+    // ** Access User's db and Update Friends Array
+    db.User.findOneAndUpdate(
+        { _id: body.user },
+        { $push: { friends: body.friend } },
+        { new: true }
+    )
+        .then();
+    // ** Access User's db and Update inbound Array
+    db.User.findByIdAndUpdate(
+        { _id: body.user },
+        { $pull: { inboundPendingFriends: body.friend } },
+        { new: true }
+    )
+        .then(() => {
+            res.json({ success: true });
+        });
+});
 
 
 
