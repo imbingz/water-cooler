@@ -4,6 +4,6 @@ module.exports = (req, res, next) => {
         return next();
     }
 
-    return res.json({success: false, message: 'Please login first.'})
+    return res.json({success: false, message: 'Please login first.'});
 };
 
