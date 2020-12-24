@@ -1,5 +1,5 @@
 import React from 'react';
-// import SearchContext from '../../utils/SearchContext';
+import './SearchButton.css';
 
 const SearchButton = (props) => {
     // * Send IDs of user and invited to server to make friend req
@@ -13,6 +13,8 @@ const SearchButton = (props) => {
             const status = await request.json();
             if (status.success) {
                 window.alert('Done it');
+            } else if (!status.success) {
+                window.alert('Not Done it');
             }
         } catch (err) {
             console.log({ err });
@@ -22,7 +24,8 @@ const SearchButton = (props) => {
 
     // * Default Button To Render
     let button =
-        <button
+        <button 
+            className='SearchButton-send'
             onClick={e => {
                 e.preventDefault();
                 friendRequest(props.invitedId);
@@ -31,14 +34,26 @@ const SearchButton = (props) => {
     
     // * Check if User Has Already Sent a Request { note: need to add another condition if they're already friends }
     //    // So fun fact, forEach won't run if the array is empty :)
-    props.pending.forEach(invitedReqs => {
-        if (invitedReqs === props.userId) {
+    props.pending.forEach(searchedUser => {
+        if (searchedUser === props.userId) {
             button =
                 <button
+                    className='SearchButton-pend'
                     onClick={e => e.preventDefault()}
                 >Friend Request Pending</button>;
         }
     });
+
+    props.friends.forEach(searchedUser => {
+        if (searchedUser === props.userId) {
+            button =
+                <button
+                    className='SearchButton-msg'
+                    onClick={e => e.preventDefault()}
+                >Message Friend</button>;
+        }
+    });
+
     return (
         <> {button} </>
 
