@@ -10,7 +10,7 @@ const ProfileInboundFriends = (props) => {
     // * Send User and Friend's IDs to Server To Process Accepting Friend Request
     const acceptRequest = async (id) => {
         try {
-            const request = await fetch('/api/user/friends/accept', {
+            const request = await fetch('/api/friends/accept', {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ friend: id, user: props.id }),
                 method: 'PUT'
@@ -27,7 +27,7 @@ const ProfileInboundFriends = (props) => {
     // * Send User and Friend's IDs to Server To Process Declining Friend Request
     const declineRequest = async (id) => {
         try {
-            const request = await fetch('/api/user/friends/decline', {
+            const request = await fetch('/api/friends/decline', {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ friend: id, user: props.id }),
                 method: 'PUT'
@@ -45,7 +45,7 @@ const ProfileInboundFriends = (props) => {
     useEffect(() => {
         const checkFriendReqs = async () => {
             try {
-                const response = await fetch('/api/user/friends/inpending', {
+                const response = await fetch('/api/friends/inpending', {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: props.id }),
                     method: 'POST'

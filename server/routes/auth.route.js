@@ -93,6 +93,47 @@ router.get('/logout', (req, res) => {
     }
 });
 
+// * Search for other users
+//  // Search is working. Need to find a way to return partial matches
+router.post('/search', async ({ body }, res) => {
+    // console.log('Hit API: ', body);
+    try {
+        // ** Search DB with Indexed Text Fields
+        const query = await db.User.find({ $text: { $search: body.search } });
+        // console.log(query);
+
+        // ** End Function if No Results
+        if (query.length === 0) {
+            res.json({ success: false });
+            return;
+        }
+
+        // ** Loop Through Results to Store Relevant Data in an Object, Then Push Object to response Array
+        const response = [];
+        for (let users of query) {
+            let user = {
+                username: users.username,
+                firstName: users.firstName,
+                lastName: users.lastName,
+                imageSrc: users.imageSrc,
+                pending: users.inboundPendingFriends,
+                friends: users.friends,
+                invitedId: users._id,
+            };
+
+            // *** Push Each Result to response
+            response.push(user);
+        }
+        // console.log(response);
+
+        // ** Send Filtered Response to Client
+        res.json({ success: true, query: response });
+
+    } catch (err) {
+        console.log('/api/user/search error: ', err);
+        res.json({ success: false });
+    }
+});
 
 
 module.exports = router;

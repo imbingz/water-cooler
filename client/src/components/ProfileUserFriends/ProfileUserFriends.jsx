@@ -14,7 +14,7 @@ const ProfileUserFriends = (props) => {
     useEffect(() => {
         const checkFriends = async () => {
             try {
-                const response = await fetch('/api/user/friends', {
+                const response = await fetch('/api/friends/friends', {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: props.id }),
                     method: 'POST'

@@ -5,7 +5,7 @@ const SearchButton = (props) => {
     // * Send IDs of user and invited to server to make friend req
     const friendRequest = async (id) => {
         try {
-            const request = await fetch('/api/user/friends/req', {
+            const request = await fetch('/api/friends/req', {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ invited: id, user: props.userId }),
                 method: 'PUT'
