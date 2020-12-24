@@ -2,6 +2,9 @@ require('dotenv').config({ path: __dirname + '/.env' });
 const express = require('express');
 const routes = require('./routes');
 const path = require('path');
+const session = require("express-session");
+const passport = require("./config/passport");
+
 // const cors = require('cors');
 const app = express();
 require('./config/db')();
@@ -21,6 +24,11 @@ if (process.env.NODE_ENV === 'production') {
         res.sendFile(path.join(__dirname, '../client/build/index.html'));
     });
 }
+
+// Use sessions to keep track of our user"s login status
+app.use(session({ secret: "keyboard cat", resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.listen(PORT, () => {
     console.log('app running on PORT: ' + PORT);
