@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const UserSchema = new mongoose.Schema({
     email: {
@@ -46,6 +47,14 @@ const UserSchema = new mongoose.Schema({
         default: ''
     }
 });
+
+
+//used for validating whetherthe user’s password is correct when they try to log in.
+UserSchema.methods.isValidPassword = async function(password) {
+    const user = this;
+    const compare = await bcrypt.compare(password, user.password);
+    return compare;
+};
 
 // UserSchema.methods.setFullName = function () {
 //     this.fullName = this.firstName + " " + this.lastName;

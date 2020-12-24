@@ -2,7 +2,12 @@ require('dotenv').config({ path: __dirname + '/.env' });
 const express = require('express');
 const routes = require('./routes');
 const path = require('path');
+const session = require('express-session');
+const passport = require('./config/passport');
+
+// const cors = require('cors');
 const app = express();
+
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
@@ -13,6 +18,15 @@ const PORT = process.env.PORT || 5000;
 // parsing middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Use express sessions 
+app.use(session({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+
+// Passport middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Routes
 app.use(routes);
 
 io.on('connect', (socket) => {

@@ -16,12 +16,9 @@ const Profile = props => {
 
     //prefill the user info
     useEffect(() => {
-        const token = localStorage.getItem('JWT');
-        if (!token || !storedUser) {
-            return history.push('/login');
-        }
-
-        console.log(token, storedUser);
+        if ( !storedUser) {
+            return history.push('/login');  
+        } 
 
         firstNameRef.current.value = storedUser.firstName || '';
         lastNameRef.current.value = storedUser.lastName || '';
@@ -45,8 +42,7 @@ const Profile = props => {
         try {
             const response = await fetch('/api/user/profile', {
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + localStorage.getItem('JWT')
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
                     user

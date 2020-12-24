@@ -44,7 +44,6 @@ const Login = () => {
                 return;
             }
 
-            localStorage.setItem('JWT', data.token);
             localStorage.setItem('USER', JSON.stringify(data.user));
 
             history.push('/room');
