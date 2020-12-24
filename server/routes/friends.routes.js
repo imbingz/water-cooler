@@ -4,20 +4,20 @@ const db = require('../models');
 // * Find User's Friends
 router.post('/friends', async ({ body }, res) => {
     try {
-        console.log('Hit Inbound Friend Req API: ', body);
+        // console.log('Hit Friend Req API: ', body);
         const response = [];
 
         // * Find User's DB Info
         const user = await db.User.find({ _id: body.id });
-        console.log({ user });
+        // console.log({ user });
 
         // ** Store Their Friends in a Variable
         const idArray = user[0].friends;
-        console.log(idArray);
+        // console.log(idArray);
 
         // ** Get DB Info for All IDs in idArray
         const friends = await db.User.find({ _id: { $in: idArray } });
-        console.log({ friends });
+        // console.log({ friends });
         // ** If no friends found, End Function
         if (!friends) {
             console.log('No friends found');
@@ -41,7 +41,7 @@ router.post('/friends', async ({ body }, res) => {
         });
 
         // ** Send Filtered Response to Client
-        console.log({ response });
+        // console.log({ response });
         res.json({ success: true, friends: response });
     } catch (err) {
         console.log('/api/friends/friends error: ', err);
