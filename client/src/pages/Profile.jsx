@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import ProfileInboundFriends from '../components/ProfileInboundFriends';
+import ProfileUserFriends from '../components/ProfileUserFriends';
 
 const Profile = props => {
     const history = useHistory();
@@ -142,6 +143,7 @@ const Profile = props => {
             </section>
             <section>
                 <ProfileInboundFriends id={storedUser._id}/>
+                <ProfileUserFriends id={storedUser._id}/>
             </section>
         </main>
     );

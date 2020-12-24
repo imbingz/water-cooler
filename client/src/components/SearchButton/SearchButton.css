@@ -1,0 +1,20 @@
+.SearchButton-send {
+  width: 155;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: green;
+}
+
+.SearchButton-pend {
+  width: 155;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: orange;
+}
+
+.SearchButton-msg {
+  width: 155;
+  margin-left: 10px;
+  margin-right: 10px;
+  color: yellow;
+}

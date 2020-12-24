@@ -21,7 +21,7 @@ const Search = () => {
             });
             // console.log(response);
             const data = await response.json();
-            // console.log(data);
+            console.log(data);
             if (!data.success) {
                 window.alert('No match 😮');
                 return;
