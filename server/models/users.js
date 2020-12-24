@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
 
 const UserSchema = new mongoose.Schema({
     email: {
@@ -46,6 +47,23 @@ const UserSchema = new mongoose.Schema({
         default: ''
     }
 });
+
+//pre-save hook that will hash password and be called before a document is saved in MongoDB.
+UserSchema.pre('save', async function(next) {
+	const user = this;
+	//bcrypt to hash users password
+	const hash = await bcrypt.hash(this.password, 10);
+	this.password = hash;
+	next();
+});
+
+//used for validating whetherthe user’s password is correct when they try to log in.
+UserSchema.methods.isValidPassword = async function(password) {
+	const user = this;
+	const compare = await bcrypt.compare(password, user.password);
+	return compare;
+};f
+
 
 const User = mongoose.model('User', UserSchema);
 
