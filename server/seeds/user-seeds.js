@@ -2,8 +2,6 @@ require('../config/db')();
 
 const db = require('../models');
 
-const idArray = [];
-
 db.User.insertMany([
     {
         email: 'ishtarsink@venus.com',
