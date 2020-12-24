@@ -71,35 +71,52 @@ db.User.insertMany([
         imageSrc: 'https://i.pinimg.com/originals/6a/78/f7/6a78f73a95511beb19cb7da69267e956.jpg',
     },
 ])
+    // * Add Id Values to Username: Spider's Friend array and Inbound Array
     .then(users => {
-        console.log(users);
+        // console.log(users);
         const friendsArray = [];
         const inboundFriends = [];
         for (let i = 0; i < users.length; i++) {
-            // Make Array To Add To Friends Array 
+
+            // * Queue First Two Users for spider's friends
             if (i < 2) {
                 const { _id } = users[i];
                 friendsArray.push(_id);
+
+                // * Queue Third User for spider's inbound
             } else if (i > 2 && i < 4) {
                 const { _id } = users[i];
                 inboundFriends.push(_id);
             }
         }
-        console.log({ friendsArray }, { inboundFriends });
-        db.User.findOneAndUpdate({ username: 'Atheon' }, { $set: { friends: friendsArray } }, { new: true })
-            .then(friend => console.log(friend));
-        db.User.findOneAndUpdate({ username: 'Atheon' }, { $set: { inboundPendingFriends: friendsArray } }, { new: true })
-            .then(inbound => console.log(inbound));
+        // console.log({ friendsArray }, { inboundFriends });
+
+        // ** Add First Two Users to spider's friends { note: for simplicity's sake, comment out the lone .then()s and comment in the .then(var)s with console.logs if you need to see what's happening }
+        db.User.findOneAndUpdate({ username: 'Spider' }, { $set: { friends: friendsArray } }, { new: true })
+            // *** Add Spider to First Two User'S Friends
+            .then(spider => {
+                db.User.findOneAndUpdate({ _id: friendsArray[0] }, { $push: { friends: spider._id } }, { new: true })
+                    .then()
+                // .then(first => {
+                //     console.log({first});
+                // })
+                ;
+                db.User.findOneAndUpdate({ _id: friendsArray[1] }, { $push: { friends: spider._id } }, { new: true })
+                    .then()
+                // .then(second => {
+                //     console.log({second});
+                // })
+                ;
+            });
+        // ** Add Third User to spider's inbound
+        db.User.findOneAndUpdate({ username: 'Spider' }, { $set: { inboundPendingFriends: inboundFriends } }, { new: true })
+            // *** Add spider to third user's inbound
+            .then((spider) => {
+                db.User.findOneAndUpdate({ _id: inboundFriends[0] }, { $push: { outboundPendingFriends: spider._id } }, { new: true })
+                    .then()
+                // .then(first => {
+                //     console.log({first});
+                // })
+                ;
+            });
     });
-
-
-// const addFriends = () => {
-//     db.User.find({ $text: { $search: 'Oryx' } })
-//         .then(users => {
-//             users.forEach(usersRaw => {
-//                 let { id } = usersRaw;
-//                 idArray.push(id);
-//             });
-//             db.User.findOneAndUpdate({ username: 'Atheon' }, { $addToSet: idArray });
-//         });
-// };
