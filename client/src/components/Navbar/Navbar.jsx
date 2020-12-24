@@ -1,8 +1,33 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState} from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
+    const history = useHistory();
+    const [isLogged, setIsLogged] = useState(true); 
+
+
+    const handleLogout = async () => {
+        console.log('logout clicked');
+        try {
+            const response = await fetch('api/user/logout');
+
+            const data = await response.json();
+
+            console.log(data);
+
+            if (data.success) {
+                localStorage.removeItem('USER');
+                setIsLogged(false);
+                alert('Successfully logged out!');
+                history.push('/');
+            }
+
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
     return (
         <nav className="Navbar">
             <div className="Navbar-brand">
@@ -50,6 +75,12 @@ const Navbar = () => {
                         GameRPG
                     </Link>
                 </li>
+                {
+                    isLogged && 
+                    <li className="Navbar-link" onClick={() => handleLogout()}>          
+                            Logout
+                    </li>
+                }
             </ul>
         </nav>
     );
