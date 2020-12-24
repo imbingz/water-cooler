@@ -1,8 +1,8 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
-const passport = require("../config/passport");
+const passport = require('../config/passport');
 const db = require('../models');
-const authRequired = require("../middlewares/authRequired");
+const authRequired = require('../middlewares/authRequired');
 
 // api/user/signup
 router.post('/signup', ({body}, res) => {
@@ -42,22 +42,22 @@ router.post('/signup', ({body}, res) => {
 
 // api/user/login
 router.post('/login', (req, res, next) => {
-	passport.authenticate('local', async (err, user) => {
+    passport.authenticate('local', async (err, user) => {
        
-		try {
-			if (err || !user) {
-				const error = new Error('An Error occured');
-				return next(error);
+        try {
+            if (err || !user) {
+                const error = new Error('An Error occured');
+                return next(error);
             }
             
             req.login(user, { session: false }, error => {
-                if (error) return next(error);
+                if (error) {return next(error);}
                 return res.status(200).json({success: true, user: user });
-			});
-		} catch (error) {
-			return next(error);
-		}
-	})(req, res, next);
+            });
+        } catch (error) {
+            return next(error);
+        }
+    })(req, res, next);
 });
 
 
@@ -81,16 +81,16 @@ router.put('/profile', authRequired, ({ body }, res) => {
 
 // api/user/logout
 router.get('/logout', (req, res) => {
-  if (req.session) {
-    req.session.destroy();
-    req.logout();
-    res.status(200).json({success: true, message: 'logged out' })
-  }
-  else {
-    const err = new Error('You are not logged in!');
-    err.status = 403;
-    next(err);
-  }
+    if (req.session) {
+        req.session.destroy();
+        req.logout();
+        res.status(200).json({success: true, message: 'logged out' });
+    }
+    else {
+        const err = new Error('You are not logged in!');
+        err.status = 403;
+        next(err);
+    }
 });
 
 

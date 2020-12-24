@@ -8,11 +8,12 @@ const passport = require('./config/passport');
 // const cors = require('cors');
 const app = express();
 
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
 require('./config/db')();
 
 const PORT = process.env.PORT || 5000;
-
-// app.use(cors());
 
 // parsing middleware
 app.use(express.urlencoded({ extended: true }));
@@ -28,6 +29,33 @@ app.use(passport.session());
 // Routes
 app.use(routes);
 
+io.on('connect', (socket) => {
+    socket.on('new-user', (roomUrlId, name) => {
+        socket.join(roomUrlId);
+        socket.room = roomUrlId;
+        socket.to(socket.room).broadcast.emit('user-connected', roomUrlId, name);
+    });
+
+    socket.on('send-chat-message', (roomUrlId, name, messageInput) => {
+        socket.to(socket.room).emit('receive-sent-message', roomUrlId, name, messageInput);
+    });
+
+    socket.on('check-room', (roomUrlId, name) => {
+        if (roomUrlId === socket.room) {
+            return;
+        } 
+        socket.leave(socket.room);
+        socket.join(roomUrlId);
+        socket.room = roomUrlId;
+        socket.to(socket.room).broadcast.emit('user-connected', roomUrlId, name);
+        
+    });
+
+    socket.on('disconnect', () => {
+        socket.to(socket.room).broadcast.emit('user-disconnected');
+    });
+});
+
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
     app.get('*', (req, res) => {
@@ -35,6 +63,6 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 
-app.listen(PORT, () => {
-    console.log('app running on PORT: ' + PORT);
+http.listen(PORT, () => {
+    console.log('Server is running on PORT: ' + PORT);
 });

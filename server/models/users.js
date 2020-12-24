@@ -51,12 +51,23 @@ const UserSchema = new mongoose.Schema({
 
 //used for validating whetherthe user’s password is correct when they try to log in.
 UserSchema.methods.isValidPassword = async function(password) {
-	const user = this;
-	const compare = await bcrypt.compare(password, user.password);
-	return compare;
+    const user = this;
+    const compare = await bcrypt.compare(password, user.password);
+    return compare;
 };
 
+// UserSchema.methods.setFullName = function () {
+//     this.fullName = this.firstName + " " + this.lastName;
+// }
+
+UserSchema.index({ 
+    username: 'text',
+    firstName: 'text',
+    lastName: 'text',
+    email: 'text'
+});
 
 const User = mongoose.model('User', UserSchema);
+// User.createIndexes();
 
 module.exports = User;

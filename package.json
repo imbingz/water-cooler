@@ -11,8 +11,8 @@
     "install": "cd client && npm i",
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build",
-    "lint": "eslint client/src/**/*.jsx  client/src/**/*.js",
-    "lint:fix": "eslint client/src/**/*.jsx --fix client/src/**/*.js --fix"
+    "lint": "eslint client/src/**/*.jsx  client/src/**/*.js server/**/*.js",
+    "lint:fix": "eslint client/src/**/*.jsx --fix client/src/**/*.js --fix server/**/*.js --fix"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -26,6 +26,7 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "socket.io": "^3.0.4",
+    "socket.io-client": "^3.0.4",
     "uuid": "^8.3.2",
     "yarn": "^1.22.10"
   },
