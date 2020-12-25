@@ -1,6 +1,15 @@
 const router = require('express').Router();
 const db = require('../models');
 
+// * Functions
+// ** Manage Friends Array 
+// const userFriends = async (user, friend) = {
+    
+// }
+
+// const friendFriends = async (user, friend) = {
+
+// }
 
 // * Accepting Friend Request
 router.put('/accept', async ({ body }, res) => {
@@ -24,12 +33,12 @@ router.put('/accept', async ({ body }, res) => {
 
         // ** Access User's db and Update Friends Array
 
-        const userFriend = await db.User.findOneAndUpdate( // eslint-disable-line no-unused-vars 
+        const userFriends = await db.User.findOneAndUpdate( // eslint-disable-line no-unused-vars 
             { _id: body.user },
             { $push: { friends: body.friend } },
             { new: true }
         );
-        // console.log(userFriend);
+        // console.log(userFriends);
 
         // ** Access User's db and Update inbound Array
         const userInbound = await db.User.findByIdAndUpdate( // eslint-disable-line no-unused-vars 
@@ -47,7 +56,7 @@ router.put('/accept', async ({ body }, res) => {
     }
 });
 
-// * Decline Friend Request
+// * Block User Request
 router.put('/block', async ({ body }, res) => {
     // console.log('Hit Accept Friend Req API: ', body);
     try {
@@ -217,7 +226,7 @@ router.post('/inpending', async ({ body }, res) => {
 });
 
 // * Send Friend Request
-router.put('/req', async ({ body }, res) => {
+router.put('/request', async ({ body }, res) => {
     try {
         // ** Find User's db and Push the Invited User's Id to outboundPendingFriends
         const user = await db.User.findOneAndUpdate(
@@ -253,6 +262,34 @@ router.put('/req', async ({ body }, res) => {
 
     } catch (err) {
         console.log('/api/friends/req error: ', err);
+        res.json({ success: false });
+    }
+});
+
+// * Unfriend Friend
+router.put('/unfriend', async ({ body }, res) => {
+    // console.log('Hit Accept Friend Req API: ', body);
+    try {
+        // ** Access User's Friend's Db and Update friends Array
+        const friendFriends = await db.User.findByIdAndUpdate( // eslint-disable-line no-unused-vars 
+            { _id: body.friend },
+            { $pull: { friends: body.user } },
+            { new: true }
+        );
+        console.log(friendFriends);
+
+        // ** Access User's db and Update Friends Array
+        const userFriends = await db.User.findOneAndUpdate( // eslint-disable-line no-unused-vars 
+            { _id: body.user },
+            { $pull: { friends: body.friend } },
+            { new: true }
+        );
+        console.log(userFriends);
+
+        // ** Send Success to Client
+        res.json({ success: true });
+    } catch (err) {
+        console.log('/api/friends/accept error: ', err);
         res.json({ success: false });
     }
 });

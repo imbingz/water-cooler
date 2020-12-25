@@ -5,7 +5,7 @@ const SearchButton = (props) => {
     // * Send IDs of user and invited to server to make friend req
     const friendRequest = async (id) => {
         try {
-            const request = await fetch('/api/friends/req', {
+            const request = await fetch('/api/friends/request', {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ invited: id, user: props.userId }),
                 method: 'PUT'
@@ -54,8 +54,8 @@ const SearchButton = (props) => {
         }
     });
 
-     // * Check User has Been Blocked by this Search
-     props.blocked.forEach(searchedUser => {
+    // * Check User has Been Blocked by this Search
+    props.blocked.forEach(searchedUser => {
         if (searchedUser === props.userId) {
             button =
                 <button
