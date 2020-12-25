@@ -7,7 +7,7 @@ const SearchButton = (props) => {
         try {
             const request = await fetch('/api/friends/request', {
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ invited: id, user: props.userId }),
+                body: JSON.stringify({ friend: id, user: props.userId }),
                 method: 'PUT'
             });
             const status = await request.json();
