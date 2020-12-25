@@ -46,7 +46,7 @@ router.post('/login', (req, res, next) => {
        
         try {
             if (err || !user) {
-                const error = new Error('An Error occured');
+                const error = new Error('An Error occurred');
                 return next(error);
             }
             

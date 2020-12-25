@@ -41,6 +41,23 @@ const ProfileInboundFriends = (props) => {
         }
     };
 
+    // * Send User and Friend's IDs to Server To Process Declining Friend Request
+    const blockUser = async (id) => {
+        try {
+            const request = await fetch('/api/friends/block', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ friend: id, user: props.id }),
+                method: 'PUT'
+            });
+            const status = await request.json();
+            if (status.success) {
+                window.alert('Done it');
+            }
+        } catch (err) {
+            console.log({ err });
+        }
+    };
+
     // * On Page Load, Send User Id to Server To Process User's Inbound Friend Reqs
     useEffect(() => {
         const checkFriendReqs = async () => {
@@ -87,6 +104,12 @@ const ProfileInboundFriends = (props) => {
                             declineRequest(user.userID);
                         }}
                     >Decline Friend Request</button>
+                    <button
+                        onClick={e => {
+                            e.preventDefault();
+                            blockUser(user.userID);
+                        }}
+                    >Block User</button>
                 </div>
             ))}
         </article>
