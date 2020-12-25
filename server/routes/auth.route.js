@@ -116,6 +116,7 @@ router.post('/search', async ({ body }, res) => {
                 firstName: users.firstName,
                 lastName: users.lastName,
                 imageSrc: users.imageSrc,
+                blocked: users.blocked,
                 pending: users.inboundPendingFriends,
                 friends: users.friends,
                 invitedId: users._id,
