@@ -32,8 +32,7 @@ const SearchButton = (props) => {
             }}
         >Send Friend Request</button>;
     
-    // * Check if User Has Already Sent a Request { note: need to add another condition if they're already friends }
-    //    // So fun fact, forEach won't run if the array is empty :)
+    // * Check if User Has Already Sent a Request
     props.pending.forEach(searchedUser => {
         if (searchedUser === props.userId) {
             button =
@@ -44,6 +43,7 @@ const SearchButton = (props) => {
         }
     });
 
+    // * Check if User is already Friends
     props.friends.forEach(searchedUser => {
         if (searchedUser === props.userId) {
             button =
@@ -51,6 +51,17 @@ const SearchButton = (props) => {
                     className='SearchButton-msg'
                     onClick={e => e.preventDefault()}
                 >Message Friend</button>;
+        }
+    });
+
+     // * Check User has Been Blocked by this Search
+     props.blocked.forEach(searchedUser => {
+        if (searchedUser === props.userId) {
+            button =
+                <button
+                    className='SearchButton-msg'
+                    onClick={e => e.preventDefault()}
+                >You have been blocked</button>;
         }
     });
 
