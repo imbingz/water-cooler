@@ -3,8 +3,9 @@ import './SearchResults.css';
 import SearchButton from '../SearchButton';
 import SearchContext from '../../utils/SearchContext';
 
-const SearchResults = () => {
+const SearchResults = () => { 
 
+    // move the context wrapper to where SearchResults is called
 
     return (
         <SearchContext.Consumer>
@@ -14,7 +15,7 @@ const SearchResults = () => {
                     // * Map Through Users Returned From the DB
                     context.searchResults.map((returnedUser, index) => (
                         <article className='SearchResults-cont' key={index}>
-                            {/* Im not sure how to get the alt text to show the username as well, it doesn't combine the variable and the string after it 🤷‍♀️ */}
+                            {/* Im not sure how to get the alt text to show the username as well, it doesn't combine the variable and the string after it 🤷‍♀️ */} 
                             <img className="SearchResults-img"
                                 src={returnedUser.imageSrc}
                                 alt="user's profile icon"
@@ -27,6 +28,7 @@ const SearchResults = () => {
                                 blocked={returnedUser.blocked}
                                 friends={returnedUser.friends}
                                 invitedId={returnedUser.invitedId}
+                                // We can deleted this to use global context in search button
                                 userId={context.userID}
                             />
                         </article>

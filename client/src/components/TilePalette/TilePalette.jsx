@@ -2,7 +2,7 @@ import React from 'react';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 
-/*** Tile component is a coollection of sprits  ** */
+/*** Tile component is a collection of sprits  ** */
 function TilePalette({ position, tileset, setTileset, activeTile, setActiveTile, setBgTile }) {
     //import tileset data from json folder - which replaces the size
     const tilesetData = require('../../data/tilesets.json');
@@ -27,7 +27,7 @@ function TilePalette({ position, tileset, setTileset, activeTile, setActiveTile,
     ]
     ****************/
 
-    //split the actively selectetd tileset (img) into  variants and tileset using destructuring - rpg-nature-tileset/spring
+    //split the actively selected tileset (img) into  variants and tileset using destructuring - rpg-nature-tileset/spring
     // const [tilesetGroup, tilesetVariant] = tileset.split('/');
     const [tilesetGroup, ] = tileset.split('/');
 
@@ -71,7 +71,7 @@ function TilePalette({ position, tileset, setTileset, activeTile, setActiveTile,
                 backgroundColor: 'white'
             } }>
             <div style={ { display: 'flex', margin: 4 } }>
-                {/* draggablle tool-bar image  */ }
+                {/* dragable tool-bar image  */ }
                 <img id='handle' src='/img/drag-handle.png' alt='' />
                 {/* display activeTile div */ }
                 <div style={ { position: 'relative', width: 32, marginLeft: 8 } }>

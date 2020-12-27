@@ -20,9 +20,9 @@ const SearchButton = (props) => {
             console.log({ err });
         }
     };
-
-
     // * Default Button To Render
+    // change to dispatch and reducer for props
+    // create state for the database values
     let button =
         <button 
             className='SearchButton-send'

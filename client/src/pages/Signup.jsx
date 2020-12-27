@@ -52,7 +52,7 @@ const Signup = props => {
                     <input required id='username' name='username' type='text' ref={usernameRef} />
                 </div>
                 <div className='Signup-form-group'>
-                    <label htmlFor='email'>Emai: </label>
+                    <label htmlFor='email'>Email: </label>
                     <input required type='email' id='email' name='email' ref={emailRef} />
                 </div>
                 <div className='Signup-form-group'>

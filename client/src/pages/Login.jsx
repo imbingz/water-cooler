@@ -11,9 +11,6 @@ const Login = () => {
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
 
-        // ***  DELETE CONSOLE LOG LATER ****//
-        console.log(email, password);
-
         try {
             const response = await fetch('/api/user/login', {
                 headers: {
@@ -27,12 +24,6 @@ const Login = () => {
             });
 
             const data = await response.json();
-            
-            console.log(data);
-
-            /****** json response obj 
-             {token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Z…xNjd9.Wf7nRWsOiPXTwB-BVNPd9FSNv2JPGtjvGmW3GyksY3I", user: {…}}
-              ****** */
 
             if (data.error) {
                 console.log(data.error);
@@ -43,7 +34,9 @@ const Login = () => {
                 emailRef.current.focus();
                 return;
             }
-
+            // change to global context
+            //  // have db return userID, username, imageSrc, names, blocked array
+            //  // sessionID once authenticated
             localStorage.setItem('USER', JSON.stringify(data.user));
 
             history.push('/room');
