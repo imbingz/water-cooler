@@ -21,14 +21,14 @@ const Search = () => {
             });
             // console.log(response);
             const data = await response.json();
-            console.log(data);
+            // console.log(data);
             if (!data.success) {
                 window.alert('No match 😮');
                 return;
             }
             // ** If Results Are Found, set State To Trigger SearchResults.jsx
             setSearchResults(data.query);
-            console.log(typeof(data.query));
+            console.log(data.query);
         } catch (err) {
             console.log({ err });
         }

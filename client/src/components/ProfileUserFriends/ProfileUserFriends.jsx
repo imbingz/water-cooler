@@ -10,11 +10,28 @@ const ProfileUserFriends = (props) => {
         console.log('sendMessage will definitely do something eventually');
     };
 
-    // * On Page Load, Send User Id to Server To Process User's Inbound Friend Reqs
+    // * Send User and Friend's IDs to Server To Process Unfriend Request
+    const unfriend = async (id) => {
+        try {
+            const request = await fetch('/api/friends/unfriend', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ friend: id, user: props.id }),
+                method: 'PUT'
+            });
+            const status = await request.json();
+            if (status.success) {
+                window.alert('Done it');
+            }
+        } catch (err) {
+            console.log({ err });
+        }
+    };
+
+    // * On Page Load, Send User Id to Server To Process User's Inbound Friend Request
     useEffect(() => {
         const checkFriends = async () => {
             try {
-                const response = await fetch('/api/user/friends', {
+                const response = await fetch('/api/friends/friends', {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ id: props.id }),
                     method: 'POST'
@@ -50,6 +67,12 @@ const ProfileUserFriends = (props) => {
                             sendMessage();
                         }}
                     >Send Message</button>
+                    <button
+                        onClick={e => {
+                            e.preventDefault();
+                            unfriend(user.userID);
+                        }}
+                    >Unfriend</button>
                 </div>
             ))}
         </article>
