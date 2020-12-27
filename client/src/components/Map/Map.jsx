@@ -5,11 +5,7 @@ import Player from '../../components/Player';
 /******************************* ALEX */
 let socket;
 
-if (!socket) {
-    socket = io('http://localhost:8080', {
-        transports: ['websocket']
-    }); //this is the  client connection. it starts when client connects
-}
+
 /*********************************** */
 
 function Map({ tiles, tileset, size, activeTile, setTiles, bgTile }) {
@@ -23,8 +19,11 @@ function Map({ tiles, tileset, size, activeTile, setTiles, bgTile }) {
     ***************/
     const [greeting, setGreeting] = React.useState('');
 
+    if (!socket) {
+        socket = io('/', {
+            transports: ['websocket']
+        }); //this is the  client connection. it starts when client connects
 
-    React.useEffect(() => {
         socket.on('connect', () => {
             console.log('hit connect');
             setPlayer({ id: socket.id, name: Math.random() });
@@ -34,11 +33,6 @@ function Map({ tiles, tileset, size, activeTile, setTiles, bgTile }) {
         socket.on('connect_error', err => {
             console.log(err);
         });
-
-
-        /********************************
-       state plyrs: {"VEf-RG4xQsUqPWgpAAAF":{"x":0,"y":0},"QONco2PVTxzwGBjsAAAL":{"x":0,"y":0},"BiKQtjhxPP6g2fCFAAAN":{"x":255,"y":100},"ILWM32u5CTcQ6WWIAAAP":{"x":204,"y":427},"xWvlzx5m98uL4TvjAAAX":{"x":292,"y":264},"YhN8HnUv51JGxliaAAAZ":{"x":407,"y":234}}
-        * *************************** */
 
         socket.on('state', (state) => {
             if (!state) { return; } console.log(state);
@@ -53,9 +47,13 @@ function Map({ tiles, tileset, size, activeTile, setTiles, bgTile }) {
             console.log(msg);
             setGreeting(msg);
         });
-    }, []);
+    }
+    
+    
 
-
+    /********************************
+     state plyrs: {"VEf-RG4xQsUqPWgpAAAF":{"x":0,"y":0},"QONco2PVTxzwGBjsAAAL":{"x":0,"y":0},"BiKQtjhxPP6g2fCFAAAN":{"x":255,"y":100},"ILWM32u5CTcQ6WWIAAAP":{"x":204,"y":427},"xWvlzx5m98uL4TvjAAAX":{"x":292,"y":264},"YhN8HnUv51JGxliaAAAZ":{"x":407,"y":234}}
+    * *************************** */
 
     React.useEffect(() => {
         if (player) {
