@@ -3,6 +3,39 @@ const db = require('../models');
 
 // * Functions
 // ** Manage friends Array 
+
+const accessDB = {
+    // *** Push To friends Array
+    push: async (queryId, insertId, array) => {
+        try {
+            const user = await db.User.findByIdAndUpdate( // eslint-disable-line no-unused-vars 
+                { _id: queryId },
+                { $addToSet: { [array]: insertId } },
+                { new: true }
+            );
+            console.log(user);
+            return user;
+        } catch (err) {
+            console.log('Friends Arr Push Error: ', err);
+        }
+    }, 
+    // *** Pull From friends Array
+    pull: async (queryId, insertId, array) => {
+        try {
+            const user = await db.User.findByIdAndUpdate( // eslint-disable-line no-unused-vars 
+                { _id: queryId },
+                { $pull: { [array]: insertId } },
+                { new: true }
+            );
+            console.log(user);
+            return user;
+        } catch (err) {
+            console.log('Friends Arr Pull Error: ', err);
+        }
+    }
+};
+
+
 const friendsArray = {
     // *** Push To friends Array
     push: async (queryId, insertId) => {
@@ -135,14 +168,18 @@ const blockedArray = {
 router.put('/accept', async ({ body }, res) => {
     // console.log('Hit Accept Friend Req API: ', body);
     try {
-        // ** Access User's Friend's Db and Push User's ID to friends Array
-        friendsArray.push(body.friend, body.user);
-        // ** Access User's Friend's db and Pull User's ID From outbound array 
-        outboundArray.pull(body.friend, body.user);
+        // ** Access User's Friend's Db and Push User's ID to 'friends' Array
+        // friendsArray.push(body.friend, body.user);
+        accessDB.push(body.friend, body.user, friends);
+        // ** Access User's Friend's db and Pull User's ID From 'outboundPendingFriends' array 
+        // outboundArray.pull(body.friend, body.user);
+        accessDB.pull(body.friend, body.user, outboundPendingFriends);
         // ** Access User's db and Push Friend's ID to friends Array
-        friendsArray.push(body.user, body.friend);
-        // ** Access User's db and Pull Friend's  From inbound Array
-        inboundArray.pull(body.user, body.friend);
+        // friendsArray.push(body.user, body.friend);
+        accessDB.push(body.user, body.friend, friends);
+        // ** Access User's db and Pull Friend's From 'inboundPendingFriends' Array
+        // inboundArray.pull(body.user, body.friend);
+        accessDB.pull(body.user, body.friend, inboundPendingFriends);
         // ** Send Success to Client
         res.json({ success: true });
     } catch (err) {
