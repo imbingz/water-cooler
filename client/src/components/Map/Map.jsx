@@ -1,8 +1,75 @@
 import React from 'react';
+import io from 'socket.io-client';
+import Player from '../../components/Player';
+
+/******************************* ALEX */
+let socket;
+
+if (!socket) {
+    socket = io('http://localhost:8080', {
+        transports: ['websocket']
+    }); //this is the  client connection. it starts when client connects
+}
+/*********************************** */
 
 function Map({ tiles, tileset, size, activeTile, setTiles, bgTile }) {
+    /******************************* ALEX  */
+    const [player, setPlayer] = React.useState(null);
+    const [players, setPlayers] = React.useState({});
+
+    /***************************** Bing 
+     new player  obj is :
+    {"id":"0aYC7eFLb9qfs_F4AAAN","name":0.42344489395629115}
+    ***************/
+    const [greeting, setGreeting] = React.useState('');
+
+
+    React.useEffect(() => {
+        socket.on('connect', () => {
+            console.log('hit connect');
+            setPlayer({ id: socket.id, name: Math.random() });
+            console.log(`socket.id is ${socket.id}`);
+        });
+
+        socket.on('connect_error', err => {
+            console.log(err);
+        });
+
+
+        /********************************
+       state plyrs: {"VEf-RG4xQsUqPWgpAAAF":{"x":0,"y":0},"QONco2PVTxzwGBjsAAAL":{"x":0,"y":0},"BiKQtjhxPP6g2fCFAAAN":{"x":255,"y":100},"ILWM32u5CTcQ6WWIAAAP":{"x":204,"y":427},"xWvlzx5m98uL4TvjAAAX":{"x":292,"y":264},"YhN8HnUv51JGxliaAAAZ":{"x":407,"y":234}}
+        * *************************** */
+
+        socket.on('state', (state) => {
+            if (!state) { return; } console.log(state);
+            const { players, message } = state;
+            console.log(`state plyrs: ${JSON.stringify(players)}`);
+            setPlayers(players);
+            if (message) { setGreeting(message); }
+            else { setGreeting(''); }
+        });
+
+        socket.on('greeting', msg => {
+            console.log(msg);
+            setGreeting(msg);
+        });
+    }, []);
+
+
+
+    React.useEffect(() => {
+        if (player) {
+            console.log(`hit palyer useEffect(): ${JSON.stringify(player)}`);
+            socket.emit('new player', player);
+        }
+    }, [player]);
+
+
+
+    /*********************************** */
+
+
     //define dropTile for onClick event -
-    //need to first clone the previous matrix (map) because we have to work on it immutably, meaning we cannot just edit the previous matrix state. we need to clone the previouse matrix state and then alter that copy and set the tile back to that copy
 
     //clone matrix (see reason above)
     function cloneMatrix(m) {
@@ -40,6 +107,26 @@ function Map({ tiles, tileset, size, activeTile, setTiles, bgTile }) {
                 width: size.width,
                 height: size.height
             } }>
+
+            {greeting && <h6> { greeting } </h6> }
+
+            {Object.keys(players).map(key => {
+                console.log(key, player.id);
+                if (key === player.id) {
+                    return (
+                        <Player
+                            skin='f1'
+                            pos={ players[key] }
+                            emitPos={ pos => socket.emit('movement', pos) }
+                        />
+                    );
+                }
+
+                return (
+                    <Player skin='f1' pos={ players[key] } />
+                );
+            }) }
+
             {/* background layer  */ }
             <div style={ { position: 'absolute', zIndex: 1 } }>
                 { tiles.map((row, y) => (
@@ -47,18 +134,14 @@ function Map({ tiles, tileset, size, activeTile, setTiles, bgTile }) {
                         {row.map((tile, x) => (
                             <div
                                 onClick={ () => {
-                                    // console.log('tile clicked:', { tile });
                                     dropTile({ x, y });
                                 } }
                                 key={ tile.id }
                                 style={ {
                                     borderTop: '1px solid black',
                                     borderRight: '1px solid black',
-                                    // background: `-${tile.v.x * 32}px -${tile.v.y * 32}px
-                                    // no-repeat`,
                                     background: `url(/sprites/${tileset}.png)
                                     -${bgTile.x}px -${bgTile.y}px no-repeat`,
-                                    // background: `-${tile.v.x}px -${tile.v.y}px no-repeat`,
                                     width: 32,
                                     height: 32
                                 } }
@@ -74,18 +157,14 @@ function Map({ tiles, tileset, size, activeTile, setTiles, bgTile }) {
                         {row.map((tile, x) => (
                             <div
                                 onClick={ () => {
-                                    // console.log('tile clicked:', { tile });
                                     dropTile({ x, y });
                                 } }
                                 key={ tile.id }
                                 style={ {
                                     borderTop: '1px solid black',
                                     borderRight: '1px solid black',
-                                    // background: `-${tile.v.x * 32}px -${tile.v.y * 32}px
-                                    // no-repeat`,
                                     background: `url(/sprites/${tileset}.png)
                                       -${tile.v.x}px -${tile.v.y}px no-repeat`,
-                                    // background: `-${tile.v.x}px -${tile.v.y}px no-repeat`,
                                     width: 32,
                                     height: 32
                                 } }
