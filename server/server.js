@@ -15,6 +15,10 @@ require('./config/db')();
 
 const PORT = process.env.PORT || 5000;
 
+//******************************** Alex
+// const socketPORT = process.env.socketPORT || 8080;
+
+
 // parsing middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -29,7 +33,16 @@ app.use(passport.session());
 // Routes
 app.use(routes);
 
+//******************************** Alex
+const players = {};
+
 io.on('connect', (socket) => {
+//******************************** Bing
+    players[socket.id] = {
+        x: 0, y: 0
+    };
+    io.sockets.emit('state', {players});
+    //********************************//
     socket.on('new-user', (roomUrlId, name) => {
         socket.join(roomUrlId);
         socket.room = roomUrlId;
@@ -53,8 +66,63 @@ io.on('connect', (socket) => {
 
     socket.on('disconnect', () => {
         socket.to(socket.room).broadcast.emit('user-disconnected');
+        
+        //******************************** Bing
+        delete players[socket.id];
     });
+
+
+   
+    //******************************** Alex -  Bing
+    socket.on('movement', (data) => {
+    
+        console.log('movement called', {data});
+        // console.log({players});
+        if (data.x < 0) {
+            data.x = 0;
+        }
+
+        if (data.x > 800) {
+            data.x = 800;
+        }
+
+        if (data.y < 0) {
+            data.y = 0;
+        }
+
+        if (data.y > 600) {
+            data.y = 600;
+        }
+
+        players[socket.id] = data;
+
+        let message; 
+
+        if(players) {
+            console.log(players);
+            let playerPositions = Object.values(players);
+            for (let i = 0; !message && i < playerPositions.length ; i++) {
+                for (let j = i + 1; !message && j < playerPositions.length; j++) {
+                    // console.log(playerPositions[i].x)
+                    if (Math.abs( playerPositions[i].x - playerPositions[j].x ) <= 32 && Math.abs(playerPositions[i].y - playerPositions[j].y) <= 32) {
+                        console.log('distance x: ' + Math.abs(playerPositions[i].x - playerPositions[j].x) + ' distance y: ' + Math.abs(playerPositions[i].y - playerPositions[j].y));
+                        message = 'Hey, like to chat?'; 
+                     
+                        // socket.emit('greeting', 'Hey, like to chat?');
+                    } 
+                }
+            }
+        }
+        
+        // players[socket.id] = data;
+
+        socket.emit('state', {players, message});
+        
+    });
+    /*********************************** */
 });
+
+
 
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
@@ -66,3 +134,8 @@ if (process.env.NODE_ENV === 'production') {
 http.listen(PORT, () => {
     console.log('Server is running on PORT: ' + PORT);
 });
+
+/*********************************** Alex */
+// http.listen(socketPORT, () => {
+//     console.log('socket is running on port: ' + socketPORT);
+// });

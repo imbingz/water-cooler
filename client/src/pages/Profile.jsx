@@ -10,13 +10,12 @@ const Profile = props => {
     const usernameRef = useRef();
     const emailRef = useRef();
 
+    // use global context stored from Login
     const storedUser = JSON.parse(localStorage.getItem('USER'));
-    console.log('storedUser: ', storedUser);
 
-
-
-    //prefill the user info
+    //pre-fill the user info
     useEffect(() => {
+        // need to change here to global context stored from Login
         if ( !storedUser) {
             return history.push('/login');  
         } 
@@ -28,9 +27,8 @@ const Profile = props => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleSubmitForm = async e => {
+    const updateProfile = async e => {
         e.preventDefault();
-        console.log('submit form');
 
         const user = {
             _id: storedUser._id,
@@ -52,10 +50,8 @@ const Profile = props => {
             });
 
             const data = await response.json();
-            // console.log(json);
             if (data.user) {
                 console.log(data.user);
-
                 // *** NEED A BETTER WAY TO REPLACE ALERT  *** //
                 alert('Your profile is updated successfully');
             }
@@ -67,8 +63,8 @@ const Profile = props => {
     return (
         <main>
             <section>
-                <form className='Profile-form' onSubmit={handleSubmitForm}>
-                    {/* <div className='Profile-form-group'>
+                <form className='Profile-form' onSubmit={updateProfile}>
+                    <div className='Profile-form-group'>
                         <img className='Profile-image' src='assets/images/avarta.png' alt='avarta' />
                         <input
                             type='file'
@@ -83,7 +79,7 @@ const Profile = props => {
                             }}>
                             Upload
                         </button>
-                    </div> */}
+                    </div> 
                     <div className='Profile-form-group'>
                         <label htmlFor='firstName'>First Name: </label>
                         <input
@@ -91,7 +87,6 @@ const Profile = props => {
                             id='firstName'
                             name='firstName'
                             ref={firstNameRef}
-                        // value={user.firstName} onChange={handleInputChange}
                         />
                     </div>
                     <div className='Profile-form-group'>
@@ -100,10 +95,8 @@ const Profile = props => {
                             type='text'
                             id='lastName'
                             name='lastName'
-                            // defaultValue={user.lastName}
                             ref={lastNameRef}
-                        // value={user.lastName}
-                        // onChange={handleInputChange}
+                       
                         />
                     </div>
                     <div className='Profile-form-group'>
@@ -114,9 +107,6 @@ const Profile = props => {
                             name='username'
                             type='text'
                             ref={usernameRef}
-                        // defaultValue={user.username}
-                        // value={user.username}
-                        // onChange={handleInputChange}
                         />
                     </div>
                     <div className='Profile-form-group'>
@@ -126,10 +116,7 @@ const Profile = props => {
                             type='email'
                             id='email'
                             name='email'
-                            // defaultValue={user.email}
                             ref={emailRef}
-                        // value={user.email}
-                        // onChange={handleInputChange}
                         />
                     </div>
                     <button className='Profile-update-btn' type='submit'>
@@ -137,7 +124,8 @@ const Profile = props => {
                     </button>
                 </form>
             </section>
-            <section>
+            <section> 
+                {/* delete id prop once added in those components */}
                 <ProfileInboundFriends id={storedUser._id}/>
                 <ProfileUserFriends id={storedUser._id}/>
             </section>
