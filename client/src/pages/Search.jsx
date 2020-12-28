@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import SearchResults from '../components/SearchResults';
 import SearchContext from '../utils/SearchContext';
 
-
-
 const Search = () => {
     // * States
     const [searchQuery, setSearchQuery] = useState('');
@@ -19,16 +17,14 @@ const Search = () => {
                 body: JSON.stringify({search: searchQuery}),
                 method: 'POST'
             });
-            // console.log(response);
             const data = await response.json();
-            // console.log(data);
             if (!data.success) {
                 window.alert('No match 😮');
                 return;
             }
             // ** If Results Are Found, set State To Trigger SearchResults.jsx
             setSearchResults(data.query);
-            console.log(data.query);
+            // console.log(data.query);
         } catch (err) {
             console.log({ err });
         }
@@ -41,7 +37,8 @@ const Search = () => {
         setUserID(_id);
     }, []);
 
-
+    // const search = <SearchContext.Provider><Search/><SearchContextProvider>
+    // add contexts to where the component is referenced
     return (
         <SearchContext.Provider value={{ searchResults, userID }}>
             <>

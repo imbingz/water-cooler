@@ -57,7 +57,6 @@ const UserRoom = () => {
         populateRoom();
     }, [dispatch, roomUrlId]);
 
-
     const createSocialSpace = async (e) => {
         e.preventDefault();
         const { v4: uuidv4 } = require('uuid');

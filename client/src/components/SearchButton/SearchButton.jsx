@@ -7,10 +7,11 @@ const SearchButton = (props) => {
         try {
             const request = await fetch('/api/friends/request', {
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ invited: id, user: props.userId }),
+                body: JSON.stringify({ friend: id, user: props.userId }),
                 method: 'PUT'
             });
             const status = await request.json();
+            console.log(status);
             if (status.success) {
                 window.alert('Done it');
             } else if (!status.success) {
@@ -20,15 +21,15 @@ const SearchButton = (props) => {
             console.log({ err });
         }
     };
-
-
     // * Default Button To Render
+    // change to dispatch and reducer for props
+    // create state for the database values
     let button =
         <button 
             className='SearchButton-send'
             onClick={e => {
                 e.preventDefault();
-                friendRequest(props.invitedId);
+                friendRequest(props.friendId);
             }}
         >Send Friend Request</button>;
     

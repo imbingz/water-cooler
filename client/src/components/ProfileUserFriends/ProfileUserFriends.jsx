@@ -6,11 +6,13 @@ const ProfileUserFriends = (props) => {
     const [friends, setFriends] = useState([]);
 
     // * Send User and Friend's IDs to Server To Process Accepting Friend Request
+    // eventually will be in global context (or chat context or whatever)
     const sendMessage = () => {
         console.log('sendMessage will definitely do something eventually');
     };
 
     // * Send User and Friend's IDs to Server To Process Unfriend Request
+    // Move to global context
     const unfriend = async (id) => {
         try {
             const request = await fetch('/api/friends/unfriend', {
@@ -28,6 +30,7 @@ const ProfileUserFriends = (props) => {
     };
 
     // * On Page Load, Send User Id to Server To Process User's Inbound Friend Request
+    // get props.id from global context
     useEffect(() => {
         const checkFriends = async () => {
             try {
@@ -38,7 +41,6 @@ const ProfileUserFriends = (props) => {
                 });
 
                 const data = await response.json();
-                // console.log(data);
                 setFriends(data.friends);
             } catch (err) {
                 console.log({ err });
@@ -47,7 +49,7 @@ const ProfileUserFriends = (props) => {
         checkFriends();
     }, [props.id]);
 
-
+    // move to profile page as functions
     return (
         <article>
             <h1>Friends</h1>
@@ -70,7 +72,7 @@ const ProfileUserFriends = (props) => {
                     <button
                         onClick={e => {
                             e.preventDefault();
-                            unfriend(user.userID);
+                            unfriend(user.friendId);
                         }}
                     >Unfriend</button>
                 </div>

@@ -42,6 +42,7 @@ const ProfileInboundFriends = (props) => {
     };
 
     // * Send User and Friend's IDs to Server To Process Declining Friend Request
+    // move to global context eventually, but on profile for now
     const blockUser = async (id) => {
         try {
             const request = await fetch('/api/friends/block', {
@@ -78,7 +79,7 @@ const ProfileInboundFriends = (props) => {
         checkFriendReqs();
     }, [props.id]);
 
-
+    // move functions to the profile page
     return (
         <article>
             <h1>Inbound Friend Requests</h1>
@@ -95,19 +96,19 @@ const ProfileInboundFriends = (props) => {
                     <button
                         onClick={e => {
                             e.preventDefault();
-                            acceptRequest(user.userID);
+                            acceptRequest(user.friendId);
                         }}
                     >Accept Friend Request</button>
                     <button
                         onClick={e => {
                             e.preventDefault();
-                            declineRequest(user.userID);
+                            declineRequest(user.friendId);
                         }}
                     >Decline Friend Request</button>
                     <button
                         onClick={e => {
                             e.preventDefault();
-                            blockUser(user.userID);
+                            blockUser(user.friendId);
                         }}
                     >Block User</button>
                 </div>
