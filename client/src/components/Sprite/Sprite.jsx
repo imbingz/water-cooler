@@ -7,19 +7,31 @@ function Sprite({ image, data, position }) {
 
     return (
         // set image position n size
-        <div
-            style={ {
-                position: 'absolute',
-                top: position.y,
-                left: position.x,
-                height: `${h}px`,
-                width: `${w}px`,
-                backgroundImage: `url(${image})`,
-                backgroundPosition: ` -${x}px -${y}px`, // which part of the sprite going to be visible - facing which direction - every frame is 32px x 32px
-                backgroundRepeat: 'no-repeat',
-                zIndex: 10
-            } }
-        />
+        <>
+            <div
+                style={ {
+                    position: 'absolute',
+                    top: position.y,
+                    left: position.x,
+                    height: `${h}px`,
+                    width: `${w}px`,
+                    backgroundImage: `url(${image})`,
+                    backgroundPosition: ` -${x}px -${y}px`, 
+                    backgroundRepeat: 'no-repeat',
+                    zIndex: 10
+                } }
+            />
+
+            <div
+                style={ {
+                    padding: '0px 30px',
+                    zIndex: 10
+                } }    
+            >
+            userName
+            </div>
+
+        </>
     );
 }
 
