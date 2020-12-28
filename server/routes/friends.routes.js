@@ -1,185 +1,19 @@
 const router = require('express').Router();
 const db = require('../models');
-
-// * Functions
-// ** Manage friends Array 
-
-const accessDB = {
-    // *** Push To friends Array
-    push: async (queryId, insertId, array) => {
-        try {
-            const user = await db.User.findByIdAndUpdate( // eslint-disable-line no-unused-vars 
-                { _id: queryId },
-                { $addToSet: { [array]: insertId } },
-                { new: true }
-            );
-            console.log(user);
-            return user;
-        } catch (err) {
-            console.log('Friends Arr Push Error: ', err);
-        }
-    }, 
-    // *** Pull From friends Array
-    pull: async (queryId, insertId, array) => {
-        try {
-            const user = await db.User.findByIdAndUpdate( // eslint-disable-line no-unused-vars 
-                { _id: queryId },
-                { $pull: { [array]: insertId } },
-                { new: true }
-            );
-            console.log(user);
-            return user;
-        } catch (err) {
-            console.log('Friends Arr Pull Error: ', err);
-        }
-    }
-};
-
-
-const friendsArray = {
-    // *** Push To friends Array
-    push: async (queryId, insertId) => {
-        try {
-            const user = await db.User.findByIdAndUpdate( // eslint-disable-line no-unused-vars 
-                { _id: queryId },
-                { $addToSet: { friends: insertId } },
-                { new: true }
-            );
-            console.log(user);
-            return user;
-        } catch (err) {
-            console.log('Friends Arr Push Error: ', err);
-        }
-    }, 
-    // *** Pull From friends Array
-    pull: async (queryId, insertId) => {
-        try {
-            const user = await db.User.findByIdAndUpdate( // eslint-disable-line no-unused-vars 
-                { _id: queryId },
-                { $pull: { friends: insertId } },
-                { new: true }
-            );
-            console.log(user);
-            return user;
-        } catch (err) {
-            console.log('Friends Arr Pull Error: ', err);
-        }
-    }
-};
-
-// ** Manage outboundPendingFriends Array
-const outboundArray = {
-    // *** Push To outboundPendingFriends Array
-    push: async (queryId, insertId) => {
-        try {
-            const user = await db.User.findByIdAndUpdate( // eslint-disable-line no-unused-vars 
-                { _id: queryId },
-                { $addToSet: { outboundPendingFriends: insertId } },
-                { new: true }
-            );
-            console.log(user);
-            return user;
-        } catch (err) {
-            console.log('OutboundPendingFriends Arr Push Error: ', err);
-        }
-    }, 
-    // *** Push To outboundPendingFriends Array
-    pull: async (queryId, insertId) => {
-        try {
-            const user = await db.User.findByIdAndUpdate( // eslint-disable-line no-unused-vars 
-                { _id: queryId },
-                { $pull: { outboundPendingFriends: insertId } },
-                { new: true }
-            );
-            console.log(user);
-            return user;
-        } catch (err) {
-            console.log('OutboundPendingFriends Arr Pull Error: ', err);
-        }
-    }
-};
-
-// ** Manage inboundPendingFriends Array
-const inboundArray = {
-    // *** Push To inboundPendingFriends Array
-    push: async (queryId, insertId) => {
-        try {
-            const user = await db.User.findByIdAndUpdate( // eslint-disable-line no-unused-vars 
-                { _id: queryId },
-                { $addToSet: { inboundPendingFriends: insertId } },
-                { new: true }
-            );
-            console.log(user);
-            return user;
-        } catch (err) {
-            console.log('InboundPendingFriends Arr Push Error: ', err);
-        }
-    }, 
-    // *** Push To inboundPendingFriends Array
-    pull: async (queryId, insertId) => {
-        try {
-            const user = await db.User.findByIdAndUpdate( // eslint-disable-line no-unused-vars 
-                { _id: queryId },
-                { $pull: { inboundPendingFriends: insertId } },
-                { new: true }
-            );
-            console.log(user);
-            return user;
-        } catch (err) {
-            console.log('InboundPendingFriends Arr Pull Error: ', err);
-        }
-    }
-};
-
-// ** Manage Blocked Array
-const blockedArray = {
-    // *** Push To blocked Array
-    push: async (queryId, insertId) => {
-        try {
-            const user = await db.User.findByIdAndUpdate( // eslint-disable-line no-unused-vars 
-                { _id: queryId },
-                { $addToSet: { blocked: insertId } },
-                { new: true }
-            );
-            console.log(user);
-            return user;
-        } catch (err) {
-            console.log('Blocked Arr Push Error: ', err);
-        }
-    }, 
-    // *** Push To Blocked Array
-    pull: async (queryId, insertId) => {
-        try {
-            const user = await db.User.findByIdAndUpdate( // eslint-disable-line no-unused-vars 
-                { _id: queryId },
-                { $pull: { blocked: insertId } },
-                { new: true }
-            );
-            console.log(user);
-            return user;
-        } catch (err) {
-            console.log('Blocked Arr Pull Error: ', err);
-        }
-    }
-};
-
+const { dbArray } = require('../controllers/user-arrays');
 
 // * Accepting Friend Request
 router.put('/accept', async ({ body }, res) => {
     // console.log('Hit Accept Friend Req API: ', body);
     try {
         // ** Access User's Friend's Db and Push User's ID to 'friends' Array
-        // friendsArray.push(body.friend, body.user);
-        accessDB.push(body.friend, body.user, friends);
-        // ** Access User's Friend's db and Pull User's ID From 'outboundPendingFriends' array 
-        // outboundArray.pull(body.friend, body.user);
-        accessDB.pull(body.friend, body.user, outboundPendingFriends);
-        // ** Access User's db and Push Friend's ID to friends Array
-        // friendsArray.push(body.user, body.friend);
-        accessDB.push(body.user, body.friend, friends);
+        dbArray.push('friends', body.friend, body.user);
+        // ** Access User's Friend's db and Pull User's ID From 'outboundPendingFriends' array
+        dbArray.pull('outboundPendingFriends', body.friend, body.user, );
+        // ** Access User's db and Push Friend's ID to 'friends' Array
+        dbArray.push('friends', body.user, body.friend);
         // ** Access User's db and Pull Friend's From 'inboundPendingFriends' Array
-        // inboundArray.pull(body.user, body.friend);
-        accessDB.pull(body.user, body.friend, inboundPendingFriends);
+        dbArray.pull('inboundPendingFriends', body.user, body.friend);
         // ** Send Success to Client
         res.json({ success: true });
     } catch (err) {
@@ -192,12 +26,12 @@ router.put('/accept', async ({ body }, res) => {
 router.put('/block', async ({ body }, res) => {
     // console.log('Hit Accept Friend Req API: ', body);
     try {
-        // ** Access User's Friend's db and Pull User's ID From outbound Array 
-        outboundArray.pull(body.friend, body.user);
-        // ** Access User's db and Pull Friend's ID From inbound Array
-        inboundArray.pull(body.user, body.friend);
-        // ** Access User's db and Update blocked Array
-        blockedArray.push(body.user, body.friend);
+        // ** Access User's Friend's db and Pull User's ID From 'outboundPendingFriends' Array
+        dbArray.pull('outboundPendingFriends', body.friend, body.user);
+        // ** Access User's db and Pull Friend's ID From 'inboundPendingFriends' Array
+        dbArray.pull('inboundPendingFriends', body.user, body.friend);
+        // ** Access User's db and Update 'blocked' Array
+        dbArray.push('blocked', body.user, body.friend);
         // ** Send Success to Client
         res.json({ success: true });
     } catch (err) {
@@ -208,12 +42,12 @@ router.put('/block', async ({ body }, res) => {
 
 // * Decline Friend Request
 router.put('/decline', async ({ body }, res) => {
-    // console.log('Hit Accept Friend Req API: ', body);
+    // console.log('Hit Decline Friend Req API: ', body);
     try {
-        // ** Access User's Friend's db and Pull User's ID From outbound array 
-        outboundArray.pull(body.friend, body.user);
-        // ** Access User's db and Pull Friend's ID From inbound Array
-        inboundArray.pull(body.user, body.friend);
+        // ** Access User's Friend's db and Pull User's ID From 'outboundPendingFriends' array
+        dbArray.pull('outboundPendingFriends', body.friend, body.user);
+        // ** Access User's db and Pull Friend's ID From 'inboundPendingFriends' Array
+        dbArray.pull('inboundPendingFriends', body.user, body.friend);
         // ** Send Success to Client
         res.json({ success: true });
     } catch (err) {
@@ -248,13 +82,13 @@ router.post('/friends', async ({ body }, res) => {
         }
 
         // ** Loop Through Results to Store Relevant Data in an Object
-        friends.forEach(userRaw => {
+        friends.forEach(friends => {
             let userParsed = {
-                username: userRaw.username,
-                firstName: userRaw.firstName,
-                lastName: userRaw.lastName,
-                imageSrc: userRaw.imageSrc,
-                userID: userRaw._id,
+                username: friends.username,
+                firstName: friends.firstName,
+                lastName: friends.lastName,
+                imageSrc: friends.imageSrc,
+                friendId: friends._id,
             };
             // console.log(userParsed);
 
@@ -304,13 +138,13 @@ router.post('/inpending', async ({ body }, res) => {
         }
 
         // ** Loop Through Results to Store Relevant Data in an Object
-        pendingFriends.forEach(userRaw => {
+        pendingFriends.forEach(friends => {
             let userParsed = {
-                username: userRaw.username,
-                firstName: userRaw.firstName,
-                lastName: userRaw.lastName,
-                imageSrc: userRaw.imageSrc,
-                userID: userRaw._id,
+                username: friends.username,
+                firstName: friends.firstName,
+                lastName: friends.lastName,
+                imageSrc: friends.imageSrc,
+                friendId: friends._id,
             };
             // console.log({userParsed});
 
@@ -330,11 +164,12 @@ router.post('/inpending', async ({ body }, res) => {
 
 // * Send Friend Request
 router.put('/request', async ({ body }, res) => {
+    // console.log('Hit Send Friend Req API: ', body);
     try {
-        // ** Find User's db and Push the Friend's ID to outboundPendingFriends
-        outboundArray.push(body.user, body.friend);
-        // ** Find Invited User's db and Push the Id of the User to inboundPendingFriends Array
-        inboundArray.push(body.friend, body.user);
+        // ** Find User's Friend's db and Push User's ID to 'inboundPendingFriends' Array
+        dbArray.push('inboundPendingFriends', body.friend, body.user);
+        // ** Find User's db and Push the Friend's ID to 'outboundPendingFriends'
+        dbArray.push('outboundPendingFriends', body.user, body.friend);
         // ** Send Success To Server
         res.json({ success: true });
     } catch (err) {
@@ -347,10 +182,10 @@ router.put('/request', async ({ body }, res) => {
 router.put('/unfriend', async ({ body }, res) => {
     // console.log('Hit Accept Friend Req API: ', body);
     try {
-        // ** Access User's Friend's Db and Pull User's ID From friends Array
-        friendsArray.pull(body.friend, body.user);
-        // ** Access User's db and Pull Friend's From Friends Array
-        friendsArray.pull(body.user, body.friend);
+        // ** Access User's Friend's Db and Pull User's ID From 'friends' Array
+        dbArray.pull('friends', body.friend, body.user);
+        // ** Access User's db and Pull Friend's ID From 'friends' Array
+        dbArray.pull('friends', body.user, body.friend);
         // ** Send Success to Client
         res.json({ success: true });
     } catch (err) {

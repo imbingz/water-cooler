@@ -11,6 +11,7 @@ const SearchButton = (props) => {
                 method: 'PUT'
             });
             const status = await request.json();
+            console.log(status);
             if (status.success) {
                 window.alert('Done it');
             } else if (!status.success) {
@@ -28,7 +29,7 @@ const SearchButton = (props) => {
             className='SearchButton-send'
             onClick={e => {
                 e.preventDefault();
-                friendRequest(props.invitedId);
+                friendRequest(props.friendId);
             }}
         >Send Friend Request</button>;
     

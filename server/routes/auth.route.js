@@ -119,7 +119,7 @@ router.post('/search', async ({ body }, res) => {
                 blocked: users.blocked,
                 pending: users.inboundPendingFriends,
                 friends: users.friends,
-                invitedId: users._id,
+                friendId: users._id,
             };
 
             // *** Push Each Result to response

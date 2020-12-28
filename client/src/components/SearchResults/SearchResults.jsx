@@ -26,7 +26,7 @@ const SearchResults = () => {
                                 pending={returnedUser.pending}
                                 blocked={returnedUser.blocked}
                                 friends={returnedUser.friends}
-                                invitedId={returnedUser.invitedId}
+                                friendId={returnedUser.friendId}
                                 userId={context.userID}
                             />
                         </article>

@@ -70,7 +70,7 @@ const ProfileUserFriends = (props) => {
                     <button
                         onClick={e => {
                             e.preventDefault();
-                            unfriend(user.userID);
+                            unfriend(user.friendId);
                         }}
                     >Unfriend</button>
                 </div>

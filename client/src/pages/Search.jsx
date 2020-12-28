@@ -28,7 +28,7 @@ const Search = () => {
             }
             // ** If Results Are Found, set State To Trigger SearchResults.jsx
             setSearchResults(data.query);
-            console.log(data.query);
+            // console.log(data.query);
         } catch (err) {
             console.log({ err });
         }

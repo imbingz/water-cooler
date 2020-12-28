@@ -95,19 +95,19 @@ const ProfileInboundFriends = (props) => {
                     <button
                         onClick={e => {
                             e.preventDefault();
-                            acceptRequest(user.userID);
+                            acceptRequest(user.friendId);
                         }}
                     >Accept Friend Request</button>
                     <button
                         onClick={e => {
                             e.preventDefault();
-                            declineRequest(user.userID);
+                            declineRequest(user.friendId);
                         }}
                     >Decline Friend Request</button>
                     <button
                         onClick={e => {
                             e.preventDefault();
-                            blockUser(user.userID);
+                            blockUser(user.friendId);
                         }}
                     >Block User</button>
                 </div>
