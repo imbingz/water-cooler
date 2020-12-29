@@ -33,8 +33,10 @@ const Search = () => {
     // * Listen to Page Load To Get User ID from Local Storage
     //  // Should this happen/be stored in global context?
     useEffect(() => {
-        const { _id } = JSON.parse(localStorage.getItem('USER'));
-        setUserID(_id);
+        if (localStorage.getItem('USER') !==null ) {
+            const { _id } = JSON.parse(localStorage.getItem('USER'));
+            setUserID(_id);
+        }
     }, []);
 
     // const search = <SearchContext.Provider><Search/><SearchContextProvider>

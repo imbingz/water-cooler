@@ -60,6 +60,8 @@ const Profile = props => {
         }
     };
 
+   
+
     return (
         <main>
             <section>
@@ -124,11 +126,15 @@ const Profile = props => {
                     </button>
                 </form>
             </section>
-            <section> 
-                {/* delete id prop once added in those components */}
-                <ProfileInboundFriends id={storedUser._id}/>
-                <ProfileUserFriends id={storedUser._id}/>
-            </section>
+            
+            {/* delete id prop once added in those components */}
+            {storedUser && <section>
+                <ProfileInboundFriends id={ storedUser._id } />
+                <ProfileUserFriends id={ storedUser._id } />
+            </section> }
+            
+            
+                
         </main>
     );
 };
