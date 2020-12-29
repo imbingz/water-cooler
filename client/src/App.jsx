@@ -12,6 +12,7 @@ import UserRoom from './pages/UserRoom';
 import SocialSpace from './pages/SocialSpace';
 import Navbar from './components/Navbar';
 import GameRPG from './pages/GameRPG';
+import './App.css';
 
 function App() {
     return (
