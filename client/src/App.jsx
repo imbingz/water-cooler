@@ -12,6 +12,8 @@ import UserRoom from './pages/UserRoom';
 import SocialSpace from './pages/SocialSpace';
 import Navbar from './components/Navbar';
 import GameRPG from './pages/GameRPG';
+import Footer from './components/Footer';
+import './App.css';
 
 function App() {
     return (
@@ -36,6 +38,8 @@ function App() {
                         <Route exact path='/game' component={ GameRPG} />
                     </Switch>
                 </div>
+
+                <Footer />
             </GlobalProvider>
         </Router>
     );
