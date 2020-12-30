@@ -10,17 +10,20 @@ import Search from './pages/Search';
 import Rooms from './pages/Rooms';
 import UserRoom from './pages/UserRoom';
 import SocialSpace from './pages/SocialSpace';
-import Navbar from './components/Navbar';
 import GameRPG from './pages/GameRPG';
 import Footer from './components/Footer';
 import './App.css';
+// import Navbar from './components/Navbar';
+import SideNav from './components/SideNav';
 
 function App() {
     return (
         <Router>
             <GlobalProvider>
 
-                <Navbar />
+                <SideNav />
+
+                {/* <Navbar /> */}
 
                 <div className="App">
                     <Switch>
