@@ -3,6 +3,7 @@ import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
 import RoomCarousel from '../components/RoomCarousel';
 import CreateRoom from '../components/CreateRoom';
+import FriendsRoom from '../components/FriendsRoom';
 
 const Homepage = () => {
     return (
@@ -17,26 +18,19 @@ const Homepage = () => {
                     
                     <Row className='d-flex justify-content-center mx-5'>
 
-                        {/* RoomCarousel Component */}         
-                        <RoomCarousel />
+                        {/* RoomCarousel Component */}  
 
+                        <Col xs={12} lg={5} md={6} className='pb-3' >       
+                            <RoomCarousel />
+                        </Col>
                         {/* CreateRoom Component */}          
                         <CreateRoom/>
                         
                     </Row>
                 </Container>
-                <Container className='my-5 p-3' style={{backgroundColor: 'pink'}}> 
-                    <Row className='d-flex justify-content-center mx-5'>
-                        <Col xs={12} lg={4}>
-                            <h3>Friends Room Card 1</h3>
-                        </Col>
-                        <Col xs={12} lg={4}>
-                            <h3>Friends Room Card 2</h3>
-                        </Col>
-                        <Col xs={12} lg={4}>
-                            <h3>Friends Room Card 3</h3>
-                        </Col>
-                    </Row>
+
+                <Container className='my-5 p-3' style={{backgroundColor: '#0af'}}> 
+                    <FriendsRoom/>
                 </Container>
             </Container>
         </main>

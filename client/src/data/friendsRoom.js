@@ -10,7 +10,7 @@ const friendsRoom = [
     {
         roomname: 'Times-Conflux',
         roomDiscription: 'dolor sit amet consectetur adipisicing elit. Sapiente',
-        roomStyle: '/sprites/rpg-nature-tileset/fall.png',
+        roomStyle: '/sprites/rpg-nature-tileset/winter.png',
         host: 'Scrota',
         members: 8,
         duration: '42min',
@@ -18,7 +18,7 @@ const friendsRoom = [
     {
         roomname: 'The-Taken-King',
         roomDiscription: 'dolor sit amet consectetur adipisicing elit. Sapiente',
-        roomStyle: '/sprites/rpg-nature-tileset/winter.png',
+        roomStyle: '/sprites/rpg-nature-tileset/casino.png',
         host: 'kingsfall',
         members: 8,
         duration: '34min',
@@ -34,27 +34,12 @@ const friendsRoom = [
     {
         roomname: 'Oryx-Raid',
         roomDiscription: 'dolor sit amet consectetur adipisicing elit. Sapiente',
-        roomStyle: '/sprites/rpg-nature-tileset/casino.png',
+        roomStyle: '/sprites/rpg-nature-tileset/fall.png',
         host: 'The-King',
         members: 8,
         duration: '19min',
     },
-    {
-        roomname: 'Archon-Prime',
-        roomDiscription: 'dolor sit amet consectetur adipisicing elit. Sapiente',
-        roomStyle: '/sprites/rpg-nature-tileset/fall.png',
-        host: 'Spider',
-        members: 8,
-        duration: '32min',
-    },
-    {
-        roomname: 'kingsfall',
-        roomDiscription: 'dolor sit amet consectetur adipisicing elit. Sapiente',
-        roomStyle: '/sprites/rpg-nature-tileset/winter.png',
-        host: 'Auryx',
-        members: 8,
-        duration: '23min',
-    },
+   
 ];
 
 export default friendsRoom;
