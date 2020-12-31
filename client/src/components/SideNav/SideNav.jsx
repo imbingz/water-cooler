@@ -16,25 +16,6 @@ function SideNav() {
     return (
         <header>
             <IconContext.Provider value={{ color: '#fff' }}>
-                {/* <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-                    
-                    <Link to='/profile' className='menu-bars'>
-                        <BsPeopleCircle />
-                    </Link>
-                    <Link to='#' className='menu-bars'>
-                        <CgMenu onClick={showSidebar} />
-                    </Link>
-                    
-                    <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                    <Navbar.Collapse id="responsive-navbar-nav">
-                        <Nav className="ml-auto">
-                            <Nav.Link className="ml-auto" href="#features">Profile Icon</Nav.Link>
-                            <Nav.Link className="ml-auto" href="#pricing">Logout</Nav.Link>
-                        
-                        </Nav>
-                    </Navbar.Collapse>
-                </Navbar> */}
-              
                 <nav className='Header-navbar'>
                     <div className='Header-left'>
                         <Link to='/profile' className='Header-profile-icon'>
@@ -58,7 +39,7 @@ function SideNav() {
                 
                 <aside className={sidebar ? 'Sidenav-menu active' : 'Sidenav-menu'}>
                     <ul className='Sidenav-menu-items' >
-                        <li className='Sidenav-toggle' onClick={showSidebar}>
+                        <li onClick={showSidebar}className='Sidenav-toggle' >
                             <Link to='#' className='Header-menu-bars'>
                                 <AiOutlineClose />
                             </Link>
