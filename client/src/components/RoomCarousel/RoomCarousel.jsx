@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {Carousel} from 'react-bootstrap';
 import roomStyles from '../../data/roomStyles';
+import './RoomCarousel.css';
+
 
 
 
