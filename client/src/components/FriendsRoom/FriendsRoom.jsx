@@ -11,11 +11,12 @@ function FriendsRoom() {
     return (
 
         <IconContext.Provider value={{ color: '#84f', size: 20 }}>
+            <Row className='d-flex justify-content-center align-items-center mt-3'> <h5 >Join A Friend's Room</h5> </Row>
 
             <Row className='d-flex flex-wrap justify-content-around align-items-sm-center'>
-
+                
                 {friendsRoom.map(room => (
-                    <div className="my-4">
+                    <div className="my-3">
                         <Col className='mb-4'>
                             <Card style={{ width: '325px' }} className='p-4'>
                                 <Card.Img variant="top" src={room.roomStyle} style={{width: 288, height: 185}}/>
