@@ -20,10 +20,9 @@ const Homepage = () => {
                         {/* RoomCarousel Component */}         
                         <RoomCarousel />
 
-                        {/* CreateRoom Component */}
-                        <Col xs={12} lg={7} md={6} className='pl-2 pb-3'>
-                            <CreateRoom/>
-                        </Col>
+                        {/* CreateRoom Component */}          
+                        <CreateRoom/>
+                        
                     </Row>
                 </Container>
                 <Container className='my-5 p-3' style={{backgroundColor: 'pink'}}> 
