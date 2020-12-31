@@ -12,17 +12,15 @@ const Homepage = () => {
                 <Container className='mt-3 p-4' style={{backgroundColor: 'greenyellow'}}> 
                     <Row >
                         <Col className='text-center pb-2 mb-4'>
-                            <h3>Create Room</h3>
+                            <h3>Create A Room</h3>
                         </Col>
                     </Row>
                     
                     <Row className='d-flex justify-content-center mx-5'>
+                        
+                        {/* RoomCarousel Component */}    
+                        <RoomCarousel />
 
-                        {/* RoomCarousel Component */}  
-
-                        <Col xs={12} lg={5} md={6} className='pb-3' >       
-                            <RoomCarousel />
-                        </Col>
                         {/* CreateRoom Component */}          
                         <CreateRoom/>
                         
@@ -30,6 +28,7 @@ const Homepage = () => {
                 </Container>
 
                 <Container className='my-5 p-3' style={{backgroundColor: '#0af'}}> 
+                    {/* FriendsRoom Component */}    
                     <FriendsRoom/>
                 </Container>
             </Container>
