@@ -14,12 +14,14 @@ const Homepage = () => {
                             <h3>Create Room</h3>
                         </Col>
                     </Row>
-                    <Row className='d-flex justify-content-center mx-5'>
-                        <Col xs={12} lg={5} md={6} className='pb-3' >
-                            <RoomCarousel />
-                        </Col>
-                        <Col xs={12} lg={7} md={6} className='pl-2 pb-3'>
                     
+                    <Row className='d-flex justify-content-center mx-5'>
+
+                        {/* RoomCarousel Component */}         
+                        <RoomCarousel />
+
+                        {/* CreateRoom Component */}
+                        <Col xs={12} lg={7} md={6} className='pl-2 pb-3'>
                             <CreateRoom/>
                         </Col>
                     </Row>
