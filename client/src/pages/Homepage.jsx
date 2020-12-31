@@ -1,41 +1,46 @@
 
 import React from 'react';
 import {Container, Row, Col} from 'react-bootstrap';
+import RoomCarousel from '../components/RoomCarousel';
 
 const Homepage = () => {
     return (
         <main>
             <Container className='d-flex flex-column justify-content-end'>
-                <Row>
-                    <Col className='Home-room-header'>
-                        <h3>Create Room</h3>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs={12} lg={4}>
-                        <h3>carousel of Room Options</h3>
-                    </Col>
-                    <Col xs={12} md='auto'>
+                <Container className='mt-3 p-4' style={{backgroundColor: 'greenyellow'}}> 
+                    <Row >
+                        <Col className='text-center pb-2'>
+                            <h3>Create Room</h3>
+                        </Col>
+                    </Row>
+                    <Row className='d-flex justify-content-center  mx-5'>
+                        <Col xs={12} lg={5} md={6}>
+                            <RoomCarousel />
+                        </Col>
+                        <Col xs={12} lg={7} md={6}>
                     
-                        <Row>
+                            <Row>
                             room row
-                        </Row>
-                        <Row>
+                            </Row>
+                            <Row>
                             friends row 
-                        </Row>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col xs={12} lg={4}>
-                        <h3>Friends Room Card 1</h3>
-                    </Col>
-                    <Col xs={12} lg={4}>
-                        <h3>Friends Room Card 2</h3>
-                    </Col>
-                    <Col xs={12} lg={4}>
-                        <h3>Friends Room Card 3</h3>
-                    </Col>
-                </Row>
+                            </Row>
+                        </Col>
+                    </Row>
+                </Container>
+                <Container className='my-5 p-3' style={{backgroundColor: 'pink'}}> 
+                    <Row className='d-flex justify-content-center mx-5'>
+                        <Col xs={12} lg={4}>
+                            <h3>Friends Room Card 1</h3>
+                        </Col>
+                        <Col xs={12} lg={4}>
+                            <h3>Friends Room Card 2</h3>
+                        </Col>
+                        <Col xs={12} lg={4}>
+                            <h3>Friends Room Card 3</h3>
+                        </Col>
+                    </Row>
+                </Container>
             </Container>
         </main>
     );
