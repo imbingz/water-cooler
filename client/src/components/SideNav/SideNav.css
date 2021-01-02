@@ -68,7 +68,7 @@
 }
 
 .Sidenav-menu {
-	background-color: rgba(95, 94, 94, 0.8);
+	background-color: rgba(116, 113, 113, 0.9);
 	width: 325px;
 	height: 100vh;
 	display: flex;
@@ -78,6 +78,7 @@
 	top: 0;
 	left: -100%;
 	transition: 850ms;
+	z-index: 10;
 }
 
 .Sidenav-menu.active {

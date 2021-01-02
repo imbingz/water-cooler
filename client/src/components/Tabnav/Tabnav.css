@@ -1,0 +1,11 @@
+.Tabnav-nav-link {
+	font-size: 1.1rem;
+	width: 162px;
+	color: #333333;
+	font-weight: 600;
+	text-align: center;
+}
+
+.Tabnav-nav-link.active {
+	background-color: blueviolet;
+}
