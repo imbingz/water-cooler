@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {Carousel, Col} from 'react-bootstrap';
 import roomStyles from '../../data/roomStyles';
+import {v4 as uuidv4} from 'uuid';
 import './RoomCarousel.css';
 
 
@@ -23,7 +24,7 @@ function RoomCarousel() {
                 {roomStyles.map(style => {
                     return (
 
-                        <Carousel.Item key={style.title}>
+                        <Carousel.Item key={uuidv4()}>
                             <h5 className='text-secondary text-center pb-3'> Choose A Room Style </h5>
                             <img
                                 className="d-block w-100"
