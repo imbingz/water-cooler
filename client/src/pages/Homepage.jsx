@@ -8,7 +8,7 @@ import FriendsRoom from '../components/FriendsRoom';
 const Homepage = () => {
     return (
         <main>
-            <Container className='d-flex flex-column justify-content-end'>
+            <Container fluid className='d-flex flex-column ml-auto'>
                 <Container className='mt-3 p-4' style={{backgroundColor: 'greenyellow'}}> 
                     <Row >
                         <Col className='text-center pb-2 mb-4'>
