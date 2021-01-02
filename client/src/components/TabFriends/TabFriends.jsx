@@ -55,7 +55,7 @@ function TabFriends() {
                     ))
                 }
             </section>
-            <div><h6 className='Tabfriends-subtitle mt-4'>offiline Friends:</h6></div>
+            <div><h6 className='Tabfriends-subtitle mt-4'>Offiline Friends:</h6></div>
             <section className='mr-3 TabFriends-section'>    
                 { friends &&
                     friends.map(friend => (
