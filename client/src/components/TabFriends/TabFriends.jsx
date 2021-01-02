@@ -1,11 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './TabFriends.css';
+import { Modal, Button } from 'react-bootstrap';
 import friends from '../../data/friends';
 import friendsRoom from '../../data/friendsRoom';
 import {v4 as uuidv4} from 'uuid';
 
 
 function TabFriends() {
+
+    // Modal for friend's Profile
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     return (
         <div className='mx-3 mt-3'>
             <div className='d-flex justify-content-start'>
@@ -49,7 +56,7 @@ function TabFriends() {
                         <div className='d-flex flex-row justify-content-start' key={uuidv4()}>  
                             <img src={friend.imageSrc} alt={friend.username} style={{width:32, height: 32}}/>
                             <p className='mx-2' >{friend.username}</p>
-                            <button className='TabFriends-profile-btn d-inline-block ml-auto mb-3 px-2 py-1'><small> View Profile</small> </button>
+                            <button className='TabFriends-profile-btn d-inline-block ml-auto mb-3 px-2 py-1' onClick={handleShow}><small> View Profile</small> </button>
                         </div>
                            
                     ))
@@ -62,12 +69,28 @@ function TabFriends() {
                         <div className='d-flex flex-row justify-content-start' key={uuidv4()}>  
                             <img src={friend.imageSrc} alt={friend.username} style={{width:32, height: 32}}/>
                             <p className='mx-2' >{friend.username}</p>
-                            <button className='TabFriends-profile-btn d-inline-block ml-auto mb-3 px-2 py-1'><small> View Profile</small> </button>
+                            <button className='TabFriends-profile-btn d-inline-block ml-auto mb-3 px-2 py-1' onClick={handleShow}><small> View Profile</small> </button>
                         </div>
                            
                     ))
                 }
             </section>
+            <Modal show={show} onHide={handleClose}>
+
+                <Modal.Header closeButton>
+                    <Modal.Title>Heading Text</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>Modal content will sit here</Modal.Body>
+
+                <Modal.Footer>
+
+                    <Button variant="secondary" onClick={handleClose}>Close</Button>
+                    <Button variant="primary" onClick={handleClose}>Submit</Button>
+
+                </Modal.Footer>
+
+            </Modal>
         </div>
     );
 }
