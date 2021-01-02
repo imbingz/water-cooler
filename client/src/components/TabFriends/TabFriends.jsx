@@ -1,5 +1,6 @@
 import React from 'react';
 import './TabFriends.css';
+import {Button} from 'react-bootstrap';
 import friends from '../../data/friends';
 import friendsRoom from '../../data/friendsRoom';
 import {v4 as uuidv4} from 'uuid';
@@ -46,13 +47,18 @@ function TabFriends() {
                 }
               
             </section>
-            <section>
+            <section className='mt-4 mr-3'>
                 <h6>Online Friends:</h6>
-                <div className='d-flex flex-row justify-content-start'>    
-                    <p>Frnd img</p>
-                    <p>Frnd username</p>
-                    <button>View Profile</button> 
-                </div>
+                { friends &&
+                    friends.slice(0,3).map(friend => (
+                        <div className='d-flex flex-row justify-content-start' key={uuidv4()}>  
+                            <img src={friend.imageSrc} alt={friend.username} style={{width:32, height: 32}}/>
+                            <p className='mx-2' >{friend.username}</p>
+                            <button className='TabFriends-profile-btn d-inline-block ml-auto mb-3 px-2 py-1'><small> View Profile</small> </button>
+                        </div>
+                           
+                    ))
+                }
             </section>
             <section>
                 <h6>offiline Friends:</h6>

@@ -9,3 +9,16 @@
 	outline: 0;
 	transform: scale(1.1);
 }
+
+.TabFriends-profile-btn {
+	border: none;
+	border-radius: 25px;
+}
+
+.TabFriends-profile-btn:hover,
+.TabFriends-profile-btn:focus {
+	outline: 0;
+	transform: scale(1.1);
+	background-color: #84f;
+	color: white;
+}
