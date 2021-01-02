@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import { Tab, Nav } from 'react-bootstrap';
 import TabFriends from '../TabFriends';
+import TabDM from '../TabDM';
 import './Tabnav.css';
 
 
@@ -22,8 +23,7 @@ function Tabnav() {
                         <TabFriends />
                     </Tab.Pane>
                     <Tab.Pane eventKey='dms'>
-                        <h4>DMs Component</h4>
-                        {/* <Dms /> */}
+                        <TabDM />
                     </Tab.Pane>
                 </Tab.Content>      
             </Tab.Container>

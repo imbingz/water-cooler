@@ -1,0 +1,12 @@
+.TabDM-view-chat-btn {
+	border: none;
+	border-radius: 25px;
+}
+
+.TabDM-view-chat-btn:hover,
+.TabDM-view-chat-btn:focus {
+	outline: 0;
+	transform: scale(1.1);
+	background-color: #84f;
+	color: white;
+}
