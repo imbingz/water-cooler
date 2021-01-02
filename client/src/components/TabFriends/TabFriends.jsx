@@ -1,8 +1,11 @@
 import React from 'react';
-import {ImCheckboxChecked} from 'react-icons/im';
-import {AiOutlineCloseCircle} from 'react-icons/ai';
 import './TabFriends.css';
 import friends from '../../data/friends';
+import friendsRoom from '../../data/friendsRoom';
+import {v4 as uuidv4} from 'uuid';
+// import {ImCheckboxChecked} from 'react-icons/im';
+// import {AiOutlineCloseCircle} from 'react-icons/ai';
+
 
 function TabFriends() {
     return (
@@ -15,9 +18,9 @@ function TabFriends() {
                 </div>
                 
                  
-                {
+                { friends &&
                     friends.slice(0,3).map(friend => (
-                        <div className='d-flex flex-row justify-content-start'>  
+                        <div className='d-flex flex-row justify-content-start' key={uuidv4()}>  
                             <img src={friend.imageSrc} alt={friend.username} style={{width:32, height: 32}}/>
                             <p className='mx-2' >friend request</p>
                             <input className='d-inline-block mx-5' style={{width: 18, height: 18}} type="radio" name={friend.id} value="accept" />
@@ -29,14 +32,19 @@ function TabFriends() {
                     ))
                 }
               
-                
-               
-                <div className='d-flex flex-row justify-content-start'>    
-                    <p>Room img</p>
-                    <p>Room Invite</p>
-                    <input type="checkbox"/>    
-                    <input type="checkbox"/>    
-                </div>
+                { friendsRoom &&
+                    friendsRoom.slice(0,2).map(friendRoom => (
+                        <div className='d-flex flex-row justify-content-start' key={uuidv4()}>  
+                            <img src={friendRoom.roomStyle} alt={friendRoom.roomname} style={{width:32, height: 32}}/>
+                            <p className='ml-2 mr-4' >Room Invite</p>
+                            <input className='d-inline-block mx-5' style={{width: 18, height: 18}} type="radio" name={friendRoom.roomname} value="accept" />
+                            <input style={{width: 18, height: 18}} type="radio" name={friendRoom.roomname} value="decline"/>
+                           
+                        </div>
+                           
+                    ))
+                }
+              
             </section>
             <section>
                 <h6>Online Friends:</h6>

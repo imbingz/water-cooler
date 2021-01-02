@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Tab, Nav } from 'react-bootstrap';
+import TabFriends from '../TabFriends';
 import './Tabnav.css';
 
 
@@ -18,8 +19,7 @@ function Tabnav() {
                 </Nav>
                 <Tab.Content style={{height: '100vh'}}>
                     <Tab.Pane eventKey='friends'>
-                        {/* <Friends /> */}
-                        <h4>Friends Component</h4>
+                        <TabFriends />
                     </Tab.Pane>
                     <Tab.Pane eventKey='dms'>
                         <h4>DMs Component</h4>
