@@ -1,0 +1,11 @@
+.TabFriends-check-btn {
+	border: none;
+	background-color: transparent;
+	height: 0;
+}
+
+.TabFriends-check-btn:active,
+.TabFriends-check-btn:focus {
+	outline: 0;
+	transform: scale(1.1);
+}
