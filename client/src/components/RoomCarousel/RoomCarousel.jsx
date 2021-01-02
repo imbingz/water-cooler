@@ -23,7 +23,7 @@ function RoomCarousel() {
                 {roomStyles.map(style => {
                     return (
 
-                        <Carousel.Item>
+                        <Carousel.Item key={style.title}>
                             <h5 className='text-secondary text-center pb-3'> Choose A Room Style </h5>
                             <img
                                 className="d-block w-100"
