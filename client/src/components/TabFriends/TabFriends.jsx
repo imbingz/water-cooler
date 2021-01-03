@@ -4,7 +4,7 @@ import friends from '../../data/friends';
 import friendsRoom from '../../data/friendsRoom';
 import {v4 as uuidv4} from 'uuid';
 import ProfileModal from '../ProfileModal';
-// import { Modal, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 
 function TabFriends() {
@@ -21,7 +21,7 @@ function TabFriends() {
 
 
     return (
-        <div className='mx-3 mt-3'>
+        <Container className='mx-3 mt-3'>
             <div className='d-flex justify-content-start'>
                 <h6 className='mr-5 Tabfriends-subtitle'>Invitations:</h6> 
                 <small className='ml-5 text-success '>Accept</small>  
@@ -122,7 +122,7 @@ function TabFriends() {
                 </Modal.Footer>
             </Modal> */}
             
-        </div>
+        </Container>
     );
 }
 
