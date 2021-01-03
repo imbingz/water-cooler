@@ -1,0 +1,49 @@
+.SearchModal-form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-top: 15px;
+	margin-bottom: 5px;
+}
+
+.SearchModal-input-wrap {
+	border: 1px lightgrey solid;
+	border-radius: 25px;
+	padding: 0 20px;
+	min-width: 270px;
+	max-width: 350px;
+}
+
+.SearchModal-input {
+	padding: 3px;
+	background-color: transparent;
+	border: none;
+	text-align: center;
+}
+
+.SearchModal-input:active,
+.SearchModal-input:focus {
+	outline: 0;
+}
+
+.SearchModal-btn {
+	display: inline-block;
+	margin-left: 15px;
+	padding: 5px 15px;
+	border: none;
+	border-radius: 5px;
+	background-color: rgb(95, 5, 238);
+	color: #fff;
+}
+
+.SearchModal-btn:hover,
+.SearchModal-btn:focus,
+.SearchModal-btn:active {
+	outline: 0;
+	transform: scale(1.05);
+	background-color: orange;
+}
+
+.SearchModal-footer {
+	margin: 10px;
+}
