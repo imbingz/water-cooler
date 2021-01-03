@@ -1,6 +1,7 @@
 import React from 'react';
-import { Modal, Button} from 'react-bootstrap';
-// import { BsSearch, BsFillPersonFill } from 'react-icons/bs';
+import { Modal } from 'react-bootstrap';
+import { BsSearch } from 'react-icons/bs';
+import './SearchModal.css';
 
 function SearchModal(props) {
     const {onHide} = props;
@@ -15,15 +16,31 @@ function SearchModal(props) {
                 <Modal.Title></Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <form onSubmit={(e) => {e.preventDefault(); console.log('handleSearch');}}>
-                    <label htmlFor='search'></label>
-                    <input id='search' name='search' placeholder='Search Friends...' type="text"/>
-                    <Button variant="secondary" onClick={onHide}>
+                <form 
+                    className='SearchModal-form'
+                    onSubmit={(e) => {e.preventDefault(); console.log('handleSearch');}}
+                >
+                    <div className='SearchModal-input-wrap'>
+                        <label htmlFor='searchModal-input'>
+                            < BsSearch size={ 15 } style={ { fill: 'grey' } } />
+                        </label>
+                
+                        <input 
+                            className='SearchModal-input'
+                            required
+                            id='searchModal-input' name='searchModal-input' placeholder='Search Friends...' type="text"
+                        />
+                    </div>
+                    <button
+                        className='SearchModal-btn'
+                        type='submit'
+                        onClick={onHide}
+                    >
                         Search
-                    </Button>
+                    </button>
                 </form>
             </Modal.Body>
-            <Modal.Footer>
+            <Modal.Footer className='SearchModal-footer'>
                     
             </Modal.Footer>
                
