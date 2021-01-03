@@ -4,12 +4,21 @@ import friends from '../../data/friends';
 import friendsRoom from '../../data/friendsRoom';
 import {v4 as uuidv4} from 'uuid';
 import ProfileModal from '../ProfileModal';
+// import { Modal, Button } from 'react-bootstrap';
 
 
 function TabFriends() {
 
     // Modal for friend's Profile
-    const [modalShow, setModalShow] = useState(false);
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const [profileFriend, setProfileFriend] = useState({});
+    const handleFriendModal = (friend) => setProfileFriend(friend);
+    
+
 
     return (
         <div className='mx-3 mt-3'>
@@ -36,8 +45,11 @@ function TabFriends() {
                     friendsRoom.map(friendRoom => (
                         <div className='d-flex flex-row justify-content-start' key={uuidv4()}>  
                             <img src={friendRoom.roomStyle} alt={friendRoom.roomname} style={{width:32, height: 32}}/>
+
                             <p className='ml-2 mr-4' >Room Invite</p>
+
                             <input className='d-inline-block mx-5' style={{width: 18, height: 18}} type="radio" name={friendRoom.roomname} value="accept" />
+
                             <input style={{width: 18, height: 18}} type="radio" name={friendRoom.roomname} value="decline"/>
                            
                         </div>
@@ -52,9 +64,18 @@ function TabFriends() {
                 { friends &&
                     friends.map(friend => (
                         <div className='d-flex flex-row justify-content-start' key={uuidv4()}>  
+
                             <img src={friend.imageSrc} alt={friend.username} style={{width:32, height: 32}}/>
+
                             <p className='mx-2' >{friend.username}</p>
-                            <button className='TabFriends-profile-btn d-inline-block ml-auto mb-3 px-2 py-1' onClick={() => setModalShow(true)}><small> View Profile</small> </button>
+
+                            <button className='TabFriends-profile-btn d-inline-block ml-auto mb-3 px-2 py-1' 
+                                onClick={() => {handleShow(); handleFriendModal(friend);}}
+                                // onClick={()=>{console.log(friend);}}
+                            ><small> View Profile</small> </button>
+                            <ProfileModal show={show} onHide={() => handleClose (false)} 
+                                friend={profileFriend} 
+                            />
                         </div>
                            
                     ))
@@ -67,13 +88,40 @@ function TabFriends() {
                         <div className='d-flex flex-row justify-content-start' key={uuidv4()}>  
                             <img src={friend.imageSrc} alt={friend.username} style={{width:32, height: 32}}/>
                             <p className='mx-2' >{friend.username}</p>
-                            <button className='TabFriends-profile-btn d-inline-block ml-auto mb-3 px-2 py-1' onClick={() => setModalShow(true)}><small> View Profile</small> </button>
+                            <button className='TabFriends-profile-btn d-inline-block ml-auto mb-3 px-2 py-1'
+                            //  onClick={() => setModalShow(true)} 
+                                onClick={() => {handleShow(); handleFriendModal(friend);}}
+                            ><small> View Profile</small> </button>
+
+                            <ProfileModal show={show} onHide={() => handleClose (false)} 
+                                friend={profileFriend} 
+                            />
                         </div>
                            
                     ))
                 }
             </section>
-            <ProfileModal show={modalShow} onHide={() => setModalShow(false)} />
+            {/* <Modal
+                show={show}
+                onHide={handleClose}
+                backdrop="static"
+                keyboard={false}
+
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>{profileFriend.username}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    {profileFriend.firstName} {profileFriend.lastName}
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+            Close
+                    </Button>
+                    <Button variant="primary">Understood</Button>
+                </Modal.Footer>
+            </Modal> */}
+            
         </div>
     );
 }
