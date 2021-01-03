@@ -1,6 +1,7 @@
 import React from 'react';
 import {Row, Col,Button} from 'react-bootstrap';
 import friends from '../../data/friends';
+import {v4 as uuidv4} from 'uuid';
 
 
 function CreateRoom() {
@@ -16,7 +17,7 @@ function CreateRoom() {
                             id="inputRoomName"
                             type='text'
                             name='inputRoomName'
-                            Placeholder = 'Destiny 2 ...'
+                            placeholder = 'Destiny 2 ...'
                         // value={inputRoomName}
                         // onChange={(e) => setRoomName(e.target.value)}
                         />
@@ -28,7 +29,7 @@ function CreateRoom() {
                             id='inputRoomDescription'
                             type='text'
                             name='inputRoomDescription'
-                            Placeholder = 'Everything Destiny ...'
+                            placeholder = 'Everything Destiny ...'
                         // value={inputRoomName}
                         // onChange={(e) => setRoomName(e.target.value)}
                         />                      
@@ -40,7 +41,7 @@ function CreateRoom() {
                         <div className='d-flex flex-row flex-nowrap align-items-center overflow-auto'>
                             {
                                 friends.map(friend => (
-                                    <div className='d-flex flex-column align-items-center mr-1'>
+                                    <div key={uuidv4()} className='d-flex flex-column align-items-center mr-1'>
                                         <img src={friend.imageSrc} alt={friend.username} style={{width: 48, height: 48, borderRadius: '50%'}}/>
                                         <small>{friend.username.substr(0, 5)}</small>
                                     </div>

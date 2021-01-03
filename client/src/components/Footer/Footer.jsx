@@ -9,7 +9,7 @@ function Footer() {
     return (
         <footer>
             <Navbar bg='dark' fixed='bottom' className="Footer justify-content-around">
-                <div><Link>< BsSearch size={ 25 } style={ { fill: 'white' } } /></Link></div>
+                <div><Link to='/search'>< BsSearch size={ 25 } style={ { fill: 'white' } } /></Link></div>
                 <div> <Link to="/">< AiFillHome size={ 30 } style={ { fill: 'white' } }/> </Link></div>
                 <div> <Link to="/profile">< BsFillPersonFill size={ 30 } style={ { fill: 'white' } } /></Link></div>
             </Navbar>

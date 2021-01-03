@@ -5,6 +5,7 @@ import {CgProfile} from 'react-icons/cg';
 import {IoIosPeople} from 'react-icons/io';
 import { IconContext } from 'react-icons';
 import friendsRoom from '../../data/friendsRoom';
+import {v4 as uuidv4 } from 'uuid';
 
 
 function FriendsRoom() {
@@ -16,7 +17,7 @@ function FriendsRoom() {
             <Row className='d-flex flex-wrap justify-content-around align-items-sm-center'>
                 
                 {friendsRoom.map(room => (
-                    <div className="my-3">
+                    <div className="my-3" key={uuidv4()}>
                         <Col className='mb-4'>
                             <Card style={{ width: '325px' }} className='p-4'>
                                 <Card.Img variant="top" src={room.roomStyle} style={{width: 288, height: 185}}/>

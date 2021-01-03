@@ -4,6 +4,7 @@ import {CgMenu} from 'react-icons/cg';
 import {AiOutlineClose} from 'react-icons/ai';
 import {BsPeopleCircle, BsSearch} from 'react-icons/bs';
 import { IconContext } from 'react-icons';
+import Tabnav from '../Tabnav';
 import './SideNav.css';
 
 // import { Nav, Navbar } from 'react-bootstrap';
@@ -38,13 +39,15 @@ function SideNav() {
                 </nav>
                 
                 <aside className={sidebar ? 'Sidenav-menu active' : 'Sidenav-menu'}>
-                    <ul className='Sidenav-menu-items' >
-                        <li onClick={showSidebar}className='Sidenav-toggle' >
+                    <div className='Sidenav-menu-items d-flex flex-column' >
+                        <div onClick={showSidebar}className='Sidenav-toggle' >
                             <Link to='#' className='Header-menu-bars'>
                                 <AiOutlineClose />
                             </Link>
-                        </li>
-                    </ul>
+                        </div>
+                        <Tabnav />
+                    </div>
+                    
                 </aside>
             </IconContext.Provider>
         </header>
