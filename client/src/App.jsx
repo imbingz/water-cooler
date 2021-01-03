@@ -25,7 +25,7 @@ function App() {
 
                 {/* <Navbar /> */}
 
-                <div className="App">
+                <main className="App">
                     <Switch>
                         <Route exact path='/' component={Homepage} />
                         <Route exact path='/signup' component={Signup} />
@@ -40,7 +40,7 @@ function App() {
                         {/* Temporary Game Page  */}
                         <Route exact path='/game' component={ GameRPG} />
                     </Switch>
-                </div>
+                </main>
 
                 <Footer />
             </GlobalProvider>
