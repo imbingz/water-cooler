@@ -81,7 +81,7 @@ function LoginModal(props) {
         
                     <p className='pt-3 mb-0'>
 				        Don't have an account?
-                        <Link to='/signup' className='text-light'> SignUp Here </Link>
+                        <Link to='/signup' className='text-light'> <u>SignUp Here</u> </Link>
                     </p>
                     
                 </form>
