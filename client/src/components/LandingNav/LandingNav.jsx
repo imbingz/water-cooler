@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import { Navbar, Button, Modal} from 'react-bootstrap';
+import { Navbar, Button} from 'react-bootstrap';
+import LoginModal from '../LoginModal';
 
 
 function LandingNav() {
@@ -29,9 +30,9 @@ function LandingNav() {
                 </div>
                 
             </Navbar>
-            {/* <LoginModal show={show} onHide={() => handleClose (false)} /> */}
+            <LoginModal show={show} onHide={() => handleClose (false)} />
 
-            <Modal
+            {/* <Modal
                 show={show}
                 onHide={handleClose}
                 backdrop="static"
@@ -50,7 +51,7 @@ function LandingNav() {
                     </Button>
                     <Button variant="primary">Understood</Button>
                 </Modal.Footer>
-            </Modal>
+            </Modal> */}
         </>
     );
 }

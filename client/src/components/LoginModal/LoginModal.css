@@ -1,0 +1,30 @@
+.LoginModal-form {
+	background-color: orangered;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 40px 0px 20px;
+	color: antiquewhite;
+}
+
+.LoginModal-form-group > input {
+	border: none;
+}
+
+.LoginModal-form-group > input:focus {
+	outline-color: orange;
+}
+
+.LoginModal-btn {
+	background-color: bisque;
+	border: none;
+	border-radius: 6px;
+}
+
+.LoginModal-btn:hover,
+.LoginModal-btn:focus,
+.LoginModal-btn:active {
+	outline-color: greenyellow;
+	background-color: greenyellow;
+}
