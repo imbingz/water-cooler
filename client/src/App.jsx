@@ -46,8 +46,8 @@ function App() {
                         <Route exact path='/game' component={ GameRPG} />
                     </Switch>
                 </main>
-
-                <Footer />
+                {storedUser && <Footer />}
+                
             </GlobalProvider>
         </Router>
     );
