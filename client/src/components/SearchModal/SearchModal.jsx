@@ -34,7 +34,6 @@ function SearchModal(props) {
                     <button
                         className='SearchModal-btn'
                         type='submit'
-                        onClick={onHide}
                     >
                         Search
                     </button>
