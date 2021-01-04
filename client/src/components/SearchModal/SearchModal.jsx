@@ -4,7 +4,7 @@ import { BsSearch } from 'react-icons/bs';
 import './SearchModal.css';
 
 function SearchModal(props) {
-    const {onHide} = props;
+    
     return (
         <Modal
             {...props}
