@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import SearchResults from '../SearchResults';
 import SearchContext from '../../utils/SearchContext';
-import { Modal } from 'react-bootstrap';
+import { Modal, Container, Row, Col } from 'react-bootstrap';
 import { BsSearch } from 'react-icons/bs';
 import './SearchModal.css';
 
@@ -28,6 +28,8 @@ function SearchModal (props) {
             // ** If Results Are Found, set State To Trigger SearchResults.jsx
             setSearchResults(data.query);
             // console.log(data.query);
+            setSearchQuery('');
+
         } catch (err) {
             console.log({ err });
         }
@@ -52,42 +54,44 @@ function SearchModal (props) {
                     <Modal.Title />
                 </Modal.Header>
                 <Modal.Body>
-                    <form
-                        className='SearchModal-form'
-                        onSubmit={e => {
-                            e.preventDefault();
-                            console.log('handleSearch');
-                        }}>
-                        <div className='SearchModal-input-wrap'>
-                            <label htmlFor='search'>
-                                <BsSearch size={15} style={{ fill: 'grey' }} />
-                            </label>
-
-                            <input
-                                className='SearchModal-input'
-                                required
-                                id='search'
-                                name='searchQuery'
-                                value={searchQuery}
-                                placeholder='Search For Users ...'
-                                type='text'
-                                onChange={(e) => setSearchQuery(e.target.value)}
-                            />
-                        </div>
-                        <button 
-                            className='SearchModal-btn' 
-                            type='submit'
-                            onClick={(e) => {
+                    <Container>
+                        <form
+                            className='SearchModal-form'
+                            onSubmit={e => {
                                 e.preventDefault();
-                                searchDB();
-                            }} 
-                        >
+                                console.log('handleSearch');
+                            }}>
+                            <div className='SearchModal-input-wrap'>
+                                <label htmlFor='search'>
+                                    <BsSearch size={15} style={{ fill: 'grey' }} />
+                                </label>
+
+                                <input
+                                    className='SearchModal-input'
+                                    required
+                                    id='search'
+                                    name='searchQuery'
+                                    value={searchQuery}
+                                    placeholder='Search For Users ...'
+                                    type='text'
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
+                            </div>
+                            <button 
+                                className='SearchModal-btn' 
+                                type='submit'
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    searchDB();
+                                }} 
+                            >
 						Search
-                        </button>
-                    </form>
-                    <section>
-                        <SearchResults/>
-                    </section>
+                            </button>
+                        </form>
+                        <section>
+                            <SearchResults/>
+                        </section>
+                    </Container>
                 </Modal.Body>
                 <Modal.Footer className='SearchModal-footer' />
             </Modal>
