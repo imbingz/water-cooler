@@ -52,6 +52,12 @@ function SignupModal(props) {
             if (json && json.data && json.data.error) {
                 console.log(json.data.error.message);
             } else {
+                firstNameRef.current.value='';
+                lastNameRef.current.value='';
+                usernameRef.current.value='';
+                emailRef.current.value='';
+                passwordRef.current.value='';
+                confirmPassRef.current.value='';
                 // open login modal
                 handleShow();
             }
@@ -116,9 +122,15 @@ function SignupModal(props) {
                                 </button>
                             </Row>
                         </form>
-                        <p className='text-center mt-5 mb-0 text-muted'>
-				    Already have an account?<button className='SignupModal-login-btn'><u>Login Here</u></button> 
-                        </p>
+                        {/* <p className='text-center mt-5 mb-0 text-muted'>
+				                Already have an account?
+                            <button 
+                                className='SignupModal-login-btn'
+                                noClick={handleShow}
+                            >
+                                <u>Login Here</u>
+                            </button> 
+                        </p> */}
                    
                     </Container>
                 </Modal.Body>

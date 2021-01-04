@@ -18,6 +18,7 @@
 	min-width: 200px;
 	padding: 4px 0;
 	border: none;
+	text-align: center;
 }
 
 .SignupModal-form-group > input:focus,
@@ -42,7 +43,7 @@
 	background-color: blueviolet;
 	color: white;
 }
-
+/* 
 .SignupModal-login-btn {
 	border: none;
 	background-color: transparent;
@@ -53,4 +54,4 @@
 .SignupModal-login-btn:active,
 .SignupModal-login-btn:focus {
 	outline: 0;
-}
+} */
