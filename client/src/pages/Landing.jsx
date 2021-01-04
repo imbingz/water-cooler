@@ -2,10 +2,18 @@ import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import {Container, Row} from 'react-bootstrap';
 import LandingNav from '../components/LandingNav';
+import SignupModal from '../components/SignupModal';
+import './Landing.css';
 
 function Landing() {
+
     const history = useHistory();
     const [showDemo, setShowDemo] = useState(true);
+    //Signup Modal 
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     return (
         <>
             <LandingNav />
@@ -28,8 +36,9 @@ function Landing() {
 
                     <button 
                         type='button' 
-                        className='d-inline-block mx-5 my-5 px-3 py-1'
-                        onClick={() => {setShowDemo(false); history.push('/room');}} // ***** need to chang the route to demo 
+                        className='d-inline-block mx-5 my-5 px-3 py-2 Landing-btn'
+                        // ***** need to chang the route to demo ****//
+                        onClick={() => {setShowDemo(false); history.push('/room');}} 
                     >
                         Try it Out
                     </button>
@@ -38,10 +47,24 @@ function Landing() {
                     </div>
                 </Row> 
 
-                <Row>
-                    
+                <Row className='my-5 d-flex justify-content-center align-item-center'>
+                    <div >
+                        <button 
+                            type='button' 
+                            className='d-inline-block mx-5 my-5 px-4 py-3 Landing-btn Landing-start-btn'
+                            onClick={() => 
+                            { 
+                                setShowDemo(false); 
+                                handleShow();
+                            }}
+                        >
+                        Get Started
+                        </button>
+                    </div>
                 </Row> 
+                <SignupModal show={show} onHide={() => handleClose (false)} />        
 
+                
             </ Container>
         </>
     );
