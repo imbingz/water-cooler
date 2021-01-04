@@ -4,7 +4,7 @@ import { BsSearch } from 'react-icons/bs';
 import './SearchModal.css';
 
 function SearchModal(props) {
-    const {onHide} = props;
+    
     return (
         <Modal
             {...props}
@@ -34,7 +34,6 @@ function SearchModal(props) {
                     <button
                         className='SearchModal-btn'
                         type='submit'
-                        onClick={onHide}
                     >
                         Search
                     </button>

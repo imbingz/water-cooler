@@ -1,0 +1,57 @@
+.SignupModal-row {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	margin-bottom: 6px;
+}
+
+.SignupModal-form-group {
+	display: flex;
+	flex-direction: column;
+}
+
+.SignupModal-form-group > label {
+	color: grey;
+}
+
+.SignupModal-form-group > input {
+	min-width: 200px;
+	padding: 4px 0;
+	border: none;
+	text-align: center;
+}
+
+.SignupModal-form-group > input:focus,
+.SignupModal-form-group > input:active {
+	outline-color: greenyellow;
+}
+
+.SignupModal-btn {
+	border: none;
+	padding: 5px 20px;
+	font-weight: 500;
+	font-size: 1rem;
+	background-color: rgb(0, 255, 255);
+	color: #666;
+}
+
+.SignupModal-btn:hover,
+.SignupModal-btn:focus,
+.SignupModal-btn:active {
+	outline: 0;
+	transform: scale(0.9);
+	background-color: blueviolet;
+	color: white;
+}
+/* 
+.SignupModal-login-btn {
+	border: none;
+	background-color: transparent;
+	padding: 0 6px;
+	color: #333;
+}
+
+.SignupModal-login-btn:active,
+.SignupModal-login-btn:focus {
+	outline: 0;
+} */

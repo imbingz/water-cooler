@@ -1,0 +1,19 @@
+.Landing-btn {
+	border: none;
+	border-radius: 5px;
+	background-color: #047bfe;
+	color: white;
+}
+
+.Landing-start-btn {
+	background-color: yellowgreen;
+	font-size: 1rem;
+}
+
+.Landing-btn:hover,
+.Landing-btn:focus,
+.Landing-btn:active {
+	outline: 0;
+	transform: scale(0.9);
+	background-color: blueviolet;
+}
