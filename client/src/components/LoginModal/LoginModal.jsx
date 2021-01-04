@@ -51,46 +51,45 @@ function LoginModal(props) {
     };
 
     return (
-        <Modal
-            {...props}
-            backdrop="static"
-            keyboard={false}
-            centered
-        >
-            <Modal.Header closeButton>
-                <Modal.Title></Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <form className='LoginModal-form' onSubmit={handleLogin}>
-                    <div className='LoginModal-form-group'>
-                        <label htmlFor='email' className='d-inline-block'><strong>Email:</strong> </label>
-                        <input required type='email' id='email' name='email' ref={emailRef} className='d-inline-block ml-5 text-center'/>
-                    </div>
-                    <div className='LoginModal-form-group'>
-                        <label htmlFor='password' className='d-inline-block'><strong>Password:</strong> </label>
-                        <input required type='password' id='password' name='password' ref={passwordRef} className='d-inline-block ml-4 text-center'/>
-                    </div>
+        <>
+            <Modal
+                {...props}
+                backdrop="static"
+                keyboard={false}
+                centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title></Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
 
-                    <button
-                        className='LoginModal-btn d-inline-block mt-3 px-4 py-1'
-                        type='submit'
+                    <form className='LoginModal-form' onSubmit={handleLogin}>
+                        <div className='LoginModal-form-group'>
+                            <label htmlFor='email' className='d-inline-block'><strong>Email:</strong> </label>
+                            <input required type='email' id='email' name='email' ref={emailRef} className='d-inline-block ml-5 text-center'/>
+                        </div>
+                        <div className='LoginModal-form-group'>
+                            <label htmlFor='password' className='d-inline-block'><strong>Password:</strong> </label>
+                            <input required type='password' id='password' name='password' ref={passwordRef} className='d-inline-block ml-4 text-center'/>
+                        </div>
+
+                        <button
+                            className='LoginModal-btn d-inline-block mt-3 px-4 py-1'
+                            type='submit'
                         // onClick={onHide}
-                    >
+                        >
                         Search
-                    </button>
+                        </button>
         
-                    <p className='pt-3 mb-0'>
+                        <p className='pt-3 mb-0'>
 				        Don't have an account?
-                        <Link to='/signup' className='text-light'> <u>SignUp Here</u> </Link>
-                    </p>
-                    
-                </form>
-            </Modal.Body>
-            <Modal.Footer className='LoginModal-footer'>
-                    
-            </Modal.Footer>
-               
-        </Modal>
+                            <button className='LoginModal-signup-btn'> <u>SignUp Here</u> </button>
+                        </p>                
+                    </form>
+                </Modal.Body>
+                <Modal.Footer className='LoginModal-footer'> </Modal.Footer>        
+            </Modal>
+        </>
     );
 }
 
