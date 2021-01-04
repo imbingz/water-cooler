@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import SearchResults from '../SearchResults';
 import SearchContext from '../../utils/SearchContext';
-import { Modal, Container, Row, Col } from 'react-bootstrap';
+import { Modal, Container } from 'react-bootstrap';
 import { BsSearch } from 'react-icons/bs';
 import './SearchModal.css';
 
