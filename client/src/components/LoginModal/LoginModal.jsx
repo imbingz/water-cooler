@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import {Modal} from 'react-bootstrap';
 import './LoginModal.css';
 
@@ -78,13 +78,13 @@ function LoginModal(props) {
                             type='submit'
                         // onClick={onHide}
                         >
-                        Search
+                        Login
                         </button>
         
-                        <p className='pt-3 mb-0'>
+                        {/* <p className='pt-3 mb-0'>
 				        Don't have an account?
                             <button className='LoginModal-signup-btn'> <u>SignUp Here</u> </button>
-                        </p>                
+                        </p>                 */}
                     </form>
                 </Modal.Body>
                 <Modal.Footer className='LoginModal-footer'> </Modal.Footer>        
