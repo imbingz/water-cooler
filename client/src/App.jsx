@@ -15,19 +15,24 @@ import Footer from './components/Footer';
 import './App.css';
 // import Navbar from './components/Navbar';
 import SideNav from './components/SideNav';
+import Landing from './pages/Landing';
 
 function App() {
+
+    const storedUser = JSON.parse(localStorage.getItem('USER'));
+
     return (
         <Router>
             <GlobalProvider>
 
-                <SideNav />
+                {storedUser && <SideNav />} 
 
                 {/* <Navbar /> */}
 
                 <main className="App">
                     <Switch>
-                        <Route exact path='/' component={Homepage} />
+                        { !storedUser && <Route exact path='/' component={Landing} /> }
+                        {storedUser && <Route exact path='/' component={Homepage} />}
                         <Route exact path='/signup' component={Signup} />
                         <Route exact path='/login' component={Login} />
                         <Route exact path='/search' component={Search} />
