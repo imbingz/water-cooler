@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import TabDmChats from '../TabDmChats';
 import {AiOutlineClose} from 'react-icons/ai';
 import friends from '../../data/friends';
 import './TabDM.css';
@@ -38,7 +39,7 @@ function TabDM() {
                             <AiOutlineClose size={30} style={{fill: 'orangered'}} onClick={showSidebar}/>
                         </button>
                     </div>
-                    {/* <TabDmchat /> */}
+                    <TabDmChats />
                 </div>
                 
             </aside>
