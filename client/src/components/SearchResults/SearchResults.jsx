@@ -21,7 +21,7 @@ const SearchResults = () => {
                                     alt={returnedUser.username}
                                 />
                             </div>
-                            <div className='mx-3 pt-3'>
+                            <div className='mx-3 pt-3' style={{width:200}}>
                                 <p className='m-0 p-0'><strong>Username: </strong>{returnedUser.username}</p>
                                 <p><strong>Name: </strong>{returnedUser.firstName} {returnedUser.lastName}</p>
                             </div>

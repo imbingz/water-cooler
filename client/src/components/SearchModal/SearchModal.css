@@ -41,7 +41,7 @@
 .SearchModal-btn:active {
 	outline: 0;
 	transform: scale(1.05);
-	background-color: orange;
+	background-color: rgb(212, 0, 255);
 }
 
 .SearchModal-footer {
