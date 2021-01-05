@@ -1,9 +1,11 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import {Container} from 'react-bootstrap';
 // import ProfileInboundFriends from '../components/ProfileInboundFriends';
 // import ProfileUserFriends from '../components/ProfileUserFriends';
 import './Profile.css';
 import friends from '../data/friends';
+import images from '../data/profileImages';
 
 const Profile = props => {
     const history = useHistory();
@@ -11,6 +13,9 @@ const Profile = props => {
     const lastNameRef = useRef();
     const usernameRef = useRef();
     const emailRef = useRef();
+
+    const [showAvatars, setShowAvatars] = useState(false);
+    const [selectedImg, setSelectedImg] = useState('https://cdn130.picsart.com/246483773027202.jpg?type=webp&to=crop&r=256');
 
     // use global context stored from Login
     const storedUser = JSON.parse(localStorage.getItem('USER'));
@@ -31,13 +36,15 @@ const Profile = props => {
 
     const updateProfile = async e => {
         e.preventDefault();
+        setShowAvatars(false);
 
         const user = {
             _id: storedUser._id,
             firstName: firstNameRef.current.value,
             lastName: lastNameRef.current.value,
             username: usernameRef.current.value,
-            email: emailRef.current.value
+            email: emailRef.current.value,
+            imageSrc:selectedImg
         };
 
         try {
@@ -66,12 +73,13 @@ const Profile = props => {
 
     return (
         <main className='Profile'>
-            <section className='Profile-user'>     
-                <form className='Profile-form' onSubmit={updateProfile}>
-                    <div className='Profile-img-group'>
-                        <img className='Profile-image' src='https://styles.redditmedia.com/t5_2tmtib/styles/profileIcon_pcmjnyopxm851.png?width=256&height=256&crop=256:256,smart&frame=1&s=868d500bf8180ecdc516e2a8fab4f66536a894b0' alt='avarta' />
-                        <button className='Profile-img-edit-btn' onClick={(e) => { e.preventDefault(); console.log('upload photo');}}>Edit Photo</button >
-                        {/* <input
+            <section className='Profile-user'>  
+                <Container>   
+                    <form className='Profile-form' onSubmit={updateProfile}>
+                        <div className='Profile-img-wrapper ml-2'>
+                            <img className='Profile-image' src={selectedImg} alt='profile avarta' />
+                            <button className='Profile-img-edit-btn' onClick={(e) => { e.preventDefault(); setShowAvatars(true);}}>Edit Photo</button >
+                            {/* <input
                             type='file'
                             onChange={() => {
                                 console.log('upload image later');
@@ -84,53 +92,69 @@ const Profile = props => {
                             }}>
                             Upload
                         </button> */}
-                    </div> 
-                    <div className='Profile-input-group'>
-                        <div className='Profile-form-group'>
-                            <label htmlFor='firstName'>First Name: </label>
-                            <input
-                                type='text'
-                                id='firstName'
-                                name='firstName'
-                                ref={firstNameRef}
-                            />
-                        </div>
-                        <div className='Profile-form-group'>
-                            <label htmlFor='lastName'>Last Name: </label>
-                            <input
-                                type='text'
-                                id='lastName'
-                                name='lastName'
-                                ref={lastNameRef}
+                        </div> 
+                        <div className='Profile-input-group'>
+                            <div className='Profile-form-group'>
+                                <label htmlFor='firstName'>First Name: </label>
+                                <input
+                                    type='text'
+                                    id='firstName'
+                                    name='firstName'
+                                    ref={firstNameRef}
+                                />
+                            </div>
+                            <div className='Profile-form-group'>
+                                <label htmlFor='lastName'>Last Name: </label>
+                                <input
+                                    type='text'
+                                    id='lastName'
+                                    name='lastName'
+                                    ref={lastNameRef}
                        
-                            />
-                        </div>
-                        <div className='Profile-form-group'>
-                            <label htmlFor='username'>Username: </label>
-                            <input
-                                required
-                                id='username'
-                                name='username'
-                                type='text'
-                                ref={usernameRef}
-                            />
-                        </div>
-                        <div className='Profile-form-group'>
-                            <label htmlFor='email'>Email: </label>
-                            <input
-                                required
-                                type='email'
-                                id='email'
-                                name='email'
-                                ref={emailRef}
-                            />
-                        </div>
-                        <button className='Profile-update-btn' type='submit'>
+                                />
+                            </div>
+                            <div className='Profile-form-group'>
+                                <label htmlFor='username'>Username: </label>
+                                <input
+                                    required
+                                    id='username'
+                                    name='username'
+                                    type='text'
+                                    ref={usernameRef}
+                                />
+                            </div>
+                            <div className='Profile-form-group'>
+                                <label htmlFor='email'>Email: </label>
+                                <input
+                                    required
+                                    type='email'
+                                    id='email'
+                                    name='email'
+                                    ref={emailRef}
+                                />
+                            </div>
+                            <button className='Profile-update-btn' type='submit'>
                         Update Now
-                        </button>
-                    </div>
-                </form>
+                            </button>
+                        </div>
+                    </form>
+                </Container>  
             </section>
+
+            <section>
+                {
+                    showAvatars && 
+                    <div className='d-flex flex-wrap justify-content-center mt-5 px-5'>
+                        {images.map(image => (
+                            <img key={image.id}
+                                src={image.imageSrc} alt='default' className='Profile-image-options d-inline-block mr-2 mb-3'
+                                onClick={()=>setSelectedImg(image.imageSrc)}
+                            />
+                        ))}
+                    </div>
+                }
+            </section>
+
             
             {/* delete id prop once added in those components */}
             {/* {storedUser && <section>
@@ -161,7 +185,7 @@ const Profile = props => {
                                             console.log('send friend msg');
                                         } }
                                     >Send Message</button>
-                                    <button className="ProfUserFrie-btn-group"
+                                    <button className="ProfUserFrie-btn-group ProfUserFrie-btn-unfriend"
                                         onClick={ e => {
                                             e.preventDefault();
                                             console.log('unfriend');

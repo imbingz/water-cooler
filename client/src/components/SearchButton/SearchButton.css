@@ -1,20 +1,27 @@
+.SearchButton-btn {
+	width: 150px;
+	border: none;
+	padding: 8px;
+	border-radius: 5px;
+	color: #333;
+	font-size: small;
+}
+
+.SearchButton-btn:hover,
+.SearchButton-btn:focus,
+.SearchButton-btn:active {
+	transform: scale(0.9);
+	background-color: aqua;
+}
+
 .SearchButton-send {
-  width: 155;
-  margin-left: 10px;
-  margin-right: 10px;
-  color: green;
+	background-color: greenyellow;
 }
 
 .SearchButton-pend {
-  width: 155;
-  margin-left: 10px;
-  margin-right: 10px;
-  color: orange;
+	background-color: gold;
 }
 
 .SearchButton-msg {
-  width: 155;
-  margin-left: 10px;
-  margin-right: 10px;
-  color: yellow;
+	background-color: yellow;
 }

@@ -2,9 +2,12 @@ import React, { useRef, useState } from 'react';
 import {Modal, Container, Row} from 'react-bootstrap';
 import LoginModal from '../LoginModal';
 import './SignupModal.css';
+import images from '../../data/profileImages';
 
 function SignupModal(props) {
   
+    const [selectedImg, setSelectedImg] = useState('https://cdn130.picsart.com/246483773027202.jpg?type=webp&to=crop&r=256');
+
     const firstNameRef = useRef();
     const lastNameRef = useRef();
     const usernameRef = useRef();
@@ -32,7 +35,7 @@ function SignupModal(props) {
                 //  ** need to figure out a better way than alert here ** //
                 alert('Passwords do not match');
                 return;
-            }
+            } 
             const response = await fetch('/api/user/signup', {
                 headers: {
                     'Content-Type': 'application/json'
@@ -42,12 +45,14 @@ function SignupModal(props) {
                     lastName,
                     username,
                     password,
-                    email
+                    email,
+                    imageSrc: selectedImg
                 }),
                 method: 'POST'
             });
             const json = await response.json();
 
+            console.log(json);
             //**** Note: we may want to do some notification to user here instead of log error  *****//
             if (json && json.data && json.data.error) {
                 console.log(json.data.error.message);
@@ -113,7 +118,27 @@ function SignupModal(props) {
                                     <input required type='password' id='confirmPass' name='confirmPass' ref={confirmPassRef} />
                                 </div>
                             </Row>
-                            <Row className='mr-1 mt-3 d-flex justify-content-end'>
+                            <Row className='d-flex flex-row justify-content-center mt-5'>  
+                                <div>
+                                    <img 
+                                        className='SignupModal-image-selected'
+                                        src={selectedImg} 
+                                        alt='profile'
+                                    />
+                                </div>
+                            </Row>
+                            <Row className='d-flex flex-column justify-content-center align-items-center mt-4'>
+                                <h6 className='text-muted'>Choose Your Avatar</h6>
+                                <div className='d-flex flex-wrap justify-content-center mt-1 px-5'>
+                                    {images.map(image => (
+                                        <img key={image.id}
+                                            src={image.imageSrc} alt='default' className='SignupModal-image d-inline-block mr-2 mb-3'
+                                            onClick={()=>{setSelectedImg(image.imageSrc); console.log(image.imageSrc);}}
+                                        />
+                                    ))}
+                                </div>
+                            </Row>
+                            <Row className='mr-1 mt-3 d-flex justify-content-center'>
                                 <button
                                     className='SignupModal-btn'
                                     type='submit'

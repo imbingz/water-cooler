@@ -3,6 +3,8 @@ import { Link, useHistory } from 'react-router-dom';
 
 const Signup = props => {
     const history = useHistory();
+    const firstNameRef = useRef();
+    const lastNameRef = useRef();
     const usernameRef = useRef();
     const emailRef = useRef();
     const passwordRef = useRef();
@@ -11,6 +13,8 @@ const Signup = props => {
     const handleSignup = async e => {
         e.preventDefault();
 
+        const firstName = firstNameRef.current.value;
+        const lastName = usernameRef.current.value;
         const username = usernameRef.current.value;
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
@@ -27,6 +31,8 @@ const Signup = props => {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
+                    firstName,
+                    lastName,
                     username,
                     password,
                     email
@@ -47,6 +53,14 @@ const Signup = props => {
     return (
         <main>
             <form className='Signup-form' onSubmit={handleSignup}>
+                <div className='Signup-form-group'>
+                    <label htmlFor='firstName'>First Name: </label>
+                    <input required id='firstName' name='firstName' type='text' ref={firstNameRef} />
+                </div >
+                <div className='Signup-form-group'>
+                    <label htmlFor='lastName'>Last Name: </label>
+                    <input required id='lastName' name='lastName' type='text' ref={lastNameRef} />
+                </div>
                 <div className='Signup-form-group'>
                     <label htmlFor='username'>Username: </label>
                     <input required id='username' name='username' type='text' ref={usernameRef} />
