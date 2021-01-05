@@ -6,13 +6,16 @@ const authRequired = require('../middlewares/authRequired');
 
 // api/user/signup
 router.post('/signup', ({body}, res) => {
-    const { email, password, username, firstName, lastName } = body;
-    
-    if (!email || !password || !username ||!firstName || !lastName) {
+
+      
+    const { email, password, username, firstName, lastName, imageSrc } = body;
+
+    if (!email || !password || !username ||!firstName || !lastName || !imageSrc) {
       
         return res.status(422).json({ error: 'Please fill all the fields' });
     }
-    
+  
+
     db.User
         .findOne({ email: email })
         .then(savedUser => {
@@ -28,6 +31,7 @@ router.post('/signup', ({body}, res) => {
                     username,
                     email,
                     password: hashedpassword,
+                    imageSrc
                 });
                 //add new user to db
                 user
