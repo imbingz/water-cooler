@@ -8,7 +8,7 @@ function NavSearchResultModal(props) {
       
         <Modal {...props} backdrop='static' keyboard={false} centered>
             <Modal.Header closeButton>
-                <Modal.Title />
+                <Modal.Title style={{fontSize:'1rem', fontWeight:500, color: '#777'}}>Search Results</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Container>

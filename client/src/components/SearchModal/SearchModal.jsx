@@ -88,7 +88,7 @@ function SearchModal (props) {
 						Search
                             </button>
                         </form>
-                        <section>
+                        <section className='mt-5'>
                             <SearchResults/>
                         </section>
                     </Container>

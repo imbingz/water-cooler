@@ -15,13 +15,16 @@ const SearchResults = () => {
                     // * Map Through Users Returned From the DB
                     context.searchResults.map((returnedUser, index) => (
                         <article className='SearchResults-cont' key={index}>
-                            {/* Im not sure how to get the alt text to show the username as well, it doesn't combine the variable and the string after it 🤷‍♀️ */} 
-                            <img className="SearchResults-img"
-                                src={returnedUser.imageSrc}
-                                alt="user's profile icon"
-                            />
-                            <h3>Username: {returnedUser.username}</h3>
-                            <h3>Name: {returnedUser.firstName} {returnedUser.lastName}</h3>
+                            <div>   
+                                <img className="SearchResults-img"
+                                    src={returnedUser.imageSrc}
+                                    alt={returnedUser.username}
+                                />
+                            </div>
+                            <div className='mx-3 pt-3'>
+                                <p className='m-0 p-0'><strong>Username: </strong>{returnedUser.username}</p>
+                                <p><strong>Name: </strong>{returnedUser.firstName} {returnedUser.lastName}</p>
+                            </div>
                             {/* * Send Props to SearchButton To Conditionally Render Buttons */}
                             <SearchButton
                                 pending={returnedUser.pending}

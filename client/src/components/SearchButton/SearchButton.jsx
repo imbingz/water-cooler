@@ -26,7 +26,7 @@ const SearchButton = (props) => {
     // create state for the database values
     let button =
         <button 
-            className='SearchButton-send'
+            className='SearchButton-send SearchButton-btn'
             onClick={e => {
                 e.preventDefault();
                 friendRequest(props.friendId);
@@ -38,7 +38,7 @@ const SearchButton = (props) => {
         if (searchedUser === props.userId) {
             button =
                 <button
-                    className='SearchButton-pend'
+                    className='SearchButton-pend SearchButton-btn'
                     onClick={e => e.preventDefault()}
                 >Friend Request Pending</button>;
         }
@@ -49,7 +49,7 @@ const SearchButton = (props) => {
         if (searchedUser === props.userId) {
             button =
                 <button
-                    className='SearchButton-msg'
+                    className='SearchButton-msg SearchButton-btn'
                     onClick={e => e.preventDefault()}
                 >Message Friend</button>;
         }
@@ -60,7 +60,7 @@ const SearchButton = (props) => {
         if (searchedUser === props.userId) {
             button =
                 <button
-                    className='SearchButton-msg'
+                    className='SearchButton-msg SearchButton-btn'
                     onClick={e => e.preventDefault()}
                 >You have been blocked</button>;
         }
