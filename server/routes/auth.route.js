@@ -23,6 +23,8 @@ router.post('/signup', ({body}, res) => {
             bcrypt.hash(password, 12).then(hashedpassword => {
             
                 const user = new db.User({
+                    firstName,
+                    lastName,
                     email,
                     password: hashedpassword,
                     username
