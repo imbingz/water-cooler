@@ -115,7 +115,7 @@
 	align-items: center;
 	margin-top: 0.8rem;
 	padding: 0.5rem 1.2rem;
-	background-color: rgb(204, 202, 202);
+	background-color: rgb(212, 196, 252);
 }
 
 .ProfUserFrie-img-wrapper {
@@ -150,17 +150,31 @@
 	margin: 0.2rem 0 0.2rem 1rem;
 	padding: 0.3rem 0.5rem;
 	border-radius: 3px;
-	background-color: rgb(143, 143, 146);
-	color: #fff;
+	background-color: rgb(130, 252, 130);
+	color: #555;
 	border: none;
 }
 
+.ProfUserFrie-btn-unfriend {
+	background-color: orange;
+	color: white;
+}
+
+/* media queries  */
 @media only screen and (max-width: 500px) {
 	.Profile label {
 		display: block;
+		font-size: 0.85rem;
+		font-weight: 400;
+		margin: 8px 0 0;
 	}
 
 	.Profile #email {
 		margin-left: 0;
+	}
+
+	.Profile-update-btn {
+		display: block;
+		margin: 25px 0;
 	}
 }

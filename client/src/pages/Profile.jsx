@@ -185,7 +185,7 @@ const Profile = props => {
                                             console.log('send friend msg');
                                         } }
                                     >Send Message</button>
-                                    <button className="ProfUserFrie-btn-group"
+                                    <button className="ProfUserFrie-btn-group ProfUserFrie-btn-unfriend"
                                         onClick={ e => {
                                             e.preventDefault();
                                             console.log('unfriend');
