@@ -54,7 +54,6 @@ function Landing() {
                             className='d-inline-block mx-5 my-5 px-4 py-3 Landing-btn Landing-start-btn'
                             onClick={() => 
                             { 
-                                setShowDemo(false); 
                                 handleShow();
                             }}
                         >
