@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import { Link } from 'react-router-dom';
 import {AiOutlineClose} from 'react-icons/ai';
 import friends from '../../data/friends';
 import './TabDM.css';
@@ -26,14 +25,20 @@ function TabDM() {
             ))
             }
 
-            <aside className={sidebar ? 'Sidenav-menu active' : 'Sidenav-menu'}>
-                <div className='Sidenav-menu-items d-flex flex-column' >
-                    <div onClick={showSidebar}className='Sidenav-toggle' >
-                        <Link to='#' className='Header-menu-bars'>
-                            <AiOutlineClose />
-                        </Link>
+            <aside className={sidebar ? 'Sidenav-menu-dm active' : 'Sidenav-menu-dm'}>
+                <div className='Sidenav-menu-items-dm' >
+                    <div className='Sidenav-toggle-dm' >
+                        <div className='d-flex align-items-center'>
+                            <img 
+                                className='Sidenav-header-img'
+                                src='/assets/images/logo-50.png' alt='default-avatar'/>
+                            <h6 className='text-muted'>The-king</h6>
+                        </div>
+                        <button className='Sidenav-header-close-btn'>
+                            <AiOutlineClose size={30} style={{fill: 'orangered'}} onClick={showSidebar}/>
+                        </button>
                     </div>
-                    {/* <Tabchat /> */}
+                    {/* <TabDmchat /> */}
                 </div>
                 
             </aside>
