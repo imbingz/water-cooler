@@ -1,0 +1,63 @@
+.TabDmChats-chat-wrapper {
+	height: 85vh;
+	/* background-color: yellow; */
+}
+
+.TabDmChats-chat-body {
+	flex: 1;
+	overflow: scroll;
+}
+
+.TabDmChats-chat-friend {
+	text-align: end;
+}
+
+.TabDmChats-chat-msg-you {
+	display: inline-block;
+	background-color: rgb(247, 224, 228);
+	border-radius: 25px;
+	padding: 3px;
+}
+
+.TabDmChats-chat-msg-you-read {
+	background-color: white;
+	border-radius: 25px;
+	padding: 3px;
+}
+
+.TabDmChats-chat-msg-friend {
+	display: inline-block;
+	background-color: rgb(164, 250, 157);
+	border-radius: 25px;
+	padding: 3px;
+}
+
+.TabDmChats-chat-msg-friend-read {
+	background-color: white;
+	border-radius: 25px;
+	padding: 3px;
+}
+
+.TabDmChats-chat-footer {
+	background-color: rgb(230, 227, 227);
+}
+
+.TabDmChats-chat-input {
+	width: 245px;
+	padding: 3px 10px;
+	border: 0;
+	border-radius: 25px;
+	display: inline-block;
+	margin: 0 4px;
+}
+
+.TabDmChats-chat-input:focus {
+	outline: 0;
+}
+
+.TabDmChats-chat-btn {
+	border: 0;
+	/* border-color: #08f;
+	border-radius: 5px; */
+	background-color: transparent;
+}
