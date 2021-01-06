@@ -1,9 +1,7 @@
 import React from 'react';
 
 
-function Sprite({ image, data, position }) {
-    //deconstructure the data passed
-    const { y, x, h, w } = data;
+function Sprite({position={x:0, y:0}, message, step=0, dir=0}) {
 
     return (
         // set image position n size
@@ -13,10 +11,10 @@ function Sprite({ image, data, position }) {
                     position: 'absolute',
                     top: position.y,
                     left: position.x,
-                    height: `${h}px`,
-                    width: `${w}px`,
-                    backgroundImage: `url(${image})`,
-                    backgroundPosition: ` -${x}px -${y}px`, 
+                    height: '32px',
+                    width: '32px',
+                    backgroundImage: 'url(\'/sprites/skins/m2.png\')',
+                    backgroundPosition: `-${step*32}px -${step*32}px`, 
                     backgroundRepeat: 'no-repeat',
                     zIndex: 10
                 } }
@@ -30,7 +28,16 @@ function Sprite({ image, data, position }) {
             >
             userName
             </div>
-
+            <div
+                style={ {
+                    position: 'absolute',
+                    top: position.y + '20px',
+                    left: position.x,
+                    zIndex: 10
+                } }    
+            >
+                <h6>{message}</h6>
+            </div>
         </>
     );
 }
