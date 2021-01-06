@@ -19,11 +19,11 @@
 	padding: 3px;
 }
 
-.TabDmChats-chat-msg-you-read {
+/* .TabDmChats-chat-msg-you-read {
 	background-color: white;
 	border-radius: 25px;
 	padding: 3px;
-}
+} */
 
 .TabDmChats-chat-msg-friend {
 	display: inline-block;
@@ -32,11 +32,11 @@
 	padding: 3px;
 }
 
-.TabDmChats-chat-msg-friend-read {
+/* .TabDmChats-chat-msg-friend-read {
 	background-color: white;
 	border-radius: 25px;
 	padding: 3px;
-}
+} */
 
 .TabDmChats-chat-footer {
 	background-color: rgb(230, 227, 227);
