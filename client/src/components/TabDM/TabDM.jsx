@@ -6,7 +6,7 @@ import './TabDM.css';
 import {v4 as uuidv4} from 'uuid';
 
 function TabDM() {
-    const [sidebar, setSidebar] = useState(true);
+    const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
 
 

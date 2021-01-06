@@ -1,0 +1,54 @@
+.Sidenav-menu {
+	background-color: rgba(169, 169, 169);
+	/* width: 325px; */
+	max-height: 100vh;
+	display: flex;
+	justify-content: center;
+	/* position: fixed; */
+	/* top: 80; */
+	/* top: 0; */
+	/* left: -100%; */
+	transition: 850ms;
+	z-index: 10;
+}
+
+.Sidenav-menu.active {
+	left: 0;
+	transition: 350ms;
+}
+
+.Sidenav-menu-items {
+	width: 100%;
+	height: 100%;
+}
+
+.Sidenav-toggle {
+	background-color: rgba(68, 66, 66, 0.3);
+	width: 100%;
+	/* height: 80px; */
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+	padding-right: 1rem;
+}
+
+.main-col {
+	max-height: 100vh;
+	overflow: scroll;
+}
+
+@media only screen and (max-width: 600px) {
+	.Sidenav-menu {
+		background-color: rgba(169, 169, 169);
+		width: 325px;
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		position: fixed;
+		top: 80;
+		top: 0;
+		left: -100%;
+		transition: 850ms;
+		z-index: 10;
+	}
+}

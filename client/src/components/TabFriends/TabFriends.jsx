@@ -70,12 +70,8 @@ function TabFriends() {
                             <p className='mx-2' >{friend.username}</p>
 
                             <button className='TabFriends-profile-btn d-inline-block ml-auto mb-3 px-2 py-1' 
-                                onClick={() => {handleShow(); handleFriendModal(friend);}}
-                                // onClick={()=>{console.log(friend);}}
+                                onClick={() => {handleShow(friend); handleFriendModal(friend);}}
                             ><small> View Profile</small> </button>
-                            <ProfileModal show={show} onHide={() => handleClose (false)} 
-                                friend={profileFriend} 
-                            />
                         </div>
                            
                     ))
@@ -89,38 +85,16 @@ function TabFriends() {
                             <img src={friend.imageSrc} alt={friend.username} style={{width:32, height: 32}}/>
                             <p className='mx-2' >{friend.username}</p>
                             <button className='TabFriends-profile-btn d-inline-block ml-auto mb-3 px-2 py-1'
-                            //  onClick={() => setModalShow(true)} 
                                 onClick={() => {handleShow(); handleFriendModal(friend);}}
                             ><small> View Profile</small> </button>
-
-                            <ProfileModal show={show} onHide={() => handleClose (false)} 
-                                friend={profileFriend} 
-                            />
                         </div>
                            
                     ))
                 }
             </section>
-            {/* <Modal
-                show={show}
-                onHide={handleClose}
-                backdrop="static"
-                keyboard={false}
-
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title>{profileFriend.username}</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    {profileFriend.firstName} {profileFriend.lastName}
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-            Close
-                    </Button>
-                    <Button variant="primary">Understood</Button>
-                </Modal.Footer>
-            </Modal> */}
+            <ProfileModal show={show} onHide={() => handleClose (false)} 
+                friend={profileFriend} 
+            />
             
         </Container>
     );
