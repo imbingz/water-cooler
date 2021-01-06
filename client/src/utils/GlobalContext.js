@@ -7,7 +7,7 @@ const defaultState = {
     socialSpaces: [],
     currentRoom: [],
     currentSocialSpace: [],
-    showAside: false
+    showAside: true
 };
 
 const reducer = (state, action) => {

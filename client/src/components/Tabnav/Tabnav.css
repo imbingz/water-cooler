@@ -5,3 +5,8 @@
 	font-weight: 600;
 	text-align: center;
 }
+
+.Tabnav-aside-tab {
+	max-height: 100vh;
+	overflow: scroll;
+}
