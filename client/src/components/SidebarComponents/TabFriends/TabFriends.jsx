@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-// import friends from '../../data/friends';
+// import ffriends from '../../data/friends';
 import { Container } from 'react-bootstrap';
 import { v4 as uuidv4 } from 'uuid';
 import ProfileModal from '../../Modals/ProfileModal';

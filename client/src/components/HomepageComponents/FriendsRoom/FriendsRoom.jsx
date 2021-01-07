@@ -1,11 +1,11 @@
 import React from 'react';
-import {Row, Col, Button, Card} from 'react-bootstrap';
-import {MdAvTimer} from 'react-icons/md';
-import {CgProfile} from 'react-icons/cg';
-import {IoIosPeople} from 'react-icons/io';
+import { Button, Card, Col, Row } from 'react-bootstrap';
+import { MdAvTimer } from 'react-icons/md';
+import { CgProfile } from 'react-icons/cg';
 import { IconContext } from 'react-icons';
-import friendsRoom from '../../data/friendsRoom';
-import {v4 as uuidv4 } from 'uuid';
+import { IoIosPeople } from 'react-icons/io';
+import friendsRoom from '../../../data/friendsRoom';
+import { v4 as uuidv4 } from 'uuid';
 
 
 function FriendsRoom() {

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Carousel, Col} from 'react-bootstrap';
-import roomStyles from '../../data/roomStyles';
+import roomStyles from '../../../data/roomStyles';
 // import { v4 as uuidv4 } from 'uuid';
 import './RoomCarousel.css';
 

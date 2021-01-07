@@ -1,7 +1,7 @@
 import React from 'react';
-import {Row, Col,Button} from 'react-bootstrap';
-import friends from '../../data/friends';
-import {v4 as uuidv4} from 'uuid';
+import { Button, Col, Row } from 'react-bootstrap';
+import friends from '../../../data/friends';
+import { v4 as uuidv4 } from 'uuid';
 
 
 function CreateRoom() {
