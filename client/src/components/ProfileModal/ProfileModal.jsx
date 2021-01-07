@@ -41,7 +41,7 @@ function ProfileModal(props) {
                         <Row className='my-4'>
                             <Button className='d-inline-block mx-2 px-3' sizee='sm' variant='success'>Invite</Button >
                             <Button className='d-inline-block mx-2 px-3' variant='warning' size='sm'>Chat</Button >
-                            <Button className='d-inline-block mx-2 px-3' variant='secondary' size='sm'>Unfriend</Button >
+                            <Button className='d-inline-block mx-2 px-3' variant='light' size='sm'>Unfriend</Button >
                         </Row>
                     </Container>
                 </Modal.Body>
