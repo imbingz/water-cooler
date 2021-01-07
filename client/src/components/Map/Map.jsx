@@ -88,15 +88,15 @@ function Map({ tiles, tileset, tilesets, setTileset, tileHeight, tileWidth }) {
                 if (key === player.id) {
                     return (
                         <Player
-                            skin='f1'
                             pos={ players[key] }
                             emitPos={ pos => socket.emit('movement', pos) }
+                            message={players[key].message}
                         />
                     );
                 }
 
                 return (
-                    <Player skin='f1' pos={ players[key] } />
+                    <Player pos={ players[key] } />
                 );
             }) }
 

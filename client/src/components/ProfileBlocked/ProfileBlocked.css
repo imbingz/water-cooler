@@ -1,0 +1,61 @@
+/* User friend cards */
+
+.ProfBlock-friends {
+	margin: 3rem auto;
+	padding: 0 2rem;
+}
+
+.ProfBlock-cont {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 0.8rem;
+	padding: 0.5rem 1.2rem;
+	background-color: rgb(212, 196, 252);
+}
+
+.ProfBlock-img-wrapper {
+	margin-right: 1.2rem;
+}
+
+.ProfBlock-img {
+	width: 75px;
+	height: 75px;
+	object-fit: cover;
+	border-radius: 50%;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.ProfBlock-info-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.ProfBlock-info p {
+	margin: 0;
+}
+
+.ProfBlock-info span {
+	font-weight: 600;
+	font-size: 0.9rem;
+}
+
+.ProfBlock-btn-group {
+	display: inline-block;
+	margin: 0.2rem 0 0.2rem 1rem;
+	padding: 0.3rem 0.5rem;
+	border-radius: 3px;
+	background-color: rgb(130, 252, 130);
+	color: #555;
+	border: none;
+}
+
+.ProfBlock-btn-unfriend {
+	background-color: orange;
+	color: white;
+}
+
+.ProfBlock-hide {
+	display: none;
+}
