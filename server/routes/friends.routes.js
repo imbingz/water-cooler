@@ -9,7 +9,7 @@ router.put('/accept', async ({ body }, res) => {
         // ** Access User's Friend's Db and Push User's ID to 'friends' Array
         dbArray.push('friends', body.friend, body.user);
         // ** Access User's Friend's db and Pull User's ID From 'outboundPendingFriends' array
-        dbArray.pull('outboundPendingFriends', body.friend, body.user, );
+        dbArray.pull('outboundPendingFriends', body.friend, body.user,);
         // ** Access User's db and Push Friend's ID to 'friends' Array
         dbArray.push('friends', body.user, body.friend);
         // ** Access User's db and Pull Friend's From 'inboundPendingFriends' Array
@@ -56,33 +56,47 @@ router.put('/decline', async ({ body }, res) => {
     }
 });
 
-// * Find User's Friends
-router.post('/friends', async ({ body }, res) => {
+// * Find User's Friends, Inbound Requests, and Blocked Users
+router.post('/arrays', async ({ body }, res) => {
     try {
         // console.log('Hit Friend Req API: ', body);
-        // * Store Data To Send Back To Client
-        const response = [];
-
         // * Find User's DB Info
         const user = await db.User.find({ _id: body.id });
         // console.log({ user });
+        // * Containers for Different Cases
+        let idArray;
+        switch (body.case) {
+            case 'friends':
+                // ** Store Their Friends in a Variable
+                idArray = user[0].friends;
+                // console.log(idArray);                
+                break;
+            case 'inpending':
+                // ** Store Their inboundPendingFriends in a Variable
+                idArray = user[0].inboundPendingFriends;
+                // console.log({idArray});
+                break;
+            case 'blocked':
+                // ** Store Their Blocked Users in a Variable
+                idArray = user[0].blocked;
+                // console.log({idArray});;
+                break;
+        }
 
-        // ** Store Their Friends in a Variable
-        const idArray = user[0].friends;
-        // console.log(idArray);
-
-        // ** Get DB Info for All IDs in idArray
-        const friends = await db.User.find({ _id: { $in: idArray } });
-        // console.log({ friends });
+        // * Get DB Info for All IDs in idArray
+        const returnedUsers = await db.User.find({ _id: { $in: idArray } });
+        // console.log({ returnedUsers });
         // ** If no friends found, End Function
-        if (!friends) {
+        if (!returnedUsers) {
             console.log('No friends found');
             res.json({ success: false });
             return;
         }
+        // * Store Data To Send Back To Client
+        const response = [];
 
-        // ** Loop Through Results to Store Relevant Data in an Object
-        friends.forEach(friends => {
+        // * Loop Through Results to Store Relevant Data in an Object
+        returnedUsers.forEach(friends => {
             let userParsed = {
                 username: friends.username,
                 firstName: friends.firstName,
@@ -98,69 +112,14 @@ router.post('/friends', async ({ body }, res) => {
 
         // ** Send Filtered Response to Client
         // console.log({ response });
-        res.json({ success: true, friends: response });
+        res.json({ success: true, retUsers: response });
     } catch (err) {
-        console.log('/api/friends/friends error: ', err);
+        console.log('/api/friends/array (' + body.case + ') error: ', err);
         res.json({ success: false });
     }
 
 });
 
-// * Find User's Pending Friend Requests
-router.post('/inpending', async ({ body }, res) => {
-    // console.log("Hit Inbound Friend Req API: ", body);
-    const response = [];
-    try {
-        // ** Find User's DB Info
-        const user = await db.User.find({ _id: body.id });
-        // console.log({user});
-
-        // ** If user is undefined, End Function
-        if (!user) {
-            console.log('No document found');
-            res.json({ success: false });
-            return;
-        }
-
-        // ** Store Their inboundPendingFriends in a Variable
-        const idArray = user[0].inboundPendingFriends;
-        // console.log({idArray});
-
-        // ** Get DB Info for All IDs in idArray
-        const pendingFriends = await db.User.find({ _id: { $in: idArray } });
-        // console.log({pendingFriends});
-
-        // ** If no pending friends found, End Function
-        if (!pendingFriends) {
-            console.log('No inboundPendingFriends found');
-            res.json({ success: false });
-            return;
-        }
-
-        // ** Loop Through Results to Store Relevant Data in an Object
-        pendingFriends.forEach(friends => {
-            let userParsed = {
-                username: friends.username,
-                firstName: friends.firstName,
-                lastName: friends.lastName,
-                imageSrc: friends.imageSrc,
-                friendId: friends._id,
-            };
-            // console.log({userParsed});
-
-            // ** Push Each Result to response
-            response.push(userParsed);
-        });
-
-        // ** Send Filtered Response to Client
-        // console.log({response});
-        res.json({ success: true, friends: response });
-
-    } catch (err) {
-        console.log('/api/friends/inpending error: ', err);
-        res.json({ success: false });
-    }
-});
 
 // * Send Friend Request
 router.put('/request', async ({ body }, res) => {
