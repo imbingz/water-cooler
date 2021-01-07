@@ -29,8 +29,8 @@ function TabDmChats() {
 
             </section>
             
-            <section className='TabDmChats-chat-footer mt-2 pt-3 px-2'>
-                <form >
+            <section className='TabDmChats-chat-footer pt-4 px-2 pb-3'>
+                <form>
                     <label htmlFor='dm-chat-input'>
                         <BiSmile size={25} style={{fill: 'black'}}/>
                     </label>
