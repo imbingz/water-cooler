@@ -1,7 +1,7 @@
 import React from 'react';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 import Player from '../Player';
 
 /******************************* ALEX */

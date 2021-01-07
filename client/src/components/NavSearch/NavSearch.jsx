@@ -24,15 +24,17 @@ function NavSearch() {
                 body: JSON.stringify({search: searchQuery}),
                 method: 'POST'
             });
+            console.log(searchQuery);
             const data = await response.json();
             if (!data.success) {
                 window.alert('No match 😮');
+                setSearchResults([]);
                 return;
             }
             // ** If Results Are Found, set State To Trigger SearchResults.jsx
             setSearchResults(data.query);
             // console.log(data.query);
-            setSearchQuery('');
+            // setSearchQuery('');
         } catch (err) {
             console.log({ err });
         }
@@ -51,7 +53,7 @@ function NavSearch() {
     // add contexts to where the component is referenced
 
     return (
-        <SearchContext.Provider value={{ searchResults, userID }}>
+        <SearchContext.Provider value={{ searchResults, userID, searchDB }}>
             <div className='Header-search'>
                 <form onSubmit={(e) => {
                     e.preventDefault(); 

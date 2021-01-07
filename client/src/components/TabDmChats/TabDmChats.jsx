@@ -12,8 +12,8 @@ function TabDmChats() {
 
             <section className='TabDmChats-chat-body mt-3 mx-3'>
                 {
-                    dmChats.map(dmchat => (
-                        <div className={dmchat.label==='you' ? 'TabDmChats-chat-you' : 'TabDmChats-chat-friend'}>
+                    dmChats.map((dmchat, index) => (
+                        <div className={dmchat.label==='you' ? 'TabDmChats-chat-you' : 'TabDmChats-chat-friend'} key={index}>
                             <p className=' mb-1 text-muted '>
                                 {dmchat.label==='you' ? 'You' : 'Friend'}
                                 <small className='ml-1'>
@@ -30,7 +30,7 @@ function TabDmChats() {
             </section>
             
             <section className='TabDmChats-chat-footer mt-2 pt-3 px-2'>
-                <form onSumbit={(e)=> e.preventDefault()}>
+                <form onSubmit={(e)=> e.preventDefault()}>
                     <label htmlFor='dm-chat-input'>
                         <BiSmile size={25} style={{fill: 'black'}}/>
                     </label>

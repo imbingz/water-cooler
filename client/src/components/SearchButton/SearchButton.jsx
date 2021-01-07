@@ -13,7 +13,7 @@ const SearchButton = (props) => {
             const status = await request.json();
             console.log(status);
             if (status.success) {
-                window.alert('Done it');
+                // window.alert('Done it');
             } else if (!status.success) {
                 window.alert('Not Done it');
             }
@@ -30,6 +30,7 @@ const SearchButton = (props) => {
             onClick={e => {
                 e.preventDefault();
                 friendRequest(props.friendId);
+                props.searchDB();
             }}
         >Send Friend Request</button>;
     

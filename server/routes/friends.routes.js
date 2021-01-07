@@ -106,6 +106,7 @@ router.post('/arrays', async ({ body }, res) => {
                 lastName: friends.lastName,
                 imageSrc: friends.imageSrc,
                 friendId: friends._id,
+                status: friends.status
             };
             // console.log(userParsed);
 

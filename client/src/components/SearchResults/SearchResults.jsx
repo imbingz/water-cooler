@@ -27,6 +27,7 @@ const SearchResults = () => {
                             </div>
                             {/* * Send Props to SearchButton To Conditionally Render Buttons */}
                             <SearchButton
+                                searchDB={context.searchDB}
                                 pending={returnedUser.pending}
                                 blocked={returnedUser.blocked}
                                 friends={returnedUser.friends}

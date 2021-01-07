@@ -16,11 +16,11 @@ const ProfileBlocked = (props) => {
     };
 
     useEffect(() => {
-        const checkBlocked = async () => {
+        const checkDBArray = async (arr) => {
             try {
                 const response = await fetch('/api/friends/arrays', {
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: props.id, case: 'blocked' }),
+                    body: JSON.stringify({ id: props.id, case: arr }),
                     method: 'POST'
                 });
 
@@ -31,7 +31,7 @@ const ProfileBlocked = (props) => {
                 console.log({ err });
             }
         };
-        checkBlocked();
+        checkDBArray('blocked');
     }, [props.id]);
 
     return (
