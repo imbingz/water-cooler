@@ -3,10 +3,12 @@
         "variants": [
             "spring",
             "fall",
-            "winter"
+            "winter",
+            "cafe",
+            "casino"
         ],
         "size": {
-            "height": 288,
+            "height": 500,
             "width": 640
         }
     }
