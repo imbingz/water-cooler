@@ -17,7 +17,7 @@ import Slider from './components/Slider';
 import SideNav from './components/SideNav';
 import Landing from './pages/Landing';
 import RoomGUI from './pages/RoomGUI';
-import {Row, Col} from 'react-bootstrap';
+import {Row, Col, Container} from 'react-bootstrap';
 import './App.css';
 
 function App() {
@@ -38,23 +38,25 @@ function App() {
                         {/* <Navbar /> */}
 
                         <main>
-                            <Switch>
-                                { !storedUser && <Route exact path='/' component={Landing} /> }
-                                {storedUser && <Route exact path='/' component={Homepage} />}
-                                <Route exact path='/signup' component={Signup} />
-                                <Route exact path='/login' component={Login} />
-                                <Route exact path='/search' component={Search} />
-                                {/* will be profile:id */}
-                                <Route exact path='/profile' component={Profile} />
-                                <Route exact path='/rooms' component={Rooms} />
-                                <Route exact path='/rooms/:id' component={UserRoom} />
-                                {/* will be socialspace:id */}
-                                <Route exact path='/rooms/:id/:id' component={SocialSpace} />
-                                {/* Temporary Game Page  */}
-                                <Route exact path='/game' component={ GameRPG} />
-                                {/* The route may need to change later */}
-                                <Route exact path='/room' component={ RoomGUI} />
-                            </Switch>
+                            <Container>
+                                <Switch>
+                                    { !storedUser && <Route exact path='/' component={Landing} /> }
+                                    {storedUser && <Route exact path='/' component={Homepage} />}
+                                    <Route exact path='/signup' component={Signup} />
+                                    <Route exact path='/login' component={Login} />
+                                    <Route exact path='/search' component={Search} />
+                                    {/* will be profile:id */}
+                                    <Route exact path='/profile' component={Profile} />
+                                    <Route exact path='/rooms' component={Rooms} />
+                                    <Route exact path='/rooms/:id' component={UserRoom} />
+                                    {/* will be socialspace:id */}
+                                    <Route exact path='/rooms/:id/:id' component={SocialSpace} />
+                                    {/* Temporary Game Page  */}
+                                    <Route exact path='/game' component={ GameRPG} />
+                                    {/* The route may need to change later */}
+                                    <Route exact path='/room' component={ RoomGUI} />
+                                </Switch>
+                            </Container>
                         </main>
                         {storedUser && <Footer />}
                     </Col>
