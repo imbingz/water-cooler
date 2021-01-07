@@ -1,0 +1,62 @@
+.Space-video-section {
+	flex: 1;
+}
+
+/* .Sidenav-menu-space {
+	background-color: rgb(233, 252, 252);
+	width: 325px;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	position: fixed;
+	right: 0;
+	top: -100%;
+	transition: 350ms;
+	z-index: 10;
+}
+
+.Sidenav-menu-space.active {
+	top: 0;
+	transition: 350ms;
+} */
+
+.Sidenav-menu-space {
+	background-color: rgb(233, 252, 252);
+	width: 325px;
+	height: 100vh;
+	/* display: none; */
+	justify-content: center;
+}
+
+.Sidenav-menu-space.active {
+	/* display: inline-block; */
+	display: none;
+	transition: 350ms;
+}
+
+.Sidenav-menu-items-space {
+	width: 100%;
+}
+
+.Sidenav-toggle-space {
+	background-color: rgb(230, 227, 227);
+	width: 100%;
+	height: 30px;
+	/* display: flex; */
+	/* justify-content: space-between; */
+	/* align-items: center; */
+	padding-right: 1rem;
+}
+
+.Sidenav-header-img {
+	display: inline-block;
+	background-color: gold;
+	border-radius: 50%;
+	margin-left: 12px;
+	margin-right: 8px;
+}
+
+.Sidenav-header-icon-btn {
+	border: none;
+	background-color: transparent;
+}
