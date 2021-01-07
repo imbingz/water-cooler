@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import { Tab, Nav } from 'react-bootstrap';
 import TabFriends from '../TabFriends';
 import TabDM from '../TabDM';
-import TabRooms from '../TabRooms';
+import TabRoomChats from '../TabRoomChats';
 import TabMembers from '../TabMembers';
 import './Tabnav.css';
 
@@ -32,7 +32,7 @@ function Tabnav() {
                 <Tab.Content>
 
                     <Tab.Pane eventKey='chats'>
-                        <TabRooms />
+                        <TabRoomChats />
                     </Tab.Pane>
                     <Tab.Pane eventKey='members'>
                         <TabMembers />
