@@ -106,7 +106,8 @@ io.on('connect', (socket) => {
                     // console.log(playerPositions[i].x)
                     if (Math.abs( playerPositions[i].x - playerPositions[j].x ) <= 32 && Math.abs(playerPositions[i].y - playerPositions[j].y) <= 32) {
                         console.log('distance x: ' + Math.abs(playerPositions[i].x - playerPositions[j].x) + ' distance y: ' + Math.abs(playerPositions[i].y - playerPositions[j].y));
-                        message = 'Hey, like to chat?'; 
+                        playerPositions[i].message = 'Hey, like to chat?'; 
+                        playerPositions[j].message = 'Hellllloooooo , genius'; 
                      
                         // socket.emit('greeting', 'Hey, like to chat?');
                     } 

@@ -1,0 +1,48 @@
+.TabMembers-room-section {
+	border-bottom: 1px solid white;
+}
+
+.TabMembers-room-header {
+	color: blueviolet;
+}
+
+.TabMembers-space-name {
+	color: blueviolet;
+	padding-right: 5px;
+}
+
+.TabMembers-profile-btn {
+	border: none;
+	border-radius: 25px;
+}
+
+.TabMembers-profile-btn:hover,
+.TabMembers-profile-btn:focus {
+	outline: 0;
+	transform: scale(1.1);
+	background-color: #84f;
+	color: white;
+}
+
+.TabMembers-exit-btn {
+	border: none;
+	border-radius: 5px;
+	display: inline-block;
+	background-color: rgb(199, 238, 250);
+	height: 30px;
+	width: 120px;
+}
+
+.TabMembers-join-btn {
+	border: none;
+	border-radius: 5px;
+	display: inline-block;
+	background-color: greenyellow;
+	height: 25px;
+	width: 80px;
+}
+
+.TabMembers-join-btn:focus,
+.TabMembers-join-btn:active {
+	outline-color: orangered;
+}
