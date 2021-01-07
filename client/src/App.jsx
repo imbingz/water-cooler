@@ -16,7 +16,7 @@ import Slider from './components/Slider';
 // import Navbar from './components/Navbar';
 import SideNav from './components/SideNav';
 import Landing from './pages/Landing';
-
+import RoomGUI from './pages/RoomGUI';
 import {Row, Col} from 'react-bootstrap';
 import './App.css';
 
@@ -52,6 +52,8 @@ function App() {
                                 <Route exact path='/rooms/:id/:id' component={SocialSpace} />
                                 {/* Temporary Game Page  */}
                                 <Route exact path='/game' component={ GameRPG} />
+                                {/* The route may need to change later */}
+                                <Route exact path='/room' component={ RoomGUI} />
                             </Switch>
                         </main>
                         {storedUser && <Footer />}
