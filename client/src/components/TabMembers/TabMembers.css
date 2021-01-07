@@ -1,3 +1,15 @@
+.TabMembers-room-section {
+	border-bottom: 1px solid white;
+}
+
+.TabMembers-room-header {
+	color: blueviolet;
+}
+
+.TabMembers-space-name {
+	color: orangered;
+}
+
 .TabMembers-profile-btn {
 	border: none;
 	border-radius: 25px;
