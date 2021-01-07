@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {Container} from 'react-bootstrap';
 import TabMembersProfileModal from '../TabMembersProfileModal';
+import {BiExit} from 'react-icons/bi';
+import {FaVideo} from 'react-icons/fa';
 import './TabMembers.css';
 import {v4 as uuidv4} from 'uuid';
 import roomMembers from '../../data/friends';
@@ -22,7 +24,16 @@ function TabMembers() {
     return (
         <Container className='d-flex flex-column pl-4 mr-2 pb-5'>
             <section className='TabMembers-room-section pb-3'>
-                <div><h5 className='mt-4 mb-3 TabMembers-room-header'>In Room</h5></div>
+                <div className='d-flex justify-content-between align-items-center my-3'>
+                    <h5 className='mt-4 mb-3 TabMembers-room-header'>In Room
+                    </h5>
+                    <button className='TabMembers-exit-btn' >
+                        <span>Leave Room</span>
+                        <BiExit size={23} style={{fill: 'orangered', marginLeft: 5}}/>
+                    </button>
+
+                   
+                </div>
                 {
                     roomMembers && 
                         roomMembers.map(member => (
@@ -48,7 +59,15 @@ function TabMembers() {
                     socialSpaces.length > 0 && 
                         socialSpaces.map(socialSpace => (
                             <div key={uuidv4()}>
-                                <h6 className='TabMembers-space-name my-3'>SocialSpace: {socialSpace.spaceName}</h6>
+                                <div className='d-flex justify-content-between align-items-center my-3'>
+                                    <h6 className='TabMembers-space-name my-3'>
+                                        SocialSpace: {socialSpace.spaceName}
+                                    </h6>
+                                    <button className='TabMembers-join-btn' >
+                                        <span>Join</span>
+                                        <FaVideo size={20} style={{fill: 'orangered', marginLeft: 5}}/>
+                                    </button>
+                                </div>
                                 <article>
                                     {
                                         socialSpace.members.map(member => (
