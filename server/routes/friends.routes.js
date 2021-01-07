@@ -81,6 +81,9 @@ router.post('/arrays', async ({ body }, res) => {
                 idArray = user[0].blocked;
                 // console.log({idArray});;
                 break;
+            default:
+                console.log('No case matched');
+                res.json({ success: false });
         }
 
         // * Get DB Info for All IDs in idArray
