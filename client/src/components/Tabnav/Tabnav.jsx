@@ -15,8 +15,8 @@ function Tabnav() {
             <Tab.Container activeKey={activeKey} onSelect={setActiveKey} >
                 <Nav variant="tabs" className="justify-content-center bg-warning">
 
-                    <Nav.Item >
-                        <Nav.Link eventKey='rooms' className='Tabnav-nav-link'>Rooms</Nav.Link>
+                    <Nav.Item className='Tabnav-nav-item'>
+                        <Nav.Link eventKey='chats' className='Tabnav-nav-link'>Chats</Nav.Link>
                     </Nav.Item>
                     <Nav.Item className='Tabnav-nav-item' >
                         <Nav.Link eventKey='members' className='Tabnav-nav-link'>Members</Nav.Link>
@@ -31,7 +31,7 @@ function Tabnav() {
                 </Nav>
                 <Tab.Content>
 
-                    <Tab.Pane eventKey='rooms'>
+                    <Tab.Pane eventKey='chats'>
                         <TabRooms />
                     </Tab.Pane>
                     <Tab.Pane eventKey='members'>
