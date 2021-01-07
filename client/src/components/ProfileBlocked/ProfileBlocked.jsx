@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './ProfileBlocked.css';
-import friends from '../../data/friends';
+// import friends from '../../data/friends';
 
 const ProfileBlocked = (props) => {
 

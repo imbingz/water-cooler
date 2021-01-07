@@ -9,7 +9,7 @@ router.put('/accept', async ({ body }, res) => {
         // ** Access User's Friend's Db and Push User's ID to 'friends' Array
         dbArray.push('friends', body.friend, body.user);
         // ** Access User's Friend's db and Pull User's ID From 'outboundPendingFriends' array
-        dbArray.pull('outboundPendingFriends', body.friend, body.user,);
+        dbArray.pull('outboundPendingFriends', body.friend, body.user);
         // ** Access User's db and Push Friend's ID to 'friends' Array
         dbArray.push('friends', body.user, body.friend);
         // ** Access User's db and Pull Friend's From 'inboundPendingFriends' Array
