@@ -4,7 +4,7 @@ import {GoMail} from 'react-icons/go';
 
 function TabMembersProfileModal(props) {
 
-    const {roomMember} = props;
+    const {member} = props;
     return (
         <>
             <Modal {...props} backdrop="static" keyboard={false} centered>
@@ -15,25 +15,25 @@ function TabMembersProfileModal(props) {
 
                 <Modal.Body>
                                     
-                    <Container className='d-flex flex-column justify-content-center align-items-center mx-auto' style={{backgroundColor: '#ddc9fc'}}>
+                    <Container className='d-flex flex-column justify-content-center align-items-center mx-auto' style={{backgroundColor: '#c9f0fc'}}>
                         <Row className='mt-5'>
                       
                             <Col className='mt-1 mr-4' xs={3}>
-                                <img src={roomMember.imageSrc} alt={roomMember.username} style={{width: 75, height: 75, borderRadius:50}}/>
+                                <img src={member.imageSrc} alt={member.username} style={{width: 75, height: 75, borderRadius:50}}/>
                             </Col>
                      
                             <Col className='ml-2' xs='auto'>
                                 <Row className='d-flex flex-row justify-content-start'>
-                                    <h6 className='pt-1'> {roomMember.firstName} </h6>      
-                                    <h6 className='pt-1 mx-2'>  {roomMember.lastName} </h6> 
+                                    <h6 className='pt-1'> {member.firstName} </h6>      
+                                    <h6 className='pt-1 mx-2'>  {member.lastName} </h6> 
                                 </Row>
                                 <Row>
-                                    <em className='mb-0 Profile-Modal-username' style={{fontSize: '1rem', color: '#555'}}> {roomMember.username} </em>
+                                    <em className='mb-0 Profile-Modal-username' style={{fontSize: '1rem', color: '#555'}}> {member.username} </em>
                                 </Row>
                                 <Row>
                                     <i className='mr-2'><GoMail size={20} style={ { fill: 'blue' } }/></i>
                                     <em>
-                                        <a href = {`mailto: ${roomMember.email}`} style={{fontSize: '1rem', color: '#555'}}>{roomMember.email}
+                                        <a href = {`mailto: ${member.email}`} style={{fontSize: '1rem', color: '#555'}}>{member.email}
                                         </a>
                                     </em>
                                 </Row> 
