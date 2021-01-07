@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import './TabFriends.css';
 // import friends from '../../data/friends';
-import friendsRoom from '../../data/friendsRoom';
-import { v4 as uuidv4 } from 'uuid';
-import ProfileModal from '../ProfileModal';
 import { Container } from 'react-bootstrap';
+import { v4 as uuidv4 } from 'uuid';
+import ProfileModal from '../../Modals/ProfileModal';
+import friendsRoom from '../../../data/friendsRoom';
+import './TabFriends.css';
 
 
 function TabFriends() {

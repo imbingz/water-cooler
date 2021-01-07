@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { Tab, Nav } from 'react-bootstrap';
-import TabFriends from '../TabFriends';
 import TabDM from '../TabDM';
+import TabFriends from '../TabFriends';
 import './Tabnav.css';
 
 

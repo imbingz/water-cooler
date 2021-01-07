@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import {Modal, Container, Row} from 'react-bootstrap';
 import LoginModal from '../LoginModal';
 import './SignupModal.css';
-import images from '../../data/profileImages';
+import images from '../../../data/profileImages';
 
 function SignupModal(props) {
   

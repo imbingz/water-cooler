@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import {useGlobalContext} from '../../utils/GlobalContext.js';
-import Tabnav from '../Tabnav';
-import {Col} from 'react-bootstrap';
 import {AiFillCloseCircle} from 'react-icons/ai';
+import {Col} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import Tabnav from '../Tabnav';
+import {useGlobalContext} from '../../../utils/GlobalContext.js';
 import './Slider.css';
 
 function Slider() {

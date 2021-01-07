@@ -1,9 +1,8 @@
 import React from 'react';
-import './TabDmChats.css';
 import {BiSmile} from 'react-icons/bi';
 import {IoIosSend} from 'react-icons/io';
-
-import dmChats from '../../data/dmchats';
+import dmChats from '../../../data/dmchats';
+import './TabDmChats.css';
 
 
 function TabDmChats() {

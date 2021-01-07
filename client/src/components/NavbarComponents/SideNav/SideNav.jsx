@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import {useGlobalContext} from '../../utils/GlobalContext';
-import {CgMenu} from 'react-icons/cg';
 import {BsPeopleCircle} from 'react-icons/bs';
 import { IconContext } from 'react-icons';
-import './SideNav.css';
+import { Link } from 'react-router-dom';
+import {CgMenu} from 'react-icons/cg';
 import NavSearch from '../NavSearch/NavSearch';
+import {useGlobalContext} from '../../../utils/GlobalContext';
+import './SideNav.css';
 
 function SideNav() {
 

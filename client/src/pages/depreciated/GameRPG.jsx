@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import Map from '../components/Map';
+import Map from '../../components/Map';
 
 
 function Game() {
 
-    const tilesetData = require('../data/tilesets.json');
+    const tilesetData = require('../../data/tilesets.json');
 
     const tilesets = Object.keys(tilesetData).map(set => ({
         type: 'group',

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import TabDmChats from '../TabDmChats';
 import {AiOutlineClose} from 'react-icons/ai';
-import friends from '../../data/friends';
-import './TabDM.css';
 import {v4 as uuidv4} from 'uuid';
+import TabDmChats from '../TabDmChats';
+import friends from '../../../data/friends';
+import './TabDM.css';
 
 function TabDM() {
     const [sidebar, setSidebar] = useState(false);

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Navbar} from 'react-bootstrap';
 import { BsSearch, BsFillPersonFill } from 'react-icons/bs';
 import { AiFillHome } from 'react-icons/ai';
-import SearchModal from '../SearchModal/SearchModal';
+import SearchModal from '../Modals/SearchModal';
 import './Footer.css';
 
 

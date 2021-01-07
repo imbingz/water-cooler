@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import SearchContext from '../../utils/SearchContext';
 import {BsSearch} from 'react-icons/bs';
+import NavSearchResultModal from '../../NavSearchResultModal/NavSearchResultModal';
+import SearchContext from '../../../utils/SearchContext';
 import './NavSearch.css';
-import NavSearchResultModal from '../NavSearchResultModal/NavSearchResultModal';
 
 function NavSearch() {
     // * States
