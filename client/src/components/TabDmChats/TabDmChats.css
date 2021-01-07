@@ -8,7 +8,7 @@
 	overflow: scroll;
 }
 
-.TabDmChats-chat-friend {
+.TabDmChats-chat-you {
 	text-align: end;
 }
 
@@ -19,24 +19,12 @@
 	padding: 3px;
 }
 
-/* .TabDmChats-chat-msg-you-read {
-	background-color: white;
-	border-radius: 25px;
-	padding: 3px;
-} */
-
 .TabDmChats-chat-msg-friend {
 	display: inline-block;
 	background-color: rgb(164, 250, 157);
 	border-radius: 25px;
 	padding: 3px;
 }
-
-/* .TabDmChats-chat-msg-friend-read {
-	background-color: white;
-	border-radius: 25px;
-	padding: 3px;
-} */
 
 .TabDmChats-chat-footer {
 	background-color: rgb(230, 227, 227);
@@ -57,7 +45,5 @@
 
 .TabDmChats-chat-btn {
 	border: 0;
-	/* border-color: #08f;
-	border-radius: 5px; */
 	background-color: transparent;
 }
