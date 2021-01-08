@@ -1,17 +1,17 @@
 import React from 'react';
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 import Player from '../Player';
 
 /******************************* ALEX */
-let socket;
+// let socket;
 
-if (!socket) {
-    socket = io('http://localhost:8080', {
-        transports: ['websocket']
-    }); //this is the  client connection. it starts when client connects
-}
+// if (!socket) {
+//     socket = io('http://localhost:8080', {
+//         transports: ['websocket']
+//     }); //this is the  client connection. it starts when client connects
+// }
 /*********************************** */
 
 function Map({ tiles, tileset, tilesets, setTileset, tileHeight, tileWidth }) {
@@ -27,42 +27,42 @@ function Map({ tiles, tileset, tilesets, setTileset, tileHeight, tileWidth }) {
     const [greeting, setGreeting] = React.useState('');
 
 
-    React.useEffect(() => {
-        socket.on('connect', () => {
-            console.log('hit connect');
-            setPlayer({ id: socket.id, name: Math.random() });
-            console.log(`socket.id is ${socket.id}`);
-        });
+    // React.useEffect(() => {
+    //     socket.on('connect', () => {
+    //         console.log('hit connect');
+    //         setPlayer({ id: socket.id, name: Math.random() });
+    //         console.log(`socket.id is ${socket.id}`);
+    //     });
 
-        socket.on('connect_error', err => {
-            console.log(err);
-        });
+    //     socket.on('connect_error', err => {
+    //         console.log(err);
+    //     });
 
 
         /********************************
        state plyrs: {"VEf-RG4xQsUqPWgpAAAF":{"x":0,"y":0},"QONco2PVTxzwGBjsAAAL":{"x":0,"y":0},"BiKQtjhxPP6g2fCFAAAN":{"x":255,"y":100},"ILWM32u5CTcQ6WWIAAAP":{"x":204,"y":427},"xWvlzx5m98uL4TvjAAAX":{"x":292,"y":264},"YhN8HnUv51JGxliaAAAZ":{"x":407,"y":234}}
         * *************************** */
 
-        socket.on('state', (state) => {
-            if (!state) { return; } console.log(state);
-            const { players, message } = state;
-            console.log(`state plyrs: ${JSON.stringify(players)}`);
-            setPlayers(players);
-            if (message) { setGreeting(message); }
-            else { setGreeting(''); }
-        });
+    //     socket.on('state', (state) => {
+    //         if (!state) { return; } console.log(state);
+    //         const { players, message } = state;
+    //         console.log(`state plyrs: ${JSON.stringify(players)}`);
+    //         setPlayers(players);
+    //         if (message) { setGreeting(message); }
+    //         else { setGreeting(''); }
+    //     });
 
-        socket.on('greeting', msg => {
-            console.log(msg);
-            setGreeting(msg);
-        });
-    }, []);
+    //     socket.on('greeting', msg => {
+    //         console.log(msg);
+    //         setGreeting(msg);
+    //     });
+    // }, []);
 
 
     React.useEffect(() => {
         if (player) {
             console.log(`hit palyer useEffect(): ${JSON.stringify(player)}`);
-            socket.emit('new player', player);
+            // socket.emit('new player', player);
         }
     }, [player]);
 
@@ -89,7 +89,7 @@ function Map({ tiles, tileset, tilesets, setTileset, tileHeight, tileWidth }) {
                     return (
                         <Player
                             pos={ players[key] }
-                            emitPos={ pos => socket.emit('movement', pos) }
+                            // emitPos={ pos => socket.emit('movement', pos) }
                             message={players[key].message}
                         />
                     );
