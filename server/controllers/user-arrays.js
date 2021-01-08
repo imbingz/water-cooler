@@ -2,6 +2,7 @@ const db = require('../models');
 
 const dbArray = {
     push: async (array, queryId, insertId) => {
+        // console.log(array, queryId, insertId);
         try {
             const user = await db.User.findByIdAndUpdate( // eslint-disable-line no-unused-vars 
                 { _id: queryId },

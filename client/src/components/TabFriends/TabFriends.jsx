@@ -26,46 +26,82 @@ function TabFriends() {
     const [inpending, setInpending] = useState([]);
 
     useEffect(() => {
-        const checkDBArrays = async (arr) => {
-            try {
-                const response = await fetch('/api/friends/arrays', {
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: id, case: arr }),
-                    method: 'POST'
-                });
-
-                const data = await response.json();
-                switch (arr) {
-                    case 'friends':
-                        console.log('friends: ', data.retUsers);
-                        const friends = data.retUsers;
-                        const offline = [];
-                        const online = [];
-                        friends.forEach(fren => {
-                            (fren.status === 0) ? offline.push(fren) : online.push(fren);
-                        });
-                        setOffFriends(offline);
-                        setOnFriends(online);
-                        console.log({offline});
-                        break;
-                    case 'inpending':
-                        console.log('inpending: ', data.retUsers);
-                        setInpending(data.retUsers);
-                        break;
-                    default:
-                        console.log('No valid array');
-                        break;
-                }
-            } catch (err) {
-                console.log({ err });
-            }
-        };
-        checkDBArrays('friends');
+        
         checkDBArrays('inpending');
+        checkDBArrays('friends');
 
     }, [id]);
 
+    const acceptFriend = async (frenId) => {
+        console.log('accepts');
+        console.log(frenId);
+        try {
+            const request = await fetch('/api/friends/accept', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ friend: frenId, user: id }),
+                method: 'PUT'
+            });
+            const status = await request.json();
+            if (status.success) {
+                window.alert('Done it');
+            }
+        } catch (err) {
+            console.log({ err });
+        }
+    };
 
+    const checkDBArrays = async (arr) => {
+        try {
+            const response = await fetch('/api/friends/arrays', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: id, case: arr }),
+                method: 'POST'
+            });
+
+            const data = await response.json();
+            switch (arr) {
+                case 'friends':
+                    // console.log('friends: ', data.retUsers);
+                    const friends = data.retUsers;
+                    const offline = [];
+                    const online = [];
+                    friends.forEach(fren => {
+                        (fren.status === 0) ? offline.push(fren) : online.push(fren);
+                    });
+                    setOffFriends(offline);
+                    setOnFriends(online);
+                    // console.log({offline});
+                    break;
+                case 'inpending':
+                    // console.log('inpending: ', data.retUsers);
+                    setInpending(data.retUsers);
+                    break;
+                default:
+                    console.log('No valid array');
+                    break;
+            }
+        } catch (err) {
+            console.log({ err });
+        }
+    };
+
+    // * Send User and Friend's IDs to Server To Process Declining Friend Request
+    const declineFriend = async (frenId) => {
+        console.log('decline');
+        try {
+            const request = await fetch('/api/friends/decline', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ friend: frenId, user: id }),
+                method: 'PUT'
+            });
+            const status = await request.json();
+            if (status.success) {
+                window.alert('Done it');
+            }
+        } catch (err) {
+            console.log({ err });
+        }
+    };
 
 
     return (
@@ -83,8 +119,20 @@ function TabFriends() {
                         <div className='d-flex flex-row justify-content-start' key={uuidv4()}>
                             <img src={friend.imageSrc} alt={friend.username} style={{ width: 32, height: 32 }} />
                             <p className='mx-2' >{friend.username}</p>
-                            <input className='d-inline-block mx-5' style={{ width: 18, height: 18 }} type="radio" name={friend.id} value="accept" />
-                            <input style={{ width: 18, height: 18 }} type="radio" name={friend.id} value="decline" />
+                            <input 
+                                onChange={() => {
+                                    acceptFriend(friend.friendId);
+                                    checkDBArrays('inpending');
+                                }}
+                                className='d-inline-block mx-5' style={{ width: 18, height: 18 }} type="radio" name={friend.id} value="accept" 
+                            />
+                            <input 
+                                onChange={() => {
+                                    declineFriend(friend.friendId);
+                                    checkDBArrays('inpending');
+                                }}
+                                style={{ width: 18, height: 18 }} type="radio" name={friend.id} value="decline" 
+                            />
                         </div>
 
                     ))
