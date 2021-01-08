@@ -6,7 +6,7 @@ const DMSchema = new mongoose.Schema({
         required: 'Message is required'
     },
     userID: {
-        type: Number,
+        type: String,
         required: 'userID is required'
     },
     timestamp: {

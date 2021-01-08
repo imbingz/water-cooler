@@ -30,6 +30,10 @@ const UserSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
+    inboundPendingRooms: {
+        type: Array,
+        default: []
+    },
     inboundPendingFriends: {
         type: Array,
         default: []

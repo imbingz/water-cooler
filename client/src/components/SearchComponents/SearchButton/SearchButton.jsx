@@ -2,6 +2,7 @@ import React from 'react';
 import './SearchButton.css';
 
 const SearchButton = (props) => {
+    console.log(props.searchDB);
     // * Send IDs of user and invited to server to make friend req
     const friendRequest = async (id) => {
         try {
@@ -25,11 +26,11 @@ const SearchButton = (props) => {
     // change to dispatch and reducer for props
     // create state for the database values
     let button =
-        <button 
+        <button  
             className='SearchButton-send SearchButton-btn'
-            onClick={e => {
+            onClick={async e => {
                 e.preventDefault();
-                friendRequest(props.friendId);
+                await friendRequest(props.friendId);
                 props.searchDB();
             }}
         >Send Friend Request</button>;

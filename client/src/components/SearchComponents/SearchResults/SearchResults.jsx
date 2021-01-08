@@ -10,11 +10,11 @@ const SearchResults = () => {
     return (
         <SearchContext.Consumer>
             {(context) => {
-                // console.log(context);
+                console.log({context});
                 return (
                     // * Map Through Users Returned From the DB
-                    context.searchResults.map((returnedUser, index) => (
-                        <article className='SearchResults-cont' key={index}>
+                    context.searchResults.map((returnedUser) => (
+                        <article className='SearchResults-cont' key={Math.random()}>
                             <div>   
                                 <img className="SearchResults-img"
                                     src={returnedUser.imageSrc}
@@ -28,12 +28,12 @@ const SearchResults = () => {
                             {/* * Send Props to SearchButton To Conditionally Render Buttons */}
                             <SearchButton
                                 searchDB={context.searchDB}
-                                pending={returnedUser.pending}
+                                pending={returnedUser.pending}  
                                 blocked={returnedUser.blocked}
                                 friends={returnedUser.friends}
                                 friendId={returnedUser.friendId}
                                 // We can deleted this to use global context in search button
-                                userId={context.userID}
+                                userId={context.userID} 
                             />
                         </article>
                     ))

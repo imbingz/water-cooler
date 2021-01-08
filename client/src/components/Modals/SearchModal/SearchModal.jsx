@@ -28,7 +28,7 @@ function SearchModal (props) {
             // ** If Results Are Found, set State To Trigger SearchResults.jsx
             setSearchResults(data.query);
             // console.log(data.query);
-            setSearchQuery('');
+            // setSearchQuery('');
 
         } catch (err) {
             console.log({ err });
@@ -48,7 +48,7 @@ function SearchModal (props) {
     // add contexts to where the component is referenced
 
     return (
-        <SearchContext.Provider value={{ searchResults, userID }}>
+        <SearchContext.Provider value={{ searchDB, searchResults, userID }}>
             <Modal {...props} backdrop='static' keyboard={false} centered>
                 <Modal.Header closeButton>
                     <Modal.Title />
