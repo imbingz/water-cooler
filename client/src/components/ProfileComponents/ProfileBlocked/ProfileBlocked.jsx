@@ -4,10 +4,9 @@ import './ProfileBlocked.css';
 
 const ProfileBlocked = (props) => {
 
-
-
     const [blocked, setBlocked] = useState([]);
 
+    // * Un-hide Blocked Users Container and Hide Show Button 
     const showBlocked = () =>{
         const container = document.querySelector('#blocked');
         container.classList.remove('ProfBlock-hide');
@@ -15,6 +14,8 @@ const ProfileBlocked = (props) => {
         button.classList.add('ProfBlock-hide');
     };
 
+
+    // * On Load, Check DB for Any IDs in User's blocked Array
     useEffect(() => {
         const checkDBArray = async (arr) => {
             try {

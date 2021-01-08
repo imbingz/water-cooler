@@ -1,6 +1,6 @@
 import React from 'react';
-import SearchResults from '../SearchResults';
-import { Modal, Container} from 'react-bootstrap';
+import { Modal, Container } from 'react-bootstrap';
+import SearchResults from '../../SearchComponents/SearchResults';
 import './NavSearchResultModal.css';
 
 function NavSearchResultModal(props) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import SearchResults from '../components/SearchResults';
-import SearchContext from '../utils/SearchContext';
+import SearchResults from '../../components/SearchComponents/SearchResults';
+import SearchContext from '../../utils/SearchContext';
 
 const Search = () => {
     // * States

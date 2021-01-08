@@ -1,23 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import GlobalProvider from './utils/GlobalContext';
-import Homepage from './pages/Homepage';
-import Signup from './pages/Signup';
-import Login from './pages/depreciated/Login';
-import Profile from './pages/Profile';
+import {Row, Col} from 'react-bootstrap';
+import Footer from './components/Footer';
 import GameRPG from './pages/depreciated/GameRPG';
+import Homepage from './pages/Homepage';
+import Landing from './pages/Landing';
+import Login from './pages/depreciated/Login';
+// import Navbar from './components/depreciated/Navbar';
+import Profile from './pages/Profile';
 import Rooms from './pages/Rooms';
-import Search from './pages/Search';
+import Search from './pages/depreciated/Search';
+import SideNav from './components/NavbarComponents/SideNav';
+import Signup from './pages/depreciated/Signup';
+import Slider from './components/SidebarComponents/Slider';
 import SocialSpace from './pages/SocialSpace';
 import UserRoom from './pages/UserRoom';
-import Footer from './components/Footer';
-import Landing from './pages/Landing';
-// import Navbar from './components/depreciated/Navbar';
-import Slider from './components/SidebarComponents/Slider';
-import SideNav from './components/NavbarComponents/SideNav';
-
-import {Row, Col} from 'react-bootstrap';
+import GlobalProvider from './utils/GlobalContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 function App() {

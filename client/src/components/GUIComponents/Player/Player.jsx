@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Actor from '../Actor';
-import UseKeyPress from '../../utils/useKeyPress';
+import UseKeyPress from '../../../utils/useKeyPress';
 
 export default function Player(props) {
     console.log(props);

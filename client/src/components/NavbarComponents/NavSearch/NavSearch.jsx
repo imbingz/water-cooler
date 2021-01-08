@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {BsSearch} from 'react-icons/bs';
-import NavSearchResultModal from '../../NavSearchResultModal/NavSearchResultModal';
+import { BsSearch } from 'react-icons/bs';
+import NavSearchResultModal from '../../Modals/NavSearchResultModal';
 import SearchContext from '../../../utils/SearchContext';
 import './NavSearch.css';
 

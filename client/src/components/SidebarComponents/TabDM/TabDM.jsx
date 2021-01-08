@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import {AiOutlineClose} from 'react-icons/ai';
-import {v4 as uuidv4} from 'uuid';
+import React, { useState } from 'react';
+import { AiOutlineClose } from 'react-icons/ai';
 import TabDmChats from '../TabDmChats';
 import friends from '../../../data/friends';
+import {v4 as uuidv4} from 'uuid';
 import './TabDM.css';
 
 function TabDM() {

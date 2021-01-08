@@ -1,17 +1,17 @@
 import React from 'react';
 import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css';
-// import io from 'socket.io-client';
+import io from 'socket.io-client';
 import Player from '../Player';
+import 'react-dropdown/style.css';
 
 /******************************* ALEX */
 let socket;
 
-// if (!socket) {
-//     socket = io('http://localhost:8080', {
-//         transports: ['websocket']
-//     }); //this is the  client connection. it starts when client connects
-// }
+if (!socket) {
+    socket = io('http://localhost:8080', {
+        transports: ['websocket']
+    }); //this is the  client connection. it starts when client connects
+}
 /*********************************** */
 
 function Map({ tiles, tileset, tilesets, setTileset, tileHeight, tileWidth }) {

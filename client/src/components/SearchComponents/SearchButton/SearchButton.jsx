@@ -34,7 +34,7 @@ const SearchButton = (props) => {
             }}
         >Send Friend Request</button>;
     
-    // * Check if User Has Already Sent a Request
+    // * Check if User Has Already Sent a Request to Change Button Render
     props.pending.forEach(searchedUser => {
         if (searchedUser === props.userId) {
             button =
@@ -45,7 +45,7 @@ const SearchButton = (props) => {
         }
     });
 
-    // * Check if User is already Friends
+    // * Check if User is already Friends to Change Button Render
     props.friends.forEach(searchedUser => {
         if (searchedUser === props.userId) {
             button =
@@ -56,7 +56,7 @@ const SearchButton = (props) => {
         }
     });
 
-    // * Check User has Been Blocked by this Search
+    // * Check User has Been Blocked by this Search to Change Button Render
     props.blocked.forEach(searchedUser => {
         if (searchedUser === props.userId) {
             button =

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Container, Row, Button, Col } from 'react-bootstrap';
+import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import { GoMail } from 'react-icons/go';
 
 function ProfileModal(props) {

@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
+import { Modal } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
-import {Modal} from 'react-bootstrap';
 import './LoginModal.css';
 
 

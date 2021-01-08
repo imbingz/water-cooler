@@ -1,10 +1,10 @@
 import React from 'react';
-import {BsPeopleCircle} from 'react-icons/bs';
+import { BsPeopleCircle } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
 import { Link } from 'react-router-dom';
-import {CgMenu} from 'react-icons/cg';
+import { CgMenu } from 'react-icons/cg';
 import NavSearch from '../NavSearch/NavSearch';
-import {useGlobalContext} from '../../../utils/GlobalContext';
+import { useGlobalContext } from '../../../utils/GlobalContext';
 import './SideNav.css';
 
 function SideNav() {

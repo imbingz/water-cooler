@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
+import { AiFillHome } from 'react-icons/ai';
+import { BsSearch, BsFillPersonFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { Navbar} from 'react-bootstrap';
-import { BsSearch, BsFillPersonFill } from 'react-icons/bs';
-import { AiFillHome } from 'react-icons/ai';
 import SearchModal from '../Modals/SearchModal';
 import './Footer.css';
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 // import ffriends from '../../data/friends';
 import { Container } from 'react-bootstrap';
-import { v4 as uuidv4 } from 'uuid';
 import ProfileModal from '../../Modals/ProfileModal';
 import friendsRoom from '../../../data/friendsRoom';
+import { v4 as uuidv4 } from 'uuid';
 import './TabFriends.css';
 
 
@@ -37,7 +37,7 @@ function TabFriends() {
                 const data = await response.json();
                 switch (arr) {
                     case 'friends':
-                        console.log('friends: ', data.retUsers);
+                        // console.log('friends: ', data.retUsers);
                         const friends = data.retUsers;
                         const offline = [];
                         const online = [];
@@ -46,10 +46,9 @@ function TabFriends() {
                         });
                         setOffFriends(offline);
                         setOnFriends(online);
-                        console.log({offline});
                         break;
                     case 'inpending':
-                        console.log('inpending: ', data.retUsers);
+                        // console.log('inpending: ', data.retUsers);
                         setInpending(data.retUsers);
                         break;
                     default:

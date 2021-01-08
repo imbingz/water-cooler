@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Map from '../../components/Map';
+import Map from '../../components/GUIComponents/Map';
 
 
 function Game() {

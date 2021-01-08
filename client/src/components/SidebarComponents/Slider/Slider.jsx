@@ -1,6 +1,6 @@
 import React from 'react';
-import {AiFillCloseCircle} from 'react-icons/ai';
-import {Col} from 'react-bootstrap';
+import { AiFillCloseCircle } from 'react-icons/ai';
+import { Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Tabnav from '../Tabnav';
 import {useGlobalContext} from '../../../utils/GlobalContext.js';

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Tab, Nav } from 'react-bootstrap';
 import TabDM from '../TabDM';
 import TabFriends from '../TabFriends';

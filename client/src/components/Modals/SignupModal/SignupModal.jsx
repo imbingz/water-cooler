@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react';
-import {Modal, Container, Row} from 'react-bootstrap';
+import React, { useState, useRef } from 'react';
+import { Container, Modal, Row } from 'react-bootstrap';
 import LoginModal from '../LoginModal';
-import './SignupModal.css';
 import images from '../../../data/profileImages';
+import './SignupModal.css';
 
 function SignupModal(props) {
   

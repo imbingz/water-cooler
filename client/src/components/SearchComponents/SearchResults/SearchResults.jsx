@@ -1,7 +1,7 @@
 import React from 'react';
-import './SearchResults.css';
 import SearchButton from '../SearchButton';
-import SearchContext from '../../utils/SearchContext';
+import SearchContext from '../../../utils/SearchContext';
+import './SearchResults.css';
 
 const SearchResults = () => { 
 
