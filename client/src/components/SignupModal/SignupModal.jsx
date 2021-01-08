@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import {Modal, Container, Row} from 'react-bootstrap';
 import LoginModal from '../LoginModal';
+import { toast } from 'react-toastify';
 import './SignupModal.css';
 import images from '../../data/profileImages';
 
@@ -32,8 +33,10 @@ function SignupModal(props) {
 
         try {
             if (password !== confirmPass) {
-                //  ** need to figure out a better way than alert here ** //
-                alert('Passwords do not match');
+                // notify user if passwords not match
+                toast.error('Passwords do not match', {
+                    position: toast.POSITION.TOP_CENTER
+                });
                 return;
             } 
             const response = await fetch('/api/user/signup', {
@@ -52,9 +55,11 @@ function SignupModal(props) {
             });
             const json = await response.json();
 
-            console.log(json);
-            //**** Note: we may want to do some notification to user here instead of log error  *****//
             if (json && json.data && json.data.error) {
+                // Notify user when server responds error
+                toast.error('Error occured, try again later', {
+                    position: toast.POSITION.TOP_CENTER
+                });
                 console.log(json.data.error.message);
             } else {
                 firstNameRef.current.value='';
@@ -63,6 +68,10 @@ function SignupModal(props) {
                 emailRef.current.value='';
                 passwordRef.current.value='';
                 confirmPassRef.current.value='';
+                //  Notify user when signup successful
+                toast.success('Signup successfully!', {
+                    position: toast.POSITION.TOP_CENTER
+                });
                 // open login modal
                 handleShow();
             }
