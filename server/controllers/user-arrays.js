@@ -13,6 +13,7 @@ const dbArray = {
             return user;
         } catch (err) {
             console.log(array + ' Arr Push Error: ', err);
+            return false;
         }
     },
     pull: async (array, queryId, insertId) => {
@@ -26,6 +27,7 @@ const dbArray = {
             return user;
         } catch (err) {
             console.log(array + ' Arr Pull Error: ', err);
+            return false;
         }
     }
 };

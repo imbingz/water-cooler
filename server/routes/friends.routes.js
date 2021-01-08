@@ -138,7 +138,7 @@ router.put('/request', async ({ body }, res) => {
     } catch (err) {
         console.log('/api/friends/req error: ', err);
         res.json({ success: false });
-    }
+    } then((res) => console.log(res));
 });
 
 // * Unfriend Friend
@@ -147,13 +147,15 @@ router.put('/unfriend', async ({ body }, res) => {
     try {
         // ** Access User's Friend's Db and Pull User's ID From 'friends' Array
         dbArray.pull('friends', body.friend, body.user);
+
         // ** Access User's db and Pull Friend's ID From 'friends' Array
         dbArray.pull('friends', body.user, body.friend);
-        // ** Send Success to Client
-        res.json({ success: true });
     } catch (err) {
         console.log('/api/friends/accept error: ', err);
         res.json({ success: false });
+    } finally {
+        // ** Send Success to Client
+        res.json({ success: true });
     }
 });
 

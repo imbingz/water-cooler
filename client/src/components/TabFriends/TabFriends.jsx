@@ -9,27 +9,52 @@ import { Container } from 'react-bootstrap';
 
 function TabFriends() {
 
-    const storedUser = JSON.parse(localStorage.getItem('USER'));
-    const id = storedUser._id;
-    // Modal for friend's Profile
-    const [show, setShow] = useState(false);
+    // * Set States, State Helper Functions, and Other Variables
+    
+    const { _id } = JSON.parse(localStorage.getItem('USER'));
 
+    // ** Manage State for Showing/Closing ProfileModal
+    const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const [profileFriend, setProfileFriend] = useState({});
-    const handleFriendModal = (friend) => setProfileFriend(friend);
+    // ** Pass Data from a Given .map and Store in profileFriend State
+    const [profModalData, setProfModalData] = useState({});
+    const handleFriendModal = (friend) => setProfModalData(friend);
 
-    // const [friends, setFriends] = useState([]);
+    // ** Create State for Mapping through User's Friends and Reqs
     const [inpending, setInpending] = useState([]);
     const [offFriends, setOffFriends] = useState([]);
     const [onFriends, setOnFriends] = useState([]);
 
+
+    // * Functions
+    // ** Send User and Friend's IDs to Server To Process Accepting Friend Request
+    const acceptFriend = async (frenId) => {
+        console.log('accepts');
+        console.log(frenId);
+        try {
+            const request = await fetch('/api/friends/accept', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ friend: frenId, user: _id }),
+                method: 'PUT'
+            });
+            const status = await request.json();
+            if (status.success) {
+                window.alert('Done it');
+            }
+        } catch (err) {
+            console.log({ err });
+        }
+    };
+
+    // ** Check User's DB For Any Changes in friends or inboundPendingFriends by passing 'friends' or 'inpending'
+    //  // Then store updated array values in State
     const checkDBArrays = useCallback(async (arr) => {
         try {
             const response = await fetch('/api/friends/arrays', {
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: id, case: arr }),
+                body: JSON.stringify({ id: _id, case: arr }),
                 method: 'POST'
             });
 
@@ -58,41 +83,14 @@ function TabFriends() {
         } catch (err) {
             console.log({ err });
         }
-    }, [id]);
-
-    useEffect(() => {
-        
-        checkDBArrays('inpending');
-        checkDBArrays('friends');
-
-    }, [checkDBArrays]);
-
-    const acceptFriend = async (frenId) => {
-        console.log('accepts');
-        console.log(frenId);
-        try {
-            const request = await fetch('/api/friends/accept', {
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ friend: frenId, user: id }),
-                method: 'PUT'
-            });
-            const status = await request.json();
-            if (status.success) {
-                window.alert('Done it');
-            }
-        } catch (err) {
-            console.log({ err });
-        }
-    };
-
+    }, [_id]);
 
     // * Send User and Friend's IDs to Server To Process Declining Friend Request
     const declineFriend = async (frenId) => {
-        console.log('decline');
         try {
             const request = await fetch('/api/friends/decline', {
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ friend: frenId, user: id }),
+                body: JSON.stringify({ friend: frenId, user: _id }),
                 method: 'PUT'
             });
             const status = await request.json();
@@ -103,6 +101,12 @@ function TabFriends() {
             console.log({ err });
         }
     };
+
+    // * On Page Load, Check DB for Any Changes in User's friend and inboundPendingFriends Arrays 
+    useEffect(() => {
+        checkDBArrays('friends');
+        checkDBArrays('inpending');
+    }, [checkDBArrays]);
 
 
     return (
@@ -121,16 +125,16 @@ function TabFriends() {
                             <img src={friend.imageSrc} alt={friend.username} style={{ width: 32, height: 32 }} />
                             <p className='mx-2' >{friend.username}</p>
                             <input 
-                                onChange={() => {
-                                    acceptFriend(friend.friendId);
+                                onChange={async () => {
+                                    await acceptFriend(friend.friendId);
                                     checkDBArrays('inpending');
                                     checkDBArrays('friends');
                                 }}
                                 className='d-inline-block mx-5' style={{ width: 18, height: 18 }} type="radio" name={friend.id} value="accept" 
                             />
                             <input 
-                                onChange={() => {
-                                    declineFriend(friend.friendId);
+                                onChange={async () => {
+                                    await declineFriend(friend.friendId);
                                     checkDBArrays('inpending');
                                 }}
                                 style={{ width: 18, height: 18 }} type="radio" name={friend.id} value="decline" 
@@ -193,7 +197,7 @@ function TabFriends() {
                 }
             </section>
             <ProfileModal show={show} onHide={() => handleClose(false)}
-                friend={profileFriend}
+                friend={profModalData}
                 checkdb={checkDBArrays}
             />
 
