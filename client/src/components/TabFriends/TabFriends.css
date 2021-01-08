@@ -1,31 +1,25 @@
-/* .TabFriends-section {
-	height: 22vh;
-	overflow: scroll;
-} */
-
 .Tabfriends-subtitle {
 	color: rgb(77, 5, 201);
 }
 
-.TabFriends-check-btn {
-	border: none;
-	background-color: transparent;
-	height: 0;
+/* invite accept btn  */
+.TabFriends-btn.accept {
+	background-color: rgb(182, 252, 77);
 }
 
-.TabFriends-check-btn:active,
-.TabFriends-check-btn:focus {
-	outline: 0;
-	transform: scale(1.1);
+/* invite decline btn  */
+.TabFriends-btn.decline {
+	background-color: lightgoldenrodyellow;
 }
 
-.TabFriends-profile-btn {
+/* shared style for all btns  */
+.TabFriends-btn {
 	border: none;
 	border-radius: 25px;
 }
 
-.TabFriends-profile-btn:hover,
-.TabFriends-profile-btn:focus {
+.TabFriends-btn:hover,
+.TabFriends-btn:focus {
 	outline: 0;
 	transform: scale(1.1);
 	background-color: #84f;
