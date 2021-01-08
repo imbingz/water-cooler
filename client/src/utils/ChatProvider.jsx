@@ -1,25 +1,38 @@
-import React, { useContext, useEffect } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 import { useSocket } from './SocketProvider';
 
-const ChatContext = React.createContext();
+const ChatContext = createContext();
 
 export function useChat() {
     return useContext(ChatContext);
 }
 
-export function ConversationsProvider({ id, children }) {
+export function ChatProvider({ children }) {
+    const [serverMessage, setServerMessage] = useState('');
     const socket = useSocket();
 
+    
     useEffect(() => {
-        if (socket == null) return;
-
-        socket.on('test', 'hi from chat provider');
-
+        if (socket == null) {
+            return;
+        }
+        
+        socket.on('serverEmit', message => {
+            console.log('made it back to chat provider');
+            setServerMessage(message);
+        });
+        console.log(serverMessage);
+        
         return () => socket.off('test');
-    }, [socket]);
+    }, [socket, serverMessage]);
+    
+    const fromChat = (message) => {
+        console.log(message);
+        socket.emit('chatProvider', message);
+    };
 
     return (
-        <ChatContext.Provider>
+        <ChatContext.Provider value={{fromChat} }>
             {children}
         </ChatContext.Provider>
     );

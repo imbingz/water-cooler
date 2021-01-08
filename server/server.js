@@ -42,7 +42,11 @@ app.use(routes);
 // const players = {};
 
 io.on('connect', (socket) => {
-//******************************** Bing
+    socket.on('chatProvider', message => {
+        console.log(message)
+        socket.emit('serverEmit', message);
+    });
+    //******************************** Bing
     // players[socket.id] = {
     //     x: 0, y: 0
     // };
@@ -66,21 +70,21 @@ io.on('connect', (socket) => {
     //     socket.join(roomUrlId);
     //     socket.room = roomUrlId;
     //     socket.to(socket.room).broadcast.emit('user-connected', roomUrlId, name);
-        
+
     // });
 
     socket.on('disconnect', () => {
         socket.to(socket.room).broadcast.emit('user-disconnected');
-        
+
         //******************************** Bing
         // delete players[socket.id];
     });
 
 
-   
+
     //******************************** Alex -  Bing
     // socket.on('movement', (data) => {
-    
+
     //     console.log('movement called', {data});
     //     // console.log({players});
     //     if (data.x < 0) {
@@ -113,17 +117,17 @@ io.on('connect', (socket) => {
     //                     console.log('distance x: ' + Math.abs(playerPositions[i].x - playerPositions[j].x) + ' distance y: ' + Math.abs(playerPositions[i].y - playerPositions[j].y));
     //                     playerPositions[i].message = 'Hey, like to chat?'; 
     //                     playerPositions[j].message = 'Hellllloooooo , genius'; 
-                     
+
     //                     // socket.emit('greeting', 'Hey, like to chat?');
     //                 } 
     //             }
     //         }
     //     }
-        
+
     //     // players[socket.id] = data;
 
     //     socket.emit('state', {players, message});
-        
+
     // });
     /*********************************** */
 });
