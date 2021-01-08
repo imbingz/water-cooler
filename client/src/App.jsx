@@ -18,6 +18,8 @@ import SideNav from './components/SideNav';
 import Landing from './pages/Landing';
 import RoomGUI from './pages/RoomGUI';
 import {Row, Col, Container} from 'react-bootstrap';
+import { ToastContainer, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 function App() {
@@ -36,7 +38,10 @@ function App() {
                         {storedUser && <SideNav />} 
 
                         {/* <Navbar /> */}
-
+                    
+                        {/* Toastify container for notification */}
+                        <ToastContainer transition={Zoom} autoClose={3000} />
+                    
                         <main>
                             <Container>
                                 <Switch>
