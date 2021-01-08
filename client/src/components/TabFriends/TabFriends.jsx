@@ -25,31 +25,6 @@ function TabFriends() {
     const [offFriends, setOffFriends] = useState([]);
     const [inpending, setInpending] = useState([]);
 
-    useEffect(() => {
-        
-        checkDBArrays('inpending');
-        checkDBArrays('friends');
-
-    }, [id]);
-
-    const acceptFriend = async (frenId) => {
-        console.log('accepts');
-        console.log(frenId);
-        try {
-            const request = await fetch('/api/friends/accept', {
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ friend: frenId, user: id }),
-                method: 'PUT'
-            });
-            const status = await request.json();
-            if (status.success) {
-                window.alert('Done it');
-            }
-        } catch (err) {
-            console.log({ err });
-        }
-    };
-
     const checkDBArrays = async (arr) => {
         try {
             const response = await fetch('/api/friends/arrays', {
@@ -84,6 +59,33 @@ function TabFriends() {
             console.log({ err });
         }
     };
+
+
+    useEffect(() => {
+        
+        checkDBArrays('inpending');
+        checkDBArrays('friends');
+
+    }, [id]);
+
+    const acceptFriend = async (frenId) => {
+        console.log('accepts');
+        console.log(frenId);
+        try {
+            const request = await fetch('/api/friends/accept', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ friend: frenId, user: id }),
+                method: 'PUT'
+            });
+            const status = await request.json();
+            if (status.success) {
+                window.alert('Done it');
+            }
+        } catch (err) {
+            console.log({ err });
+        }
+    };
+
 
     // * Send User and Friend's IDs to Server To Process Declining Friend Request
     const declineFriend = async (frenId) => {
@@ -123,6 +125,7 @@ function TabFriends() {
                                 onChange={() => {
                                     acceptFriend(friend.friendId);
                                     checkDBArrays('inpending');
+                                    checkDBArrays('friends');
                                 }}
                                 className='d-inline-block mx-5' style={{ width: 18, height: 18 }} type="radio" name={friend.id} value="accept" 
                             />

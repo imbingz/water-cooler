@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+ const mongoose = require('mongoose');
 
 const RoomChatSchema = new mongoose.Schema({
     roomID: {
@@ -14,7 +14,7 @@ const RoomChatSchema = new mongoose.Schema({
         default: Date.now
     },
     userID: {
-        type: Number,
+        type: String,
         required: 'userID is required'
     }
 });
