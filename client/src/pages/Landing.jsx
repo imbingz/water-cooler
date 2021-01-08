@@ -3,7 +3,7 @@ import { Container, Row } from 'react-bootstrap';
 import { useHistory } from 'react-router-dom';
 import LandingNav from '../components/LandingNav';
 import SignupModal from '../components//Modals/SignupModal';
-import './Landing.css';
+import './css/Landing.css';
 
 function Landing() {
 

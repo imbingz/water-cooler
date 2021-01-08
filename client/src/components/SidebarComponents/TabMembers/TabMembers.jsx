@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { BiExit } from 'react-icons/bi';
 import { FaVideo } from 'react-icons/fa';
-import TabMembersProfileModal from '../../TabMembersProfileModal';
+import TabMembersProfileModal from '../../Modals/TabMembersProfileModal';
 import roomMembers from '../../../data/friends';
 import socialSpaces from '../../../data/socialSpaces';
 import { v4 as uuidv4 } from 'uuid';

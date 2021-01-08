@@ -4,7 +4,7 @@ import React from 'react';
 
 // import ProfileBlocked from '../components/ProfileBlocked';
 import ProfileForm from '../components/ProfileComponents/ProfileFrom';
-import './Profile.css';
+import './css/Profile.css';
 
 
 const Profile = () => {   
