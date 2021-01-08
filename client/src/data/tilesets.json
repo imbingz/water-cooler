@@ -3,11 +3,17 @@
         "variants": [
             "spring",
             "fall",
-            "winter"
+            "winter",
+            "cafe",
+            "casino",
+            "cafe-800x800",
+            "cafe-doubled"
+
         ],
         "size": {
-            "height": 288,
-            "width": 640
+            "height": 850,
+            "width": 1050
+
         }
     }
 }

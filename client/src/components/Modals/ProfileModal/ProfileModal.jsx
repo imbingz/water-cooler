@@ -1,18 +1,32 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
 import { GoMail } from 'react-icons/go';
 
 function ProfileModal(props) {
-    const { friend } = props;
 
-    const storedUser = JSON.parse(localStorage.getItem('USER'));
-    const userId = storedUser._id;
+    // * Set States, State Helper Functions, and Other Variables
 
-    const unfriend = async (id) => {
+    const { checkdb, friend } = props;
+    const { _id } = JSON.parse(localStorage.getItem('USER'));
+    // ** Used To Conditionally Render Unfriend Button
+    const [isFriend, setIsFriend] = useState(true);
+    // ** Store Unfriend Button jsx In State [ note: friend.friendId is undefined on first render ]
+    const [friendButton, setFriendButton] = useState(
+        <Button
+            className='d-inline-block mx-2 px-3'
+            variant='light'
+            size='sm'
+        >Unfriend</Button >
+    );
+
+    // * Functions
+    // ** Send User and Friend's IDs to Server To Process Unfriending
+    const unfriend = useCallback(async (id) => {
+        console.log(friend.friendId);
         try {
             const request = await fetch('/api/friends/unfriend', {
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ friend: id, user: userId }),
+                body: JSON.stringify({ friend: id, user: _id }),
                 method: 'PUT'
             });
             const status = await request.json();
@@ -22,11 +36,49 @@ function ProfileModal(props) {
         } catch (err) {
             console.log({ err });
         }
-    };
+    }, [ friend.friendId, _id ]);
 
+
+    // ** Manage Sending DM to Friend
     const sendMessage = () => {
         console.log('sendMessage will definitely do something eventually');
     };
+
+    // * Listen To change of isFriend State. When True, friend.friendId will be defined
+    //  // When False, Button Value will Change [ note: I need to find a way to set state back to true when the modal is closed, else all the friend's modals will show Removed ]
+    useEffect(() => {
+        
+        if (!isFriend) {
+            setFriendButton(
+                <Button
+                    onClick={e => {
+                        e.preventDefault();
+                    }}
+                    className='d-inline-block mx-2 px-3'
+                    variant='dark'
+                    size='sm'
+                >Removed</Button >
+            );
+            
+        } else {
+            setFriendButton(
+                <Button
+                    onClick={async (e) => {
+                        e.preventDefault();
+                        console.log(friend.friendId);
+                        await unfriend(friend.friendId);
+                        checkdb('friends');
+                        // setIsFriend(false);
+                    }}
+                    className='d-inline-block mx-2 px-3'
+                    variant='light'
+                    size='sm'
+                >Unfriend</Button >
+            );
+            
+        }
+
+    }, [checkdb, friend.friendId, isFriend, unfriend,]);
 
     return (
         <>
@@ -63,24 +115,20 @@ function ProfileModal(props) {
                             </Col>
                         </Row>
                         <Row className='my-4'>
+                            {/* Invite Button */}
+                            <Button className='d-inline-block mx-2 px-3' size='sm' variant='success'>Invite</Button >
+                            {/* Chat Button */}
                             <Button
                                 onClick={e => {
                                     e.preventDefault();
                                     sendMessage();
                                 }}
                                 className='d-inline-block mx-2 px-3'
+                                variant='warning'
                                 size='sm'
-                                variant='success'
-                            >Message</Button >
-                            <Button
-                                onClick={e => {
-                                    e.preventDefault();
-                                    unfriend(friend.friendId);
-                                }}
-                                className='d-inline-block mx-2 px-3'
-                                variant='danger'
-                                size='sm'
-                            >Unfriend</Button >
+                            >Chat</Button >
+                            {/* Unfriend */}
+                            {friendButton}
                         </Row>
                     </Container>
                 </Modal.Body>

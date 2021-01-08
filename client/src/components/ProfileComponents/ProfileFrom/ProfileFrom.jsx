@@ -1,15 +1,21 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './ProfileFrom.css';
+import images from '../../../data/profileImages';
 
 const ProfileFrom = (props) => {
+
+    const [selectedImg, setSelectedImg] = useState('');
+    const [showImg, setShowImg] = useState(false);
 
     const history = useHistory();
     const firstNameRef = useRef();
     const lastNameRef = useRef();
     const usernameRef = useRef();
     const emailRef = useRef();
+    const imgRef=useRef();
 
+  
     //pre-fill the user info
     useEffect(() => {
         // need to change here to global context stored from Login
@@ -21,6 +27,10 @@ const ProfileFrom = (props) => {
         lastNameRef.current.value = props.storedUser.lastName || '';
         usernameRef.current.value = props.storedUser.username || '';
         emailRef.current.value = props.storedUser.email || '';
+        imgRef.current.currentSource = props.storedUser.imageSrc || '';
+
+        setSelectedImg(imgRef.current.currentSource);
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -32,7 +42,8 @@ const ProfileFrom = (props) => {
             firstName: firstNameRef.current.value,
             lastName: lastNameRef.current.value,
             username: usernameRef.current.value,
-            email: emailRef.current.value
+            email: emailRef.current.value,
+            imageSrc:selectedImg
         };
 
         try {
@@ -60,22 +71,17 @@ const ProfileFrom = (props) => {
     return (
         <section className='Profile-user'>
             <form className='Profile-form' onSubmit={updateProfile}>
-                <div className='Profile-img-group'>
-                    <img className='Profile-image' src='https://styles.redditmedia.com/t5_2tmtib/styles/profileIcon_pcmjnyopxm851.png?width=256&height=256&crop=256:256,smart&frame=1&s=868d500bf8180ecdc516e2a8fab4f66536a894b0' alt='avarta' />
-                    <button className='Profile-img-edit-btn' onClick={(e) => { e.preventDefault(); console.log('upload photo'); }}>Edit Photo</button >
-                    {/* <input
-                            type='file'
-                            onChange={() => {
-                                console.log('upload image later');
-                            }}
-                        />
-                        <button
-                            className='Profile-image-btn'
-                            onClick={() => {
-                                console.log('upload avarta later');
-                            }}>
-                            Upload
-                        </button> */}
+                <div className='Profile-img-group d-flex flex-column justify-content-center mr-4'>
+                    <img className='Profile-image' ref={imgRef} src={selectedImg} alt='avarta' />
+                    <button 
+                        className='Profile-img-edit-btn' 
+                        onClick={(e) => { 
+                            e.preventDefault(); 
+                            setShowImg(true);
+                        }}
+                    >
+                         Edit Photo
+                    </button >
                 </div>
                 <div className='Profile-input-group'>
                     <div className='Profile-form-group'>
@@ -122,6 +128,15 @@ const ProfileFrom = (props) => {
                     </button>
                 </div>
             </form>
+            <div className='d-flex flex-wrap justify-content-center mt-5 px-5'>
+                {showImg && 
+                    images.map(image => (
+                        <img key={image.id}
+                            src={image.imageSrc} alt='default' className='Profile-image-options d-inline-block mr-2 mb-3'
+                            onClick={()=>{setSelectedImg(image.imageSrc); console.log(image.imageSrc);}}
+                        />
+                    ))}
+            </div>
         </section>
     );
 };

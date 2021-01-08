@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Actor from '../Actor';
+import Sprite from '../Sprite';
 import UseKeyPress from '../../../utils/useKeyPress';
 
 export default function Player(props) {
     console.log(props);
-    const { skin, pos, emitPos } = props;
+    const { pos, emitPos, message } = props;
     const [dir, setDir] = useState(0);
     const [step, setStep] = useState();
 
@@ -18,11 +18,6 @@ export default function Player(props) {
     const stepSize = 16;
 
     const maxSteps = 3;
-
-    const data = {
-        h: 32,
-        w: 32
-    };
 
     const modifier = {
         down: { x: 0, y: stepSize },
@@ -71,12 +66,11 @@ export default function Player(props) {
 
     return (
         <div>
-            <Actor // sprite={ `/sprites/skins/m1.png` }  // data={ {h: 32,w: 32} }
-                sprite={ `/sprites/skins/${skin}.png` }
-                data={ data }
+            <Sprite
                 step={ step }
                 dir={ dir }
                 position={ pos }
+                message={message}
             />
         </div>
     );

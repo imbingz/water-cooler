@@ -77,7 +77,7 @@ function Map({ tiles, tileset, tilesets, setTileset, tileHeight, tileWidth }) {
                 border: '1px solid grey',
                 top: 0,
                 left: 0,
-                zIndex: 100,
+                zIndex: 5,
                 backgroundColor: 'white'
             } }>
 
@@ -88,19 +88,19 @@ function Map({ tiles, tileset, tilesets, setTileset, tileHeight, tileWidth }) {
                 if (key === player.id) {
                     return (
                         <Player
-                            skin='f1'
                             pos={ players[key] }
                             emitPos={ pos => socket.emit('movement', pos) }
+                            message={players[key].message}
                         />
                     );
                 }
 
                 return (
-                    <Player skin='f1' pos={ players[key] } />
+                    <Player pos={ players[key] } />
                 );
             }) }
 
-            <div style={ { display: 'flex', margin: '10px 50px' } }>
+            <div style={ { display: 'flex', justifyContent: 'center', padding: 10 } }>
                 <div style={ { padding: 8 } }><span> Choose Room Settings </span></div>
                 <div style={ { width: 200, marginLeft: 8 } }>
                     <Dropdown options={ tilesets } value={ tileset } onChange={ tileset => setTileset(tileset.value) } />
