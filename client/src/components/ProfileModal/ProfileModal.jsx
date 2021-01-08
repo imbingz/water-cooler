@@ -1,12 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Container, Row, Button, Col } from 'react-bootstrap';
 import { GoMail } from 'react-icons/go';
 
 function ProfileModal(props) {
-    const { friend } = props;
+
+    
+    const { checkdb, friend } = props;
+    
 
     const storedUser = JSON.parse(localStorage.getItem('USER'));
     const userId = storedUser._id;
+
+    const [isFriend, setIsFriend] = useState('false');
+
+    const [friendButton, setFriendButton] = useState(
+        <Button
+            onClick={e => {
+                e.preventDefault();
+                unfriend(friend.friendId);
+                checkdb('friends');
+                setIsFriend(false);
+            }}
+            className='d-inline-block mx-2 px-3'
+            variant='light'
+            size='sm'
+        >Unfriend</Button >
+    );
+
+    useEffect(() => {
+        
+        if (!isFriend) {
+            setFriendButton(
+                <Button
+                    onClick={e => {
+                        e.preventDefault();
+                    }}
+                    className='d-inline-block mx-2 px-3'
+                    variant='dark'
+                    size='sm'
+                >Removed</Button >
+            );
+        }
+
+    }, [isFriend]);
+
+
 
     const unfriend = async (id) => {
         try {
@@ -76,15 +114,7 @@ function ProfileModal(props) {
                                 size='sm'
                             >Chat</Button >
                             {/* Unfriend */}
-                            <Button
-                                onClick={e => {
-                                    e.preventDefault();
-                                    unfriend(friend.friendId);
-                                }}
-                                className='d-inline-block mx-2 px-3'
-                                variant='light'
-                                size='sm'
-                            >Unfriend</Button >
+                            {friendButton}
                         </Row>
                     </Container>
                 </Modal.Body>

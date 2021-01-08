@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './TabFriends.css';
 // import friends from '../../data/friends';
 import friendsRoom from '../../data/friendsRoom';
@@ -21,11 +21,11 @@ function TabFriends() {
     const handleFriendModal = (friend) => setProfileFriend(friend);
 
     // const [friends, setFriends] = useState([]);
-    const [onFriends, setOnFriends] = useState([]);
-    const [offFriends, setOffFriends] = useState([]);
     const [inpending, setInpending] = useState([]);
+    const [offFriends, setOffFriends] = useState([]);
+    const [onFriends, setOnFriends] = useState([]);
 
-    const checkDBArrays = async (arr) => {
+    const checkDBArrays = useCallback(async (arr) => {
         try {
             const response = await fetch('/api/friends/arrays', {
                 headers: { 'Content-Type': 'application/json' },
@@ -58,15 +58,14 @@ function TabFriends() {
         } catch (err) {
             console.log({ err });
         }
-    };
-
+    }, [id]);
 
     useEffect(() => {
         
         checkDBArrays('inpending');
         checkDBArrays('friends');
 
-    }, [id]);
+    }, [checkDBArrays]);
 
     const acceptFriend = async (frenId) => {
         console.log('accepts');
@@ -195,6 +194,7 @@ function TabFriends() {
             </section>
             <ProfileModal show={show} onHide={() => handleClose(false)}
                 friend={profileFriend}
+                checkdb={checkDBArrays}
             />
 
         </Container>
