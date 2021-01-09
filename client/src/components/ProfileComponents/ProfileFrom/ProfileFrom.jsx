@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import './ProfileFrom.css';
 import images from '../../../data/profileImages';
 
@@ -59,11 +60,15 @@ const ProfileFrom = (props) => {
 
             const data = await response.json();
             if (data.user) {
-                console.log(data.user);
-                // *** NEED A BETTER WAY TO REPLACE ALERT  *** //
-                alert('Your profile is updated successfully');
+                //Notify user when update successful
+                toast.success('Your profile is updated successfully!!', {
+                    position: toast.POSITION.TOP_CENTER
+                });
             }
         } catch (error) {
+            toast.error('Somthing went wrong! Try again later', {
+                position: toast.POSITION.TOP_CENTER
+            });
             console.error(error);
         }
     };

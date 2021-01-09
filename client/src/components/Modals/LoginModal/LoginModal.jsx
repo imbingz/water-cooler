@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { Modal } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import './LoginModal.css';
 
@@ -30,9 +31,11 @@ function LoginModal(props) {
             const data = await response.json();
 
             if (data.error) {
-                console.log(data.error);
-                // *** NEED TO GET A BETTER WAY THAN ALERT TO NOTIFY USER **** //
-                alert('Password and Email do not match');
+                // notify user if email or password not match
+                toast.error('Password or Email does not match', {
+                    position: toast.POSITION.TOP_CENTER
+                });
+               
                 emailRef.current.value = '';
                 passwordRef.current.value = '';
                 emailRef.current.focus();
@@ -41,12 +44,18 @@ function LoginModal(props) {
             // change to global context
             //  // have db return userID, username, imageSrc, names, blocked array
             //  // sessionID once authenticated
+
+
             localStorage.setItem('USER', JSON.stringify(data.user));
 
             // **** needs to re-direct to authenticated-home page through global context
             history.push('/room');
         } catch (err) {
             console.error(err);
+            //Notify user on error 
+            toast.error('Something went wrong, please try again later ...', {
+                position: toast.POSITION.TOP_CENTER
+            });
         }
     };
 

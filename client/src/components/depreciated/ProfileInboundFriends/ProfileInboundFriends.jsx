@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import './ProfileInboundFriends.css';
+
 // import ProfileInbFriendsResults from '../ProfileInbFriendsResults';
 // import ProfileContext from '../../utils/ProfileContext';
 
@@ -17,9 +19,17 @@ const ProfileInboundFriends = (props) => {
             });
             const status = await request.json();
             if (status.success) {
-                window.alert('Done it');
+                // window.alert('Done it');
+                // notify user on success 
+                toast.success('Done it', {
+                    position: toast.POSITION.TOP_CENTER
+                });
             }
         } catch (err) {
+            //notify user on error
+            toast.error('Something went wrong, please try again later', {
+                position: toast.POSITION.TOP_CENTER
+            });
             console.log({ err });
         }
     };
@@ -34,9 +44,17 @@ const ProfileInboundFriends = (props) => {
             });
             const status = await request.json();
             if (status.success) {
-                window.alert('Done it');
+                // window.alert('Done it');
+                // notify user on success 
+                toast.success('Done it', {
+                    position: toast.POSITION.TOP_CENTER
+                });
             }
         } catch (err) {
+            //notify user on error
+            toast.error('Something went wrong, please try again later', {
+                position: toast.POSITION.TOP_CENTER
+            });
             console.log({ err });
         }
     };
@@ -52,9 +70,17 @@ const ProfileInboundFriends = (props) => {
             });
             const status = await request.json();
             if (status.success) {
-                window.alert('Done it');
+                // window.alert('Done it');
+                // notify user on success 
+                toast.success('Done it', {
+                    position: toast.POSITION.TOP_CENTER
+                });
             }
         } catch (err) {
+            //notify user on error
+            toast.error('Something went wrong, please try again later', {
+                position: toast.POSITION.TOP_CENTER
+            });
             console.log({ err });
         }
     };
@@ -73,6 +99,10 @@ const ProfileInboundFriends = (props) => {
                 // console.log(data);
                 setInboundFriends(data.friends);
             } catch (err) {
+                //notify user on error
+                toast.error('Something went wrong, please try again later', {
+                    position: toast.POSITION.TOP_CENTER
+                });
                 console.log({ err });
             }
         };

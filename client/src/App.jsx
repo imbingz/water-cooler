@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { Col, Container, Row } from 'react-bootstrap';
 import Footer from './components/Footer';
 import GameRPG from './pages/depreciated/GameRPG';
 import Homepage from './pages/Homepage';
@@ -9,7 +8,6 @@ import Login from './pages/depreciated/Login';
 // import Navbar from './components/depreciated/Navbar';
 import Profile from './pages/Profile';
 import Rooms from './pages/Rooms';
-import RoomGUI from './pages/RoomGUI';
 import Search from './pages/depreciated/Search';
 import SideNav from './components/NavbarComponents/SideNav';
 import Signup from './pages/depreciated/Signup';
@@ -18,7 +16,13 @@ import SocialSpace from './pages/SocialSpace';
 import UserRoom from './pages/UserRoom';
 import GlobalProvider from './utils/GlobalContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// Temporary pages 
+import RoomGUI from './pages/RoomGUI';
+import Space from './pages/Space';
 
+import { Col, Container, Row } from 'react-bootstrap';
+import { ToastContainer, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 function App() {
@@ -37,7 +41,10 @@ function App() {
                         {storedUser && <SideNav />} 
 
                         {/* <Navbar /> */}
-
+                    
+                        {/* Toastify container for notification */}
+                        <ToastContainer transition={Zoom} autoClose={3000} />
+                    
                         <main>
                             <Container>
                                 <Switch>
@@ -54,8 +61,10 @@ function App() {
                                     <Route exact path='/rooms/:id/:id' component={SocialSpace} />
                                     {/* Temporary Game Page  */}
                                     <Route exact path='/game' component={ GameRPG} />
-                                    {/* The route may need to change later */}
+                                    {/* Temporary RoomUser Page */}
                                     <Route exact path='/room' component={ RoomGUI} />
+                                    {/* Temporary Social Space Page  */}
+                                    <Route exact path='/space' component={ Space} />
                                 </Switch>
                             </Container>
                         </main>
