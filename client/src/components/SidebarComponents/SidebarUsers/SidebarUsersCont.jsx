@@ -22,6 +22,8 @@ const SidebarUsersCont = (props) => {
                         method: 'PUT'
                     });
                     const status = await request.json();
+                    console.log(status);
+                    // console.log(status.success);
                     if (status.success) {
                         toast.success('Added Friend!', {
                             position: toast.POSITION.TOP_RIGHT
@@ -51,6 +53,7 @@ const SidebarUsersCont = (props) => {
                         method: 'PUT'
                     });
                     const status = await request.json();
+                    console.log(status.success);
                     if (status.success) {
                         toast.error('Declined Friend Request', {
                             position: toast.POSITION.TOP_RIGHT
@@ -60,7 +63,7 @@ const SidebarUsersCont = (props) => {
                     console.log({ err });
                 }
                 break;
-                
+
             case 'room':
                 console.log('Manage Room Decline');
                 break;

@@ -4,17 +4,23 @@ import ProfileModal from '../../Modals/ProfileModal';
 import SidebarUsersCont from '../SidebarUsers';
 import dummyFriends from '../../../data/friends';
 import dummyFriendsRoom from '../../../data/friendsRoom';
-import { v4 as uuidv4 } from 'uuid';
 import './TabFriends.css';
 
+// * SidebarUserCont Requires Three Props To Conditionally Render
+//  // data = The Data To Be Mapped in jsx
+//  // isRequest = A Truthy Value Will Cause the Component To Render Accept/Decline Buttons
+//  //  // A Falsy Value Will Render View Profile Button
+//  // type = By Passing 'friend' or 'room', The Accept Decline Buttons Will Hit a Switch Statement in the Component to Send The Server A Request to Either Handle Accepting/Declining Friend or Room Invite
 
 function TabFriends() {
 
-    let dummyData = 'yes';
-
+    
     // * Set States, State Helper Functions, and Other Variables
     
     const { _id } = JSON.parse(localStorage.getItem('USER'));
+
+    // * A Yes Value will Render The DOM with Data From Data Folder, Changing this to 'no' Will Render DOM with DB Data
+    let dummyData = 'yes';
 
     // ** Manage State for Showing/Closing ProfileModal
     const [show, setShow] = useState(false);
@@ -28,13 +34,11 @@ function TabFriends() {
     // ** Create State for Mapping through User's Friends and Reqs
     const [inpending, setInpending] = useState([]);
     const [offFriends, setOffFriends] = useState([]);
+    // eslint-disable-next-line
     const [onFriends, setOnFriends] = useState([]);
 
-   
-
     // * Functions
-
-    // ** Check User's DB For Any Changes in friends or inboundPendingFriends by passing 'friends' or 'inpending'
+    // ** Check User's DB For Any Changes in either friends or inboundPendingFriends by passing 'friends' or 'inpending'
     //  // Then store updated array values in State
     const checkDBArrays = useCallback(async (arr) => {
         try {
@@ -83,26 +87,25 @@ function TabFriends() {
     // * Render Dummy Or DB Data
     let renderInpending;
     let renderOffFriends;
-    let renderOnFriends;
+    // let renderOnFriends;
     let renderRoomInv;
-
     switch(dummyData) {
         case 'yes': 
             renderInpending = dummyFriends;
             renderOffFriends = dummyFriends;
-            renderOnFriends = dummyFriends;
+            // renderOnFriends = dummyFriends;
             renderRoomInv = dummyFriendsRoom;
             break;
         default: 
             renderInpending = inpending;
             renderOffFriends = offFriends;
-            renderOnFriends = onFriends;
+            // renderOnFriends = onFriends;
             // renderRoomInv = someStateOrSomething;
     }
 
 
     return (
-        <Container className='ml-2 mr-3 mt-3'>
+        <Container className='ml-2 mr-3 mt-3 TabFriends-Cont'>
             {/* Requests */}
             <div className='d-flex justify-content-start'>
                 <h6 className='mr-5 Tabfriends-subtitle'>Invitations:</h6> 
@@ -127,25 +130,13 @@ function TabFriends() {
                     handleFriendModal={handleFriendModal}
                     handleShow={handleShow}
                 />
-                {renderRoomInv &&
-                    renderRoomInv.map(friendRoom => (
-                        <div className='d-flex flex-row justify-content-start align-items-center mb-2' key={uuidv4()}>  
-                            <img 
-                                src={friendRoom.roomStyle}
-                                alt={friendRoom.roomname}
-                                style={{width:32, height: 32}}
-                            />
-                            <p className='mx-2 my-0 TabFriends-Text' >Room Invite</p>
-                            <button className='TabFriends-btn accept  d-inline-block mx-3 px-2'><small>Accept</small></button>
-                            <button className='TabFriends-btn decline  d-inline-block px-2'><small>Decline</small></button>
-                        </div>
-                    ))
-                }
             </section>
             
+            {/* !* { note: development of online/offline functionality on the server side had been moved to phase three, the code is all here. We just need to uncomment these lines and the lines in the dummy data handler when that's working} *! */}
+
             {/* Friends */}
             {/* Online Friends */}
-            <div><h6 className='Tabfriends-subtitle mt-4'>Online Friends:</h6></div>
+            {/* <div><h6 className='Tabfriends-subtitle mt-4'>Online Friends:</h6></div>
             <section className='mb-4 mr-3 TabFriends-section'>
                 <SidebarUsersCont
                     data={renderOnFriends}
@@ -155,10 +146,11 @@ function TabFriends() {
                     handleFriendModal={handleFriendModal}
                     handleShow={handleShow}
                 />
-            </section>
+            </section> */}
 
             {/* Offline Friends */}
-            <div><h6 className='Tabfriends-subtitle mt-4'>Offline Friends:</h6></div>
+            {/* <div><h6 className='Tabfriends-subtitle mt-4'>Offline Friends:</h6></div> */}
+            <div><h6 className='Tabfriends-subtitle mt-4'>Friends:</h6></div>
             <section className='mr-3 TabFriends-section'>
                 <SidebarUsersCont
                     data={renderOffFriends}

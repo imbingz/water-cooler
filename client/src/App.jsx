@@ -39,7 +39,7 @@ function App() {
                 {/* Toastify container for notification */}
                 <ToastContainer transition={Zoom} autoClose={3000} />
 
-                <main style={{height: 'l00%'}}>
+                <main>
                     {storedUser && <Slider />}
                     <Container>
                         <Switch>

@@ -72,3 +72,7 @@
 	color: white;
 	font-size: 32px;
 }
+
+.Header-title:hover {
+	color:white;
+}

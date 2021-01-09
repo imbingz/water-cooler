@@ -6,10 +6,11 @@ import { GoMail } from 'react-icons/go';
 function ProfileModal(props) {
 
     // * Set States, State Helper Functions, and Other Variables
-
-    const { checkdb, friend } = props;
+    // eslint-disable-next-line
+    const { checkdb, friend, onHide } = props;
     const { _id } = JSON.parse(localStorage.getItem('USER'));
     // ** Used To Conditionally Render Unfriend Button
+    // eslint-disable-next-line
     const [isFriend, setIsFriend] = useState(true);
     // ** Store Unfriend Button jsx In State [ note: friend.friendId is undefined on first render ]
     const [friendButton, setFriendButton] = useState(
@@ -88,7 +89,9 @@ function ProfileModal(props) {
             <Modal {...props} backdrop="static" keyboard={false} centered>
 
                 <Modal.Header closeButton>
-                    <Modal.Title ></Modal.Title>
+                    {/* USE ON HIDE TO CLOSE MODAL AND ALSO SET VALUE TO TRUE */}
+                    {/* <button closeButton>x</button> */}
+                    {/* <Modal.Title ></Modal.Title> */}
                 </Modal.Header>
 
                 <Modal.Body>

@@ -1,5 +1,4 @@
 import React from 'react';
-// import { BsPeopleCircle } from 'react-icons/bs';
 import { CgMenu } from 'react-icons/cg';
 import { IconContext } from 'react-icons';
 import { Link, useHistory } from 'react-router-dom';
@@ -50,11 +49,7 @@ function SideNav() {
                             <CgMenu onClick={showSidebar} />
                         </Link>
                     </div>
-                    {/* <NavSearch /> */}
-
-                    <a style={{ fontFamily: 'Great Vibes' }} className=' Header-title' href="/">
-                        {/* !* Img isn't centering well with text*/}
-                        {/* <img style={{ width: 36, height: 36 }} src="/assets/images/logo-50.png" alt="water cooler logo" /> */}
+                    <a style={{ fontFamily: 'Great Vibes' }} className='Header-title' href="/">
                         Water Cooler
                     </a>
 
