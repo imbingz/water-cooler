@@ -1,7 +1,7 @@
 const friends = [
     {
         id: 1,
-        username: 'Bertieates',
+        username: 'VeryVeryVeryVeryVeryLongName',
         firstName: 'Atheon',
         lastName: 'Times-Conflux',
         email: 'atheon@cooler.io',

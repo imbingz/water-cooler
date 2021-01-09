@@ -1,16 +1,16 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
-import { toast } from 'react-toastify';
 import ProfileModal from '../../Modals/ProfileModal';
+import SidebarUsersCont from '../SidebarUsers';
 import dummyFriends from '../../../data/friends';
-import friendsRoom from '../../../data/friendsRoom';
+import dummyFriendsRoom from '../../../data/friendsRoom';
 import { v4 as uuidv4 } from 'uuid';
 import './TabFriends.css';
 
 
 function TabFriends() {
 
-    let dummyData = 'no';
+    let dummyData = 'yes';
 
     // * Set States, State Helper Functions, and Other Variables
     
@@ -33,26 +33,6 @@ function TabFriends() {
    
 
     // * Functions
-    // ** Send User and Friend's IDs to Server To Process Accepting Friend Request
-    const acceptFriend = async (frenId) => {
-        console.log('accepts');
-        console.log(frenId);
-        try {
-            const request = await fetch('/api/friends/accept', {
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ friend: frenId, user: _id }),
-                method: 'PUT'
-            });
-            const status = await request.json();
-            if (status.success) {
-                toast.success('Added Friend!', {
-                    position: toast.POSITION.TOP_RIGHT
-                });
-            }
-        } catch (err) {
-            console.log({ err });
-        }
-    };
 
     // ** Check User's DB For Any Changes in friends or inboundPendingFriends by passing 'friends' or 'inpending'
     //  // Then store updated array values in State
@@ -91,24 +71,7 @@ function TabFriends() {
         }
     }, [_id]);
 
-    // * Send User and Friend's IDs to Server To Process Declining Friend Request
-    const declineFriend = async (frenId) => {
-        try {
-            const request = await fetch('/api/friends/decline', {
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ friend: frenId, user: _id }),
-                method: 'PUT'
-            });
-            const status = await request.json();
-            if (status.success) {
-                toast.error('Declined Friend Request', {
-                    position: toast.POSITION.TOP_RIGHT
-                });
-            }
-        } catch (err) {
-            console.log({ err });
-        }
-    };
+    
 
     // * On Page Load, Check DB for Any Changes in User's friend and inboundPendingFriends Arrays 
     useEffect(() => {
@@ -121,113 +84,86 @@ function TabFriends() {
     let renderInpending;
     let renderOffFriends;
     let renderOnFriends;
+    let renderRoomInv;
 
     switch(dummyData) {
         case 'yes': 
             renderInpending = dummyFriends;
             renderOffFriends = dummyFriends;
             renderOnFriends = dummyFriends;
+            renderRoomInv = dummyFriendsRoom;
             break;
         default: 
             renderInpending = inpending;
             renderOffFriends = offFriends;
             renderOnFriends = onFriends;
+            // renderRoomInv = someStateOrSomething;
     }
 
 
     return (
         <Container className='ml-2 mr-3 mt-3'>
+            {/* Requests */}
             <div className='d-flex justify-content-start'>
-
                 <h6 className='mr-5 Tabfriends-subtitle'>Invitations:</h6> 
             </div>
-
-            {/* Friend Requests */}
             <section className='d-flex flex-column justify-content-start TabFriends-section'>
-                {renderInpending &&
-                    renderInpending.map(friend => (
-                        <div className='d-flex flex-row justify-content-start align-items-center mb-2' key={uuidv4()}> 
-                            <img src={friend.imageSrc} alt={friend.username} style={{ width: 32, height: 32 }} />
-                            <p className='mx-2 my-0' >{friend.username}</p>
-                            <button 
-                                onClick={async () => {
-                                    await acceptFriend(friend.friendId);
-                                    checkDBArrays('inpending');
-                                    checkDBArrays('friends');
-                                }}
-                                className='TabFriends-btn accept  d-inline-block mx-3 px-2'
-                            ><small>Accept</small></button>
-                            <button 
-                                onClick={async () => {
-                                    await declineFriend(friend.friendId);
-                                    checkDBArrays('inpending');
-                                }}
-                                className='TabFriends-btn decline  d-inline-block px-2'
-                            ><small>Decline</small></button>
-
-                        </div>
-
-                    ))
-                }
+                {/* Friend Requests */}
+                <SidebarUsersCont
+                    data={renderInpending}
+                    isRequest={true}
+                    checkDBArrays={checkDBArrays}
+                    handleFriendModal={handleFriendModal}
+                    handleShow={handleShow}
+                />
 
                 {/* Room Invites */}
-                {friendsRoom &&
-                    friendsRoom.map(friendRoom => (
-
+                {/* <SidebarUsersCont
+                    data={renderRoomInv}
+                    isRequest={true}
+                    checkDBArrays={checkDBArrays}
+                    handleFriendModal={handleFriendModal}
+                    handleShow={handleShow}
+                /> */}
+                {renderRoomInv &&
+                    renderRoomInv.map(friendRoom => (
                         <div className='d-flex flex-row justify-content-start align-items-center mb-2' key={uuidv4()}>  
-                            <img src={friendRoom.roomStyle} alt={friendRoom.roomname} style={{width:32, height: 32}}/>
-
-
-                            <p className='ml-2 mr-4 my-0' >Room Invite</p>
-
-
+                            <img 
+                                src={friendRoom.roomStyle}
+                                alt={friendRoom.roomname}
+                                style={{width:32, height: 32}}
+                            />
+                            <p className='mx-2 my-0 TabFriends-Text' >Room Invite</p>
                             <button className='TabFriends-btn accept  d-inline-block mx-3 px-2'><small>Accept</small></button>
-
-                            <button className='TabFriends-btn decline  d-inline-block px-2'><small>Decline</small></button>                      
-
+                            <button className='TabFriends-btn decline  d-inline-block px-2'><small>Decline</small></button>
                         </div>
-
                     ))
                 }
             </section>
+            
+            {/* Friends */}
+            {/* Online Friends */}
             <div><h6 className='Tabfriends-subtitle mt-4'>Online Friends:</h6></div>
             <section className='mb-4 mr-3 TabFriends-section'>
-                {/* Online Friends */}
-                {renderOffFriends &&
-                    renderOffFriends.map(friend => (
-                        <div className='d-flex flex-row justify-content-start' key={uuidv4()}>
-
-                            <img src={friend.imageSrc} alt={friend.username} style={{ width: 32, height: 32 }} />
-
-                            <p className='mx-2' >{friend.username}</p>
-
-
-                            <button className='TabFriends-btn profile d-inline-block ml-auto mb-3 px-2 py-1' 
-                                onClick={() => {handleShow(friend); handleFriendModal(friend);}}
-
-                            ><small> View Profile</small> </button>
-                        </div>
-
-                    ))
-                }
+                <SidebarUsersCont
+                    data={renderOnFriends}
+                    isRequest={false}
+                    checkDBArrays={checkDBArrays}
+                    handleFriendModal={handleFriendModal}
+                    handleShow={handleShow}
+                />
             </section>
-            <div><h6 className='Tabfriends-subtitle mt-4'>Offiline Friends:</h6></div>
 
+            {/* Offline Friends */}
+            <div><h6 className='Tabfriends-subtitle mt-4'>Offline Friends:</h6></div>
             <section className='mr-3 TabFriends-section'>
-                {/* Offline Friends */}
-                {renderOnFriends &&
-                    renderOnFriends.map(friend => (
-                        <div className='d-flex flex-row justify-content-start' key={uuidv4()}>
-                            <img src={friend.imageSrc} alt={friend.username} style={{ width: 32, height: 32 }} />
-                            <p className='mx-2' >{friend.username}</p>
-                            <button className='TabFriends-profile-btn d-inline-block ml-auto mb-3 px-2 py-1'
-                                onClick={() => { handleShow(); handleFriendModal(friend); }}
-
-                            ><small> View Profile</small> </button>
-                        </div>
-
-                    ))
-                }
+                <SidebarUsersCont
+                    data={renderOffFriends}
+                    isRequest={false}
+                    checkDBArrays={checkDBArrays}
+                    handleFriendModal={handleFriendModal}
+                    handleShow={handleShow}
+                />
             </section>
             <ProfileModal show={show} onHide={() => handleClose(false)}
                 friend={profModalData}

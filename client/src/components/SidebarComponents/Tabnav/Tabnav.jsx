@@ -11,9 +11,10 @@ import './Tabnav.css';
 function Tabnav() {
     const [activeKey, setActiveKey] = useState('friends');
     return (
-        <div style={{width: '325px'}} className='d-flex flex-column Tabnav-aside-tab'>
+        // !* Hard coding style={{width: '325px'}} was causing responsiveness issues
+        <div className='d-flex flex-column Tabnav-aside-tab'>
             <Tab.Container activeKey={activeKey} onSelect={setActiveKey} >
-                <Nav variant="tabs" className="justify-content-center bg-warning">
+                <Nav variant="tabs" className="justify-content-around bg-warning">
 
                     <Nav.Item className='Tabnav-nav-item'>
                         <Nav.Link eventKey='chats' className='Tabnav-nav-link'>Chats</Nav.Link>

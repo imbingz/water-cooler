@@ -9,7 +9,7 @@ const Homepage = () => {
     return (
        
         <Container fluid className='d-flex flex-column ml-auto'>
-            <Container className='mt-3 p-4' style={{backgroundColor: 'greenyellow'}}> 
+            <Container className='mt-3 p-4' style={{backgroundColor: 'greenyellow'}}>
                 <Row >
                     <Col className='text-center pb-2 mb-4'>
                         <h3>Create A Room</h3>

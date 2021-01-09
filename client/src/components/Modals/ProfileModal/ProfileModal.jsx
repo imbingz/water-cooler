@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { GoMail } from 'react-icons/go';
 
 function ProfileModal(props) {
@@ -31,7 +32,9 @@ function ProfileModal(props) {
             });
             const status = await request.json();
             if (status.success) {
-                window.alert('Done it');
+                toast.success('Removed As Friend', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
             }
         } catch (err) {
             console.log({ err });

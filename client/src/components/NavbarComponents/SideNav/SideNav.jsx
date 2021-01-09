@@ -38,10 +38,11 @@ function SideNav() {
     return (
         <header>
             <IconContext.Provider value={{ color: '#fff' }}>
-                <Navbar sticky='top'
+                {/* !* Stick='top' caused the sidebar to render underneath the header */}
+                <Navbar sticky=''
                     className="justify-content-between align-items-top bg-secondary"
                 >
-                    <div className='Header-left'>
+                    <div className=''>
                         {/* <Link to='/profile' className='Header-profile-icon'>
                             <BsPeopleCircle />
                         </Link> */}
@@ -50,17 +51,14 @@ function SideNav() {
                         </Link>
                     </div>
                     {/* <NavSearch /> */}
-                    <div>
-                        <img style={{ width: 40, height: 40 }} src="/assets/images/logo-50.png" alt="water cooler logo" />
-                    </div>
-                    <h2 style={{ fontFamily: 'Great Vibes' }} className='mb-0 pt-2'>Water Cooler</h2>
 
-                    <a style={{ fontFamily: 'Great Vibes' }} className='mb-0 pt-2' href="/">
-                        <img style={{ width: 40, height: 40 }} src="/assets/images/logo-50.png" alt="water cooler logo" />
+                    <a style={{ fontFamily: 'Great Vibes' }} className=' Header-title' href="/">
+                        {/* !* Img isn't centering well with text*/}
+                        {/* <img style={{ width: 36, height: 36 }} src="/assets/images/logo-50.png" alt="water cooler logo" /> */}
                         Water Cooler
                     </a>
 
-                    <div className='Header-right'>
+                    <div className=''>
                         <button className='Header-logout-btn' onClick={() => handleLogout()}>Logout</button>
                     </div>
                 </Navbar>
