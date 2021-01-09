@@ -1,11 +1,6 @@
 import React from 'react';
 import Dropdown from 'react-dropdown';
-<<<<<<< HEAD:client/src/components/Map/Map.jsx
-import 'react-dropdown/style.css';
-// import io from 'socket.io-client';
-=======
 import io from 'socket.io-client';
->>>>>>> master:client/src/components/GUIComponents/Map/Map.jsx
 import Player from '../Player';
 import 'react-dropdown/style.css';
 
