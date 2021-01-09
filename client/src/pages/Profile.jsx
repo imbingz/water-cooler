@@ -1,9 +1,10 @@
 import React from 'react';
 // import ProfileInboundFriends from '../components/ProfileInboundFriends';
 // import ProfileUserFriends from '../components/ProfileUserFriends';
-import './Profile.css';
-import ProfileForm from '../components/ProfileFrom';
+
 // import ProfileBlocked from '../components/ProfileBlocked';
+import ProfileForm from '../components/ProfileComponents/ProfileFrom';
+import './css/Profile.css';
 
 
 const Profile = () => {   

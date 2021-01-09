@@ -1,27 +1,26 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import GlobalProvider from './utils/GlobalContext';
-import Homepage from './pages/Homepage';
-import Signup from './pages/Signup';
-import Login from './pages/Login';
-import Profile from './pages/Profile';
-import Search from './pages/Search';
-import Rooms from './pages/Rooms';
-import UserRoom from './pages/UserRoom';
-import SocialSpace from './pages/SocialSpace';
-import GameRPG from './pages/GameRPG';
 import Footer from './components/Footer';
-import Slider from './components/Slider';
-// import Navbar from './components/Navbar';
-import SideNav from './components/SideNav';
+import GameRPG from './pages/depreciated/GameRPG';
+import Homepage from './pages/Homepage';
 import Landing from './pages/Landing';
-
+import Login from './pages/depreciated/Login';
+// import Navbar from './components/depreciated/Navbar';
+import Profile from './pages/Profile';
+import Rooms from './pages/Rooms';
+import Search from './pages/depreciated/Search';
+import SideNav from './components/NavbarComponents/SideNav';
+import Signup from './pages/depreciated/Signup';
+import Slider from './components/SidebarComponents/Slider';
+import SocialSpace from './pages/SocialSpace';
+import UserRoom from './pages/UserRoom';
+import GlobalProvider from './utils/GlobalContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
 // Temporary pages 
 import RoomGUI from './pages/RoomGUI';
 import Space from './pages/Space';
 
-import {Row, Col, Container} from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import { ToastContainer, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
