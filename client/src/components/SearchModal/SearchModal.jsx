@@ -3,6 +3,9 @@ import { BsSearch } from 'react-icons/bs';
 import { Container, Modal } from 'react-bootstrap';
 import SearchResults from '../SearchResults';
 import SearchContext from '../../utils/SearchContext';
+import { Modal, Container } from 'react-bootstrap';
+import { BsSearch } from 'react-icons/bs';
+import { toast } from 'react-toastify';
 import './SearchModal.css';
 
 function SearchModal (props) {
@@ -22,7 +25,10 @@ function SearchModal (props) {
             });
             const data = await response.json();
             if (!data.success) {
-                window.alert('No match 😮');
+                // window.alert('No match 😮');
+                toast.error('No match 😮', {
+                    position: toast.POSITION.TOP_CENTER
+                });
                 return;
             }
             // ** If Results Are Found, set State To Trigger SearchResults.jsx
