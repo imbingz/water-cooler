@@ -15,6 +15,7 @@
 .Tabnav-aside-tab {
 	max-height: 100vh;
 	overflow: scroll;
+	overflow-x: hidden;
 }
 
 

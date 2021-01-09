@@ -34,12 +34,6 @@
 	padding-right: 1rem;
 }
 
-.main-col {
-	max-height: 100vh;
-	overflow:inherit;    
-	overflow-y: hidden;
-}
-
 @media only screen and (max-width: 800px) {
 	.Sidenav-menu {
 		width: 325px;

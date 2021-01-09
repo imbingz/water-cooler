@@ -20,7 +20,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import RoomGUI from './pages/RoomGUI';
 import Space from './pages/Space';
 
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { ToastContainer, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';

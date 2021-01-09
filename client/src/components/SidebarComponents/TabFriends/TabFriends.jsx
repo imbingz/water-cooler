@@ -111,6 +111,7 @@ function TabFriends() {
                 {/* Friend Requests */}
                 <SidebarUsersCont
                     data={renderInpending}
+                    type="friend"
                     isRequest={true}
                     checkDBArrays={checkDBArrays}
                     handleFriendModal={handleFriendModal}
@@ -118,13 +119,14 @@ function TabFriends() {
                 />
 
                 {/* Room Invites */}
-                {/* <SidebarUsersCont
+                <SidebarUsersCont
                     data={renderRoomInv}
                     isRequest={true}
+                    type="room"
                     checkDBArrays={checkDBArrays}
                     handleFriendModal={handleFriendModal}
                     handleShow={handleShow}
-                /> */}
+                />
                 {renderRoomInv &&
                     renderRoomInv.map(friendRoom => (
                         <div className='d-flex flex-row justify-content-start align-items-center mb-2' key={uuidv4()}>  
@@ -148,6 +150,7 @@ function TabFriends() {
                 <SidebarUsersCont
                     data={renderOnFriends}
                     isRequest={false}
+                    type="friend"
                     checkDBArrays={checkDBArrays}
                     handleFriendModal={handleFriendModal}
                     handleShow={handleShow}
@@ -160,6 +163,7 @@ function TabFriends() {
                 <SidebarUsersCont
                     data={renderOffFriends}
                     isRequest={false}
+                    type="friend"
                     checkDBArrays={checkDBArrays}
                     handleFriendModal={handleFriendModal}
                     handleShow={handleShow}
