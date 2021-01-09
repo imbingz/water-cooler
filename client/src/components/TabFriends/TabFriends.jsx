@@ -110,11 +110,25 @@ function TabFriends() {
 
 
     return (
-        <Container className='mx-3 mt-3'>
+        <Container className='ml-2 mr-3 mt-3'>
             <div className='d-flex justify-content-start'>
-                <h6 className='mr-5 Tabfriends-subtitle'>Invitations:</h6>
-                <small className='ml-5 text-success '>Accept</small>
-                <small className='ml-4 text-danger'>Decline</small>
+
+                <h6 className='mr-5 Tabfriends-subtitle'>Invitations:</h6> 
+            </div>
+                
+            <section className='d-flex flex-column justify-content-start TabFriends-section'>        
+                { friends &&
+                    friends.map(friend => (
+                        <div className='d-flex flex-row justify-content-start align-items-center mb-2' key={uuidv4()}>  
+                            <img src={friend.imageSrc} alt={friend.username} style={{width:32, height: 32}}/>
+
+                            <p className='mx-2 my-0' >friend request</p>
+
+                            <button className='TabFriends-btn accept  d-inline-block mx-3 px-2'><small>Accept</small></button>
+
+                            <button className='TabFriends-btn decline  d-inline-block px-2'><small>Decline</small></button>
+
+                
             </div>
 
             {/* Friend Requests */}
@@ -139,6 +153,7 @@ function TabFriends() {
                                 }}
                                 style={{ width: 18, height: 18 }} type="radio" name={friend.id} value="decline" 
                             />
+
                         </div>
 
                     ))
@@ -147,14 +162,17 @@ function TabFriends() {
                 {/* Room Invites */}
                 {friendsRoom &&
                     friendsRoom.map(friendRoom => (
-                        <div className='d-flex flex-row justify-content-start' key={uuidv4()}>
-                            <img src={friendRoom.roomStyle} alt={friendRoom.roomname} style={{ width: 32, height: 32 }} />
 
-                            <p className='ml-2 mr-4' >Room Invite</p>
+                        <div className='d-flex flex-row justify-content-start align-items-center mb-2' key={uuidv4()}>  
+                            <img src={friendRoom.roomStyle} alt={friendRoom.roomname} style={{width:32, height: 32}}/>
 
-                            <input className='d-inline-block mx-5' style={{ width: 18, height: 18 }} type="radio" name={friendRoom.roomname} value="accept" />
 
-                            <input style={{ width: 18, height: 18 }} type="radio" name={friendRoom.roomname} value="decline" />
+                            <p className='ml-2 mr-4 my-0' >Room Invite</p>
+
+
+                            <button className='TabFriends-btn accept  d-inline-block mx-3 px-2'><small>Accept</small></button>
+
+                            <button className='TabFriends-btn decline  d-inline-block px-2'><small>Decline</small></button>                      
 
                         </div>
 
@@ -172,8 +190,10 @@ function TabFriends() {
 
                             <p className='mx-2' >{friend.username}</p>
 
-                            <button className='TabFriends-profile-btn d-inline-block ml-auto mb-3 px-2 py-1'
-                                onClick={() => { handleShow(friend); handleFriendModal(friend); }}
+
+                            <button className='TabFriends-btn profile d-inline-block ml-auto mb-3 px-2 py-1' 
+                                onClick={() => {handleShow(friend); handleFriendModal(friend);}}
+
                             ><small> View Profile</small> </button>
                         </div>
 
@@ -181,6 +201,7 @@ function TabFriends() {
                 }
             </section>
             <div><h6 className='Tabfriends-subtitle mt-4'>Offiline Friends:</h6></div>
+
             <section className='mr-3 TabFriends-section'>
                 {/* Offline Friends */}
                 {offFriends &&
@@ -190,6 +211,7 @@ function TabFriends() {
                             <p className='mx-2' >{friend.username}</p>
                             <button className='TabFriends-profile-btn d-inline-block ml-auto mb-3 px-2 py-1'
                                 onClick={() => { handleShow(); handleFriendModal(friend); }}
+
                             ><small> View Profile</small> </button>
                         </div>
 
