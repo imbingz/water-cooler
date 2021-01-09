@@ -1,4 +1,4 @@
-.carousel-indicators {
+.carousel-indicators > li {
 	display: none;
 }
 

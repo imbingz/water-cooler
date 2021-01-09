@@ -24,7 +24,7 @@ function SearchModal (props) {
             const data = await response.json();
             if (!data.success) {
                 // window.alert('No match 😮');
-                toast.error('No match 😮', {
+                toast.warning('No match 😮', {
                     position: toast.POSITION.TOP_CENTER
                 });
                 return;
