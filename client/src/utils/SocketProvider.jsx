@@ -13,13 +13,34 @@ export function SocketProvider({ id, children }) {
 
     // sets up socket when page is initially loaded or if the id changes
     useEffect(() => {
-        const newSocket = io(
-            '/',
-        );
-        setSocket(newSocket);
 
-        // if useEffect runs again it closes this socket
-        return () => newSocket.close();
+        async function sessionId() {
+            try {
+                const response = await fetch(
+                    '/api/socket/id',
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        method: 'POST'
+                    }
+                );
+                const json = await response.json();
+                const id = json.sessionID;
+                console.log(id);
+                // dispatch({ type: 'popOne', payload: json.data });
+                const newSocket = io(
+                    '/',
+                    { query: { id }}
+                );
+                setSocket(newSocket);
+                // if useEffect runs again it closes this socket
+                return () => newSocket.close();
+            } catch (err) {
+                console.log({ err });
+            }
+        }
+        sessionId();
     }, [id]);
 
     return (
@@ -28,3 +49,4 @@ export function SocketProvider({ id, children }) {
         </SocketContext.Provider>
     );
 }
+

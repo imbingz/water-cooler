@@ -42,8 +42,12 @@ app.use(routes);
 // const players = {};
 
 io.on('connect', (socket) => {
+    const id = socket.handshake.query.id;
+    socket.id = id;
+    console.log(socket.id);
+
     socket.on('chatProvider', message => {
-        console.log(message)
+        console.log(message);
         socket.emit('serverEmit', message);
     });
     //******************************** Bing
