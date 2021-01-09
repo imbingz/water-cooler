@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {Carousel, Col} from 'react-bootstrap';
 import roomStyles from '../../../data/roomStyles';
+import { toast } from 'react-toastify';
+import { useGlobalContext } from '../../../utils/GlobalContext';
 // import { v4 as uuidv4 } from 'uuid';
 import './RoomCarousel.css';
 
@@ -15,6 +17,18 @@ function RoomCarousel() {
         setIndex(selectedIndex);
     };
   
+    const [{roomStyle}, dispatch] = useGlobalContext();
+
+    const handleSetRoomStyle = (style) => {
+        console.log('img selected', style);
+
+        dispatch({type: 'setRoomStyle', payload: style.variants });
+
+        toast.dark(` 🥳 You selected ${style.title} style!!`, {
+            position: toast.POSITION.TOP_CENTER
+        });
+
+    };
 
     return (
         <Col xs={12} lg={5} md={6} className='pb-3' >   
@@ -27,10 +41,11 @@ function RoomCarousel() {
                                 className="d-block w-100"
                                 src={style.src}
                                 alt={style.title}
+                                onClick={() => handleSetRoomStyle(style)}
                             />
-                            {/* <Carousel.Caption> */}
+                        
                             <h4 className='text-center text-muted'>{style.title}</h4>
-                            {/* </Carousel.Caption> */}
+                       
                         </Carousel.Item>
                     ))
                 }
