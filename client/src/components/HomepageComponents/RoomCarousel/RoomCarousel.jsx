@@ -30,6 +30,8 @@ function RoomCarousel() {
 
     };
 
+    console.log('roomStyle', roomStyle);
+
     return (
         <Col xs={12} lg={5} md={6} className='pb-3' >   
             <Carousel activeIndex={index} onSelect={handleSelect}>
@@ -38,7 +40,7 @@ function RoomCarousel() {
                         <Carousel.Item key={i}>
                             <h3 className='text-center text-muted'>Choose A Room Style</h3>
                             <img
-                                className="d-block w-100"
+                                className="RoomCarousel-img d-block w-100"
                                 src={style.src}
                                 alt={style.title}
                                 onClick={() => handleSetRoomStyle(style)}
