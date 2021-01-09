@@ -14,7 +14,7 @@ const RoomChatSchema = new mongoose.Schema({
         default: Date.now
     },
     userID: {
-        type: Number,
+        type: String,
         required: 'userID is required'
     }
 });

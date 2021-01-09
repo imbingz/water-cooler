@@ -27,7 +27,7 @@ function SideNav() {
                     </div>
                     <NavSearch />
                     <div className='Header-right'>
-                        <button className='Header-logout-btn'onClick={() => {console.log('handleLogout');}}>Logout</button>
+                        <button className='Header-logout-btn' onClick={() => {console.log('handleLogout');}}>Logout</button>
                     </div>
                 </nav>
             </IconContext.Provider>

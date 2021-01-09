@@ -3,7 +3,7 @@ import React from 'react';
 // import ProfileUserFriends from '../components/ProfileUserFriends';
 import './Profile.css';
 import ProfileForm from '../components/ProfileFrom';
-import ProfileBlocked from '../components/ProfileBlocked';
+// import ProfileBlocked from '../components/ProfileBlocked';
 
 
 const Profile = () => {   
@@ -16,9 +16,9 @@ const Profile = () => {
             <ProfileForm
                 storedUser={ storedUser }
             />
-            <ProfileBlocked
+            {/* <ProfileBlocked
                 id={ storedUser._id }
-            />  
+            />   */}
         </main>
     );
 };
