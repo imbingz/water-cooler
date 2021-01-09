@@ -16,7 +16,6 @@ function SideNav() {
     //Logout logic
     const history = useHistory();
     const handleLogout = async () => {
-        console.log('logout clicked');
         try {
             const response = await fetch('api/user/logout');
 
@@ -26,7 +25,6 @@ function SideNav() {
             // useGlobal Context
             if (data.success) {
                 localStorage.removeItem('USER');
-                alert('Successfully logged out!');
                 history.push('/');
             }
 
