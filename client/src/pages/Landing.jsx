@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import {useHistory} from 'react-router-dom';
-import {Container, Row} from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Row } from 'react-bootstrap';
+import { useHistory } from 'react-router-dom';
 import LandingNav from '../components/LandingNav';
-import SignupModal from '../components/SignupModal';
-import './Landing.css';
+import SignupModal from '../components//Modals/SignupModal';
+import './css/Landing.css';
 
 function Landing() {
 

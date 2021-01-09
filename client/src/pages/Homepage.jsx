@@ -1,9 +1,9 @@
 
 import React from 'react';
-import {Container, Row, Col} from 'react-bootstrap';
-import RoomCarousel from '../components/RoomCarousel';
-import CreateRoom from '../components/CreateRoom';
-import FriendsRoom from '../components/FriendsRoom';
+import { Col, Container, Row } from 'react-bootstrap';
+import CreateRoom from '../components/HomepageComponents/CreateRoom';
+import FriendsRoom from '../components/HomepageComponents/FriendsRoom';
+import RoomCarousel from '../components/HomepageComponents/RoomCarousel';
 
 const Homepage = () => {
     return (

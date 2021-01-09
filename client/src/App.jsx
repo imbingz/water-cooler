@@ -4,22 +4,28 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import GlobalProvider from './utils/GlobalContext';
 import { SocketProvider } from './utils/SocketProvider';
 import { ChatProvider } from './utils/ChatProvider';
-import Homepage from './pages/Homepage';
-import Signup from './pages/Signup';
-import Login from './pages/Login';
-import Profile from './pages/Profile';
-import Search from './pages/Search';
-import Rooms from './pages/Rooms';
-import UserRoom from './pages/UserRoom';
-import SocialSpace from './pages/SocialSpace';
-import GameRPG from './pages/GameRPG';
 import Footer from './components/Footer';
-import Slider from './components/Slider';
-// import Navbar from './components/Navbar';
-import SideNav from './components/SideNav';
+import GameRPG from './pages/depreciated/GameRPG';
+import Homepage from './pages/Homepage';
 import Landing from './pages/Landing';
+import Login from './pages/depreciated/Login';
+// import Navbar from './components/depreciated/Navbar';
+import Profile from './pages/Profile';
+import Rooms from './pages/Rooms';
+import Search from './pages/depreciated/Search';
+import SideNav from './components/NavbarComponents/SideNav';
+import Signup from './pages/depreciated/Signup';
+import Slider from './components/SidebarComponents/Slider';
+import SocialSpace from './pages/SocialSpace';
+import UserRoom from './pages/UserRoom';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// Temporary pages 
 import RoomGUI from './pages/RoomGUI';
-import { Row, Col, Container } from 'react-bootstrap';
+import Space from './pages/Space';
+
+import { Col, Container, Row } from 'react-bootstrap';
+import { ToastContainer, Zoom } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 function App() {
@@ -32,15 +38,12 @@ function App() {
                 <SocketProvider>
                     <ChatProvider>
                         <Row >
-
                             {storedUser && <Slider />}
-
                             <Col md className='mx-0 px-0 main-col'>
-
                                 {storedUser && <SideNav />}
-
                                 {/* <Navbar /> */}
-
+                                {/* Toastify container for notification */}
+                                <ToastContainer transition={Zoom} autoClose={3000} />
                                 <main>
                                     <Container>
                                         <Switch>
@@ -57,8 +60,10 @@ function App() {
                                             <Route exact path='/rooms/:id/:id' component={SocialSpace} />
                                             {/* Temporary Game Page  */}
                                             <Route exact path='/game' component={GameRPG} />
-                                            {/* The route may need to change later */}
+                                            {/* Temporary RoomUser Page */}
                                             <Route exact path='/room' component={RoomGUI} />
+                                            {/* Temporary Social Space Page  */}
+                                            <Route exact path='/space' component={Space} />
                                         </Switch>
                                     </Container>
                                 </main>
@@ -71,6 +76,5 @@ function App() {
         </Router>
     );
 }
-
 
 export default App;

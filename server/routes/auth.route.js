@@ -53,7 +53,7 @@ router.post('/login', (req, res, next) => {
         try {
             if (err || !user) {
                 const error = new Error('An Error occurred');
-                return next(error);
+                return res.json({success: false, error});
             }
             
             req.login(user, { session: false }, error => {
@@ -61,7 +61,7 @@ router.post('/login', (req, res, next) => {
                 return res.status(200).json({success: true, user: user });
             });
         } catch (error) {
-            return next(error);
+            return res.json({success: false, error});
         }
     })(req, res, next);
 });
