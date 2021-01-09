@@ -16,7 +16,7 @@ function RoomCarousel() {
     const handleSelect = (selectedIndex, e) => {
         setIndex(selectedIndex);
     };
-  
+    // eslint-disable-next-line
     const [{roomStyle}, dispatch] = useGlobalContext();
 
     const handleSetRoomStyle = (style) => {
@@ -30,7 +30,7 @@ function RoomCarousel() {
 
     };
 
-    console.log('roomStyle', roomStyle);
+    // console.log('roomStyle', roomStyle);
 
     return (
         <Col xs={12} lg={5} md={6} className='pb-3' >   
