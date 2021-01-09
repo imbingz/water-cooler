@@ -7,7 +7,8 @@ const defaultState = {
     socialSpaces: [],
     currentRoom: [],
     currentSocialSpace: [],
-    showAside: true
+    showAside: false,
+    roomStyle:''
 };
 
 const reducer = (state, action) => {
@@ -28,6 +29,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 showAside: action.payload
+            };
+        case 'setRoomStyle':
+            return {
+                ...state,
+                roomStyle: action.payload
             };
         default: return state;
     }
