@@ -55,12 +55,11 @@ function SignupModal(props) {
             });
             const json = await response.json();
 
-            if (json && json.data && json.data.error) {
+            if (json.error === 'user already exists with that email') {
                 // Notify user when server responds error
-                toast.error('Error occured, try again later', {
+                toast.error('User with that email already exists ', {
                     position: toast.POSITION.TOP_CENTER
                 });
-                console.log(json.data.error.message);
             } else {
                 firstNameRef.current.value='';
                 lastNameRef.current.value='';
@@ -78,6 +77,9 @@ function SignupModal(props) {
        
             
         } catch (error) {
+            toast.error('Something went wrong, please try again later', {
+                position: toast.POSITION.TOP_CENTER
+            });
             console.error(error);
         }
     };
