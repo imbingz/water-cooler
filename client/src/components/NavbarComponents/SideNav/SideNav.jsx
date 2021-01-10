@@ -25,6 +25,9 @@ function SideNav() {
             // useGlobal Context
             if (data.success) {
                 localStorage.removeItem('USER');
+                //Set global USER to null upon logout
+                dispatch({type: 'setUser', payload: null});
+                //redirect back to non-authenticated landing page
                 history.push('/');
             }
 

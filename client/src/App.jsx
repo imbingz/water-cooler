@@ -1,10 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import Footer from './components/Footer';
 import GameRPG from './pages/depreciated/GameRPG';
 import Homepage from './pages/Homepage';
 import Landing from './pages/Landing';
 import Login from './pages/depreciated/Login';
+import LoginModal from './components/Modals/LoginModal';
 // import Navbar from './components/depreciated/Navbar';
 import Profile from './pages/Profile';
 import Rooms from './pages/Rooms';
@@ -14,7 +15,7 @@ import Signup from './pages/depreciated/Signup';
 import Slider from './components/SidebarComponents/Slider';
 import SocialSpace from './pages/SocialSpace';
 import UserRoom from './pages/UserRoom';
-import GlobalProvider from './utils/GlobalContext';
+import { useGlobalContext } from './utils/GlobalContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // Temporary pages 
 import RoomGUI from './pages/RoomGUI';
@@ -27,24 +28,44 @@ import './App.css';
 
 function App() {
 
-    const storedUser = JSON.parse(localStorage.getItem('USER'));
+    const [{ USER },] = useGlobalContext();
+
+    if (!USER) {
+        // console.log('inside App.jsx isLoggedIn?', isLoggedIn);
+        // console.log('inside App.jsx USER?', USER);
+        return (
+            <Router>
+                <main>
+                    <Route exact path="/">
+                        <Landing />
+                        <LoginModal />
+                        <ToastContainer transition={Zoom} autoClose={2000} />
+                    </Route>
+                    <Route path="*">
+                        <Redirect to='/' />
+                    </Route>
+                </main>
+            </Router>
+        );
+    }
+
 
     return (
         <Router>
-            <GlobalProvider>
-                
-                {storedUser && <SideNav />}
+            {/* <GlobalProvider> */}
+            {/* <Row > */}
+            <>
+                {/* <Col md className='mx-0 px-0 main-col'> */}
+                <SideNav />
                 {/* <Navbar /> */}
-
                 {/* Toastify container for notification */}
                 <ToastContainer transition={Zoom} autoClose={3000} />
 
                 <main>
-                    {storedUser && <Slider />}
+                    <Slider />
                     <Container>
                         <Switch>
-                            {!storedUser && <Route exact path='/' component={Landing} />}
-                            {storedUser && <Route exact path='/' component={Homepage} />}
+                            <Route exact path='/' component={Homepage} />
                             <Route exact path='/signup' component={Signup} />
                             <Route exact path='/login' component={Login} />
                             <Route exact path='/search' component={Search} />
@@ -63,10 +84,12 @@ function App() {
                         </Switch>
                     </Container>
                 </main>
-                {storedUser && <Footer />}
+                <Footer />
+                {/* </Col> */}
+            </>
+            {/* </Row> */}
+            {/* </GlobalProvider> */}
 
-
-            </GlobalProvider>
         </Router>
     );
 }
