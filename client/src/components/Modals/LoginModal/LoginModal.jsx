@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { Modal } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
+import { useGlobalContext } from '../../../utils/GlobalContext';
 import './LoginModal.css';
 
 
@@ -10,6 +11,9 @@ function LoginModal(props) {
     const emailRef = useRef();
     const passwordRef = useRef();
     // const {onHide} = props;
+
+    //Global USER object
+    const [ , dispatch] = useGlobalContext();
 
     const handleLogin = async e => {
         e.preventDefault();
@@ -41,15 +45,19 @@ function LoginModal(props) {
                 emailRef.current.focus();
                 return;
             }
-            // change to global context
-            //  // have db return userID, username, imageSrc, names, blocked array
-            //  // sessionID once authenticated
-
 
             localStorage.setItem('USER', JSON.stringify(data.user));
 
-            // **** needs to re-direct to authenticated-home page through global context
-            history.push('/room');
+            const storedUser = JSON.parse(localStorage.getItem('USER'));
+
+            //If logged in user, set USER to the user object
+            if(storedUser) {
+                dispatch({ type: 'setUser', payload: storedUser });  
+            } 
+
+            //redirect to authenticated homepage
+            history.push('/');
+
         } catch (err) {
             console.error(err);
             //Notify user on error 
