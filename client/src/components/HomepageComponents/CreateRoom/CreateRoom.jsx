@@ -1,10 +1,18 @@
 import React from 'react';
+import {useHistory} from 'react-router-dom';
+import {useGlobalContext} from '../../../utils/GlobalContext.js';
 import { Button, Col, Row } from 'react-bootstrap';
 import friends from '../../../data/friends';
 import { v4 as uuidv4 } from 'uuid';
 
 
 function CreateRoom() {
+
+    const [{roomStyle}, ] = useGlobalContext();
+
+    const history = useHistory();
+
+
     return (
         <Col xs={12} lg={7} md={6} className='pl-2 pb-3'>
             <form onSubmit={ console.log('call createRoom func')}>
@@ -53,7 +61,16 @@ function CreateRoom() {
                 </Row>
                 <Row >
                     <Col className='mt-3'>
-                        <Button className='border-0' size='sm' variant='danger'>Create Room</Button>
+                        <Button 
+                            className='border-0' 
+                            size='sm' 
+                            variant='danger'
+                            onClick={() => {
+                                console.log('btn roomStyle is:', roomStyle);
+                            
+                                history.push('/room');
+                            }}
+                        >Create Room</Button>
                     </Col>
                 </Row>
             </form>
