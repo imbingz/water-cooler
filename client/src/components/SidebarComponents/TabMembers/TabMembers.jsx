@@ -20,6 +20,27 @@ function TabMembers() {
     const [tabMembersProfile, setTabMembersProfile] = useState({});
     const handleMembersProfileModal = (member) => setTabMembersProfile(member);
 
+    // // * Render Dummy Or DB Data
+    // let renderInpending;
+    // let renderOffFriends;
+    // let renderOnFriends;
+    // let renderRoomInv;
+
+    // switch(dummyData) {
+    //     case 'yes': 
+    //         renderInpending = dummyFriends;
+    //         renderOffFriends = dummyFriends;
+    //         renderOnFriends = dummyFriends;
+    //         renderRoomInv = dummyFriendsRoom;
+    //         break;
+    //     default: 
+    //         renderInpending = inpending;
+    //         renderOffFriends = offFriends;
+    //         renderOnFriends = onFriends;
+    //         // renderRoomInv = someStateOrSomething;
+    // }
+
+    //  !* Need to make some seed data for social spaces so I can get these containers dynamically rending
 
     return (
         <Container className='d-flex flex-column pl-4 mr-2 pb-5'>

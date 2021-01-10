@@ -66,3 +66,13 @@
 	transform: scale(0.9);
 	color: rgb(55, 5, 238);
 }
+
+.Header-title {
+	text-decoration: none !important;
+	color: white;
+	font-size: 32px;
+}
+
+.Header-title:hover {
+	color:white;
+}

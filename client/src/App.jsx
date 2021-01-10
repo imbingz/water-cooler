@@ -21,29 +21,29 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import RoomGUI from './pages/RoomGUI';
 import Space from './pages/Space';
 
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import { ToastContainer, Zoom } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 
 function App() {
 
-    const [ {USER}, ] = useGlobalContext();
+    const [{ USER },] = useGlobalContext();
 
-    if(!USER) {
+    if (!USER) {
         // console.log('inside App.jsx isLoggedIn?', isLoggedIn);
-        console.log('inside App.jsx USER?', USER);
+        // console.log('inside App.jsx USER?', USER);
         return (
             <Router>
                 <main>
                     <Route exact path="/">
-                        <Landing/>
+                        <Landing />
                         <LoginModal />
                         <ToastContainer transition={Zoom} autoClose={2000} />
-                    </Route> 
+                    </Route>
                     <Route path="*">
-                        <Redirect to='/'/>
-                    </Route> 
+                        <Redirect to='/' />
+                    </Route>
                 </main>
             </Router>
         );
@@ -53,46 +53,43 @@ function App() {
     return (
         <Router>
             {/* <GlobalProvider> */}
-            <Row >
+            {/* <Row > */}
+            <>
+                {/* <Col md className='mx-0 px-0 main-col'> */}
+                <SideNav />
+                {/* <Navbar /> */}
+                {/* Toastify container for notification */}
+                <ToastContainer transition={Zoom} autoClose={3000} />
 
-                <Slider /> 
-
-                <Col md className='mx-0 px-0 main-col'>
-
-                    <SideNav />
-
-                    {/* <Navbar /> */}
-                    
-                    {/* Toastify container for notification */}
-                    <ToastContainer transition={Zoom} autoClose={3000} />
-                    
-                    <main>
-                        <Container>
-                            <Switch>
-                                
-                                <Route exact path='/' component={Homepage} />
-                                <Route exact path='/signup' component={Signup} />
-                                <Route exact path='/login' component={Login} />
-                                <Route exact path='/search' component={Search} />
-                                {/* will be profile:id */}
-                                <Route exact path='/profile' component={Profile} />
-                                <Route exact path='/rooms' component={Rooms} />
-                                <Route exact path='/rooms/:id' component={UserRoom} />
-                                {/* will be socialspace:id */}
-                                <Route exact path='/rooms/:id/:id' component={SocialSpace} />
-                                {/* Temporary Game Page  */}
-                                <Route exact path='/game' component={ GameRPG} />
-                                {/* Temporary RoomUser Page */}
-                                <Route exact path='/room' component={ RoomGUI} />
-                                {/* Temporary Social Space Page  */}
-                                <Route exact path='/space' component={ Space} />
-                            </Switch>
-                        </Container>
-                    </main>
-                    <Footer />
-                </Col>
-            </Row>
+                <main>
+                    <Slider />
+                    <Container>
+                        <Switch>
+                            <Route exact path='/' component={Homepage} />
+                            <Route exact path='/signup' component={Signup} />
+                            <Route exact path='/login' component={Login} />
+                            <Route exact path='/search' component={Search} />
+                            {/* will be profile:id */}
+                            <Route exact path='/profile' component={Profile} />
+                            <Route exact path='/rooms' component={Rooms} />
+                            <Route exact path='/rooms/:id' component={UserRoom} />
+                            {/* will be socialspace:id */}
+                            <Route exact path='/rooms/:id/:id' component={SocialSpace} />
+                            {/* Temporary Game Page  */}
+                            <Route exact path='/game' component={GameRPG} />
+                            {/* Temporary RoomUser Page */}
+                            <Route exact path='/room' component={RoomGUI} />
+                            {/* Temporary Social Space Page  */}
+                            <Route exact path='/space' component={Space} />
+                        </Switch>
+                    </Container>
+                </main>
+                <Footer />
+                {/* </Col> */}
+            </>
+            {/* </Row> */}
             {/* </GlobalProvider> */}
+
         </Router>
     );
 }

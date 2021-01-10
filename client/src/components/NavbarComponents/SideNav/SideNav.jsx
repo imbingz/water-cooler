@@ -1,17 +1,17 @@
 import React from 'react';
-import { BsPeopleCircle } from 'react-icons/bs';
 import { CgMenu } from 'react-icons/cg';
 import { IconContext } from 'react-icons';
 import { Link, useHistory } from 'react-router-dom';
-import NavSearch from '../NavSearch/NavSearch';
+import { Navbar } from 'react-bootstrap';
+// import NavSearch from '../NavSearch/NavSearch';
 import { useGlobalContext } from '../../../utils/GlobalContext';
 import './SideNav.css';
 
 function SideNav() {
 
     // Slider setup
-    const [{showAside}, dispatch] = useGlobalContext();
-    const showSidebar = () => dispatch({type: 'setShowAside', payload: !showAside});
+    const [{ showAside }, dispatch] = useGlobalContext();
+    const showSidebar = () => dispatch({ type: 'setShowAside', payload: !showAside });
 
     //Logout logic
     const history = useHistory();
@@ -40,20 +40,26 @@ function SideNav() {
     return (
         <header>
             <IconContext.Provider value={{ color: '#fff' }}>
-                <nav className='Header-navbar'>
-                    <div className='Header-left'>
-                        <Link to='/profile' className='Header-profile-icon'>
+                {/* !* Stick='top' caused the sidebar to render underneath the header */}
+                <Navbar sticky=''
+                    className="justify-content-between align-items-top bg-secondary"
+                >
+                    <div className=''>
+                        {/* <Link to='/profile' className='Header-profile-icon'>
                             <BsPeopleCircle />
-                        </Link>
+                        </Link> */}
                         <Link to='#' className='Header-menu-bars'>
                             <CgMenu onClick={showSidebar} />
                         </Link>
                     </div>
-                    <NavSearch />
-                    <div className='Header-right'>
-                        <button className='Header-logout-btn'onClick={() => handleLogout()}>Logout</button>
+                    <a style={{ fontFamily: 'Great Vibes' }} className='Header-title' href="/">
+                        Water Cooler
+                    </a>
+
+                    <div className=''>
+                        <button className='Header-logout-btn' onClick={() => handleLogout()}>Logout</button>
                     </div>
-                </nav>
+                </Navbar>
             </IconContext.Provider>
         </header>
     );
