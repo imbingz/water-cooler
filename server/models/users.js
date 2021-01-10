@@ -54,6 +54,12 @@ const UserSchema = new mongoose.Schema({
         type: String,
         default: ''
     }
+}, {//Not return password back to front end
+    toJSON: {
+        transform(doc, ret){
+            delete ret.password;
+        }
+    }
 });
 
 
