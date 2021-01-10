@@ -45,10 +45,6 @@ io.on('connect', (socket) => {
     socket.id = id;
     console.log(socket.id);
 
-    socket.on('chatProvider', message => {
-        console.log(message);
-        socket.emit('serverEmit', message);
-    });
     //******************************** Bing
     // players[socket.id] = {
     //     x: 0, y: 0
@@ -61,9 +57,10 @@ io.on('connect', (socket) => {
     //     socket.to(socket.room).broadcast.emit('user-connected', roomUrlId, name);
     // });
 
-    // socket.on('send-chat-message', (roomUrlId, name, messageInput) => {
-    //     socket.to(socket.room).emit('receive-sent-message', roomUrlId, name, messageInput);
-    // });
+    socket.on('send-chat-message', (roomUrlId, name, messageInput) => {
+        console.log('recieve-sent-message from server')
+        socket.to(socket.room).emit('receive-sent-message', roomUrlId, name, messageInput);
+    });
 
     // socket.on('check-room', (roomUrlId, name) => {
     //     if (roomUrlId === socket.room) {

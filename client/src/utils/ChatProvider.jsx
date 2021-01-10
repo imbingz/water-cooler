@@ -26,8 +26,8 @@ export function ChatProvider({ children }) {
     }, [socket, serverMessage]);
     
     const fromChat = (message) => {
-        console.log(message);
-        socket.emit('chatProvider', message);
+        console.log('send-chat-message from ChatProvider');
+        socket.emit('send-chat-message', message);
     };
 
     return (

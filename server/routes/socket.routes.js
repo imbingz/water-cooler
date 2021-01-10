@@ -9,7 +9,6 @@ router
         // console.log(req.sessionStore);
         
         const test = req.sessionStore.sessions;
-        console.log(typeof test);
         console.log(test);
         res.json({ success: true, sessionID: req.sessionID });
     });

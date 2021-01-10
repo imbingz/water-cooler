@@ -12,9 +12,8 @@ const Chat = () => {
         e.preventDefault();
         try {
             receiveMessage('You: ' + messageInput);
-            console.log('got to from chat');
+            console.log('got to from chat function');
             fromChat(messageInput);
-            console.log('passed from chat');
             setMessageValue('');
         } catch (err) {
             console.log(err);
