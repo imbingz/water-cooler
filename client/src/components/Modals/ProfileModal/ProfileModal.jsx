@@ -9,7 +9,9 @@ function ProfileModal(props) {
     const { checkdb, friend } = props;
     const { _id } = JSON.parse(localStorage.getItem('USER'));
     // ** Used To Conditionally Render Unfriend Button
-    const [isFriend, setIsFriend] = useState(true);
+    const [isFriend
+        // , setIsFriend
+    ] = useState(true);
     // ** Store Unfriend Button jsx In State [ note: friend.friendId is undefined on first render ]
     const [friendButton, setFriendButton] = useState(
         <Button
