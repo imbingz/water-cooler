@@ -49,8 +49,8 @@ router.post('/signup', ({body}, res) => {
 // api/user/login
 router.post('/login', passport.authenticate('local', {failureRedirect: '/'}), (req, res) => {  
     // ********* DELETE LATER *********** //
-    console.log(req.session);
-    
+    // console.log(req.session);
+
     return res.status(200).json({success: true, user: req.user });
 });
 
