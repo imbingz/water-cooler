@@ -38,7 +38,6 @@ app.use(passport.session());
 // Routes
 app.use(routes);
 
-//******************************** Alex
 // const players = {};
 
 io.on('connect', (socket) => {
@@ -83,8 +82,6 @@ io.on('connect', (socket) => {
         //******************************** Bing
         // delete players[socket.id];
     });
-
-
 
     //******************************** Alex -  Bing
     // socket.on('movement', (data) => {
@@ -136,8 +133,6 @@ io.on('connect', (socket) => {
     /*********************************** */
 });
 
-
-
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
     app.get('*', (req, res) => {
@@ -148,8 +143,3 @@ if (process.env.NODE_ENV === 'production') {
 http.listen(PORT, () => {
     console.log('Server is running on PORT: ' + PORT);
 });
-
-/*********************************** Alex */
-// http.listen(socketPORT, () => {
-//     console.log('socket is running on port: ' + socketPORT);
-// });
