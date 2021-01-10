@@ -33,7 +33,6 @@ const Chat = () => {
         }
     };
 
-
     // if (!socket) {
 
     //     socket.on('connect', () => {
