@@ -1,6 +1,7 @@
 const friendsRoom = [
     {
-        roomname: 'Son-of-Oryx',
+        // eslint-disable-next-line
+        roomname: "Son-of-Ory's Room",
         roomDiscription: 'dolor sit amet consectetur adipisicing elit. Sapiente',
         roomStyle: '/sprites/rpg-nature-tileset/spring.png',
         host: 'Atheon',
@@ -8,7 +9,8 @@ const friendsRoom = [
         duration: '16min',
     },
     {
-        roomname: 'Times-Conflux',
+        // eslint-disable-next-line
+        roomname: "Times-Conflux's Room",
         roomDiscription: 'dolor sit amet consectetur adipisicing elit. Sapiente',
         roomStyle: '/sprites/rpg-nature-tileset/winter.png',
         host: 'Scrota',
@@ -16,7 +18,8 @@ const friendsRoom = [
         duration: '42min',
     },
     {
-        roomname: 'The-Taken-King',
+        // eslint-disable-next-line
+        roomname: "The-Taken-King's Room",
         roomDiscription: 'dolor sit amet consectetur adipisicing elit. Sapiente',
         roomStyle: '/sprites/rpg-nature-tileset/casino.png',
         host: 'kingsfall',
@@ -24,7 +27,8 @@ const friendsRoom = [
         duration: '34min',
     },
     {
-        roomname: 'Son-of-Oryx',
+        // eslint-disable-next-line
+        roomname: "Son-of-Oryx's Room",
         roomDiscription: 'dolor sit amet consectetur adipisicing elit. Sapiente',
         roomStyle: '/sprites/rpg-nature-tileset/cafe.png',
         host: 'Crota',
@@ -32,7 +36,8 @@ const friendsRoom = [
         duration: '41min',
     },
     {
-        roomname: 'Oryx-Raid',
+        // eslint-disable-next-line
+        roomname: "Oryx-Raid's Room",
         roomDiscription: 'dolor sit amet consectetur adipisicing elit. Sapiente',
         roomStyle: '/sprites/rpg-nature-tileset/fall.png',
         host: 'The-King',

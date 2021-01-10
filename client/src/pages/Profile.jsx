@@ -13,14 +13,14 @@ const Profile = () => {
     const storedUser = JSON.parse(localStorage.getItem('USER'));
 
     return (
-        <main className='Profile'>            
+        <section className='Profile'>            
             <ProfileForm
                 storedUser={ storedUser }
             />
             {/* <ProfileBlocked
                 id={ storedUser._id }
             />   */}
-        </main>
+        </section>
     );
 };
 
