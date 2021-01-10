@@ -10,7 +10,6 @@ export function useSocket() {
 // takes ID to send up to server
 export function SocketProvider({ id, children }) {
     const [socket, setSocket] = useState();
-
     // sets up socket when page is initially loaded or if the id changes
     useEffect(() => {
 
@@ -27,8 +26,6 @@ export function SocketProvider({ id, children }) {
                 );
                 const json = await response.json();
                 const id = json.sessionID;
-                console.log(id);
-                // dispatch({ type: 'popOne', payload: json.data });
                 const newSocket = io(
                     '/',
                     { query: { id }}

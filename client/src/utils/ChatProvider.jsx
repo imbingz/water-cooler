@@ -21,7 +21,6 @@ export function ChatProvider({ children }) {
             console.log('made it back to chat provider');
             setServerMessage(message);
         });
-        console.log(serverMessage);
         
         return () => socket.off('test');
     }, [socket, serverMessage]);
