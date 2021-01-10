@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-// import { useGlobalContext } from '../../utils/GlobalContext';
 import { useChat } from '../../utils/ChatProvider';
 
 const Chat = () => {
-    // const [state, dispatch] = useGlobalContext();
     const [messageInput, setMessageValue] = useState('');
     // const roomPageUrl = document.URL;
-    // const name = 'Name' + Math.random(100).toFixed(2);
     // let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
+    // const name = 'Name' + Math.random(100).toFixed(2);
     const { fromChat } = useChat();
 
     const sendMessage = async (e) => {
@@ -16,7 +14,7 @@ const Chat = () => {
             receiveMessage('You: ' + messageInput);
             console.log('got to from chat');
             fromChat(messageInput);
-            console.log('passed from chat')
+            console.log('passed from chat');
             setMessageValue('');
         } catch (err) {
             console.log(err);
@@ -37,7 +35,6 @@ const Chat = () => {
 
 
     // if (!socket) {
-    //     socket = io.connect('/'); //this is the  client connection. it starts when client connects
 
     //     socket.on('connect', () => {
     //         socket.emit('new-user', roomUrlId, name);
