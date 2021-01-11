@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
@@ -8,17 +8,14 @@ import './LoginModal.css';
 
 function LoginModal(props) {
     const history = useHistory();
-    const emailRef = useRef();
-    const passwordRef = useRef();
-    // const {onHide} = props;
-
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+  
     //Global USER object
     const [ , dispatch] = useGlobalContext();
 
     const handleLogin = async e => {
         e.preventDefault();
-        const email = emailRef.current.value;
-        const password = passwordRef.current.value;
 
         try {
             const response = await fetch('/api/user/login', {
@@ -33,18 +30,6 @@ function LoginModal(props) {
             });
 
             const data = await response.json();
-
-            if (data.error) {
-                // notify user if email or password not match
-                toast.error('Password or Email does not match', {
-                    position: toast.POSITION.TOP_CENTER
-                });
-               
-                emailRef.current.value = '';
-                passwordRef.current.value = '';
-                emailRef.current.focus();
-                return;
-            }
 
             localStorage.setItem('USER', JSON.stringify(data.user));
 
@@ -61,9 +46,12 @@ function LoginModal(props) {
         } catch (err) {
             console.error(err);
             //Notify user on error 
-            toast.error('Something went wrong, please try again later ...', {
+            toast.error('Password or Email does not match', {
                 position: toast.POSITION.TOP_CENTER
             });
+
+            setEmail('');
+            setPassword('');
         }
     };
 
@@ -83,25 +71,23 @@ function LoginModal(props) {
                     <form className='LoginModal-form' onSubmit={handleLogin}>
                         <div className='LoginModal-form-group'>
                             <label htmlFor='email' className='d-inline-block'><strong>Email:</strong> </label>
-                            <input required type='email' id='email' name='email' ref={emailRef} className='d-inline-block ml-5 text-center'/>
+                            <input required type='email' id='email' name='email' value={email} 
+                                onChange={(e) => setEmail(e.target.value)}
+                                className='d-inline-block ml-5 text-center'/>
                         </div>
                         <div className='LoginModal-form-group'>
                             <label htmlFor='password' className='d-inline-block'><strong>Password:</strong> </label>
-                            <input required type='password' id='password' name='password' ref={passwordRef} className='d-inline-block ml-4 text-center'/>
+                            <input required type='password' id='password' name='password' value={password} 
+                                onChange={(e) => setPassword(e.target.value)}
+                                className='d-inline-block ml-4 text-center'/>
                         </div>
 
                         <button
                             className='LoginModal-btn d-inline-block mt-3 px-4 py-1'
                             type='submit'
-                        // onClick={onHide}
                         >
                         Login
                         </button>
-        
-                        {/* <p className='pt-3 mb-0'>
-				        Don't have an account?
-                            <button className='LoginModal-signup-btn'> <u>SignUp Here</u> </button>
-                        </p>                 */}
                     </form>
                 </Modal.Body>
                 <Modal.Footer className='LoginModal-footer'> </Modal.Footer>        
