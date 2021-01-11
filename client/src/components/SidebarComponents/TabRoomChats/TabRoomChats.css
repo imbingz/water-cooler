@@ -1,6 +1,6 @@
 .TabRoomChats-chat-wrapper {
 	position: relative;
-	min-height: 79vh;
+	height: 100vh;
 	background-color: rgb(241, 245, 248);
 	overflow: visible;
 }
@@ -33,14 +33,15 @@
 
 .TabRoomChats-chat-footer {
 	background-color: rgb(230, 227, 227);
+	width: 430px;
+	transition: 350ms;
 	position: fixed;
 	left: 0;
-	bottom: 45px;
-	width: 325px;
+	bottom: 62px;
 }
 
 .TabRoomChats-chat-input {
-	width: 235px;
+	width: 320px;
 	padding: 3px 10px;
 	border: 0;
 	border-radius: 25px;
@@ -57,9 +58,10 @@
 	background-color: transparent;
 }
 
-@media only screen and (min-width: 798px) {
+@media only screen and (max-width: 800px) {
 	.TabRoomChats-chat-footer {
-		width: 310px;
+		width: 325px;
+		transition: 350ms;
 	}
 
 	.TabRoomChats-chat-input {

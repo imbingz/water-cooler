@@ -131,8 +131,8 @@ function Tabnav() {
                     </Nav.Item > */}
 
                 </Nav>
-                <Tab.Content>
 
+                <Tab.Content className='plz-work'>
                     <Tab.Pane eventKey='chats'>
                         <TabRoomChats />
                     </Tab.Pane>

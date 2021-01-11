@@ -11,7 +11,7 @@ function Slider() {
     const [{showAside}, dispatch] = useGlobalContext();
     return (
         <>
-            {showAside && <Col md='auto' className='mx-0 px-0 '>
+            {showAside && <section className='mx-0 px-0 '>
                 <aside className={showAside ? 'Sidenav-menu active' : 'Sidenav-menu'}>
                     <div className='Sidenav-menu-items d-flex flex-column' >
                         <div onClick={()=>dispatch({type: 'setShowAside', payload: false})}className='Sidenav-toggle' >
@@ -22,7 +22,7 @@ function Slider() {
                         <Tabnav />
                     </div>
                 </aside>
-            </Col>}
+            </section>}
         </>
     );
 }
