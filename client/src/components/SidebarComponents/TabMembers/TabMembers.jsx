@@ -10,36 +10,39 @@ import dummySocialSpaces from '../../../data/socialSpaces';
 import { v4 as uuidv4 } from 'uuid';
 import './TabMembers.css';
 
-
+// * Tab Members Renders Data Collected From TabNav to Display Where Each User Is In the Room
+// !* There is Currently No Logic To Check Which Users Are Only in a Room and Not a Social Space, So All Users Will Render In Room
 function TabMembers(props) {
     // console.log(props);
     // * Set States, State Helper Functions, and Other Variables
+
     const [{ USER },] = useGlobalContext();
 
     // ** Manage State for Showing/Closing ProfileModal
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
     // ** Pass Data from a Given .map and Store in tabMembersProfile State
     const [tabMembersProfile, setTabMembersProfile] = useState({});
     const handleMembersProfileModal = (member) => setTabMembersProfile(member);
 
     // ** Create State for Mapping through Room Users
-
     const [roomUsersData, setRoomUsersData] = useState([]);
 
     // * Functions
     // ** Check User's DB For Any Changes in either friends or inboundPendingFriends by passing 'friends' or 'inpending'
-    //  // Then store updated array values in State
+    //    Then store updated array values in State
+    // !* This Should be Moved to a Sidebar Context Along with Associated States
     const checkDBArrays = useCallback(async (arr) => {
         try {
-            const request = await fetch('/api/friends/arrays', {
+            const response = await fetch('/api/friends/arrays', {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id: USER._id, case: arr }),
                 method: 'POST'
             });
 
-            const data = await request.json();
+            const data = await response.json();
             switch (arr) {
                 case 'friends':
                     // console.log('friends: ', data.retUsers);
@@ -66,9 +69,9 @@ function TabMembers(props) {
         }
     }, [USER._id]);
 
+    // * Send roomUsers Array To DB and Return Information of Each User to Store In State
+    // !* It May Be Better To Have This Logic Be Run in Tabnav
     const getRoomUsers = useCallback(async (roomId) => {
-        // console.log('room user req');
-        // console.log(props.roomData.roomUsers);
         try {
             const request = await fetch('/api/room/users', {
                 headers: { 'Content-Type': 'application/json' },
@@ -77,12 +80,8 @@ function TabMembers(props) {
             });
 
             const response = await request.json();
-            // console.log('room users');
             // console.log(response);
-
             setRoomUsersData(response.retUsers);
-            
-
         } catch (err) {
             console.log({ err });
         }
@@ -91,7 +90,7 @@ function TabMembers(props) {
     // * On Page Load, Check DB for Any Changes in User's friend and inboundPendingFriends Arrays 
     useEffect(() => {
         getRoomUsers();
-    }, [checkDBArrays, getRoomUsers]);
+    }, [getRoomUsers]);
 
 
 

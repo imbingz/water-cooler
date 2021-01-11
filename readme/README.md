@@ -72,7 +72,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin est s
 
 ### Components
 
-![Component Map](./assets/component_map-01)
+![Component Map](../assets/component_map-01.png)
 
 * [GUI Components](#GUI-Components)
 * [Sidebar](#Sidebar)

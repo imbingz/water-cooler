@@ -6,17 +6,14 @@ import dummyFriends from '../../../data/friends';
 import dummyFriendsRoom from '../../../data/friendsRoom';
 import './TabFriends.css';
 
-// * SidebarUserCont Requires Three Props To Conditionally Render
-//  // data = The Data To Be Mapped in jsx
-//  // isRequest = A Truthy Value Will Cause the Component To Render Accept/Decline Buttons
-//  //  // A Falsy Value Will Render View Profile Button
-//  // type = By Passing 'friend' or 'room', The Accept Decline Buttons Will Hit a Switch Statement in the Component to Send The Server A Request to Either Handle Accepting/Declining Friend or Room Invite
-
+// * Tab Friends Dynamically Renders User's Inbound Friend/Room Requests and Online/Offline Friends.
+//   It uses SidebarUsersCont to Render Each User and Their Button OptionsProfileModal
+//   and uses ProfileModal To View Options for Interacting With User's Friends
 function TabFriends() {
 
-    
     // * Set States, State Helper Functions, and Other Variables
     
+    // !* Depreciated - We need to pull this from global context instead
     const { _id } = JSON.parse(localStorage.getItem('USER'));
 
     // ** Manage State for Showing/Closing ProfileModal
@@ -36,7 +33,8 @@ function TabFriends() {
 
     // * Functions
     // ** Check User's DB For Any Changes in either friends or inboundPendingFriends by passing 'friends' or 'inpending'
-    //  // Then store updated array values in State
+    //    Then store updated array values in State
+    // !* This Should be Moved to a Sidebar Context Along with Associated States
     const checkDBArrays = useCallback(async (arr) => {
         try {
             const response = await fetch('/api/friends/arrays', {
@@ -106,12 +104,13 @@ function TabFriends() {
         <Container className='ml-2 mr-3 mt-3 TabFriends-Cont'>
             {/* Requests */}
             <div className='d-flex justify-content-start'>
+                {/* Check if There Is Data in RenderImpending, Meaning User Has At Least One Invitations To Render header tag */}
                 { (renderInpending.length > 0) &&
                     <h6 className='mr-5 Tabfriends-subtitle'>Invitations:</h6> 
                 }
             </div>
             <section className='d-flex flex-column justify-content-start TabFriends-section'>
-                {/* Friend Requests */}
+                {/* Render Friend Requests */}
                 <SidebarUsersCont
                     data={renderInpending}
                     type="friend"
@@ -121,7 +120,7 @@ function TabFriends() {
                     handleShow={handleShow}
                 />
 
-                {/* Room Invites */}
+                {/* Render Room Invites */}
                 <SidebarUsersCont
                     data={renderRoomInv}
                     isRequest={true}
