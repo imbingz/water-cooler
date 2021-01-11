@@ -41,8 +41,6 @@ function Tabnav() {
 
             const roomResponse = await roomRequest.json();
             await setRoomData(roomResponse.data);
-            console.log(roomResponse.data);
-            console.log(roomResponse.data.socialSpaces);
 
             const spacesRequest = await fetch('/api/socialspace/findmany', {
                 headers: { 'Content-Type': 'application/json' },
@@ -51,15 +49,44 @@ function Tabnav() {
             });
 
             const spaceResponse = await spacesRequest.json();
-            console.log(spaceResponse);
-            setSpaceData(spaceResponse);
+            // console.log(spaceResponse);
+            // setSpaceData(spaceResponse.data);
+            // console.log(spaceResponse.data);
+            parseSpaceResponse(spaceResponse.data);
 
         } catch (err) {
             console.log({ err });
         }
-    }, []); 
+    }, []);
 
+    const parseSpaceResponse = (arr) => {
+        let parsedSpaceData = [];
+        arr.forEach(async (space, index) => {
 
+            const request = await fetch('/api/room/users', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ users: space.socialSpaceUsers }),
+                method: 'POST'
+            });
+
+            const response = await request.json();
+            console.log('social users');
+            console.log(index);
+            console.log(response.retUsers);
+
+            let socialSpace = {
+                publicRoomId: space.publicRoomId,
+                socialSpaceName: space.socialSpaceName,
+                publicSocialSpaceId: space.publicSocialSpaceId,
+                socialSpaceUsers: response.retUsers
+            };
+
+            parsedSpaceData.push(socialSpace);
+            // console.log(parsedSpaceData);
+        });
+        console.log(parsedSpaceData);
+        setSpaceData(parsedSpaceData);
+    };
 
 
 

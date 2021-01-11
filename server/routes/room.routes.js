@@ -49,7 +49,6 @@ router
             });
     });
 
-
 router
     .route('/users')
     .post(async ({ body }, res) => {

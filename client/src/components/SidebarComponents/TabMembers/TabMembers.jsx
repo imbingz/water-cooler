@@ -12,6 +12,7 @@ import './TabMembers.css';
 
 
 function TabMembers(props) {
+    console.log(props);
     // * Set States, State Helper Functions, and Other Variables
     const [{ USER },] = useGlobalContext();
 
@@ -24,7 +25,7 @@ function TabMembers(props) {
     const handleMembersProfileModal = (member) => setTabMembersProfile(member);
 
     // ** Create State for Mapping through Room Users
-    
+
     const [roomUsersData, setRoomUsersData] = useState([]);
     const [inpending, setInpending] = useState([]);
 
@@ -82,11 +83,11 @@ function TabMembers(props) {
 
             setRoomUsersData(response.retUsers);
             
+
         } catch (err) {
             console.log({ err });
         }
-    }, [props.roomData.roomUsers]);
-
+    }, [props.roomData.roomUsers,]);
 
     // * On Page Load, Check DB for Any Changes in User's friend and inboundPendingFriends Arrays 
     useEffect(() => {
@@ -113,7 +114,7 @@ function TabMembers(props) {
             break;
         default:
             renderRoomUsers = roomUsersData;
-            renderSocialSpaces = dummySocialSpaces;
+            renderSocialSpaces = props.spaceData;
 
         // renderRoomInv = someStateOrSomething;
     }
@@ -122,6 +123,10 @@ function TabMembers(props) {
 
     return (
         <Container className='d-flex flex-column pl-4 mr-2 pb-5'>
+            {/* {console.log(getSpaceUsers()
+                .then(data => {
+                    console.log(data);
+                }))} */}
             <section className='TabMembers-room-section pb-3'>
                 <div className='d-flex justify-content-between align-items-center my-3'>
                     <h5 className='mt-4 mb-3 TabMembers-room-header'>In Room
@@ -142,6 +147,8 @@ function TabMembers(props) {
                     handleFriendModal={handleMembersProfileModal}
                     handleShow={handleShow}
                 />
+
+
 
 
                 {/* 'View Profile modal is at the end */}
@@ -171,6 +178,7 @@ function TabMembers(props) {
                                     handleFriendModal={handleMembersProfileModal}
                                     handleShow={handleShow}
                                 />
+                                
                             </article>
                         </div>
                     ))
