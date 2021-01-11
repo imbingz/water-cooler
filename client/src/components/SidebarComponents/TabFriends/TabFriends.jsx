@@ -101,13 +101,15 @@ function TabFriends() {
             // renderOnFriends = onFriends;
             // renderRoomInv = someStateOrSomething;
     }
-
+    console.log(renderInpending.length);
 
     return (
         <Container className='ml-2 mr-3 mt-3 TabFriends-Cont'>
             {/* Requests */}
             <div className='d-flex justify-content-start'>
-                <h6 className='mr-5 Tabfriends-subtitle'>Invitations:</h6> 
+                { (renderInpending.length > 0) &&
+                    <h6 className='mr-5 Tabfriends-subtitle'>Invitations:</h6> 
+                }
             </div>
             <section className='d-flex flex-column justify-content-start TabFriends-section'>
                 {/* Friend Requests */}

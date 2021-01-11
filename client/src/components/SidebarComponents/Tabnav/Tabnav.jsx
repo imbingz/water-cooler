@@ -70,9 +70,8 @@ function Tabnav() {
             });
 
             const response = await request.json();
-            console.log('social users');
-            console.log(index);
-            console.log(response.retUsers);
+            // console.log('social users');
+            // console.log(response.retUsers);
 
             let socialSpace = {
                 publicRoomId: space.publicRoomId,
@@ -84,12 +83,15 @@ function Tabnav() {
             parsedSpaceData.push(socialSpace);
             // console.log(parsedSpaceData);
         });
-        console.log(parsedSpaceData);
         setSpaceData(parsedSpaceData);
     };
 
-
-
+    const path = window.location.pathname;
+    console.log(path);
+    // eslint-disable-next-line
+    const roomCheck = path.includes('room');
+    // eslint-disable-next-line
+    const spaceCheck = path.includes('space');
 
 
     // * On Page Load, Check DB for Any Changes in User's friend and inboundPendingFriends Arrays 
@@ -105,7 +107,16 @@ function Tabnav() {
         <div className='d-flex flex-column Tabnav-aside-tab'>
             <Tab.Container activeKey={activeKey} onSelect={setActiveKey} >
                 <Nav variant="tabs" className="justify-content-around bg-warning">
-
+                    {/* {(roomCheck || spaceCheck) &&
+                        <Nav.Item className='Tabnav-nav-item'>
+                            <Nav.Link eventKey='chats' className='Tabnav-nav-link'>Chats</Nav.Link>
+                        </Nav.Item>
+                    }
+                    {(roomCheck || spaceCheck) &&
+                        <Nav.Item className='Tabnav-nav-item' >
+                            <Nav.Link eventKey='members' className='Tabnav-nav-link'>Members</Nav.Link>
+                        </Nav.Item >
+                    } */}
                     <Nav.Item className='Tabnav-nav-item'>
                         <Nav.Link eventKey='chats' className='Tabnav-nav-link'>Chats</Nav.Link>
                     </Nav.Item>

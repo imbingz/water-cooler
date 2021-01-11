@@ -12,7 +12,7 @@ import './TabMembers.css';
 
 
 function TabMembers(props) {
-    console.log(props);
+    // console.log(props);
     // * Set States, State Helper Functions, and Other Variables
     const [{ USER },] = useGlobalContext();
 
@@ -27,7 +27,6 @@ function TabMembers(props) {
     // ** Create State for Mapping through Room Users
 
     const [roomUsersData, setRoomUsersData] = useState([]);
-    const [inpending, setInpending] = useState([]);
 
     // * Functions
     // ** Check User's DB For Any Changes in either friends or inboundPendingFriends by passing 'friends' or 'inpending'
@@ -91,7 +90,6 @@ function TabMembers(props) {
 
     // * On Page Load, Check DB for Any Changes in User's friend and inboundPendingFriends Arrays 
     useEffect(() => {
-        checkDBArrays('inpending');
         getRoomUsers();
     }, [checkDBArrays, getRoomUsers]);
 
@@ -99,7 +97,7 @@ function TabMembers(props) {
 
 
     // // * Render Dummy Or DB Data
-    let dummyData = 'no';
+    let dummyData = 'yes';
     let renderRoomUsers;
     let renderSocialSpaces;
     // let renderOffFriends;
@@ -115,11 +113,8 @@ function TabMembers(props) {
         default:
             renderRoomUsers = roomUsersData;
             renderSocialSpaces = props.spaceData;
-
-        // renderRoomInv = someStateOrSomething;
     }
 
-    //  !* Need to make some seed data for social spaces so I can get these containers dynamically rending
 
     return (
         <Container className='d-flex flex-column pl-4 mr-2 pb-5'>
