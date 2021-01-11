@@ -89,7 +89,7 @@ function TabFriends() {
     // let renderOnFriends;
     let renderRoomInv;
     switch(dummyData) {
-        case 'no': 
+        case 'yes': 
             renderInpending = dummyFriends;
             renderOffFriends = dummyFriends;
             // renderOnFriends = dummyFriends;

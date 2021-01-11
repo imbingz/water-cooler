@@ -13,7 +13,6 @@ import './TabMembers.css';
 
 function TabMembers(props) {
     // * Set States, State Helper Functions, and Other Variables
-    console.log(props);
     const [{ USER },] = useGlobalContext();
 
     // ** Manage State for Showing/Closing ProfileModal
@@ -68,8 +67,8 @@ function TabMembers(props) {
     }, [USER._id]);
 
     const getRoomUsers = useCallback(async (roomId) => {
-        console.log('room user req');
-        console.log(props.roomData.roomUsers);
+        // console.log('room user req');
+        // console.log(props.roomData.roomUsers);
         try {
             const request = await fetch('/api/room/users', {
                 headers: { 'Content-Type': 'application/json' },
@@ -78,8 +77,8 @@ function TabMembers(props) {
             });
 
             const response = await request.json();
-            console.log('room users');
-            console.log(response);
+            // console.log('room users');
+            // console.log(response);
 
             setRoomUsersData(response.retUsers);
             
@@ -135,8 +134,6 @@ function TabMembers(props) {
 
                 </div>
                 {/* Room Users */}
-                {console.log(renderRoomUsers)}
-                {console.log(roomUsersData)}
                 <SidebarUsersCont
                     data={renderRoomUsers}
                     type=""

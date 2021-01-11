@@ -13,21 +13,53 @@ function Tabnav() {
 
 
     const [roomData, setRoomData] = useState([]);
+    const [spaceData, setSpaceData] = useState([]);
+
+    // const getSpaceData = useCallback(async (roomId) => {
+    //     console.log(roomData.socialSpaces);
+    //     try {
+    //         const request = await fetch('/api/socialspace/findmany', {
+    //             headers: { 'Content-Type': 'application/json' },
+    //             body: JSON.stringify({ ids: roomData.socialSpaces }),
+    //             method: 'POST'
+    //         });
+
+    //         const response = await request.json();
+    //         console.log(response);
+    //     } catch (err) {
+    //         console.log({ err });
+    //     }
+    // }, [roomData.socialSpaces]);
 
     const getRoomData = useCallback(async (roomId) => {
         try {
-            const request = await fetch('/api/room/find', {
+            const roomRequest = await fetch('/api/room/find', {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id: '5ffbb507c16257281435863d' }),
                 method: 'POST'
             });
 
-            const response = await request.json();
-            await setRoomData(response.data);
+            const roomResponse = await roomRequest.json();
+            await setRoomData(roomResponse.data);
+            console.log(roomResponse.data);
+            console.log(roomResponse.data.socialSpaces);
+
+            const spacesRequest = await fetch('/api/socialspace/findmany', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ ids: roomResponse.data.socialSpaces }),
+                method: 'POST'
+            });
+
+            const spaceResponse = await spacesRequest.json();
+            console.log(spaceResponse);
+            setSpaceData(spaceResponse);
+
         } catch (err) {
             console.log({ err });
         }
-    }, []);
+    }, []); 
+
+
 
 
 
@@ -37,6 +69,8 @@ function Tabnav() {
     useEffect(() => {
         getRoomData();
     }, [getRoomData]);
+
+
 
 
     return (
@@ -65,8 +99,9 @@ function Tabnav() {
                         <TabRoomChats />
                     </Tab.Pane>
                     <Tab.Pane eventKey='members'>
-                        <TabMembers 
+                        <TabMembers
                             roomData={roomData}
+                            spaceData={spaceData}
                         />
                     </Tab.Pane>
                     <Tab.Pane eventKey='friends'>

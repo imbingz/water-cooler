@@ -47,6 +47,19 @@ router
             });
     });
 
+router
+    .route('/findmany')
+    .post(({body}, res) => {
+        SocialSpace
+            .find({ _id: { $in: body.ids } })
+            .then(data => {
+                res.json({ success: true, data });
+            })
+            .catch(err => {
+                res.json({ success: false } + err);
+            });
+    });
+
 // gathers social space based on publicSocialSpaceID
 router
     .route('/:id')

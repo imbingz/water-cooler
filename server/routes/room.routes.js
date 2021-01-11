@@ -39,7 +39,6 @@ router
 router
     .route('/find')
     .post((req, res) => {
-        console.log('find');
         Room
             .findOne({ _id: req.body.id })
             .then(data => {
@@ -54,7 +53,6 @@ router
 router
     .route('/users')
     .post(async ({ body }, res) => {
-        console.log(body);
         try {
             // * Get DB Info for All IDs in idArray
             const roomUsers = await db.User.find({ _id: { $in: body.users } });
@@ -96,7 +94,6 @@ router
 router
     .route('/:id')
     .post((req, res) => {
-        console.log("id");
         Room
             .findOne({ publicRoomId: req.body.publicRoomId })
             .then(data => {
