@@ -24,9 +24,7 @@ function Tabnav() {
 
     // ** Variables To Determine It TabMembers and Tab Chat Should Render
     const path = window.location.pathname;
-    // eslint-disable-next-line
     const roomCheck = path.includes('room');
-    // eslint-disable-next-line
     const spaceCheck = path.includes('space');
     
 
@@ -104,16 +102,23 @@ function Tabnav() {
         // !* Hard coding style={{width: '325px'}} was causing responsiveness issues
         <div className='d-flex flex-column Tabnav-aside-tab'>
             <Tab.Container activeKey={activeKey} onSelect={setActiveKey} >
-                <Nav variant="tabs" className="justify-content-around bg-warning">
+                <Nav variant="tabs" className="justify-content-around bg-warning">                    
+                    <Nav.Item>
+                        <Nav.Link eventKey='friends' className='Tabnav-nav-link '>Friends</Nav.Link>
+                    </Nav.Item >
+                    <Nav.Item>
+                        <Nav.Link eventKey='dms' className='Tabnav-nav-link '>DMs</Nav.Link>
+                    </Nav.Item>
+
                     {/* ** Check if User is in A Room or Social Space Before Rendering Tab Option */}
                     {(roomCheck || spaceCheck) &&
-                        <Nav.Item className='Tabnav-nav-item'>
+                        <Nav.Item>
                             <Nav.Link eventKey='chats' className='Tabnav-nav-link'>Chats</Nav.Link>
                         </Nav.Item>
                     }
                     {(roomCheck || spaceCheck) &&
-                        <Nav.Item className='Tabnav-nav-item' >
-                            <Nav.Link eventKey='members' className='Tabnav-nav-link'>Members</Nav.Link>
+                        <Nav.Item>
+                            <Nav.Link eventKey='members' className='Tabnav-nav-link '>Members</Nav.Link>
                         </Nav.Item >
                     }
 
@@ -124,13 +129,6 @@ function Tabnav() {
                     <Nav.Item className='Tabnav-nav-item' >
                         <Nav.Link eventKey='members' className='Tabnav-nav-link'>Members</Nav.Link>
                     </Nav.Item > */}
-
-                    <Nav.Item className='Tabnav-nav-item' >
-                        <Nav.Link eventKey='friends' className='Tabnav-nav-link'>Friends</Nav.Link>
-                    </Nav.Item >
-                    <Nav.Item >
-                        <Nav.Link eventKey='dms' className='Tabnav-nav-link'>DMs</Nav.Link>
-                    </Nav.Item>
 
                 </Nav>
                 <Tab.Content>
