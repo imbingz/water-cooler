@@ -99,8 +99,17 @@ const SidebarUsersCont = (props) => {
                             style={{ width: 32, height: 32 }}
                         />
 
-                        <p className='mx-2 my-0 SbUserCont-Text'>{friend.username || friend.roomname}</p>
-
+                        {/* Check For Truthy Values In friend.username and friend.room to determine if the component received room or friend data, then use substring to limit their lengths */}
+                        { friend.username &&
+                            <p className='mx-2 my-0 SbUserCont-Text'>
+                                {friend.username.substring(0, 16)}
+                            </p>
+                        }
+                        { friend.roomname &&
+                            <p className='mx-2 my-0 SbUserCont-Text'>
+                                {friend.roomname.substring(0, 22)}
+                            </p>
+                        }
                         {/* Check For False Value of isRequest To Render View Profile Button */}
                         {!props.isRequest &&
                             <button
