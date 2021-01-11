@@ -1,7 +1,7 @@
 const socialSpaces = [
     {
-        spaceName: 'Son-of-Oryx',
-        members: [
+        socialSpaceName: 'Son-of-Oryx',
+        socialSpaceUsers: [
             {
                 username: 'Bertieates',
                 firstName: 'Atheon',
@@ -38,8 +38,8 @@ const socialSpaces = [
         ]
     },
     {
-        spaceName: 'Times-Conflux',
-        members:[
+        socialSpaceName: 'Times-Conflux',
+        socialSpaceUsers:[
             {
                 username: 'Lolaardner',
                 firstName: 'Aksis',
@@ -60,8 +60,8 @@ const socialSpaces = [
         
     },
     {
-        spaceName: 'The-Taken-King',
-        members: [
+        socialSpaceName: 'The-Taken-King',
+        socialSpaceUsers: [
             {
                 username: 'Hesterogan',
                 firstName: 'Crota',

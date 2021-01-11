@@ -13,7 +13,7 @@ const Profile = () => {
     const storedUser = JSON.parse(localStorage.getItem('USER'));
 
     return (
-        <section className='Profile'>            
+        <section className='Profile'>  
             <ProfileForm
                 storedUser={ storedUser }
             />
