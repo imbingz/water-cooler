@@ -86,7 +86,7 @@ function TabMembers(props) {
         } catch (err) {
             console.log({ err });
         }
-    }, [props.roomData.roomUsers,]);
+    }, [props.roomData.roomUsers]);
 
     // * On Page Load, Check DB for Any Changes in User's friend and inboundPendingFriends Arrays 
     useEffect(() => {

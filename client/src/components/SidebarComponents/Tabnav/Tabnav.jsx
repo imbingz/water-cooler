@@ -12,7 +12,10 @@ function Tabnav() {
     const [activeKey, setActiveKey] = useState('friends');
 
 
-    const [roomData, setRoomData] = useState([]);
+    const [roomData, setRoomData] = useState(
+        {
+            roomUsers: []
+        });
     const [spaceData, setSpaceData] = useState([]);
 
     // const getSpaceData = useCallback(async (roomId) => {
@@ -40,20 +43,22 @@ function Tabnav() {
             });
 
             const roomResponse = await roomRequest.json();
-            await setRoomData(roomResponse.data);
+            // console.log(roomResponse.data);
+            if (roomResponse.success) {
+                await setRoomData(roomResponse.data);
 
-            const spacesRequest = await fetch('/api/socialspace/findmany', {
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ids: roomResponse.data.socialSpaces }),
-                method: 'POST'
-            });
+                const spacesRequest = await fetch('/api/socialspace/findmany', {
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ids: roomResponse.data.socialSpaces }),
+                    method: 'POST'
+                });
 
-            const spaceResponse = await spacesRequest.json();
-            // console.log(spaceResponse);
-            // setSpaceData(spaceResponse.data);
-            // console.log(spaceResponse.data);
-            parseSpaceResponse(spaceResponse.data);
-
+                const spaceResponse = await spacesRequest.json();
+                // console.log(spaceResponse);
+                // setSpaceData(spaceResponse.data);
+                // console.log(spaceResponse.data);
+                parseSpaceResponse(spaceResponse.data);
+            }
         } catch (err) {
             console.log({ err });
         }
@@ -87,7 +92,6 @@ function Tabnav() {
     };
 
     const path = window.location.pathname;
-    console.log(path);
     // eslint-disable-next-line
     const roomCheck = path.includes('room');
     // eslint-disable-next-line
@@ -107,6 +111,7 @@ function Tabnav() {
         <div className='d-flex flex-column Tabnav-aside-tab'>
             <Tab.Container activeKey={activeKey} onSelect={setActiveKey} >
                 <Nav variant="tabs" className="justify-content-around bg-warning">
+                    {/* !* This Code Allows for Rendering Members and Chats Only In a Room or Social Space */}
                     {/* {(roomCheck || spaceCheck) &&
                         <Nav.Item className='Tabnav-nav-item'>
                             <Nav.Link eventKey='chats' className='Tabnav-nav-link'>Chats</Nav.Link>
@@ -117,12 +122,15 @@ function Tabnav() {
                             <Nav.Link eventKey='members' className='Tabnav-nav-link'>Members</Nav.Link>
                         </Nav.Item >
                     } */}
+
+                    {/* !* These two Container Will Always Render Members and Chat, Even When Not in a Room or Space */}
                     <Nav.Item className='Tabnav-nav-item'>
                         <Nav.Link eventKey='chats' className='Tabnav-nav-link'>Chats</Nav.Link>
                     </Nav.Item>
                     <Nav.Item className='Tabnav-nav-item' >
                         <Nav.Link eventKey='members' className='Tabnav-nav-link'>Members</Nav.Link>
                     </Nav.Item >
+
                     <Nav.Item className='Tabnav-nav-item' >
                         <Nav.Link eventKey='friends' className='Tabnav-nav-link'>Friends</Nav.Link>
                     </Nav.Item >

@@ -101,7 +101,6 @@ function TabFriends() {
             // renderOnFriends = onFriends;
             // renderRoomInv = someStateOrSomething;
     }
-    console.log(renderInpending.length);
 
     return (
         <Container className='ml-2 mr-3 mt-3 TabFriends-Cont'>
