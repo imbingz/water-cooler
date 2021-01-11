@@ -19,9 +19,6 @@ function TabFriends() {
     
     const { _id } = JSON.parse(localStorage.getItem('USER'));
 
-    // * A Yes Value will Render The DOM with Data From Data Folder, Changing this to 'no' Will Render DOM with DB Data
-    let dummyData = 'yes';
-
     // ** Manage State for Showing/Closing ProfileModal
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -85,6 +82,8 @@ function TabFriends() {
 
 
     // * Render Dummy Or DB Data
+    // ** A Yes Value will Render The DOM with Data From Data Folder, Changing this to 'no' Will Render DOM with DB Data
+    let dummyData = 'yes';
     let renderInpending;
     let renderOffFriends;
     // let renderOnFriends;
