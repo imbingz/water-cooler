@@ -5,16 +5,15 @@ import { FaVideo } from 'react-icons/fa';
 import SidebarUsersCont from '../SidebarUsers';
 import TabMembersProfileModal from '../../Modals/TabMembersProfileModal';
 import { useGlobalContext } from '../../../utils/GlobalContext';
-import roomMembers from '../../../data/friends';
-import socialSpaces from '../../../data/socialSpaces';
+import dummyRoomMembers from '../../../data/friends';
+import dummySocialSpaces from '../../../data/socialSpaces';
 import { v4 as uuidv4 } from 'uuid';
 import './TabMembers.css';
 
 
-function TabMembers() {
-
+function TabMembers(props) {
     // * Set States, State Helper Functions, and Other Variables
-
+    console.log(props);
     const [{ USER },] = useGlobalContext();
 
     // ** Manage State for Showing/Closing ProfileModal
@@ -26,7 +25,8 @@ function TabMembers() {
     const handleMembersProfileModal = (member) => setTabMembersProfile(member);
 
     // ** Create State for Mapping through Room Users
-    const [roomUser, setRoomUser] = useState([]);
+    
+    const [roomUsersData, setRoomUsersData] = useState([]);
     const [inpending, setInpending] = useState([]);
 
     // * Functions
@@ -34,13 +34,13 @@ function TabMembers() {
     //  // Then store updated array values in State
     const checkDBArrays = useCallback(async (arr) => {
         try {
-            const response = await fetch('/api/friends/arrays', {
+            const request = await fetch('/api/friends/arrays', {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id: USER._id, case: arr }),
                 method: 'POST'
             });
 
-            const data = await response.json();
+            const data = await request.json();
             switch (arr) {
                 case 'friends':
                     // console.log('friends: ', data.retUsers);
@@ -67,32 +67,56 @@ function TabMembers() {
         }
     }, [USER._id]);
 
-    
+    const getRoomUsers = useCallback(async (roomId) => {
+        console.log('room user req');
+        console.log(props.roomData.roomUsers);
+        try {
+            const request = await fetch('/api/room/users', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ users: props.roomData.roomUsers }),
+                method: 'POST'
+            });
+
+            const response = await request.json();
+            console.log('room users');
+            console.log(response);
+
+            setRoomUsersData(response.retUsers);
+            
+        } catch (err) {
+            console.log({ err });
+        }
+    }, [props.roomData.roomUsers]);
+
 
     // * On Page Load, Check DB for Any Changes in User's friend and inboundPendingFriends Arrays 
     useEffect(() => {
         checkDBArrays('inpending');
-    }, [checkDBArrays]);
+        getRoomUsers();
+    }, [checkDBArrays, getRoomUsers]);
 
-    
 
- 
+
+
     // // * Render Dummy Or DB Data
-    let dummyData = 'yes';
-    let renderInpending;
+    let dummyData = 'no';
+    let renderRoomUsers;
+    let renderSocialSpaces;
     // let renderOffFriends;
     // let renderOnFriends;
     // let renderRoomInv;
 
-    switch(dummyData) {
-        case 'yes': 
-            renderInpending = roomMembers;
-            
+    switch (dummyData) {
+        case 'yes':
+            renderRoomUsers = dummyRoomMembers;
+            renderSocialSpaces = dummySocialSpaces;
+
             break;
-        default: 
-            renderInpending = inpending;
-            
-            // renderRoomInv = someStateOrSomething;
+        default:
+            renderRoomUsers = roomUsersData;
+            renderSocialSpaces = dummySocialSpaces;
+
+        // renderRoomInv = someStateOrSomething;
     }
 
     //  !* Need to make some seed data for social spaces so I can get these containers dynamically rending
@@ -105,65 +129,61 @@ function TabMembers() {
                     </h5>
                     <button className='TabMembers-exit-btn' >
                         <span>Leave Room</span>
-                        <BiExit size={23} style={{fill: 'orangered', marginLeft: 5}}/>
+                        <BiExit size={23} style={{ fill: 'orangered', marginLeft: 5 }} />
                     </button>
 
-                   
+
                 </div>
                 {/* Room Users */}
+                {console.log(renderRoomUsers)}
+                {console.log(roomUsersData)}
                 <SidebarUsersCont
-                    data={renderInpending}
-                    type="room"
+                    data={renderRoomUsers}
+                    type=""
                     isRequest={false}
                     checkDBArrays={checkDBArrays}
                     handleFriendModal={handleMembersProfileModal}
                     handleShow={handleShow}
                 />
-    
+
 
                 {/* 'View Profile modal is at the end */}
 
             </section>
             <section>
                 {
-                    socialSpaces.length > 0 && 
-                        socialSpaces.map(socialSpace => (
-                            <div key={uuidv4()}>
-                                <div className='d-flex justify-content-between align-items-center my-3'>
-                                    <h6 className='TabMembers-space-name my-3'>
-                                        SocialSpace: {socialSpace.socialSpaceName}
-                                    </h6>
-                                    <button className='TabMembers-join-btn' >
-                                        <span>Join</span>
-                                        <FaVideo size={20} style={{fill: 'orangered', marginLeft: 5}}/>
-                                    </button>
-                                </div>
-                                <article>
-                                    {
-                                        socialSpace.socialSpaceUsers.map(member => (
-                                            <div className='d-flex flex-row justify-content-start' key={uuidv4()}>  
-                                                <img src={member.imageSrc} alt={member.username} style={{width:32, height: 32}}/>
-                                                <p className='mx-2' >{member.username}</p>
-                                                <button 
-                                                    className='TabMembers-profile-btn d-inline-block ml-auto mb-3 px-2 py-1'
-                                                    onClick={() => {handleShow(); 
-                                                        handleMembersProfileModal(member);}}
-                                                >
-                                                    <small> View Profile</small> 
-                                                </button>
-                                            </div>
-                                        ))
-                                    } 
-                                </article>
+                    renderSocialSpaces.length > 0 &&
+                    renderSocialSpaces.map(socialSpace => (
+                        <div key={uuidv4()}>
+                            <div className='d-flex justify-content-between align-items-center my-3'>
+                                <h6 className='TabMembers-space-name my-3'>
+                                    SocialSpace: {socialSpace.socialSpaceName}
+                                </h6>
+                                <button className='TabMembers-join-btn' >
+                                    <span>Join</span>
+                                    <FaVideo size={20} style={{ fill: 'orangered', marginLeft: 5 }} />
+                                </button>
                             </div>
-                        ))
+                            {/* Social Space Users */}
+                            <article>
+                                <SidebarUsersCont
+                                    data={socialSpace.socialSpaceUsers}
+                                    type=""
+                                    isRequest={false}
+                                    checkDBArrays={checkDBArrays}
+                                    handleFriendModal={handleMembersProfileModal}
+                                    handleShow={handleShow}
+                                />
+                            </article>
+                        </div>
+                    ))
                 }
             </section>
 
-            <TabMembersProfileModal show={show} onHide={() => handleClose (false)} 
-                member={tabMembersProfile} 
+            <TabMembersProfileModal show={show} onHide={() => handleClose(false)}
+                member={tabMembersProfile}
             />
-                
+
         </Container>
 
     );

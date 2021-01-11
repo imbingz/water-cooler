@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Tab, Nav } from 'react-bootstrap';
 import TabDM from '../TabDM';
 import TabFriends from '../TabFriends';
@@ -10,6 +10,35 @@ import './Tabnav.css';
 
 function Tabnav() {
     const [activeKey, setActiveKey] = useState('friends');
+
+
+    const [roomData, setRoomData] = useState([]);
+
+    const getRoomData = useCallback(async (roomId) => {
+        try {
+            const request = await fetch('/api/room/find', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: '5ffbb507c16257281435863d' }),
+                method: 'POST'
+            });
+
+            const response = await request.json();
+            await setRoomData(response.data);
+        } catch (err) {
+            console.log({ err });
+        }
+    }, []);
+
+
+
+
+
+    // * On Page Load, Check DB for Any Changes in User's friend and inboundPendingFriends Arrays 
+    useEffect(() => {
+        getRoomData();
+    }, [getRoomData]);
+
+
     return (
         // !* Hard coding style={{width: '325px'}} was causing responsiveness issues
         <div className='d-flex flex-column Tabnav-aside-tab'>
@@ -28,7 +57,7 @@ function Tabnav() {
                     <Nav.Item >
                         <Nav.Link eventKey='dms' className='Tabnav-nav-link'>DMs</Nav.Link>
                     </Nav.Item>
-                                     
+
                 </Nav>
                 <Tab.Content>
 
@@ -36,7 +65,9 @@ function Tabnav() {
                         <TabRoomChats />
                     </Tab.Pane>
                     <Tab.Pane eventKey='members'>
-                        <TabMembers />
+                        <TabMembers 
+                            roomData={roomData}
+                        />
                     </Tab.Pane>
                     <Tab.Pane eventKey='friends'>
                         <TabFriends />
@@ -44,10 +75,10 @@ function Tabnav() {
                     <Tab.Pane eventKey='dms'>
                         <TabDM />
                     </Tab.Pane>
-                    
-                </Tab.Content>    
 
-            </Tab.Container>  
+                </Tab.Content>
+
+            </Tab.Container>
         </div>
     );
 }
