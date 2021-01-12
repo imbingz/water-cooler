@@ -44,9 +44,9 @@ io.on('connect', (socket) => {
     socket.id = id;
     console.log('This is the socket ID: ' + socket.id);
 
-    socket.on('send-message', (message) => {
-        console.log('recieve-message from server', message);
-        socket.broadcast.emit('receive-message', message);
+    socket.on('send-chat', (message) => {
+        console.log('recieve-chat from server', message);
+        socket.broadcast.emit('receive-chat', message);
         console.log('hi fam from server');
     });
     

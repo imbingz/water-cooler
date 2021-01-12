@@ -8,8 +8,8 @@ router
         // console.log('THIS IS THE SOCKET SESSION FROM THE SOCKET ROUTE');
         // console.log(req.sessionStore);
         
-        const sessionVar = req.sessionStore.sessions;
-        console.log('This is the session info', sessionVar);
+        const openSessions = req.sessionStore.sessions;
+        console.log('This is the session info', openSessions);
         res.json({ success: true, sessionID: req.sessionID });
     });
 

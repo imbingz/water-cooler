@@ -3,35 +3,41 @@ import { useSocket } from './SocketProvider';
 
 const ChatContext = createContext();
 
+// localStorage.clear();
+
+
 export function useChat() {
     return useContext(ChatContext);
 }
 
 export function ChatProvider({ children }) {
-    const [serverMessage, setServerMessage] = useState('');
+    // const [chatMessage, setChatMessage] = useState('');
     const socket = useSocket();
-
     
     useEffect(() => {
         if (socket == null) {
             return;
         }
         
-        socket.on('receive-message', message => {
-            console.log('made it back to chat provider', message);
-            // setServerMessage(message);
+        socket.on('receive-chat', message => {
+            console.log('made it back to receive chat socket on', message);
+            receiveChat(message);
         });
         
-        return () => socket.off('test');
-    }, [socket, serverMessage]);
+        return () => socket.off('receive-messag');
+    }, [socket]);
     
-    const fromChat = (message) => {
-        console.log('send-message from ChatProvider');
-        socket.emit('send-message', message);
+    const sendChat = (message) => {
+        console.log('send-chat from ChatProvider');
+        socket.emit('send-chat', message);
+    };
+
+    const receiveChat = (message) => {
+        console.log('receive chat function: ', message);
     };
 
     return (
-        <ChatContext.Provider value={{fromChat} }>
+        <ChatContext.Provider value={{sendChat} }>
             {children}
         </ChatContext.Provider>
     );

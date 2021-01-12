@@ -6,14 +6,14 @@ const Chat = () => {
     // const roomPageUrl = document.URL;
     // let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
     // const name = 'Name' + Math.random(100).toFixed(2);
-    const { fromChat } = useChat();
+    const { sendChat } = useChat();
 
     const sendMessage = async (e) => {
         e.preventDefault();
         try {
             receiveMessage('You: ' + messageInput);
             console.log('got to from chat function');
-            fromChat(messageInput);
+            sendChat(messageInput);
             setMessageValue('');
         } catch (err) {
             console.log(err);
