@@ -90,7 +90,7 @@ function Map({ tiles, tileset, tilesets, setTileset, tileHeight, tileWidth }) {
                         <Player
                             pos={ players[key] }
                             emitPos={ pos => socket.emit('movement', pos) }
-                            message={players[key].message}
+                            // message={players[key].message}
                         />
                     );
                 }
