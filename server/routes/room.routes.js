@@ -5,6 +5,7 @@ const { Room } = require('../models');
 // populates rooms page with public rooms
 router
     .route('/')
+    
     .get((req, res) => {
         console.log('/');
         Room

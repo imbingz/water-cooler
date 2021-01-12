@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import CreateRoom from '../components/HomepageComponents/CreateRoom';
@@ -7,7 +6,6 @@ import RoomCarousel from '../components/HomepageComponents/RoomCarousel';
 
 const Homepage = () => {
     return (
-       
         <Container fluid className='d-flex flex-column ml-auto'>
             <Container className='mt-3 p-4' style={{backgroundColor: 'greenyellow'}}>
                 <Row >
@@ -15,15 +13,12 @@ const Homepage = () => {
                         <h3>Create A Room</h3>
                     </Col>
                 </Row>
-                    
+
                 <Row className='d-flex justify-content-center mx-5'>
-                        
                     {/* RoomCarousel Component */}    
                     <RoomCarousel />
-
                     {/* CreateRoom Component */}          
                     <CreateRoom/>
-                        
                 </Row>
             </Container>
 
@@ -32,7 +27,6 @@ const Homepage = () => {
                 <FriendsRoom/>
             </Container>
         </Container>
-       
     );
 };
 

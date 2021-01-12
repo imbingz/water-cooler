@@ -36,7 +36,8 @@
 
 .Sidenav-toggle-dm {
 	background-color: rgb(230, 227, 227);
-	width: 100%;
+	transition: 350ms;
+	width: 430px;
 	height: 80px;
 	display: flex;
 	justify-content: space-between;
@@ -55,4 +56,16 @@
 .Sidenav-header-close-btn {
 	border: none;
 	background-color: transparent;
+}
+
+
+@media only screen and (max-width: 800px) {
+	.Sidenav-toggle-dm {
+		width: 325px;
+		transition: 350ms;
+	}
+
+	.TabRoomChats-chat-input {
+		width: 215px;
+	}
 }

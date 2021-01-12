@@ -1,8 +1,7 @@
 .Sidenav-menu {
 	background-color: rgba(169, 169, 169);
 	width: 430px;
-	height: 100vh;
-	max-height: 100%;
+	height: 100%;
 	display: flex;
 	justify-content: center;
 	position: fixed;
@@ -21,7 +20,6 @@
 .Sidenav-menu-items {
 	width: 100%;
 	/* width: 325px; */
-	height: 100%;
 }
 
 .Sidenav-toggle {
