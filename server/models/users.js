@@ -62,6 +62,13 @@ const UserSchema = new mongoose.Schema({
     }
 });
 
+// prehook that Hashes password automatically
+UserSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) {return next();}
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(this.password, salt);
+    this.password = hashedPassword;
+});
 
 //used for validating whetherthe user’s password is correct when they try to log in.
 UserSchema.methods.isValidPassword = async function(password) {
