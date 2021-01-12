@@ -2,7 +2,6 @@ import React from 'react';
 import './SearchButton.css';
 
 const SearchButton = (props) => {
-    console.log(props.searchDB);
     // * Send IDs of user and invited to server to make friend req
     const friendRequest = async (id) => {
         try {

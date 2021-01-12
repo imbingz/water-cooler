@@ -5,10 +5,11 @@ import './SidebarUsersCont.css';
 
 // * SidebarUserCont Requires Three Props To Conditionally Render
 //   data = The Data To Be Mapped in jsx
-//   isRequest = A Truthy Value Will Cause the Component To Render Accept/Decline Buttons
-//              A Falsy Value Will Render View Profile Button
-//   type = By Passing 'friend' or 'room', The Accept Decline Buttons Will Hit a Switch Statement to Send The Server A 
-//         Request to Either Handle Accepting/Declining Friend Requests or Room Invite
+//   isRequest = A True Value Will Cause the Component To Render Accept/Decline Buttons
+//              A False Value Will Render 'View Profile' Button
+//   type = By Passing 'friend' or 'room', The 'Accept' 'Decline' Buttons Will Hit a Switch Statement to Send The Server A 
+//          Request to Either Handle Accepting/Declining Friend Requests or Room Invite
+//          By Passing 'dm' With a False isRequest, 'View Profile' Will Render as 'View Chat'
 // * We Also Pass Down Functions Through Props, this will Be Updated Later By Storing Necessary Variables in a Sidebar Context
 
 const SidebarUsersCont = (props) => {
@@ -54,7 +55,7 @@ const SidebarUsersCont = (props) => {
 
     // * Pass User's Friend's ID and They Type of Request To Make for Declining Requests
     const decline = async (frenId, type) => {
-        switch (type) {            
+        switch (type) {
             // * Send User and Friend's IDs to Server To Process Declining Friend Request
             case 'friend':
                 try {
@@ -86,20 +87,20 @@ const SidebarUsersCont = (props) => {
 
 
     return (
-        <> 
+        <>
             {/* Check If Data Has a Truthy Value then Render */}
             {props.data &&
                 props.data.map(friend => (
-        
-                    <div className='d-flex flex-row justify-content-start align-items-center mb-2' key={uuidv4()}>
 
+                    <div className='d-flex flex-row justify-content-start align-items-center mb-2' key={uuidv4()}>
                         <img
                             src={friend.imageSrc || friend.roomStyle}
                             alt={friend.username || friend.roomname}
                             style={{ width: 32, height: 32 }}
                         />
 
-                        {/* Check For Truthy Values In friend.username and friend.room to determine if the component received room or friend data, then use substring to limit their lengths */}
+                        {/* * Determine if Username or Room Name Should Render */}
+                        {/* ** Check For Truthy Values In friend.username and friend.room to determine if the component received room or friend data, then use substring to limit their lengths */}
                         { friend.username &&
                             <p className='mx-2 my-0 SbUserCont-Text'>
                                 {friend.username.substring(0, 16)}
@@ -110,27 +111,43 @@ const SidebarUsersCont = (props) => {
                                 {friend.roomname.substring(0, 22)}
                             </p>
                         }
-                        {/* Check For False Value of isRequest To Render View Profile Button */}
-                        {!props.isRequest &&
+
+                        {/* * Determine What Button Options Should Render */}
+                        {/* ** View Profile or View Chat */}
+                        {/* *** Check For False Value of isRequest and Type is Not DM To Render View Profile Button */}
+                        {(!props.isRequest && props.type !== 'dm') &&
                             <button
                                 onClick={() => { props.handleShow(friend); props.handleFriendModal(friend); }}
                                 className='SbUserCont-btn profile d-inline-block ml-auto mb-3 px-2 py-1'
 
-                            ><small> View Profile</small> </button>
+                            ><small>View Profile</small> </button>
                         }
-                        {/* Check for True Value of isRequest to Render Accept Button */}
+
+                        {/* *** Check For False Value of isRequest and Type is DM To Render View Chats Button */}
+                        {(!props.isRequest && props.type === 'dm') &&
+                            <button
+                                onClick={() => {
+                                    props.showSidebar();
+                                }}
+                                className='SbUserCont-btn profile d-inline-block ml-auto mb-3 px-2 py-1'
+
+                            ><small>View Chat</small> </button>
+                        }
+
+                        {/* ** Accept Decline Buttons */}
+                        {/* *** Check for True Value of isRequest to Render Accept Button */}
                         {props.isRequest &&
                             <button
                                 onClick={async () => {
                                     await accept(friend.friendId, props.type);
-                                    // * Run Check DB to Update Render of Inbound and Friends Containers
+                                    // *** Run Check DB to Update Render of Inbound and Friends Containers
                                     props.checkDBArrays('inpending');
                                     props.checkDBArrays('friends');
                                 }}
                                 className='SbUserCont-btn accept  d-inline-block mx-3 px-2'
                             ><small>Accept</small></button>
                         }
-                        {/* Check for True Value of isRequest to Render Decline Button */}
+                        {/* *** Check for True Value of isRequest to Render Decline Button */}
                         {props.isRequest &&
                             <button
                                 onClick={async () => {

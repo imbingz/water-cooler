@@ -10,7 +10,7 @@ const SearchResults = () => {
     return (
         <SearchContext.Consumer>
             {(context) => {
-                console.log({context});
+                // console.log({context});
                 return (
                     // * Map Through Users Returned From the DB
                     context.searchResults.map((returnedUser) => (

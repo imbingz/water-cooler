@@ -1,47 +1,58 @@
 import React, { useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
+import SidebarUsersCont from '../SidebarUsers';
 import TabDmChats from '../TabDmChats';
-import friends from '../../../data/friends';
-import {v4 as uuidv4} from 'uuid';
+import dummyFriends from '../../../data/friends';
 import './TabDM.css';
 
-function TabDM() {
+function TabDM(props) {
+
+    
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
 
+    // * Render Dummy Or DB Data
+    // ** A Yes Value will Render The DOM with Data From Data Folder, Changing this to 'no' Will Render DOM with DB Data
+    let dummyData = 'yes';
+    let renderAllFriends;
+
+    switch (dummyData) {
+        case 'yes':
+            renderAllFriends = dummyFriends;
+
+            break;
+        default:
+            renderAllFriends = props.allFriends;
+    }
 
     return (
         <section className='my-4 mx-3 TabDM-section'>
-                
-            { friends &&
-            friends.map(friend => (
-                <div className='d-flex flex-row justify-content-start' key={uuidv4()}>  
-                    <img src={friend.imageSrc} alt={friend.username} style={{width:32, height: 32}}/>
-                    <p className='mx-2' >{friend.username}</p>
-                    <button 
-                        className='TabDM-view-chat-btn d-inline-block ml-auto mb-3 px-2 py-1' 
-                        onClick={showSidebar} 
-                    ><small> View Chat</small> </button>
-                </div>                   
-            ))
-            }
+
+            <SidebarUsersCont
+                data={renderAllFriends}
+                type="dm"
+                isRequest={false}
+                showSidebar={showSidebar}
+            />
 
             <aside className={sidebar ? 'Sidenav-menu-dm active' : 'Sidenav-menu-dm'}>
                 <div className='Sidenav-menu-items-dm' >
                     <div className='Sidenav-toggle-dm' >
                         <div className='d-flex align-items-center'>
-                            <img 
+                            <img
                                 className='Sidenav-header-img'
-                                src='/assets/images/logo-50.png' alt='default-avatar'/>
+                                src='/assets/images/logo-50.png' alt='default-avatar' />
                             <h6 className='text-muted'>The-king</h6>
                         </div>
                         <button className='Sidenav-header-close-btn'>
-                            <AiOutlineClose size={30} style={{fill: 'orangered'}} onClick={showSidebar}/>
+                            <AiOutlineClose size={30} style={{ fill: 'orangered' }} onClick={showSidebar} />
                         </button>
                     </div>
-                    <TabDmChats />
+                    <TabDmChats 
+                    
+                    />
                 </div>
-                
+
             </aside>
         </section>
     );
