@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Container } from 'react-bootstrap';
 import ProfileModal from '../../Modals/ProfileModal';
 import SidebarUsersCont from '../SidebarUsers';
@@ -9,13 +9,12 @@ import './TabFriends.css';
 // * Tab Friends Dynamically Renders User's Inbound Friend/Room Requests and Online/Offline Friends.
 //   It uses SidebarUsersCont to Render Each User and Their Button OptionsProfileModal
 //   and uses ProfileModal To View Options for Interacting With User's Friends
-function TabFriends() {
+// !* Rending Online Friends and Offline Friends Has Been Moved to Phase III Production 
+//    but the Code for It is Still Here once We Have Online Detection in Place
+function TabFriends(props) {
 
     // * Set States, State Helper Functions, and Other Variables
     
-    // !* Depreciated - We need to pull this from global context instead
-    const { _id } = JSON.parse(localStorage.getItem('USER'));
-
     // ** Manage State for Showing/Closing ProfileModal
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -25,59 +24,6 @@ function TabFriends() {
     const [profModalData, setProfModalData] = useState({});
     const handleFriendModal = (friend) => setProfModalData(friend);
 
-    // ** Create State for Mapping through User's Friends and Reqs
-    const [inpending, setInpending] = useState([]);
-    const [offFriends, setOffFriends] = useState([]);
-    // eslint-disable-next-line
-    const [onFriends, setOnFriends] = useState([]);
-
-    // * Functions
-    // ** Check User's DB For Any Changes in either friends or inboundPendingFriends by passing 'friends' or 'inpending'
-    //    Then store updated array values in State
-    // !* This Should be Moved to a Sidebar Context Along with Associated States
-    const checkDBArrays = useCallback(async (arr) => {
-        try {
-            const response = await fetch('/api/friends/arrays', {
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: _id, case: arr }),
-                method: 'POST'
-            });
-
-            const data = await response.json();
-            switch (arr) {
-                case 'friends':
-                    // console.log('friends: ', data.retUsers);
-                    const friends = data.retUsers;
-                    const offline = [];
-                    const online = [];
-                    friends.forEach(fren => {
-                        (fren.status === 0) ? offline.push(fren) : online.push(fren);
-                    });
-                    setOffFriends(offline);
-                    setOnFriends(online);
-                    // console.log({offline});
-                    break;
-                case 'inpending':
-                    // console.log('inpending: ', data.retUsers);
-                    setInpending(data.retUsers);
-                    break;
-                default:
-                    console.log('No valid array');
-                    break;
-            }
-        } catch (err) {
-            console.log({ err });
-        }
-    }, [_id]);
-
-    
-
-    // * On Page Load, Check DB for Any Changes in User's friend and inboundPendingFriends Arrays 
-    useEffect(() => {
-        checkDBArrays('friends');
-        checkDBArrays('inpending');
-    }, [checkDBArrays]);
-
 
     // * Render Dummy Or DB Data
     // ** A Yes Value will Render The DOM with Data From Data Folder, Changing this to 'no' Will Render DOM with DB Data
@@ -86,6 +32,7 @@ function TabFriends() {
     let renderOffFriends;
     // let renderOnFriends;
     let renderRoomInv;
+    
     switch(dummyData) {
         case 'yes': 
             renderInpending = dummyFriends;
@@ -94,8 +41,8 @@ function TabFriends() {
             renderRoomInv = dummyFriendsRoom;
             break;
         default: 
-            renderInpending = inpending;
-            renderOffFriends = offFriends;
+            renderInpending = props.inpending;
+            renderOffFriends = props.offFriends;
             // renderOnFriends = onFriends;
             // renderRoomInv = someStateOrSomething;
     }
@@ -115,7 +62,7 @@ function TabFriends() {
                     data={renderInpending}
                     type="friend"
                     isRequest={true}
-                    checkDBArrays={checkDBArrays}
+                    checkDBArrays={props.checkDBArrays}
                     handleFriendModal={handleFriendModal}
                     handleShow={handleShow}
                 />
@@ -125,7 +72,7 @@ function TabFriends() {
                     data={renderRoomInv}
                     isRequest={true}
                     type="room"
-                    checkDBArrays={checkDBArrays}
+                    checkDBArrays={props.checkDBArrays}
                     handleFriendModal={handleFriendModal}
                     handleShow={handleShow}
                 />
@@ -155,14 +102,14 @@ function TabFriends() {
                     data={renderOffFriends}
                     isRequest={false}
                     type="friend"
-                    checkDBArrays={checkDBArrays}
+                    checkDBArrays={props.checkDBArrays}
                     handleFriendModal={handleFriendModal}
                     handleShow={handleShow}
                 />
             </section>
             <ProfileModal show={show} onHide={() => handleClose(false)}
                 friend={profModalData}
-                checkdb={checkDBArrays}
+                checkdb={props.checkDBArrays}
             />
 
         </Container>

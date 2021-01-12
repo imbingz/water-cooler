@@ -11,16 +11,13 @@ import './Tabnav.css';
 function Tabnav() {
 
     // * Set States, State Helper Functions, and Other Variables
+
+    // !* Depreciated - We need to pull this from global context instead
+    const { _id } = JSON.parse(localStorage.getItem('USER'));
+
     // ** For Rendering a Tab, Default to Friends Tab
     const [activeKey, setActiveKey] = useState('friends');
 
-    // ** Prop Data for Tab Members to Render
-    //  Default state for roomData Needs to Send an Empty Array Since the jsx in Tab Members Uses .map
-    const [roomData, setRoomData] = useState(
-        {
-            roomUsers: []
-        });
-    const [spaceData, setSpaceData] = useState([]);
 
     // ** Variables To Determine It TabMembers and Tab Chat Should Render
     const path = window.location.pathname;
@@ -28,7 +25,15 @@ function Tabnav() {
     const spaceCheck = path.includes('space');
     
 
-    // * Functions
+    // * Collect and Parse Data for TabMembers
+    // ** Store Data in State
+    //  Default state for roomData Needs to Send an Empty Array Since the jsx in Tab Members Uses .map
+    const [roomData, setRoomData] = useState(
+        {
+            roomUsers: []
+        });
+    const [spaceData, setSpaceData] = useState([]);
+
     // ** Request Information for Current Room and It's Social Spaces
     const getRoomData = useCallback(async (roomId) => {
         try {
@@ -88,12 +93,63 @@ function Tabnav() {
     };
 
     
+    // * Collect and Parse Data for TabFriends and TabDM
+
+    // ** Store Data in State For TabFriends
+    const [inpending, setInpending] = useState([]);
+    const [offFriends, setOffFriends] = useState([]);
+    // eslint-disable-next-line
+    const [onFriends, setOnFriends] = useState([]);
+
+    // ** Store Data in State for TabDM
+    const [allFriends, setAllFriends] = useState([]);
+
+    // ** Check User's DB For Any Changes in either friends or inboundPendingFriends by passing 'friends' or 'inpending'
+    //    Then store updated array values in State
+    // !* This Should be Moved to a Sidebar Context Along with Associated States
+    const checkDBArrays = useCallback(async (arr) => {
+        try {
+            const response = await fetch('/api/friends/arrays', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: _id, case: arr }),
+                method: 'POST'
+            });
+
+            const data = await response.json();
+            switch (arr) {
+                case 'friends':
+                    // console.log('friends: ', data.retUsers);
+                    const friends = data.retUsers;
+                    setAllFriends(friends);
+                    const offline = [];
+                    const online = [];
+                    friends.forEach(fren => {
+                        (fren.status === 0) ? offline.push(fren) : online.push(fren);
+                    });
+                    setOffFriends(offline);
+                    setOnFriends(online);
+                    // console.log({offline});
+                    break;
+                case 'inpending':
+                    // console.log('inpending: ', data.retUsers);
+                    setInpending(data.retUsers);
+                    break;
+                default:
+                    console.log('No valid array');
+                    break;
+            }
+        } catch (err) {
+            console.log({ err });
+        }
+    }, [_id]);
 
 
     // * On Page Load, Get Data For Room and Social Spaces
     useEffect(() => {
         getRoomData();
-    }, [getRoomData]);
+        checkDBArrays('friends');
+        checkDBArrays('inpending');
+    }, [checkDBArrays, getRoomData]);
 
 
 
@@ -134,10 +190,16 @@ function Tabnav() {
 
                 <Tab.Content className='plz-work'>
                     <Tab.Pane eventKey='friends'>
-                        <TabFriends />
+                        <TabFriends 
+                            inpending={inpending}
+                            offFriends={offFriends}
+                            checkDBArrays={checkDBArrays}
+                        />
                     </Tab.Pane>
                     <Tab.Pane eventKey='dms'>
-                        <TabDM />
+                        <TabDM 
+                            allFriends={allFriends}
+                        />
                     </Tab.Pane>
                     <Tab.Pane eventKey='chats'>
                         <TabRoomChats />

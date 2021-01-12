@@ -1,20 +1,35 @@
 import React, { useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
 import TabDmChats from '../TabDmChats';
-import friends from '../../../data/friends';
+import dummyFriends from '../../../data/friends';
 import {v4 as uuidv4} from 'uuid';
 import './TabDM.css';
 
-function TabDM() {
+function TabDM(props) {
     const [sidebar, setSidebar] = useState(false);
     const showSidebar = () => setSidebar(!sidebar);
 
 
+    // * Render Dummy Or DB Data
+    // ** A Yes Value will Render The DOM with Data From Data Folder, Changing this to 'no' Will Render DOM with DB Data
+    let dummyData = 'yes';
+    let renderAllFriends;
+
+    switch(dummyData) {
+        case 'yes': 
+            renderAllFriends = dummyFriends;
+            
+            break;
+        default: 
+            renderAllFriends = props.allFriends;
+           
+    }
+
     return (
         <section className='my-4 mx-3 TabDM-section'>
                 
-            { friends &&
-            friends.map(friend => (
+            { renderAllFriends &&
+            renderAllFriends.map(friend => (
                 <div className='d-flex flex-row justify-content-start' key={uuidv4()}>  
                     <img src={friend.imageSrc} alt={friend.username} style={{width:32, height: 32}}/>
                     <p className='mx-2' >{friend.username}</p>
