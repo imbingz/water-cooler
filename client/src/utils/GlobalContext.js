@@ -7,8 +7,10 @@ const defaultState = {
     socialSpaces: [],
     currentRoom: [],
     currentSocialSpace: [],
-    showAside: true,
-    roomStyle:''
+    showAside: false,
+    roomStyle:'',
+    //global USER
+    USER: JSON.parse(localStorage.getItem('USER'))
 };
 
 const reducer = (state, action) => {
@@ -34,6 +36,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 roomStyle: action.payload
+            };
+        case 'setUser':
+            return {
+                ...state,
+                USER: action.payload
             };
         default: return state;
     }

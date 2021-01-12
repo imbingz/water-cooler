@@ -14,8 +14,8 @@ function CreateRoom() {
 
     return (
         <Col xs={12} lg={7} md={6} className='pl-2 pb-3'>
-            <form
-                // onSubmit={console.log('call createRoom func')}
+            <form 
+                // onSubmit={ console.log('call createRoom func')}
             >
                 <Row>
                     <Col xs={12} md={6} className='d-flex flex-column align-middle pt-2'>

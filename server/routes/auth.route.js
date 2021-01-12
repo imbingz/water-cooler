@@ -47,23 +47,11 @@ router.post('/signup', ({body}, res) => {
 
 
 // api/user/login
-router.post('/login', (req, res, next) => {
-    passport.authenticate('local', async (err, user) => {
-       
-        try {
-            if (err || !user) {
-                const error = new Error('An Error occurred');
-                return res.json({success: false, error});
-            }
-            
-            req.login(user, { session: false }, error => {
-                if (error) {return next(error);}
-                return res.status(200).json({success: true, user: user });
-            });
-        } catch (error) {
-            return res.json({success: false, error});
-        }
-    })(req, res, next);
+router.post('/login', passport.authenticate('local', {failureRedirect: '/'}), (req, res) => {  
+    // ********* DELETE LATER *********** //
+    // console.log(req.session);
+
+    return res.status(200).json({success: true, user: req.user });
 });
 
 

@@ -1,17 +1,26 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Col, Container, Modal, Row } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import { GoMail } from 'react-icons/go';
 
+
+// !* Invite Button Needs the Same Logic For Inviting a User To a Room, 
+//  This Button May be Cut From Phase II Sprint
 function ProfileModal(props) {
 
     // * Set States, State Helper Functions, and Other Variables
-
-    const { checkdb, friend } = props;
+    // eslint-disable-next-line
+    const { checkdb, friend, onHide } = props;
     const { _id } = JSON.parse(localStorage.getItem('USER'));
     // ** Used To Conditionally Render Unfriend Button
+<<<<<<< HEAD
     const [isFriend
         // , setIsFriend
     ] = useState(true);
+=======
+    // eslint-disable-next-line
+    const [isFriend, setIsFriend] = useState(true);
+>>>>>>> master
     // ** Store Unfriend Button jsx In State [ note: friend.friendId is undefined on first render ]
     const [friendButton, setFriendButton] = useState(
         <Button
@@ -33,7 +42,9 @@ function ProfileModal(props) {
             });
             const status = await request.json();
             if (status.success) {
-                window.alert('Done it');
+                toast.success('Removed As Friend', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
             }
         } catch (err) {
             console.log({ err });
@@ -87,7 +98,9 @@ function ProfileModal(props) {
             <Modal {...props} backdrop="static" keyboard={false} centered>
 
                 <Modal.Header closeButton>
-                    <Modal.Title ></Modal.Title>
+                    {/* USE ON HIDE TO CLOSE MODAL AND ALSO SET VALUE TO TRUE */}
+                    {/* <button closeButton>x</button> */}
+                    {/* <Modal.Title ></Modal.Title> */}
                 </Modal.Header>
 
                 <Modal.Body>

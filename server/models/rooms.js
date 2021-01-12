@@ -25,6 +25,10 @@ const RoomSchema = new mongoose.Schema({
         type: String,
         default: ''
     },
+    socialSpaces: {
+        type: Array,
+        default: []
+    },
 });
 
 const Room = mongoose.model('Room', RoomSchema);
