@@ -42,8 +42,14 @@ app.use(routes);
 io.on('connect', (socket) => {
     const id = socket.handshake.query.id;
     socket.id = id;
-    console.log(socket.id);
+    console.log('This is the socket ID: ' + socket.id);
 
+    socket.on('send-message', (message) => {
+        console.log('recieve-message from server', message);
+        socket.broadcast.emit('receive-message', message);
+        console.log('hi fam from server');
+    });
+    
     //******************************** Bing
     // players[socket.id] = {
     //     x: 0, y: 0
@@ -56,11 +62,6 @@ io.on('connect', (socket) => {
     //     socket.to(socket.room).broadcast.emit('user-connected', roomUrlId, name);
     // });
 
-    socket.on('send-message', (roomUrlId, name, messageInput) => {
-        console.log('recieve-message from server');
-        socket.to(socket.room).emit('receive-message', roomUrlId, name, messageInput);
-        console.log('hi fam from server');
-    });
 
     // socket.on('check-room', (roomUrlId, name) => {
     //     if (roomUrlId === socket.room) {
