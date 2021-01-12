@@ -7,14 +7,26 @@ import TabRoomChats from '../TabRoomChats';
 import './Tabnav.css';
 
 
-// * TabNav Handles Changes Sidebar Tabs, Request and Parsed Data, and Sends Data to It's Child Components
+// * TabNav Handles Changes Sidebar Tabs, Requests and Parses DB Data, and Sends Data to It's Child Components
 function Tabnav() {
 
     // * Set States, State Helper Functions, and Other Variables
+
+    // !* Depreciated - We need to pull this from global context instead
+    const { _id } = JSON.parse(localStorage.getItem('USER'));
+
     // ** For Rendering a Tab, Default to Friends Tab
     const [activeKey, setActiveKey] = useState('friends');
 
-    // ** Prop Data for Tab Members to Render
+
+    // ** Variables To Determine It TabMembers and Tab Chat Should Render
+    const path = window.location.pathname;
+    const roomCheck = path.includes('room');
+    const spaceCheck = path.includes('space');
+    
+
+    // * Collect and Parse Data for TabMembers
+    // ** Store Data in State
     //  Default state for roomData Needs to Send an Empty Array Since the jsx in Tab Members Uses .map
     const [roomData, setRoomData] = useState(
         {
@@ -22,22 +34,13 @@ function Tabnav() {
         });
     const [spaceData, setSpaceData] = useState([]);
 
-    // ** Variables To Determine It TabMembers and Tab Chat Should Render
-    const path = window.location.pathname;
-    // eslint-disable-next-line
-    const roomCheck = path.includes('room');
-    // eslint-disable-next-line
-    const spaceCheck = path.includes('space');
-    
-
-    // * Functions
     // ** Request Information for Current Room and It's Social Spaces
     const getRoomData = useCallback(async (roomId) => {
         try {
             // *** Make Post Req By Sending Room ID
             const roomRequest = await fetch('/api/room/find', {
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: '5ffbb507c16257281435863d' }),
+                body: JSON.stringify({ id: '5ffd29f1a6718782f8f62163' }),
                 method: 'POST'
             });
 
@@ -90,12 +93,63 @@ function Tabnav() {
     };
 
     
+    // * Collect and Parse Data for TabFriends and TabDM
+
+    // ** Store Data in State For TabFriends
+    const [inpending, setInpending] = useState([]);
+    const [offFriends, setOffFriends] = useState([]);
+    // eslint-disable-next-line
+    const [onFriends, setOnFriends] = useState([]);
+
+    // ** Store Data in State for TabDM
+    const [allFriends, setAllFriends] = useState([]);
+
+    // ** Check User's DB For Any Changes in either friends or inboundPendingFriends by passing 'friends' or 'inpending'
+    //    Then store updated array values in State
+    // !* This Should be Moved to a Sidebar Context Along with Associated States
+    const checkDBArrays = useCallback(async (arr) => {
+        try {
+            const response = await fetch('/api/friends/arrays', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: _id, case: arr }),
+                method: 'POST'
+            });
+
+            const data = await response.json();
+            switch (arr) {
+                case 'friends':
+                    // console.log('friends: ', data.retUsers);
+                    const friends = data.retUsers;
+                    setAllFriends(friends);
+                    const offline = [];
+                    const online = [];
+                    friends.forEach(fren => {
+                        (fren.status === 0) ? offline.push(fren) : online.push(fren);
+                    });
+                    setOffFriends(offline);
+                    setOnFriends(online);
+                    // console.log({offline});
+                    break;
+                case 'inpending':
+                    // console.log('inpending: ', data.retUsers);
+                    setInpending(data.retUsers);
+                    break;
+                default:
+                    console.log('No valid array');
+                    break;
+            }
+        } catch (err) {
+            console.log({ err });
+        }
+    }, [_id]);
 
 
     // * On Page Load, Get Data For Room and Social Spaces
     useEffect(() => {
         getRoomData();
-    }, [getRoomData]);
+        checkDBArrays('friends');
+        checkDBArrays('inpending');
+    }, [checkDBArrays, getRoomData]);
 
 
 
@@ -104,16 +158,23 @@ function Tabnav() {
         // !* Hard coding style={{width: '325px'}} was causing responsiveness issues
         <div className='d-flex flex-column Tabnav-aside-tab'>
             <Tab.Container activeKey={activeKey} onSelect={setActiveKey} >
-                <Nav variant="tabs" className="justify-content-around bg-warning">
+                <Nav variant="tabs" className="justify-content-around bg-warning">                    
+                    <Nav.Item>
+                        <Nav.Link eventKey='friends' className='Tabnav-nav-link '>Friends</Nav.Link>
+                    </Nav.Item >
+                    <Nav.Item>
+                        <Nav.Link eventKey='dms' className='Tabnav-nav-link '>DMs</Nav.Link>
+                    </Nav.Item>
+
                     {/* ** Check if User is in A Room or Social Space Before Rendering Tab Option */}
                     {(roomCheck || spaceCheck) &&
-                        <Nav.Item className='Tabnav-nav-item'>
+                        <Nav.Item>
                             <Nav.Link eventKey='chats' className='Tabnav-nav-link'>Chats</Nav.Link>
                         </Nav.Item>
                     }
                     {(roomCheck || spaceCheck) &&
-                        <Nav.Item className='Tabnav-nav-item' >
-                            <Nav.Link eventKey='members' className='Tabnav-nav-link'>Members</Nav.Link>
+                        <Nav.Item>
+                            <Nav.Link eventKey='members' className='Tabnav-nav-link '>Members</Nav.Link>
                         </Nav.Item >
                     }
 
@@ -125,16 +186,21 @@ function Tabnav() {
                         <Nav.Link eventKey='members' className='Tabnav-nav-link'>Members</Nav.Link>
                     </Nav.Item > */}
 
-                    <Nav.Item className='Tabnav-nav-item' >
-                        <Nav.Link eventKey='friends' className='Tabnav-nav-link'>Friends</Nav.Link>
-                    </Nav.Item >
-                    <Nav.Item >
-                        <Nav.Link eventKey='dms' className='Tabnav-nav-link'>DMs</Nav.Link>
-                    </Nav.Item>
-
                 </Nav>
-                <Tab.Content>
 
+                <Tab.Content className='plz-work'>
+                    <Tab.Pane eventKey='friends'>
+                        <TabFriends 
+                            inpending={inpending}
+                            offFriends={offFriends}
+                            checkDBArrays={checkDBArrays}
+                        />
+                    </Tab.Pane>
+                    <Tab.Pane eventKey='dms'>
+                        <TabDM 
+                            allFriends={allFriends}
+                        />
+                    </Tab.Pane>
                     <Tab.Pane eventKey='chats'>
                         <TabRoomChats />
                     </Tab.Pane>
@@ -144,13 +210,6 @@ function Tabnav() {
                             spaceData={spaceData}
                         />
                     </Tab.Pane>
-                    <Tab.Pane eventKey='friends'>
-                        <TabFriends />
-                    </Tab.Pane>
-                    <Tab.Pane eventKey='dms'>
-                        <TabDM />
-                    </Tab.Pane>
-
                 </Tab.Content>
 
             </Tab.Container>
