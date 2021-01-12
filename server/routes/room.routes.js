@@ -42,7 +42,10 @@ router
         Room
             .findOne({ _id: req.body.id })
             .then(data => {
-                res.json({ success: true, data });
+                if (data) {
+                    res.json({ success: true, data });
+                }
+                res.json({ success: false });
             })
             .catch(err => {
                 res.json({ success: false } + err);

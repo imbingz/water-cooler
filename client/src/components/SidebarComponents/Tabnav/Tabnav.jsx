@@ -7,7 +7,7 @@ import TabRoomChats from '../TabRoomChats';
 import './Tabnav.css';
 
 
-// * TabNav Handles Changes Sidebar Tabs, Request and Parsed Data, and Sends Data to It's Child Components
+// * TabNav Handles Changes Sidebar Tabs, Requests and Parses DB Data, and Sends Data to It's Child Components
 function Tabnav() {
 
     // * Set States, State Helper Functions, and Other Variables
@@ -40,13 +40,14 @@ function Tabnav() {
             // *** Make Post Req By Sending Room ID
             const roomRequest = await fetch('/api/room/find', {
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: '5ffbb507c16257281435863d' }),
+                body: JSON.stringify({ id: '5ffd29f1a6718782f8f62163' }),
                 method: 'POST'
             });
 
             const roomResponse = await roomRequest.json();
             // console.log(roomResponse.data);
             // *** If DB Req Is Successful, Store Room Data in State and Request Information for Social Spaces
+            console.log(roomResponse);
             if (roomResponse.success) {
                 setRoomData(roomResponse.data);
 
@@ -86,7 +87,7 @@ function Tabnav() {
                 socialSpaceUsers: response.retUsers
             };
             parsedSpaceData.push(socialSpace);
-            // console.log(parsedSpaceData);
+            console.log(parsedSpaceData);
         });
         // *** Store Parsed Information in State
         setSpaceData(parsedSpaceData);

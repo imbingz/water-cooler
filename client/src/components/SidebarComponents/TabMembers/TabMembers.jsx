@@ -96,7 +96,7 @@ function TabMembers(props) {
 
 
     // // * Render Dummy Or DB Data
-    let dummyData = 'yes';
+    let dummyData = 'no';
     let renderRoomUsers;
     let renderSocialSpaces;
     // let renderOffFriends;

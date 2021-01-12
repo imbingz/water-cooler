@@ -9,6 +9,9 @@ const DMSchema = new mongoose.Schema({
         type: String,
         required: 'userID is required'
     },
+    socketRoomId: {
+        type: 'String'
+    },
     timestamp: {
         type: Date,
         default: Date.now
