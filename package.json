@@ -12,7 +12,8 @@
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build",
     "lint": "eslint client/src/**/*.jsx  client/src/**/*.js server/**/*.js",
-    "lint:fix": "eslint client/src/**/*.jsx --fix client/src/**/*.js --fix server/**/*.js --fix"
+    "lint:fix": "eslint client/src/**/*.jsx --fix client/src/**/*.js --fix server/**/*.js --fix",
+    "test": "cd client && npm run test"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
