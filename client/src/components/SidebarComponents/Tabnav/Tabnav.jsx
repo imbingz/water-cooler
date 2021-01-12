@@ -133,6 +133,12 @@ function Tabnav() {
                 </Nav>
 
                 <Tab.Content className='plz-work'>
+                    <Tab.Pane eventKey='friends'>
+                        <TabFriends />
+                    </Tab.Pane>
+                    <Tab.Pane eventKey='dms'>
+                        <TabDM />
+                    </Tab.Pane>
                     <Tab.Pane eventKey='chats'>
                         <TabRoomChats />
                     </Tab.Pane>
@@ -142,13 +148,6 @@ function Tabnav() {
                             spaceData={spaceData}
                         />
                     </Tab.Pane>
-                    <Tab.Pane eventKey='friends'>
-                        <TabFriends />
-                    </Tab.Pane>
-                    <Tab.Pane eventKey='dms'>
-                        <TabDM />
-                    </Tab.Pane>
-
                 </Tab.Content>
 
             </Tab.Container>

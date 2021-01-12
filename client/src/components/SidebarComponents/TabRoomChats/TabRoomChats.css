@@ -66,5 +66,6 @@
 
 	.TabRoomChats-chat-input {
 		width: 215px;
+		transition: 350ms;
 	}
 }
