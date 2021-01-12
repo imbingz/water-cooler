@@ -15,6 +15,9 @@
     "lint:fix": "eslint client/src/**/*.jsx --fix client/src/**/*.js --fix server/**/*.js --fix",
     "test": "cd client && npm run test"
   },
+  "jest": {
+    "testEnvironment": "node"
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.5.3",
@@ -35,7 +38,9 @@
     "yarn": "^1.22.10"
   },
   "devDependencies": {
+    "eslint": "^7.12.1",
+    "jest": "^26.6.0",
     "nodemon": "^2.0.6",
-    "eslint": "^7.12.1"
+    "supertest": "^6.0.1"
   }
 }
