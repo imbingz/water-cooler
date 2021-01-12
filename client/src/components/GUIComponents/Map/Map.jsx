@@ -75,8 +75,10 @@ function Map({ tiles, tileset, tilesets, setTileset, tileHeight, tileWidth }) {
                     return (
                         <Player
                             pos={ players[key] }
-                            // emitPos={ pos => socket.emit('movement', pos) }
-                            message={players[key].message}
+                            emitPos={ pos => socket.emit('movement', pos) }
+                            // message={players[key].message}
+
+
                         />
                     );
                 }

@@ -3,8 +3,8 @@ import Sprite from '../Sprite';
 import UseKeyPress from '../../../utils/useKeyPress';
 
 export default function Player(props) {
-    console.log(props);
-    const { pos, emitPos, message } = props;
+    console.log('player props', props);
+    const { pos, emitPos } = props;
     const [dir, setDir] = useState(0);
     const [step, setStep] = useState();
 
@@ -70,7 +70,7 @@ export default function Player(props) {
                 step={ step }
                 dir={ dir }
                 position={ pos }
-                message={message}
+                message={pos.message}
             />
         </div>
     );
