@@ -5,6 +5,7 @@ const { Room } = require('../models');
 // populates rooms page with public rooms
 router
     .route('/')
+    
     .get((req, res) => {
         console.log('/');
         Room
@@ -42,10 +43,7 @@ router
         Room
             .findOne({ _id: req.body.id })
             .then(data => {
-                if (data) {
-                    res.json({ success: true, data });
-                }
-                res.json({ success: false });
+                res.json({ success: true, data });
             })
             .catch(err => {
                 res.json({ success: false } + err);

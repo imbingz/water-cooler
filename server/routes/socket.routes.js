@@ -1,22 +1,16 @@
 const router = require('express').Router();
-const socketClient = require('socket.io-client');
-const socket = socketClient('http://localhost:8080');
-socket.on('newConnection', (data) => {
-    console.log(data);
-});
-const db = require('../models');
 
 router
-    .route('/')
+    .route('/id')
     .post((req, res) => {
-        db
-            .find({})
-            .then(data => {
-                res.json({ success: true, data });
-            })
-            .catch(err => {
-                res.json({ success: false } + err);
-            });
+        // console.log('THIS IS THE SOCKET ID FROM THE SOCKET ROUTE');
+        // console.log(req.sessionID);
+        // console.log('THIS IS THE SOCKET SESSION FROM THE SOCKET ROUTE');
+        // console.log(req.sessionStore);
+        
+        const openSessions = req.sessionStore.sessions;
+        console.log('This is the session info', openSessions);
+        res.json({ success: true, sessionID: req.sessionID });
     });
 
 module.exports = router;
