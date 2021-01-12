@@ -3,7 +3,6 @@ import { AiOutlineClose } from 'react-icons/ai';
 import SidebarUsersCont from '../SidebarUsers';
 import TabDmChats from '../TabDmChats';
 import dummyFriends from '../../../data/friends';
-import { v4 as uuidv4 } from 'uuid';
 import './TabDM.css';
 
 function TabDM(props) {
