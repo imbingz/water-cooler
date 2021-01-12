@@ -23,7 +23,6 @@ const PORT = process.env.PORT || 5000;
 //******************************** Alex
 // const socketPORT = process.env.socketPORT || 8080;
 
-
 // parsing middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -57,9 +56,10 @@ io.on('connect', (socket) => {
     //     socket.to(socket.room).broadcast.emit('user-connected', roomUrlId, name);
     // });
 
-    socket.on('send-chat-message', (roomUrlId, name, messageInput) => {
-        console.log('recieve-sent-message from server')
-        socket.to(socket.room).emit('receive-sent-message', roomUrlId, name, messageInput);
+    socket.on('send-message', (roomUrlId, name, messageInput) => {
+        console.log('recieve-message from server');
+        socket.to(socket.room).emit('receive-message', roomUrlId, name, messageInput);
+        console.log('hi fam from server');
     });
 
     // socket.on('check-room', (roomUrlId, name) => {
