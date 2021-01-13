@@ -16,12 +16,12 @@ export function ChatProvider({ children }) {
     const [roomChat, setRoomChat] = useState('');
     const [state, dispatch] = useGlobalContext();
     const socket = useSocket();
+    console.log('This is the socket', socket);
     const roomPageUrl = document.URL;
     let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
     // console.log(currentRoomId);
     
     useEffect(() => {
-        console.log(lastChat);
         const populateChat = async () => {
             try {
                 const response = await fetch(
@@ -48,15 +48,22 @@ export function ChatProvider({ children }) {
         if (socket == null) {
             return;
         }
+
+        socket.on('set-id', id => {
+            socket.id = id;
+            console.log(socket);
+        })
         
         socket.on('receive-chat', (message, roomId, userId, username) => {
-            receiveChat(message, roomId, userId, username);
+            // receiveChat(message, roomId, userId, username);
+            console.log('this is how many times receive chat is being received');
         });
         
         return () => socket.off('receive-chat');
     }, [socket, dispatch, roomUrlId, lastChat]);
     
     const sendChat = (message, roomId, userId, username) => {
+        console.log(socket.id);
         socket.emit('send-chat', message, roomId, userId, username);
     };
 

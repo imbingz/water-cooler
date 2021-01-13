@@ -57,12 +57,13 @@ app.use(routes);
 
 // const players = {};
 
-io.on('connect', (socket) => {
+io.on('connection', (socket) => {
     const id = socket.handshake.query.id;
     socket.id = id;
-    console.log('This is the socket ID: ' + socket.id);
+    socket.emit('set-id', id);
 
     socket.on('send-chat', (message, roomId, userId, username) => {
+        console.log(id);
         socket.broadcast.emit('receive-chat', message, roomId, userId, username);
         console.log('hi fam from server');
     });
