@@ -2,15 +2,29 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useGlobalContext } from '../../../utils/GlobalContext.js';
 import { Button, Col, Row } from 'react-bootstrap';
-import friends from '../../../data/friends';
+import dummyFriendRooms from '../../../data/friends';
 import { v4 as uuidv4 } from 'uuid';
 
 
-function CreateRoom() {
+function CreateRoom(props) {
 
     const [{ roomStyle },] = useGlobalContext();
 
     const history = useHistory();
+
+
+    // * Render Dummy Or DB Data
+    // ** A Yes Value will Render The DOM with Data From Data Folder, Changing this to 'no' Will Render DOM with DB Data
+    let dummyData = 'no';
+    let renderFriends;
+    
+    switch(dummyData) {
+        case 'yes': 
+            renderFriends = dummyFriendRooms;        
+            break;
+        default: 
+            renderFriends = props.allFriends;
+    }
 
     return (
         <Col xs={12} lg={7} md={6} className='pl-2 pb-3'>
@@ -49,7 +63,7 @@ function CreateRoom() {
                         <p className='font-weight-bold pt-3' >Invite Friends</p>
                         <div className='d-flex flex-row flex-nowrap align-items-center overflow-auto'>
                             {
-                                friends.map(friend => (
+                                renderFriends.map(friend => (
                                     <div key={uuidv4()} className='d-flex flex-column align-items-center mr-1'>
                                         <img src={friend.imageSrc} alt={friend.username} style={{ width: 48, height: 48, borderRadius: '50%' }} />
                                         <small>{friend.username.substr(0, 5)}</small>

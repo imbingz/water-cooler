@@ -22,6 +22,7 @@ const makeAsync = async () => {
                 friends: [],
                 blocked: [],
                 imageSrc: 'https://i.imgur.com/izGw0wB.jpg',
+                activeRoom: '',
             },
             {
                 email: 'oceanofstorms@moon.com',
@@ -36,6 +37,7 @@ const makeAsync = async () => {
                 friends: [],
                 blocked: [],
                 imageSrc: 'https://cdn130.picsart.com/246483773027202.jpg?type=webp&to=crop&r=256',
+                activeRoom: '',
             },
             {
                 email: 'dreadnaught@saturn.com',
@@ -50,6 +52,7 @@ const makeAsync = async () => {
                 friends: [],
                 blocked: [],
                 imageSrc: 'https://pm1.narvii.com/6336/2169b35340c8109de7460b985874c375bf1dc244_128.jpg',
+                activeRoom: '',
             },
             {
                 email: 'dreadnaught7@saturn.com',
@@ -64,6 +67,7 @@ const makeAsync = async () => {
                 friends: [],
                 blocked: [],
                 imageSrc: 'https://styles.redditmedia.com/t5_2tmtib/styles/profileIcon_pcmjnyopxm851.png?width=256&height=256&crop=256:256,smart&frame=1&s=868d500bf8180ecdc516e2a8fab4f66536a894b0',
+                activeRoom: '',
             },
             {
                 email: 'plaguelands@earth.com',
@@ -78,6 +82,7 @@ const makeAsync = async () => {
                 friends: [],
                 blocked: [],
                 imageSrc: 'https://i.pinimg.com/originals/6a/78/f7/6a78f73a95511beb19cb7da69267e956.jpg',
+                activeRoom: '',
             },
             {
                 email: 'theleviathan@space.com',
@@ -92,6 +97,7 @@ const makeAsync = async () => {
                 friends: [],
                 blocked: [],
                 imageSrc: 'https://ih1.redbubble.net/image.929096986.4561/flat,128x128,075,t.jpg',
+                activeRoom: '',
             },
             {
                 email: 'theleviathanlairone@space.com',
@@ -106,6 +112,7 @@ const makeAsync = async () => {
                 friends: [],
                 blocked: [],
                 imageSrc: 'https://styles.redditmedia.com/t5_2nldqk/styles/profileIcon_3pqa2kvec8y41.jpg?width=256&height=256&crop=256:256,smart&frame=1&s=0a3b3155427d6bc801c1f3faeff9e05a0c763ee3',
+                activeRoom: '',
             },
             {
                 email: 'theleviathanlairtwo@space.com',
@@ -120,6 +127,7 @@ const makeAsync = async () => {
                 friends: [],
                 blocked: [],
                 imageSrc: 'https://pm1.narvii.com/6972/2ab62cf23ec6ed250485523fab9d26b1e4f74d43r1-356-512v2_128.jpg',
+                activeRoom: '',
             },
             {
                 email: 'dreamingcity@unknownspace.com',
@@ -134,6 +142,7 @@ const makeAsync = async () => {
                 friends: [],
                 blocked: [],
                 imageSrc: 'https://www.destinypedia.com/images/thumb/3/33/Riven_face.jpg/1200px-Riven_face.jpg',
+                activeRoom: '',
             },
         ]);
 
@@ -143,13 +152,13 @@ const makeAsync = async () => {
         users.forEach(user => {
             userIdArr.push(user._id);
         });
-        console.log(userIdArr.length);
+        // console.log(userIdArr.length);
 
         // * Create Room Seed Data using userIdArr
         await db.Room.insertMany([
             {
                 roomName: 'Room Name One',
-                publicRoomId: 'someString',
+                publicRoomId: '12345',
                 roomUsers: [userIdArr[1], userIdArr[2], userIdArr[5]],
                 roomCreator: userIdArr[0],
                 roomImg: 'assets/images/roomImg/cafe-doubled.png',
@@ -158,7 +167,7 @@ const makeAsync = async () => {
             }, 
             {
                 roomName: 'Room Name Two',
-                publicRoomId: 'someString',
+                publicRoomId: '52341',
                 roomUsers: [userIdArr[4]],
                 roomCreator: userIdArr[3],
                 roomImg: 'assets/images/roomImg/casino-doubled.png',
@@ -167,7 +176,7 @@ const makeAsync = async () => {
             },
             {
                 roomName: 'Room Name Three',
-                publicRoomId: 'someString',
+                publicRoomId: '31245',
                 roomUsers: [userIdArr[7], userIdArr[8]],
                 roomCreator: userIdArr[6],
                 roomImg: 'assets/images/roomImg/cafe-doubled.png',
@@ -187,19 +196,19 @@ const makeAsync = async () => {
         // * Social Space Seed Data using userIdArr
         await db.SocialSpace.insertMany([
             {
-                publicRoomId: 'some public room id',
+                publicRoomId: '12345',
                 socialSpaceName: 'Space Name One',
                 publicSocialSpaceId: 'some public space id',
                 socialSpaceUsers: [userIdArr[1], userIdArr[3]],
             },
             {
-                publicRoomId: 'some public room id',
+                publicRoomId: '14235',
                 socialSpaceName: 'Space Name Two',
                 publicSocialSpaceId: 'some public space id',
                 socialSpaceUsers: [userIdArr[5]],
             },
             {
-                publicRoomId: 'some public room id',
+                publicRoomId: '13425',
                 socialSpaceName: 'Space Name Three',
                 publicSocialSpaceId: 'some public space id',
                 socialSpaceUsers: [userIdArr[2], userIdArr[8], userIdArr[7]],
@@ -214,7 +223,7 @@ const makeAsync = async () => {
         });
         console.log(spaceIdArr);
 
-
+        // * Populate Each Room With Social Spaces
         for (let i = 0; i < roomIdArr.length; i++) {
             await db.Room.findOneAndUpdate(
                 { _id:  roomIdArr[i]},
@@ -225,6 +234,16 @@ const makeAsync = async () => {
                 .catch(err => console.log(err));
         }
 
+        // * Give First Three Users an Active Room
+        for (let i = 0; i < 3; i++) {
+            await db.User.findOneAndUpdate(
+                { _id:  userIdArr[i]},
+                { $set: { activeRoom: ''+ roomIdArr[i]+'' } },
+                { new: true }
+            )
+                .then(data => console.log(data))
+                .catch(err => console.log(err));
+        }
     } catch (err) {
         console.log(err);
     }
