@@ -53,7 +53,12 @@ const UserSchema = new mongoose.Schema({
     imageSrc: {
         type: String,
         default: ''
+    },
+    activeRoom: {
+        type: String,
+        default: ''
     }
+    
 }, {//Not return password back to front end
     toJSON: {
         transform(doc, ret){
