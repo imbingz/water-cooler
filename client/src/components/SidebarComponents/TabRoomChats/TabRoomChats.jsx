@@ -8,12 +8,16 @@ import './TabRoomChats.css';
 
 function TabRoomChats() {
     const [messageInput, setMessageValue] = useState('');
+    const roomPageUrl = document.URL;
+    const roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
+    const userId = JSON.parse(localStorage.getItem('USER'))._id;
+    const username = JSON.parse(localStorage.getItem('USER')).username;
     const { sendChat } = useChat();
 
     const sendMessage = async (e) => {
         e.preventDefault();
         try {
-            sendChat(messageInput);
+            sendChat(messageInput, roomUrlId, userId, username);
             setMessageValue('');
         } catch (err) {
             console.log(err);
@@ -46,21 +50,19 @@ function TabRoomChats() {
                 <section className='TabRoomChats-chat-footer pt-3 pl-4'>
                     <form >
                         <label
-                            required
                             htmlFor='room-chat-input'
-                            type='text'
-                            name='messageInput'
-                            value={messageInput}
-                            onChange={(e) => setMessageValue(e.target.value)}
                         >
                             <BiSmile size={25} style={{fill: 'black'}}/>
                         </label>
 
                         <input 
+                            required
                             className='TabRoomChats-chat-input'
                             type="text" 
                             id='room-chat-input'
-                            name='room-chat-input'
+                            name='messageInput'
+                            value={messageInput}
+                            onChange={(e) => setMessageValue(e.target.value)}
                             placeholder='Type a message'
                         />
 

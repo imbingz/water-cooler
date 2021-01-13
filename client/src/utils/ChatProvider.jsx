@@ -19,21 +19,40 @@ export function ChatProvider({ children }) {
             return;
         }
         
-        socket.on('receive-chat', message => {
-            console.log('made it back to receive chat socket on', message);
-            receiveChat(message);
+        socket.on('receive-chat', (message, roomId, userId, username) => {
+            console.log('made it back to receive chat socket on', (message + roomId + userId + username));
+            receiveChat(message, roomId, userId, username);
         });
         
         return () => socket.off('receive-messag');
     }, [socket]);
     
-    const sendChat = (message) => {
-        console.log('send-chat from ChatProvider');
-        socket.emit('send-chat', message);
+    const sendChat = (message, roomId, userId, username) => {
+        console.log('send-chat from ChatProvider', (`${message} | ${roomId} | ${userId} | ${username}`));
+        socket.emit('send-chat', message, roomId, userId, username);
     };
 
-    const receiveChat = (message) => {
-        console.log('receive chat function: ', message);
+    const receiveChat = async (message, roomId, userId, username) => {
+        try {
+            const response = await fetch(
+                '/api/chat/create',
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: message,
+                        roomId: roomId, 
+                        userId: userId
+                    }),
+                    method: 'POST'
+                }
+            );
+            const json = await response.json();
+            console.log(json);
+        } catch (err) {
+            console.log({ err });
+        }
     };
 
     return (

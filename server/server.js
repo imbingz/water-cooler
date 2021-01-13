@@ -62,9 +62,8 @@ io.on('connect', (socket) => {
     socket.id = id;
     console.log('This is the socket ID: ' + socket.id);
 
-    socket.on('send-chat', (message) => {
-        console.log('recieve-chat from server', message);
-        socket.broadcast.emit('receive-chat', message);
+    socket.on('send-chat', (message, roomId, userId, username) => {
+        socket.broadcast.emit('receive-chat', message, roomId, userId, username);
         console.log('hi fam from server');
     });
     
