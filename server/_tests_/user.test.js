@@ -58,6 +58,7 @@ describe('User Model Test', () => {
     // It should us told us the errors about required password field.
     it('create user without required field should failed', async (done) => {
         const userWithoutRequiredField = new User({ username: 'TekLoon', email: 'test@test.com' });
+
         let err;
         try {
             const savedUserWithoutRequiredField = await userWithoutRequiredField.save();
