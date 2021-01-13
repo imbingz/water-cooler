@@ -54,13 +54,9 @@ function CreateRoom() {
         }
     };
 
-
-
     return (
         <Col xs={12} lg={7} md={6} className='pl-2 pb-3'>
-            <form 
-                onSubmit={ createRoom }
-            >
+            <form>
                 <Row>
                     <Col xs={12} md={6} className='d-flex flex-column align-middle pt-2'>
                         <label htmlFor="roomName" className='font-weight-bold'>Room Name: </label>
@@ -110,11 +106,7 @@ function CreateRoom() {
                             className='border-0'
                             size='sm'
                             variant='danger'
-                            onClick={() => {
-                                console.log('btn roomStyle is:', roomStyle);
-
-                                history.push('/room');
-                            }}
+                            onClick={ createRoom }
                         >Create Room</Button>
                     </Col>
                 </Row>
