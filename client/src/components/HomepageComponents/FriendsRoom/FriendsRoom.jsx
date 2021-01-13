@@ -66,3 +66,42 @@ function FriendsRoom() {
 }
 
 export default FriendsRoom;
+
+
+// ** funtion routeToRoom used to route a user to an aleady created room **
+// const routeToRoom = async (e) => {
+//     e.preventDefault();
+//     try {
+//         const response = await fetch(
+//             '/api/room/find',
+//             {
+//                 headers: {
+//                     'Content-Type': 'application/json'
+//                 },
+//                 body: JSON.stringify({
+//                     id: document.activeElement.parentElement.id
+//                 }),
+//                 method: 'POST'
+//             }
+//         );
+//         const json = await response.json();
+//         const roomUrlId = json.data.publicRoomId;
+//         history.push('/rooms/' + roomUrlId);
+//     } catch (err) {
+//         console.log({ err });
+//     }
+// };
+
+// ** usage of routeToRoom
+// <div>
+// <h3>Open Rooms</h3>
+// <ul>
+//     {state.rooms.map(room => (
+//         <li id={room._id} key={room._id}>
+//             <button onClick={routeToRoom}>
+//                 {room.roomName}
+//             </button>
+//         </li>
+//     ))}
+// </ul>
+// </div>

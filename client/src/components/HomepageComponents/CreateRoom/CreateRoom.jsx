@@ -54,28 +54,7 @@ function CreateRoom() {
         }
     };
 
-    const routeToRoom = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await fetch(
-                '/api/room/find',
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        id: document.activeElement.parentElement.id
-                    }),
-                    method: 'POST'
-                }
-            );
-            const json = await response.json();
-            const roomUrlId = json.data.publicRoomId;
-            history.push('/rooms/' + roomUrlId);
-        } catch (err) {
-            console.log({ err });
-        }
-    };
+
 
     return (
         <Col xs={12} lg={7} md={6} className='pl-2 pb-3'>
@@ -145,33 +124,3 @@ function CreateRoom() {
 }
 
 export default CreateRoom;
-
-// return (
-//     <>
-//         <div>
-//             <h1>Create a Room</h1>
-//             <form onSubmit={createRoom}>
-//                 <input
-//                     required
-//                     type='text'
-//                     name='inputRoomName'
-//                     value={inputRoomName}
-//                     onChange={(e) => setRoomName(e.target.value)}
-//                 />
-//                 <button>Create Room</button>
-//             </form>
-//         </div>
-//         <div>
-//             <h3>Open Rooms</h3>
-//             <ul>
-//                 {state.rooms.map(room => (
-//                     <li id={room._id} key={room._id}>
-//                         <button onClick={routeToRoom}>
-//                             {room.roomName}
-//                         </button>
-//                     </li>
-//                 ))}
-//             </ul>
-//         </div>
-//     </>
-// );
