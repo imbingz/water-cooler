@@ -82,6 +82,7 @@ const SidebarUsersCont = (props) => {
                 } catch (err) {
                     console.log({ err });
                 }
+                
                 break;
             // ** Send User and Friend's IDs to Server To Process Accepting Room Invite
             case 'room':
