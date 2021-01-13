@@ -13,6 +13,7 @@ export function useChat() {
 
 export function ChatProvider({ children }) {
     const [lastChat, setLastChat] = useState('');
+    const [roomChat, setRoomChat] = useState('');
     const [state, dispatch] = useGlobalContext();
     const socket = useSocket();
     const roomPageUrl = document.URL;
@@ -37,6 +38,7 @@ export function ChatProvider({ children }) {
                 );
                 const json = await response.json();
                 console.log(json);
+                setRoomChat(json.data);
             } catch (err) {
                 console.log({ err });
             }
@@ -51,7 +53,7 @@ export function ChatProvider({ children }) {
             receiveChat(message, roomId, userId, username);
         });
         
-        return () => socket.off('receive-messag');
+        return () => socket.off('receive-chat');
     }, [socket, dispatch, roomUrlId, lastChat]);
     
     const sendChat = (message, roomId, userId, username) => {
@@ -84,7 +86,7 @@ export function ChatProvider({ children }) {
 
 
     return (
-        <ChatContext.Provider value={{sendChat} }>
+        <ChatContext.Provider value={{sendChat, roomChat} }>
             {children}
         </ChatContext.Provider>
     );

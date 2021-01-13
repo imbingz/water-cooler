@@ -27,7 +27,6 @@ router
         RoomChat
             .find({ roomId: req.body.roomId })
             .then(data => {
-                console.log(data[1]);
                 res.json({ success: true, data });
             })
             .catch(err => {

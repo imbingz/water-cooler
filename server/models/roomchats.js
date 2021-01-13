@@ -19,7 +19,7 @@ const RoomChatSchema = new mongoose.Schema({
     },
     username: {
         type: String,
-        required: 'username is required'
+        required: 'user is required'
     }
 });
 

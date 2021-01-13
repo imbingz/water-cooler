@@ -12,7 +12,7 @@ function TabRoomChats() {
     const roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
     const userId = JSON.parse(localStorage.getItem('USER'))._id;
     const username = JSON.parse(localStorage.getItem('USER')).username;
-    const { sendChat } = useChat();
+    const { sendChat, roomChat } = useChat();
 
     const sendMessage = async (e) => {
         e.preventDefault();
@@ -30,16 +30,16 @@ function TabRoomChats() {
 
                 <section className='TabRoomChats-chat-body mt-3 mx-3'>
                     {
-                        roomChats.map((roomchat) => (
-                            <div key={uuidv4()} className={roomchat.username==='eclarke' ? 'TabDmChats-chat-you' : ''}>
+                        roomChat.map((chat) => (
+                            <div key={chat} className={chat.username==='eclarke' ? 'TabDmChats-chat-you' : ''}>
                                 <p className=' mb-1 text-muted TabRoomChats-chat-username'>
-                                    {roomchat.username==='eclarke' ? 'You' : roomchat.username}
+                                    {chat.username==='eclarke' ? 'You' : chat.username}
                                     <small className='ml-1'>
-                                        {roomchat.timeStamp}
+                                        {chat.timestamp}
                                     </small>
                                 </p>
-                                <p className={roomchat.username==='eclarke' ? 'TabRoomChats-chat-msg-you px-3 py-1' : 'TabRoomChats-chat-msg px-3 py-1'}>
-                                    {roomchat.msg} 
+                                <p className={chat.username==='eclarke' ? 'TabRoomChats-chat-msg-you px-3 py-1' : 'TabRoomChats-chat-msg px-3 py-1'}>
+                                    {chat.message} 
                                 </p>
                             </div>
                         ))
