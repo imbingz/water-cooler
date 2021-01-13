@@ -1,12 +1,8 @@
 {
-    "rpg-nature-tileset": {
+    "choose-a-tileset": {
         "variants": [
-            "spring",
-            "fall",
-            "winter",
             "cafe",
             "casino"
-
         ],
         "size": {
             "height": 850,

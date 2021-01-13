@@ -69,7 +69,8 @@ function Game() {
     const [{roomStyle}, ] = useGlobalContext();
 
     //manage tileset selection - with a default path to spring image
-    const [tileset, setTileset] = useState(`rpg-nature-tileset/${roomStyle}`);
+    // const [tileset, setTileset] = useState(`rpg-nature-tileset/${roomStyle}`);
+    const [tileset, setTileset] = useState(`choose-a-tileset/${roomStyle}`);
 
 
 
