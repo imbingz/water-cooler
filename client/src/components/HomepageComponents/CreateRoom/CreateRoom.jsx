@@ -103,7 +103,7 @@ function CreateRoom(props) {
                     <Col>
                         <p className='font-weight-bold pt-3' >Invite Friends</p>
                         <div className='d-flex flex-row flex-nowrap align-items-center overflow-auto'>
-                            {
+                            { renderFriends && 
                                 renderFriends.map(friend => (
                                     <div key={friend.friendId} className='d-flex flex-column align-items-center mr-1'>
                                         <img src={friend.imageSrc} alt={friend.username} style={{ width: 48, height: 48, borderRadius: '50%' }} />
