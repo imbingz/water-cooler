@@ -1,14 +1,15 @@
 .TabDmChats-chat-wrapper {
-	height: 100vh;
+	height: 100%;
 	width: 430px;
 	transition: 350ms;
 	background-color: rgb(241, 245, 248);
+	padding-bottom: 120px;
+	overflow: visible;
 	/* background-color: yellow; */
 }
 
 .TabDmChats-chat-body {
 	flex: 1;
-	overflow: scroll;
 }
 
 .TabDmChats-chat-you {

@@ -1,8 +1,9 @@
 .TabRoomChats-chat-wrapper {
 	position: relative;
-	height: 100vh;
+	height: 100%;
 	background-color: rgb(241, 245, 248);
 	overflow: visible;
+	padding-bottom: 120px;
 }
 
 .TabRoomChats-chat-body {

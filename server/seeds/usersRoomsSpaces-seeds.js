@@ -247,7 +247,7 @@ const makeAsync = async () => {
 
 
 
-
+    db.close();
 
 
 
