@@ -8,9 +8,9 @@ import { v4 as uuidv4 } from 'uuid';
 
 function CreateRoom(props) {
 
-    const [{ roomStyle },] = useGlobalContext();
     const [state, dispatch] = useGlobalContext();
     const [roomName, setRoomName] = useState('');
+    const [roomDescription, setRoomDescription] = useState('');
 
     const history = useHistory();
 
@@ -31,6 +31,7 @@ function CreateRoom(props) {
         e.preventDefault();
         const { v4: uuidv4 } = require('uuid');
         const roomUrlId = uuidv4();
+        const userId = JSON.parse(localStorage.getItem('USER'))._id;
         try {
             const response = await fetch(
                 '/api/room/create',
@@ -40,7 +41,9 @@ function CreateRoom(props) {
                     },
                     body: JSON.stringify({
                         roomName: roomName,
-                        publicRoomId: roomUrlId
+                        roomDescription: roomDescription,
+                        publicRoomId: roomUrlId,
+                        userId: userId
                     }),
                     method: 'POST'
                 }
@@ -92,8 +95,8 @@ function CreateRoom(props) {
                             type='text'
                             name='inputRoomDescription'
                             placeholder='Everything Destiny ...'
-                        // value={roomName}
-                        // onChange={(e) => setRoomName(e.target.value)}
+                            value={roomDescription}
+                            onChange={(e) => setRoomDescription(e.target.value)}
                         />
                     </Col>
                 </Row>

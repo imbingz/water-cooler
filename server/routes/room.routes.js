@@ -26,8 +26,9 @@ router
         Room
             .create({
                 roomName: req.body.roomName,
+                roomDesc: req.body.roomDescription,
                 publicRoomId: req.body.publicRoomId,
-                roomCreator: 123456
+                roomCreator: req.body.userId
             })
             .then(data => {
                 res.json({ success: true, data });
