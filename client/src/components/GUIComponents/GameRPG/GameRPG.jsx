@@ -69,7 +69,6 @@ function Game() {
     const [{roomStyle}, ] = useGlobalContext();
 
     //manage tileset selection - with a default path to spring image
-    // const [tileset, setTileset] = useState(`rpg-nature-tileset/${roomStyle}`);
     const [tileset, setTileset] = useState(`choose-a-tileset/${roomStyle}`);
 
 
@@ -103,9 +102,9 @@ function Game() {
                 position: 'relative',
                 width: dimensions.width >= 1100 ? 1100 : Math.round(dimensions.width / 35 * tileSize.width),
                 height: dimensions.height>= 700 ? 700 : Math.round(dimensions.height / 50 * tileSize.height),
-                backgroundColor: 'grey',
+                backgroundColor: 'white',
                 overflow: 'scroll',
-                border: ' 1px solid black',
+                border: ' 1px solid lightgrey',
                 margin: '10px auto'
             }}>
 
