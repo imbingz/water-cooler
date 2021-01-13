@@ -87,6 +87,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin est s
 ## Tests
 
 ## Bugs
+* If a user creates a room without entering in the required info for the database the room is not entered into the db but the user is still routed to a room using the uuid
 
 ## Future Development
 
