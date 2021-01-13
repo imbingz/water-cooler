@@ -4,7 +4,7 @@ const routes = require('./routes');
 const path = require('path');
 const session = require('express-session');
 const passport = require('./config/passport');
-const createError = require('http-errors');
+// const createError = require('http-errors');
 
 // const cors = require('cors');
 const app = express();
@@ -45,15 +45,15 @@ app.use(routes);
 // });
 
 //Create a error handling middleware
-app.use((err, req, res) => {
-    res.status(err.status || 500);
-    res.send({
-        error: {
-            status: err.status || 500,
-            message: err.message,
-        },
-    });
-});
+// app.use((err, req, res) => {
+//     res.status(err.status || 500);
+//     res.send({
+//         error: {
+//             status: err.status || 500,
+//             message: err.message,
+//         },
+//     });
+// });
 
 // const players = {};
 
