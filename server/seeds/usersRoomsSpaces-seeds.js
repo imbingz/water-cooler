@@ -3,10 +3,7 @@ require('../config/db')();
 const db = require('../models');
 
 const makeAsync = async () => {
-
-
     try {
-
         // * Create User Seed Data
         await db.User.insertMany([
             {
@@ -150,7 +147,7 @@ const makeAsync = async () => {
         const userIdArr = [];
         const users = await db.User.find({});
         users.forEach(user => {
-            userIdArr.push(user._id);
+            userIdArr.push(user._id.toString());
         });
         // console.log(userIdArr.length);
 
@@ -189,9 +186,9 @@ const makeAsync = async () => {
         const roomIdArr = [];
         const rooms = await db.Room.find({});
         rooms.forEach(room => {
-            roomIdArr.push(room._id);
+            roomIdArr.push(room._id.toString());
         });
-        console.log(roomIdArr);
+        // console.log(roomIdArr);
 
         // * Social Space Seed Data using userIdArr
         await db.SocialSpace.insertMany([
@@ -219,9 +216,9 @@ const makeAsync = async () => {
         const spaceIdArr = [];
         const spaces = await db.SocialSpace.find({});
         spaces.forEach(space => {
-            spaceIdArr.push(space._id);
+            spaceIdArr.push(space._id.toString());
         });
-        console.log(spaceIdArr);
+        // console.log(spaceIdArr);
 
         // * Populate Each Room With Social Spaces
         for (let i = 0; i < roomIdArr.length; i++) {
@@ -230,7 +227,7 @@ const makeAsync = async () => {
                 { $set: { socialSpaces: spaceIdArr } },
                 { new: true }
             )
-                .then(data => console.log(data))
+                // .then(data => console.log(data))
                 .catch(err => console.log(err));
         }
 
@@ -241,18 +238,12 @@ const makeAsync = async () => {
                 { $set: { activeRoom: ''+ roomIdArr[i]+'' } },
                 { new: true }
             )
-                .then(data => console.log(data))
+                // .then(data => console.log(data))
                 .catch(err => console.log(err));
         }
     } catch (err) {
         console.log(err);
     }
-
-
-
-
-
-
 
 };
 

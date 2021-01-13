@@ -109,7 +109,6 @@ router.post('/arrays', async ({ body }, res) => {
                 activeRoom: friends.activeRoom,
                 status: friends.status,
             };
-            console.log(userParsed);
 
             // *** Push Each Result to response
             response.push(userParsed);
@@ -139,7 +138,7 @@ router.put('/request', async ({ body }, res) => {
     } catch (err) {
         console.log('/api/friends/req error: ', err);
         res.json({ success: false });
-    } then((res) => console.log(res));
+    } 
 });
 
 // * Unfriend Friend

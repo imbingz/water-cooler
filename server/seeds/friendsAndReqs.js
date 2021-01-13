@@ -1,23 +1,22 @@
 require('../config/db')();
-
 const db = require('../models');
 
+const yourID = '5fff7749471fb99e843da5b2';
 // * Paste Your ID in _ID
 const makeAsync = async () => {
 
     try {
-
-
         // ** Store User IDs in Array
         const userIdArr = [];
         const users = await db.User.find({});
         users.forEach(user => {
-            userIdArr.push(user._id);
+            userIdArr.push(user._id.toString());
         });
+        // console.log(userIdArr);
 
         // ** Populate Your Friends List
         await db.User.updateOne(
-            { _id: '5ffe6ca45a1e3081b0b8c040' },
+            { _id: yourID },
             {
                 $set:
                 {
@@ -32,9 +31,24 @@ const makeAsync = async () => {
 
         );
 
+        // ** Place Your Id in Their Friends Array
+        for(let i = 0; i < 3; i++) {
+            await db.User.updateOne(
+                { _id: userIdArr[i]},
+                {
+                    $set:
+                    {
+                        friends: [yourID]
+                    }
+                },
+                { new: true }
+    
+            );
+        }
+
         // ** Reset Your Outbound Friend Reqs
         await db.User.updateOne(
-            { _id: '5ffe6ca45a1e3081b0b8c040' },
+            { _id: yourID },
             {
                 $set:
                     { outboundPendingFriends: [] }
@@ -45,7 +59,7 @@ const makeAsync = async () => {
 
         // ** Populate Your Inbound Friend Reqs
         await db.User.updateOne(
-            { _id: '5ffe6ca45a1e3081b0b8c040' },
+            { _id: yourID },
             {
                 $set:
                 {
@@ -61,6 +75,8 @@ const makeAsync = async () => {
     } catch (err) {
         console.log(err);
     }
+
+
 };
 
 makeAsync();

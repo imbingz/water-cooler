@@ -11,11 +11,11 @@ const SearchButton = (props) => {
                 method: 'PUT'
             });
             const status = await request.json();
-            console.log(status);
+            // console.log(status);
             if (status.success) {
                 // window.alert('Done it');
             } else if (!status.success) {
-                window.alert('Not Done it');
+                console.log('server err');
             }
         } catch (err) {
             console.log({ err });
