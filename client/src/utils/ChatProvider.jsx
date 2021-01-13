@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useGlobalContext } from '../utils/GlobalContext';
 import { useSocket } from './SocketProvider';
 
@@ -16,13 +16,11 @@ export function ChatProvider({ children }) {
     const [roomChat, setRoomChat] = useState('');
     const [state, dispatch] = useGlobalContext();
     const socket = useSocket();
-    console.log('This is the socket', socket);
     const roomPageUrl = document.URL;
     let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
-    // console.log(currentRoomId);
-    
-    useEffect(() => {
-        const populateChat = async () => {
+
+    const populateChat = useCallback(
+        async () => {
             try {
                 const response = await fetch(
                     '/api/chat/get',
@@ -37,33 +35,38 @@ export function ChatProvider({ children }) {
                     }
                 );
                 const json = await response.json();
-                console.log(json);
                 setRoomChat(json.data);
+                setLastChat('');
             } catch (err) {
                 console.log({ err });
             }
-        };
-        populateChat();
+        },
+        [setRoomChat, roomUrlId],
+    );
 
+    useEffect(() => {
         if (socket == null) {
             return;
         }
 
+        populateChat();
+
         socket.on('set-id', id => {
             socket.id = id;
-            console.log(socket);
-        })
-        
-        socket.on('receive-chat', (message, roomId, userId, username) => {
-            // receiveChat(message, roomId, userId, username);
-            console.log('this is how many times receive chat is being received');
         });
-        
+
+        socket.on('receive-chat', (message, roomId, userId, username, socketId) => {
+            if (socket.id === socketId) {
+                receiveChat(message, roomId, userId, username);
+                return;
+            }
+            populateChat();
+        });
+
         return () => socket.off('receive-chat');
-    }, [socket, dispatch, roomUrlId, lastChat]);
-    
+    }, [socket, dispatch, roomUrlId, lastChat, populateChat]);
+
     const sendChat = (message, roomId, userId, username) => {
-        console.log(socket.id);
         socket.emit('send-chat', message, roomId, userId, username);
     };
 
@@ -77,7 +80,7 @@ export function ChatProvider({ children }) {
                     },
                     body: JSON.stringify({
                         message: message,
-                        roomId: roomId, 
+                        roomId: roomId,
                         userId: userId,
                         username: username
                     }),
@@ -91,9 +94,30 @@ export function ChatProvider({ children }) {
         }
     };
 
+    // const populateChat = async () => {
+    // try {
+    //     const response = await fetch(
+    //         '/api/chat/get',
+    //         {
+    //             headers: {
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify({
+    //                 roomId: roomUrlId
+    //             }),
+    //             method: 'POST'
+    //         }
+    //     );
+    //     const json = await response.json();
+    //     console.log(json);
+    //     setRoomChat(json.data);
+    // } catch (err) {
+    //     console.log({ err });
+    // }
+    // };
 
     return (
-        <ChatContext.Provider value={{sendChat, roomChat} }>
+        <ChatContext.Provider value={{ sendChat, roomChat }}>
             {children}
         </ChatContext.Provider>
     );

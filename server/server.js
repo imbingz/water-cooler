@@ -60,12 +60,11 @@ app.use(routes);
 io.on('connection', (socket) => {
     const id = socket.handshake.query.id;
     socket.id = id;
+    
     socket.emit('set-id', id);
 
     socket.on('send-chat', (message, roomId, userId, username) => {
-        console.log(id);
-        socket.broadcast.emit('receive-chat', message, roomId, userId, username);
-        console.log('hi fam from server');
+        socket.broadcast.emit('receive-chat', message, roomId, userId, username, id);
     });
     
     //******************************** Bing

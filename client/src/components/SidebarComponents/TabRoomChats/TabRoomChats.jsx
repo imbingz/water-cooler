@@ -31,14 +31,14 @@ function TabRoomChats() {
                 <section className='TabRoomChats-chat-body mt-3 mx-3'>
                     {
                         roomChat.map((chat) => (
-                            <div key={chat} className={chat.username==='eclarke' ? 'TabDmChats-chat-you' : ''}>
+                            <div key={chat._id} className={chat.username===username ? 'TabDmChats-chat-you' : ''}>
                                 <p className=' mb-1 text-muted TabRoomChats-chat-username'>
-                                    {chat.username==='eclarke' ? 'You' : chat.username}
+                                    {chat.username===username ? 'You' : chat.username}
                                     <small className='ml-1'>
                                         {chat.timestamp}
                                     </small>
                                 </p>
-                                <p className={chat.username==='eclarke' ? 'TabRoomChats-chat-msg-you px-3 py-1' : 'TabRoomChats-chat-msg px-3 py-1'}>
+                                <p className={chat.username===username ? 'TabRoomChats-chat-msg-you px-3 py-1' : 'TabRoomChats-chat-msg px-3 py-1'}>
                                     {chat.message} 
                                 </p>
                             </div>
