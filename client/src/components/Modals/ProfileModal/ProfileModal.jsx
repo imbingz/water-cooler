@@ -12,6 +12,7 @@ function ProfileModal(props) {
     // eslint-disable-next-line
     const { checkdb, friend, onHide } = props;
     const { _id } = JSON.parse(localStorage.getItem('USER'));
+    console.log(_id);
     // ** Used To Conditionally Render Unfriend Button
     // eslint-disable-next-line
     const [isFriend, setIsFriend] = useState(true);
@@ -72,7 +73,7 @@ function ProfileModal(props) {
                 <Button
                     onClick={async (e) => {
                         e.preventDefault();
-                        console.log(friend.friendId);
+                        // console.log(friend.friendId);
                         await unfriend(friend.friendId);
                         checkdb('friends');
                         // setIsFriend(false);

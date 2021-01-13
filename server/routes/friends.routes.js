@@ -109,7 +109,6 @@ router.post('/arrays', async ({ body }, res) => {
                 activeRoom: friends.activeRoom,
                 status: friends.status,
             };
-            console.log(userParsed);
 
             // *** Push Each Result to response
             response.push(userParsed);

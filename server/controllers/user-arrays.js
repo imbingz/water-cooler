@@ -9,7 +9,7 @@ const dbArray = {
                 { $addToSet: { [array]: insertId } },
                 { new: true }
             );
-            // console.log(user);
+            console.log(user);
             return user;
         } catch (err) {
             console.log(array + ' Arr Push Error: ', err);
@@ -23,7 +23,7 @@ const dbArray = {
                 { $pull: { [array]: insertId } },
                 { new: true }
             );
-            // console.log(user);
+            console.log(user);
             return user;
         } catch (err) {
             console.log(array + ' Arr Pull Error: ', err);
