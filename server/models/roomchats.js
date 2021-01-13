@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 const RoomChatSchema = new mongoose.Schema({
-    roomID: {
-        type: Number,
+    roomId: {
+        type: String,
         required: 'roomID is required'
     },
-    messages: {
+    message: {
         type: String,
         required: 'Message is required'
     },
@@ -13,9 +13,13 @@ const RoomChatSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    userID: {
+    userId: {
         type: String,
         required: 'userID is required'
+    },
+    username: {
+        type: String,
+        required: 'user is required'
     }
 });
 

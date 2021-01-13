@@ -57,15 +57,14 @@ app.use(routes);
 
 // const players = {};
 
-io.on('connect', (socket) => {
+io.on('connection', (socket) => {
     const id = socket.handshake.query.id;
     socket.id = id;
-    console.log('This is the socket ID: ' + socket.id);
+    
+    socket.emit('set-id', id);
 
-    socket.on('send-chat', (message) => {
-        console.log('recieve-chat from server', message);
-        socket.broadcast.emit('receive-chat', message);
-        console.log('hi fam from server');
+    socket.on('send-chat', (message, roomId, userId, username) => {
+        socket.broadcast.emit('receive-chat', message, roomId, userId, username, id);
     });
     
     //******************************** Bing
