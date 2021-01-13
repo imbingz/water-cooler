@@ -13,7 +13,12 @@
     "heroku-postbuild": "npm run build",
     "lint": "eslint client/src/**/*.jsx  client/src/**/*.js server/**/*.js",
     "lint:fix": "eslint client/src/**/*.jsx --fix client/src/**/*.js --fix server/**/*.js --fix",
-    "test": "cd client && npm run test"
+    "test:server": "jest --watch",
+    "test:client": "cd client && npm run test"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": ["/node_modules"]
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -35,7 +40,9 @@
     "yarn": "^1.22.10"
   },
   "devDependencies": {
+    "eslint": "^7.12.1",
+    "jest": "^26.6.0",
     "nodemon": "^2.0.6",
-    "eslint": "^7.12.1"
+    "supertest": "^6.0.1"
   }
 }

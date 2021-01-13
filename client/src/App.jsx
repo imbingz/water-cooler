@@ -11,7 +11,6 @@ import Login from './pages/depreciated/Login';
 import LoginModal from './components/Modals/LoginModal';
 // import Navbar from './components/depreciated/Navbar';
 import Profile from './pages/Profile';
-import Rooms from './pages/Rooms';
 import Search from './pages/depreciated/Search';
 import SideNav from './components/NavbarComponents/SideNav';
 import Signup from './pages/depreciated/Signup';
@@ -76,8 +75,7 @@ function App() {
                                     <Route exact path='/search' component={Search} />
                                     {/* will be profile:id */}
                                     <Route exact path='/profile' component={Profile} />
-                                    <Route exact path='/rooms' component={Rooms} />
-                                    <Route exact path='/rooms/:id' component={UserRoom} />
+                                    <Route exact path='/rooms/:id' component={RoomGUI} />
                                     {/* will be socialspace:id */}
                                     <Route exact path='/rooms/:id/:id' component={SocialSpace} />
                                     {/* Temporary Game Page  */}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useGlobalContext } from '../../../utils/GlobalContext.js';
 import { Button, Col, Row } from 'react-bootstrap';
@@ -7,10 +7,54 @@ import dummyFriendRooms from '../../../data/friends';
 // * CreateRoom Takes User Input To Create a Room. Prop Data is Used To Render The User's Friends
 function CreateRoom(props) {
 
-    const [{ roomStyle },] = useGlobalContext();
+    const [state, dispatch] = useGlobalContext();
+    const [roomName, setRoomName] = useState('');
+    const [roomDescription, setRoomDescription] = useState('');
 
     const history = useHistory();
 
+    useEffect(() => {
+        async function fetchRooms() {
+            try {
+                const response = await fetch('/api/room');
+                const json = await response.json();
+                dispatch({ type: 'getAll', payload: json.data });
+            } catch (err) {
+                console.log({ err });
+            }
+        }
+        fetchRooms();
+    }, [dispatch]);
+    
+    const createRoom = async (e) => {
+        e.preventDefault();
+        const { v4: uuidv4 } = require('uuid');
+        const roomUrlId = uuidv4();
+        const userId = JSON.parse(localStorage.getItem('USER'))._id;
+        try {
+            const response = await fetch(
+                '/api/room/create',
+                {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        roomName: roomName,
+                        roomDescription: roomDescription,
+                        publicRoomId: roomUrlId,
+                        userId: userId
+                    }),
+                    method: 'POST'
+                }
+            );
+            const json = await response.json();
+            dispatch({ type: 'createRoom', payload: json.data });
+            setRoomName('');
+            history.push('/rooms/' + roomUrlId);
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     // * Render Dummy Or DB Data
     // ** A Yes Value will Render The DOM with Data From Data Folder, Changing this to 'no' Will Render DOM with DB Data
@@ -27,21 +71,19 @@ function CreateRoom(props) {
 
     return (
         <Col xs={12} lg={7} md={6} className='pl-2 pb-3'>
-            <form 
-                // onSubmit={ console.log('call createRoom func')}
-            >
+            <form>
                 <Row>
                     <Col xs={12} md={6} className='d-flex flex-column align-middle pt-2'>
-                        <label htmlFor="inputRoomName" className='font-weight-bold'>Room Name: </label>
+                        <label htmlFor="roomName" className='font-weight-bold'>Room Name: </label>
                         <input
                             className='px-2'
                             required
-                            id="inputRoomName"
+                            id="roomName"
                             type='text'
-                            name='inputRoomName'
+                            name='roomName'
                             placeholder='Destiny 2 ...'
-                        // value={inputRoomName}
-                        // onChange={(e) => setRoomName(e.target.value)}
+                            value={roomName}
+                            onChange={(e) => setRoomName(e.target.value)}
                         />
                     </Col>
                     <Col xs={12} md={6} className='d-flex flex-column align-middle pt-2'>
@@ -52,8 +94,8 @@ function CreateRoom(props) {
                             type='text'
                             name='inputRoomDescription'
                             placeholder='Everything Destiny ...'
-                        // value={inputRoomName}
-                        // onChange={(e) => setRoomName(e.target.value)}
+                            value={roomDescription}
+                            onChange={(e) => setRoomDescription(e.target.value)}
                         />
                     </Col>
                 </Row>
@@ -79,11 +121,7 @@ function CreateRoom(props) {
                             className='border-0'
                             size='sm'
                             variant='danger'
-                            onClick={() => {
-                                console.log('btn roomStyle is:', roomStyle);
-
-                                history.push('/room');
-                            }}
+                            onClick={ createRoom }
                         >Create Room</Button>
                     </Col>
                 </Row>
