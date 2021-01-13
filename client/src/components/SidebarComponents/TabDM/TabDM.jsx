@@ -13,7 +13,7 @@ function TabDM(props) {
 
     // * Render Dummy Or DB Data
     // ** A Yes Value will Render The DOM with Data From Data Folder, Changing this to 'no' Will Render DOM with DB Data
-    let dummyData = 'yes';
+    let dummyData = 'no';
     let renderAllFriends;
 
     switch (dummyData) {

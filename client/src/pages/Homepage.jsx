@@ -5,19 +5,25 @@ import FriendsRoom from '../components/HomepageComponents/FriendsRoom';
 import RoomCarousel from '../components/HomepageComponents/RoomCarousel';
 import { useGlobalContext } from '../utils/GlobalContext';
 
+// * Homepage Requests User Friend Information to Render Open Rooms 
+// !* Note: A similar request is being made in TabNav, Future Development Will Make This Data Request Once 
+//    Then Send it Down To These Components 
 const Homepage = () => {
 
     const [{ USER },] = useGlobalContext();
     const _id = USER._id;
 
-    const [roomsData, setRoomsData] = useState([]);
+    // * Store Data in State For Use in CreateRoom and FriendRoom Components
     const [allFriends, setAllFriends] = useState([]);
+    const [roomsData, setRoomsData] = useState([]);
     
-    // ** Check User's DB to Get Their Friend IDs by passing 'friends'
+    // ** Check User's DB to Get Their Friend Data by passing 'friends'
     //    Then store updated array values in State
-    // !* This Should be Moved to a Sidebar Context Along with Associated States
+    // !* checkDBArrays is Used in Many Places Across the App and Will be Moved to a Context Utility with a More 
+    //    Robust Switch Statement For Querying Many Types of DB Information With A Single Argument Passed To it
     const checkDBArrays = useCallback(async (arr) => {
         try {
+            // * Make Request For IDs Stored In A Users Mongo Document
             const response = await fetch('/api/friends/arrays', {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ id: _id, case: arr }),
@@ -26,24 +32,13 @@ const Homepage = () => {
 
             const data = await response.json();
             // console.log(data);
+            // ** Determine How To Manage Requested Data in switch
             switch (arr) {
                 case 'friends':
-                    // console.log('friends: ', data.retUsers);
                     const friends = data.retUsers;
                     // ** Store All Friends In State
                     setAllFriends(friends);
-
-                    // ** Check for and Store Online and Offline Friends
-                    // const offline = [];
-                    // const online = [];
-                    // friends.forEach(fren => {
-                    //     (fren.status === 0) ? offline.push(fren) : online.push(fren);
-                    // });
-                    // setOffFriends(offline);
-                    // setOnFriends(online);
-                    // console.log({offline});
-
-                    // ** Check For and Store Active Rooms
+                    // ** Check For and Store Active Rooms IDs
                     const activeRooms = [];
                     friends.forEach(fren => {
                         if (fren.activeRoom) {
@@ -51,20 +46,16 @@ const Homepage = () => {
                         } 
                     });
                     // console.log(activeRooms);
-
+                    // ** Request Information For All Room IDs
                     const roomsRequest = await fetch('/api/room/findmany', {
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ ids: activeRooms }),
                         method: 'POST'
                     });
                     const roomsResponse = await roomsRequest.json();
+                    // ** Store Returned Data in State
                     setRoomsData(roomsResponse.data);
-
                     break;
-                // case 'inpending':
-                //     // console.log('inpending: ', data.retUsers);
-                //     setInpending(data.retUsers);
-                //     break;
                 default:
                     console.log('No valid array');
                     break;
@@ -74,7 +65,7 @@ const Homepage = () => {
         }
     }, [_id]);
 
-
+    // * On Page Load, Make A Request For DB Info On User's Friends
     useEffect(() => {
         checkDBArrays('friends');
     }, [checkDBArrays]);

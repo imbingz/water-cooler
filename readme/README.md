@@ -88,6 +88,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin est s
 
 ## Bugs
 
+TabFriends passes prop data to ProfileModal that triggers a react warning
+
 ## Future Development
 
 ## License
