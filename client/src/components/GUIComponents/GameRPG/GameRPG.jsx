@@ -3,7 +3,56 @@ import { useGlobalContext } from '../../../utils/GlobalContext';
 import Map from '../Map';
 
 
+//For the map responsiveness 
+function debounce(fn,ms) {
+    let timer;
+    return _ => {
+        clearTimeout(timer);
+        timer = setTimeout(_ => {
+            timer = null;
+            fn.apply(this, arguments);
+        }, ms);
+    };
+}
+
 function Game() {
+
+    const [dimensions, setDimensions] = useState({ 
+        height: window.innerHeight,
+        width: window.innerWidth
+    });
+
+    // tiles for our map - []
+    const [tiles, setTiles] = useState([]);
+
+    //manage tileset selection - with a default path to spring image
+    // const [tileset, setTileset] = useState('rpg-nature-tileset/spring');
+ 
+    // set default tileSize 
+    const [tileSize, setTitleSize] = useState({ width: 32, height: 32});
+  
+    // Handle window resize event 
+    useEffect(() => {
+        const debouncedHandleResize = debounce(() => {
+            setDimensions({
+                height: window.innerHeight >= 850 ? 850 : window.innerHeight,
+                width: window.innerWidth >= 1000 ? 1000 : window.innerWidth
+            });
+
+            setTitleSize({
+                height: window.innerWidth /38 + 5,
+                width: window.innerWidth /38 + 5
+            });
+        }, 100);
+  
+        window.addEventListener('resize', debouncedHandleResize);
+  
+        //clean up
+        return _ => {
+            window.removeEventListener('resize', debouncedHandleResize);
+      
+        };
+    }, [dimensions]);
 
     const tilesetData = require('../../../data/tilesets.json');
 
@@ -17,36 +66,26 @@ function Game() {
         }))
     }));
 
-    // tiles for our map - []
-    const [tiles, setTiles] = useState([]);
-
     const [{roomStyle}, ] = useGlobalContext();
 
     //manage tileset selection - with a default path to spring image
-    const [tileset, setTileset] = useState(`rpg-nature-tileset/${roomStyle}`);
+    const [tileset, setTileset] = useState(`choose-a-tileset/${roomStyle}`);
 
-    const [tileWidth, tileHeight] = [32, 32];
-    // const [tileSize, setTitleSize] = useState({ tileWidth, tileHeight });
-
-    const [tilesetGroup,] = tileset.split('/');
-
-    //use tilesetGroup and tilesetData to get the size
-    const { width, height } = tilesetData[tilesetGroup].size;
 
 
     useEffect(() => {
         //underscore here only signify that this varialbe will only be used inside of this code block.
         const _tiles = [];
         let id = 0;
-        for (let y = 0; y < Math.round(height / 32 * tileHeight); y = y + tileHeight) {
+        for (let y = 0; y < Math.round(dimensions.height / 32 * tileSize.height); y = y + tileSize.height) {
             const row = [];
-            for (let x = 0; x < Math.round(width / 32 * tileWidth); x = x + tileWidth) {
+            for (let x = 0; x < Math.round(dimensions.width / 32 * tileSize.width); x = x + tileSize.width) {
                 //push the row an obj with x, y, id
                 row.push({
                     id: id++,
                     x,
                     y,
-                    v: { x: -32, y: -32 }
+                    v: { x: -32, y: -32 } 
                 });
             }
 
@@ -59,15 +98,15 @@ function Game() {
 
     return (
         <div
-            style={ {
+            style={{
                 position: 'relative',
-                width: Math.round(width / 32 * tileWidth),
-                height: Math.round(height / 32 * tileHeight),
-                backgroundColor: 'grey',
-                overflow: 'hidden',
-                border: ' 1px solid black',
+                width:  Math.round(dimensions.width / 35 * tileSize.width),
+                height: dimensions.height>= 700 ? 700 : Math.round(dimensions.height / 50 * tileSize.height),
+                backgroundColor: 'white',
+                overflow: 'scroll',
+                border: ' 1px solid lightgrey',
                 margin: '10px auto'
-            } }>
+            }}>
 
             <Map
                 tileset={ tileset }
@@ -75,8 +114,8 @@ function Game() {
                 tiles={ tiles }
                 setTiles={ setTiles }
                 setTileset={ setTileset }
-                tileWidth={ tileWidth }
-                tileHeight={ tileHeight }
+                tileWidth={ tileSize.width}
+                tileHeight={ tileSize.height }
             />
         </div>
     );

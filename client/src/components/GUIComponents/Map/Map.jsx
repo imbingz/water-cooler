@@ -60,7 +60,7 @@ function Map({ tiles, tileset, tilesets, setTileset, tileHeight, tileWidth }) {
         <div
             style={{
                 position: 'absolute',
-                border: '1px solid grey',
+                border: '1px solid white',
                 top: 0,
                 left: 0,
                 zIndex: 5,
