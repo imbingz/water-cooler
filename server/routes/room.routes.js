@@ -31,7 +31,17 @@ router
                 roomCreator: req.body.userId
             })
             .then(data => {
-                res.json({ success: true, data });
+                User
+                    .find({ _id: { $in: req.body.roomFriends } })
+                    .then(friendInfo => {
+                        console.log('THIS IS MY FRIEND INFO', friendInfo[0])
+                        // const functionThing = test(friendInfo);
+                        for (let i = 0; i < friendInfo.length; i++) {
+                            // console.log(data.publicRoomId);
+                            User.inboundPendingRooms.push(friendInfo[i]._id, data.publicRoomId);
+                        }
+                    })
+                // res.json({ success: true, data });
             })
             .catch(err => {
                 res.json({ success: false } + err);
@@ -58,7 +68,7 @@ router
 
 router
     .route('/findmany')
-    .post(({body}, res) => {
+    .post(({ body }, res) => {
         Room
             .find({ _id: { $in: body.ids } })
             .then(data => {
