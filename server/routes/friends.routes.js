@@ -102,12 +102,12 @@ router.post('/arrays', async ({ body }, res) => {
         returnedUsers.forEach(friends => {
             console.log(friends.activeRoom);
             let userParsed = {
-                activeRoom: friends.activeRoom,
                 username: friends.username,
                 firstName: friends.firstName,
                 lastName: friends.lastName,
                 imageSrc: friends.imageSrc,
                 friendId: friends._id,
+                activeRoom: friends.activeRoom,
                 status: friends.status,
             };
             console.log(userParsed);
