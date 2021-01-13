@@ -144,7 +144,7 @@ function Tabnav() {
     }, [_id]);
 
 
-    // * On Page Load, Get Data For Room and Social Spaces
+    // * On Page Load, Get Data For Friends, Friend Requests, Rooms, and Social Spaces
     useEffect(() => {
         getRoomData();
         checkDBArrays('friends');
