@@ -13,7 +13,6 @@
     "heroku-postbuild": "npm run build",
     "lint": "eslint client/src/**/*.jsx  client/src/**/*.js server/**/*.js",
     "lint:fix": "eslint client/src/**/*.jsx --fix client/src/**/*.js --fix server/**/*.js --fix",
-    "test": "npm run test:server && npm run test:client",
     "test:server": "jest --watch",
     "test:client": "cd client && npm run test"
   },
