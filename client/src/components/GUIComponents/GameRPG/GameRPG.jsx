@@ -25,23 +25,21 @@ function Game() {
     // tiles for our map - []
     const [tiles, setTiles] = useState([]);
 
-    //manage tileset selection - with a default path to spring image
-    // const [tileset, setTileset] = useState('rpg-nature-tileset/spring');
  
     // set default tileSize 
-    const [tileSize, setTitleSize] = useState({ width: 32, height: 32});
+    const [tileSize, setTileSize] = useState({ width: 32, height: 32});
   
     // Handle window resize event 
     useEffect(() => {
         const debouncedHandleResize = debounce(() => {
             setDimensions({
-                height: window.innerHeight >= 850 ? 850 : window.innerHeight,
-                width: window.innerWidth >= 1000 ? 1000 : window.innerWidth
+                height: window.innerHeight,
+                width: window.innerWidth
             });
 
-            setTitleSize({
-                height: window.innerWidth /38 + 5,
-                width: window.innerWidth /38 + 5
+            setTileSize({
+                height: (window.innerHeight > 1000 ? 1000 : window.innerHeight) /38 + 5,
+                width:  (window.innerWidth > 850 ? 850 : window.innerWidth) /38 + 5
             });
         }, 100);
   
@@ -71,15 +69,13 @@ function Game() {
     //manage tileset selection - with a default path to spring image
     const [tileset, setTileset] = useState(`choose-a-tileset/${roomStyle}`);
 
-
-
     useEffect(() => {
         //underscore here only signify that this varialbe will only be used inside of this code block.
         const _tiles = [];
         let id = 0;
-        for (let y = 0; y < Math.round(dimensions.height / 32 * tileSize.height); y = y + tileSize.height) {
+        for (let y = 0; y < (window.innerHeight - 100); y = y + tileSize.height) {
             const row = [];
-            for (let x = 0; x < Math.round(dimensions.width / 32 * tileSize.width); x = x + tileSize.width) {
+            for (let x = 0; x < (window.innerWidth > 1000 ? 1000 : (window.innerWidth - 100)); x = x + tileSize.width) {
                 //push the row an obj with x, y, id
                 row.push({
                     id: id++,
@@ -100,12 +96,12 @@ function Game() {
         <div
             style={{
                 position: 'relative',
-                width:  Math.round(dimensions.width / 35 * tileSize.width),
-                height: dimensions.height>= 700 ? 700 : Math.round(dimensions.height / 50 * tileSize.height),
+                width:  (window.innerWidth > 1000) ? 1000 : (window.innerWidth - 100),
+                height: window.innerHeight - 100,
                 backgroundColor: 'white',
-                overflow: 'scroll',
+                overflow: 'hidden',
                 border: ' 1px solid lightgrey',
-                margin: '10px auto'
+                margin: '10px'
             }}>
 
             <Map
