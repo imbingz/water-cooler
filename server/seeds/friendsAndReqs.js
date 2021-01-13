@@ -1,7 +1,7 @@
 require('../config/db')();
 const db = require('../models');
 
-const yourID = '5ffea425da62691020ad8352';
+const yourID = '5fff7749471fb99e843da5b2';
 // * Paste Your ID in _ID
 const makeAsync = async () => {
 
@@ -75,6 +75,8 @@ const makeAsync = async () => {
     } catch (err) {
         console.log(err);
     }
+
+
 };
 
 makeAsync();
