@@ -1,80 +1,63 @@
 const router = require('express').Router();
-const bcrypt = require('bcryptjs');
 const passport = require('../config/passport');
 const db = require('../models');
 const authRequired = require('../middlewares/authRequired');
 
 // api/user/signup
-router.post('/signup', ({body}, res) => {
+router.post('/signup', async ({body}, res, next) => {
 
-      
-    const { email, password, username, firstName, lastName, imageSrc } = body;
+    try {
+ 
+        const { email, password, username, firstName, lastName, imageSrc } = body;
 
-    if (!email || !password || !username ||!firstName || !lastName || !imageSrc) {
+        if (!email || !password || !username ||!firstName || !lastName || !imageSrc) {
       
-        return res.status(422).json({ error: 'Please fill all the fields' });
-    }
+            return res.status(422).json({ error: 'Please fill all the fields' });
+        }
   
+        const savedUser = await db.User.findOne({ email: email });
 
-    db.User
-        .findOne({ email: email })
-        .then(savedUser => {
-            if (savedUser) {
-                return res.status(422).json({ error: 'user already exists with that email' });
-            }
-            //hash user password before saving to db - do this in schema ?
-            bcrypt.hash(password, 12).then(hashedpassword => {
-            
-                const user = new db.User({
-                    firstName,
-                    lastName,
-                    username,
-                    email,
-                    password: hashedpassword,
-                    imageSrc
-                });
-                //add new user to db
-                user
-                    .save()
-                    .then( () => {
-                        res.json({ success: true, message: ' user saved in db successfully' });
-                    })
-                    .catch(err => console.error(err));
-            });
-        })
-        .catch(err => console.error(err));
+        if (savedUser) {
+            return res.status(422).json({ error: 'user already exists with that email' });
+        }  
+        const user = new db.User(body);
+        await user.save();
+        
+        res.json({ success: true, message: ' user saved in db successfully' });
+    
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
 });
 
 
 // api/user/login
 router.post('/login', passport.authenticate('local', {failureRedirect: '/'}), (req, res) => {  
-    // ********* DELETE LATER *********** //
-    // console.log(req.session);
 
     return res.status(200).json({success: true, user: req.user });
 });
 
 
 // api/user/login
-router.put('/profile', authRequired, ({ body }, res) => {
+router.put('/profile', authRequired, async ({ body }, res, next) => {
+    try{
+        const savedUser = await db.User.findByIdAndUpdate({ _id: body.user._id }, body.user, { new: true });
 
-    db.User
-        .findByIdAndUpdate({ _id: body.user._id }, body.user, { new: true })
-        .then(savedUser => {
-            if (!savedUser) {
-                return res.status(422).json({ error: 'Could not find this user' });
-            }
+        if (!savedUser) {
+            return res.status(422).json({ error: 'Could not find this user' });
+        }
 
-            res.json({ success: true, user: savedUser });
-        })
-        .catch(err => {
-            console.log(err);
-        });
+        res.json({ success: true, user: savedUser });
+
+    } catch (err) {
+        console.error(err);
+        next(err);
+    }
 });
 
-
 // api/user/logout
-router.get('/logout', (req, res) => {
+router.get('/logout', (req, res, next) => {
     if (req.session) {
         req.session.destroy();
         req.logout();
