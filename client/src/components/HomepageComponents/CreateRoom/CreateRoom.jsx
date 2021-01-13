@@ -3,9 +3,8 @@ import { useHistory } from 'react-router-dom';
 import { useGlobalContext } from '../../../utils/GlobalContext.js';
 import { Button, Col, Row } from 'react-bootstrap';
 import dummyFriendRooms from '../../../data/friends';
-import { v4 as uuidv4 } from 'uuid';
 
-
+// * CreateRoom Takes User Input To Create a Room. Prop Data is Used To Render The User's Friends
 function CreateRoom(props) {
 
     const [state, dispatch] = useGlobalContext();
@@ -106,7 +105,7 @@ function CreateRoom(props) {
                         <div className='d-flex flex-row flex-nowrap align-items-center overflow-auto'>
                             {
                                 renderFriends.map(friend => (
-                                    <div key={uuidv4()} className='d-flex flex-column align-items-center mr-1'>
+                                    <div key={friend.friendId} className='d-flex flex-column align-items-center mr-1'>
                                         <img src={friend.imageSrc} alt={friend.username} style={{ width: 48, height: 48, borderRadius: '50%' }} />
                                         <small>{friend.username.substr(0, 5)}</small>
                                     </div>

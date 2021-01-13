@@ -5,11 +5,9 @@ import { CgProfile } from 'react-icons/cg';
 import { IconContext } from 'react-icons';
 import { IoIosPeople } from 'react-icons/io';
 import dummyFriendRooms from '../../../data/friendsRoom';
-import { v4 as uuidv4 } from 'uuid';
 
-
+// * FriendsRoom Will Render Any Currently Open Rooms Hosted By a User's Friend Using prop Data From Homepage
 function FriendsRoom(props) {
-    console.log(props);
 
     // * Render Dummy Or DB Data
     // ** A Yes Value will Render The DOM with Data From Data Folder, Changing this to 'no' Will Render DOM with DB Data
@@ -32,7 +30,7 @@ function FriendsRoom(props) {
             <Row className='d-flex flex-wrap justify-content-around align-items-sm-center'>
                 
                 {renderRooms.map(room => (
-                    <div className="my-3" key={uuidv4()}>
+                    <div className="my-3" key={room._id}>
                         <Col className='mb-4'>
                             <Card style={{ width: '325px' }} className='p-4'>
                                 <Card.Img variant="top" src={room.roomImg} style={{width: 288, height: 185}}/>
@@ -47,6 +45,7 @@ function FriendsRoom(props) {
                                                 <i><CgProfile /> </i>
                                                 <span>{room.roomCreator} </span>
                                             </div>
+                                            {/* !* We have no logic to check room duration in place and this will remain disabled for future development */}
                                             {/* <div>
                                                 <i><MdAvTimer /> </i>
                                                 <span> {room.duration}</span>
