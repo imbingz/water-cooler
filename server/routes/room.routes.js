@@ -1,6 +1,6 @@
 const db = require('../models');
 const router = require('express').Router();
-const { Room } = require('../models');
+const { Room, User } = require('../models');
 
 // populates rooms page with public rooms
 router
@@ -22,7 +22,7 @@ router
 router
     .route('/create')
     .post((req, res) => {
-        console.log('create');
+        console.log(req.body);
         Room
             .create({
                 roomName: req.body.roomName,
@@ -36,6 +36,10 @@ router
             .catch(err => {
                 res.json({ success: false } + err);
             });
+        // User
+        //     .find({
+
+        //     })
     });
 
 // gathers rooms based on id

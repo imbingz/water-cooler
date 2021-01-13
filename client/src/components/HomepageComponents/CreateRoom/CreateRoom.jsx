@@ -8,12 +8,14 @@ import dummyFriendRooms from '../../../data/friends';
 function CreateRoom(props) {
 
     const [state, dispatch] = useGlobalContext();
+    const [roomFriends, setRoomFriends] = useState([]);
     const [roomName, setRoomName] = useState('');
     const [roomDescription, setRoomDescription] = useState('');
 
     const history = useHistory();
 
     useEffect(() => {
+        console.log(roomFriends)
         async function fetchRooms() {
             try {
                 const response = await fetch('/api/room');
@@ -24,7 +26,7 @@ function CreateRoom(props) {
             }
         }
         fetchRooms();
-    }, [dispatch]);
+    }, [dispatch, roomFriends]);
     
     const createRoom = async (e) => {
         e.preventDefault();
@@ -42,7 +44,8 @@ function CreateRoom(props) {
                         roomName: roomName,
                         roomDescription: roomDescription,
                         publicRoomId: roomUrlId,
-                        userId: userId
+                        userId: userId,
+                        roomFriends: roomFriends
                     }),
                     method: 'POST'
                 }
@@ -54,6 +57,15 @@ function CreateRoom(props) {
         } catch (err) {
             console.log(err);
         }
+    };
+
+    const addFriendToRoom = (friendId) => {
+        console.log(friendId);
+        let friendArray = [];
+        friendArray.push(...roomFriends, friendId);
+        console.log(friendArray);
+        setRoomFriends(friendArray);
+
     };
 
     // * Render Dummy Or DB Data
@@ -105,7 +117,12 @@ function CreateRoom(props) {
                         <div className='d-flex flex-row flex-nowrap align-items-center overflow-auto'>
                             { renderFriends && 
                                 renderFriends.map(friend => (
-                                    <div key={friend.friendId} className='d-flex flex-column align-items-center mr-1'>
+                                    <div
+                                        key={friend.friendId}
+                                        id={friend.friendId}
+                                        className='d-flex flex-column align-items-center mr-1'
+                                        onClick={(e) => addFriendToRoom(e.currentTarget.id)}
+                                    >
                                         <img src={friend.imageSrc} alt={friend.username} style={{ width: 48, height: 48, borderRadius: '50%' }} />
                                         <small>{friend.username.substr(0, 5)}</small>
                                     </div>
