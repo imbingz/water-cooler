@@ -16,7 +16,7 @@ import SideNav from './components/NavbarComponents/SideNav';
 import Signup from './pages/depreciated/Signup';
 import Slider from './components/SidebarComponents/Slider';
 import SocialSpace from './pages/SocialSpace';
-import UserRoom from './pages/UserRoom';
+// import UserRoom from './pages/UserRoom';
 import { useGlobalContext } from './utils/GlobalContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // Temporary pages 

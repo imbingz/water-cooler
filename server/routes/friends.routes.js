@@ -138,7 +138,7 @@ router.put('/request', async ({ body }, res) => {
     } catch (err) {
         console.log('/api/friends/req error: ', err);
         res.json({ success: false });
-    } then((res) => console.log(res));
+    } 
 });
 
 // * Unfriend Friend
