@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useGlobalContext } from '../utils/GlobalContext';
 import { useSocket } from './SocketProvider';
 
 const ChatContext = createContext();
@@ -11,24 +12,49 @@ export function useChat() {
 }
 
 export function ChatProvider({ children }) {
-    // const [chatMessage, setChatMessage] = useState('');
+    const [lastChat, setLastChat] = useState('');
+    const [state, dispatch] = useGlobalContext();
     const socket = useSocket();
+    const roomPageUrl = document.URL;
+    let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
+    // console.log(currentRoomId);
     
     useEffect(() => {
+        console.log(lastChat);
+        const populateChat = async () => {
+            try {
+                const response = await fetch(
+                    '/api/chat/get',
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            roomId: roomUrlId
+                        }),
+                        method: 'POST'
+                    }
+                );
+                const json = await response.json();
+                console.log(json);
+            } catch (err) {
+                console.log({ err });
+            }
+        };
+        populateChat();
+
         if (socket == null) {
             return;
         }
         
         socket.on('receive-chat', (message, roomId, userId, username) => {
-            console.log('made it back to receive chat socket on', (message + roomId + userId + username));
             receiveChat(message, roomId, userId, username);
         });
         
         return () => socket.off('receive-messag');
-    }, [socket]);
+    }, [socket, dispatch, roomUrlId, lastChat]);
     
     const sendChat = (message, roomId, userId, username) => {
-        console.log('send-chat from ChatProvider', (`${message} | ${roomId} | ${userId} | ${username}`));
         socket.emit('send-chat', message, roomId, userId, username);
     };
 
@@ -43,17 +69,19 @@ export function ChatProvider({ children }) {
                     body: JSON.stringify({
                         message: message,
                         roomId: roomId, 
-                        userId: userId
+                        userId: userId,
+                        username: username
                     }),
                     method: 'POST'
                 }
             );
             const json = await response.json();
-            console.log(json);
+            setLastChat(json.data._id);
         } catch (err) {
             console.log({ err });
         }
     };
+
 
     return (
         <ChatContext.Provider value={{sendChat} }>
