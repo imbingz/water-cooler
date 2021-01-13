@@ -75,7 +75,7 @@ function App() {
                                     <Route exact path='/search' component={Search} />
                                     {/* will be profile:id */}
                                     <Route exact path='/profile' component={Profile} />
-                                    <Route exact path='/rooms/:id' component={UserRoom} />
+                                    <Route exact path='/rooms/:id' component={RoomGUI} />
                                     {/* will be socialspace:id */}
                                     <Route exact path='/rooms/:id/:id' component={SocialSpace} />
                                     {/* Temporary Game Page  */}
