@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BiSmile } from 'react-icons/bi';
 import { IoIosSend } from 'react-icons/io';
 import roomChats from '../../../data/roomChats';
 import {v4 as uuidv4} from 'uuid';
+import { useChat } from '../../../utils/ChatProvider';
 import './TabRoomChats.css';
 
 function TabRoomChats() {
+    const [messageInput, setMessageValue] = useState('');
+    const { sendChat } = useChat();
+
+    const sendMessage = async (e) => {
+        e.preventDefault();
+        try {
+            sendChat(messageInput);
+            setMessageValue('');
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     return (
         <>
             <article className='TabRoomChats-chat-wrapper d-flex flex-column'>
@@ -31,7 +45,14 @@ function TabRoomChats() {
 
                 <section className='TabRoomChats-chat-footer pt-3 pl-4'>
                     <form >
-                        <label htmlFor='room-chat-input'>
+                        <label
+                            required
+                            htmlFor='room-chat-input'
+                            type='text'
+                            name='messageInput'
+                            value={messageInput}
+                            onChange={(e) => setMessageValue(e.target.value)}
+                        >
                             <BiSmile size={25} style={{fill: 'black'}}/>
                         </label>
 
@@ -46,6 +67,7 @@ function TabRoomChats() {
                         <button 
                             className='TabRoomChats-chat-btn'
                             type='submit'
+                            onClick={sendMessage}
                         >
                             <IoIosSend size={23} style={{fill: '#08f'}}/>
                         </button>

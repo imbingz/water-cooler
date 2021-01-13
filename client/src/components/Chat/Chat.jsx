@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useChat } from '../../utils/ChatProvider';
 
 const Chat = () => {
+    
     const [messageInput, setMessageValue] = useState('');
     // const roomPageUrl = document.URL;
     // let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
