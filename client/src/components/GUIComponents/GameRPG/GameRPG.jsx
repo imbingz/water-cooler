@@ -35,8 +35,8 @@ function Game() {
     useEffect(() => {
         const debouncedHandleResize = debounce(() => {
             setDimensions({
-                height: window.innerHeight,
-                width: window.innerWidth
+                height: window.innerHeight >= 850 ? 850 : window.innerHeight,
+                width: window.innerWidth >= 1000 ? 1000 : window.innerWidth
             });
 
             setTitleSize({
@@ -100,7 +100,7 @@ function Game() {
         <div
             style={{
                 position: 'relative',
-                width: dimensions.width >= 1100 ? 1100 : Math.round(dimensions.width / 35 * tileSize.width),
+                width:  Math.round(dimensions.width / 35 * tileSize.width),
                 height: dimensions.height>= 700 ? 700 : Math.round(dimensions.height / 50 * tileSize.height),
                 backgroundColor: 'white',
                 overflow: 'scroll',
