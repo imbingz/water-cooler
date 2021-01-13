@@ -2,13 +2,13 @@
 // invites, or anywhere that needs friends 😅
 
 db.users.update(
-    { _id: ObjectId('5fe95ba00f314f7ed4fd4e8a') },
+    { _id: ObjectId('5ffe4594138b1f47b47b297c') },
     {
         $set:
             { friends: [
-                '5fea6c910d23ba0324c14d1a',
-                '5fea6c910d23ba0324c14d19',
-                '5fea6c910d23ba0324c14d18'
+                '5ffe44e90d7aad355c48f71b',
+                '5ffe44e90d7aad355c48f71c',
+                '5ffe44e90d7aad355c48f71d'
             ] }
     },
     { new: true }
@@ -16,7 +16,7 @@ db.users.update(
 );
 
 db.users.update(
-    { _id: ObjectId('5fe95ba00f314f7ed4fd4e8a') },
+    { _id: ObjectId('5ffe4594138b1f47b47b297c') },
     {
         $set:
             { outboundPendingFriends: [] }
@@ -26,12 +26,12 @@ db.users.update(
 );
 
 db.users.update(
-    { _id: ObjectId('5fe95ba00f314f7ed4fd4e8a') },
+    { _id: ObjectId('5ffe4594138b1f47b47b297c') },
     {
         $set:
             { inboundPendingFriends: [
-                '5fea6c910d23ba0324c14d1a',
-                '5fea6c910d23ba0324c14d19',
+                '5ffe44e90d7aad355c48f71f',
+                '5ffe44e90d7aad355c48f723',
             ] }
     },
     { new: true }

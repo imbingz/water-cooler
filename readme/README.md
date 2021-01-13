@@ -9,6 +9,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin est s
 * [Development](#Development)
 * [Server](#Server)
 * [Client](#Client)
+* [Tests](#Tests)
 * [Bugs](#Bugs)
 * [Future Development](#Future-Development)
 * [License](#License)
@@ -82,6 +83,8 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin est s
 #### Sidebar
 
 > [Back To Components](#Components) || [Back To Client](#Client) || [Back To Table of Contents](#Table-of-Contents)
+
+## Tests
 
 ## Bugs
 

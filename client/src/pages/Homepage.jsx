@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import CreateRoom from '../components/HomepageComponents/CreateRoom';
 import FriendsRoom from '../components/HomepageComponents/FriendsRoom';
@@ -9,9 +9,10 @@ const Homepage = () => {
 
     const [{ USER },] = useGlobalContext();
     const _id = USER._id;
-    console.log(_id);
-    
 
+    const [roomsData, setRoomsData] = useState([]);
+    const [allFriends, setAllFriends] = useState([]);
+    
     // ** Check User's DB to Get Their Friend IDs by passing 'friends'
     //    Then store updated array values in State
     // !* This Should be Moved to a Sidebar Context Along with Associated States
@@ -24,13 +25,13 @@ const Homepage = () => {
             });
 
             const data = await response.json();
-            console.log(data);
+            // console.log(data);
             switch (arr) {
                 case 'friends':
                     // console.log('friends: ', data.retUsers);
                     const friends = data.retUsers;
                     // ** Store All Friends In State
-                    // setAllFriends(friends);
+                    setAllFriends(friends);
 
                     // ** Check for and Store Online and Offline Friends
                     // const offline = [];
@@ -46,10 +47,19 @@ const Homepage = () => {
                     const activeRooms = [];
                     friends.forEach(fren => {
                         if (fren.activeRoom) {
-                            console.log(fren.activeRoom);
                             activeRooms.push(fren.activeRoom);
                         } 
                     });
+                    // console.log(activeRooms);
+
+                    const roomsRequest = await fetch('/api/room/findmany', {
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ ids: activeRooms }),
+                        method: 'POST'
+                    });
+                    const roomsResponse = await roomsRequest.json();
+                    setRoomsData(roomsResponse.data);
+
                     break;
                 // case 'inpending':
                 //     // console.log('inpending: ', data.retUsers);
@@ -83,13 +93,17 @@ const Homepage = () => {
                     {/* RoomCarousel Component */}    
                     <RoomCarousel />
                     {/* CreateRoom Component */}          
-                    <CreateRoom/>
+                    <CreateRoom
+                        allFriends={allFriends}
+                    />
                 </Row>
             </Container>
 
             <Container className='my-5 p-3' style={{backgroundColor: '#0af'}}> 
                 {/* FriendsRoom Component */}    
-                <FriendsRoom/>
+                <FriendsRoom
+                    roomsData={roomsData}
+                />
             </Container>
         </Container>
     );

@@ -100,7 +100,6 @@ router.post('/arrays', async ({ body }, res) => {
 
         // * Loop Through Results to Store Relevant Data in an Object
         returnedUsers.forEach(friends => {
-            console.log(friends.activeRoom);
             let userParsed = {
                 username: friends.username,
                 firstName: friends.firstName,
