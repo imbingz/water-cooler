@@ -39,10 +39,10 @@ app.use(passport.session());
 app.use(routes);
 
 //Set up err handling
-app.use((req, res, next) => {
-    //Create custom err message
-    next(createError(404, 'Not found'));
-});
+// app.use((req, res, next) => {
+//     //Create custom err message
+//     next(createError(404, 'Not found'));
+// });
 
 //Create a error handling middleware
 app.use((err, req, res) => {
