@@ -38,6 +38,10 @@ const SidebarUsersCont = (props) => {
                         toast.success('Added Friend!', {
                             position: toast.POSITION.TOP_RIGHT
                         });
+                    } else {
+                        toast.error('Failed to Add Friend!', {
+                            position: toast.POSITION.TOP_RIGHT
+                        });
                     }
                 } catch (err) {
                     console.log({ err });
@@ -67,13 +71,18 @@ const SidebarUsersCont = (props) => {
                     const status = await request.json();
                     console.log(status.success);
                     if (status.success) {
-                        toast.error('Declined Friend Request', {
+                        toast.warning('Declined Friend Request', {
+                            position: toast.POSITION.TOP_RIGHT
+                        });
+                    } else {
+                        toast.error('Failed to Decline Friend Request', {
                             position: toast.POSITION.TOP_RIGHT
                         });
                     }
                 } catch (err) {
                     console.log({ err });
                 }
+                
                 break;
             // ** Send User and Friend's IDs to Server To Process Accepting Room Invite
             case 'room':
