@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { RoomChat, User } = require('../models');
+const { RoomChat } = require('../models');
 
 // populates room with social spaces in the room
 router
