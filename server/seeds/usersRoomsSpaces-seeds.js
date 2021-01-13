@@ -152,13 +152,13 @@ const makeAsync = async () => {
         users.forEach(user => {
             userIdArr.push(user._id);
         });
-        console.log(userIdArr.length);
+        // console.log(userIdArr.length);
 
         // * Create Room Seed Data using userIdArr
         await db.Room.insertMany([
             {
                 roomName: 'Room Name One',
-                publicRoomId: 'someString',
+                publicRoomId: '12345',
                 roomUsers: [userIdArr[1], userIdArr[2], userIdArr[5]],
                 roomCreator: userIdArr[0],
                 roomImg: 'assets/images/roomImg/cafe-doubled.png',
@@ -167,7 +167,7 @@ const makeAsync = async () => {
             }, 
             {
                 roomName: 'Room Name Two',
-                publicRoomId: 'someString',
+                publicRoomId: '52341',
                 roomUsers: [userIdArr[4]],
                 roomCreator: userIdArr[3],
                 roomImg: 'assets/images/roomImg/casino-doubled.png',
@@ -176,7 +176,7 @@ const makeAsync = async () => {
             },
             {
                 roomName: 'Room Name Three',
-                publicRoomId: 'someString',
+                publicRoomId: '31245',
                 roomUsers: [userIdArr[7], userIdArr[8]],
                 roomCreator: userIdArr[6],
                 roomImg: 'assets/images/roomImg/cafe-doubled.png',
@@ -196,19 +196,19 @@ const makeAsync = async () => {
         // * Social Space Seed Data using userIdArr
         await db.SocialSpace.insertMany([
             {
-                publicRoomId: 'some public room id',
+                publicRoomId: '12345',
                 socialSpaceName: 'Space Name One',
                 publicSocialSpaceId: 'some public space id',
                 socialSpaceUsers: [userIdArr[1], userIdArr[3]],
             },
             {
-                publicRoomId: 'some public room id',
+                publicRoomId: '14235',
                 socialSpaceName: 'Space Name Two',
                 publicSocialSpaceId: 'some public space id',
                 socialSpaceUsers: [userIdArr[5]],
             },
             {
-                publicRoomId: 'some public room id',
+                publicRoomId: '13425',
                 socialSpaceName: 'Space Name Three',
                 publicSocialSpaceId: 'some public space id',
                 socialSpaceUsers: [userIdArr[2], userIdArr[8], userIdArr[7]],
