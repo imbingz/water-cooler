@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Carousel } from 'react-bootstrap';
-import features from '../../../data/features';
+import features from '../../../data/production.features';
 
 
 function LandingCarousel() {

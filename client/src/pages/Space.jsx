@@ -9,11 +9,11 @@ function Space() {
                 <div style={{backgroundColor:'lightyellow'}} className='d-flex justify-content-center flex-wrap'>
                     <div className='p-3'>
                         <h6 className='text-muted'>The-King-Oryx</h6>
-                        <video autoplay playsinline src='/assets/demo/temp-video.mp4' style={{width: 500}}></video>      
+                        <video autoplay playsinline src='/assets/demo/landing.mp4' style={{width: 500}}></video>      
                     </div>
                     <div className='p-3'>
                         <h6 className='text-muted'>The-King-Oryx</h6>
-                        <video autoplay playsinline src='/assets/demo/temp-video.mp4' style={{width: 500}}></video>      
+                        <video autoplay playsinline src='/assets/demo/landing.mp4' style={{width: 500}}></video>      
                     </div>
                 </div>
             </section>
