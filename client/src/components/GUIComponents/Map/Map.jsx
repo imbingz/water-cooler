@@ -9,7 +9,6 @@ function Map({ tiles, tileset, tilesets, setTileset, tileHeight, tileWidth }) {
     const { player, players, greeting, emitMovement } = useGUI();
     console.log(player, players);
 
-
     return (
         <div
             style={{
@@ -21,26 +20,24 @@ function Map({ tiles, tileset, tilesets, setTileset, tileHeight, tileWidth }) {
                 backgroundColor: 'white'
             }}>
 
-            {greeting && <h6> { greeting } </h6> } */}
+            <h6> {greeting} </h6>
 
             {Object.keys(players).map(key => {
                 console.log(key, player.id);
                 if (key === player.id) {
                     return (
                         <Player
-                            pos={ players[key] }
-                            emitPos={ pos => emitMovement(pos) }
-                            // message={players[key].message}
-
-
+                            pos={players[key]}
+                            emitPos={pos => emitMovement(pos)}
+                            message={players[key].message}
                         />
                     );
                 }
 
                 return (
-                    <Player pos={ players[key] } />
+                    <Player pos={players[key]} />
                 );
-            }) }
+            })}
 
             <div style={{ display: 'flex', justifyContent: 'center', padding: 10 }}>
                 <div style={{ padding: 8 }}><span> Choose Room Settings </span></div>
