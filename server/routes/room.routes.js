@@ -22,7 +22,6 @@ router
 router
     .route('/create')
     .post((req, res) => {
-        console.log(req.body);
         Room
             .create({
                 roomName: req.body.roomName,
@@ -31,25 +30,24 @@ router
                 roomCreator: req.body.userId
             })
             .then(data => {
-                User
-                    .find({ _id: { $in: req.body.roomFriends } })
-                    .then(friendInfo => {
-                        console.log('THIS IS MY FRIEND INFO', friendInfo[0])
-                        // const functionThing = test(friendInfo);
-                        for (let i = 0; i < friendInfo.length; i++) {
-                            // console.log(data.publicRoomId);
-                            User.inboundPendingRooms.push(friendInfo[i]._id, data.publicRoomId);
-                        }
-                    })
-                // res.json({ success: true, data });
+                for (let i = 0; i < req.body.roomFriends.length; i++) {
+                    User
+                        .findByIdAndUpdate(
+                            { _id: req.body.roomFriends[i] },
+                            { $addToSet: { inboundPendingRooms: data.publicRoomId } }
+                        )
+                        .then(success => {
+                            console.log(success);
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        });
+                }
+                res.json({ success: true, data });
             })
             .catch(err => {
                 res.json({ success: false } + err);
-            });
-        // User
-        //     .find({
-
-        //     })
+            }); 
     });
 
 // gathers rooms based on id
