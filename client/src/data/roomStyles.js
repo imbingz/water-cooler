@@ -15,12 +15,12 @@ const roomStyles = [
     //     variants:'winter'
     // },
     {
-        src: '/sprites/rpg-nature-tileset/cafe.png',
+        src: '/sprites/choose-a-tileset/cafe.png',
         title: 'Theme Set - Cafe',
         variants:'cafe'
     },
     {
-        src: '/sprites/rpg-nature-tileset/casino.png',
+        src: '/sprites/choose-a-tileset/casino.png',
         title: 'Theme Set - Casino',
         variants:'casino'
     },

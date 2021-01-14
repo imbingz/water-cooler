@@ -4,7 +4,7 @@ const routes = require('./routes');
 const path = require('path');
 const session = require('express-session');
 const passport = require('./config/passport');
-const createError = require('http-errors');
+// const createError = require('http-errors');
 
 // const cors = require('cors');
 const app = express();
@@ -39,33 +39,32 @@ app.use(passport.session());
 app.use(routes);
 
 //Set up err handling
-app.use((req, res, next) => {
-    //Create custom err message
-    next(createError(404, 'Not found'));
-});
+// app.use((req, res, next) => {
+//     //Create custom err message
+//     next(createError(404, 'Not found'));
+// });
 
 //Create a error handling middleware
-app.use((err, req, res) => {
-    res.status(err.status || 500);
-    res.send({
-        error: {
-            status: err.status || 500,
-            message: err.message,
-        },
-    });
-});
+// app.use((err, req, res) => {
+//     res.status(err.status || 500);
+//     res.send({
+//         error: {
+//             status: err.status || 500,
+//             message: err.message,
+//         },
+//     });
+// }); 
 
 // const players = {};
 
-io.on('connect', (socket) => {
+io.on('connection', (socket) => {
     const id = socket.handshake.query.id;
     socket.id = id;
-    console.log('This is the socket ID: ' + socket.id);
+    
+    socket.emit('set-id', id);
 
-    socket.on('send-chat', (message) => {
-        console.log('recieve-chat from server', message);
-        socket.broadcast.emit('receive-chat', message);
-        console.log('hi fam from server');
+    socket.on('send-chat', (message, roomId, userId, username) => {
+        socket.broadcast.emit('receive-chat', message, roomId, userId, username, id);
     });
     
     //******************************** Bing

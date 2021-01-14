@@ -1,13 +1,36 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button, Overlay, Popover } from 'react-bootstrap';
+import useSound from 'use-sound';
 
 function Sprite({position, message, step=0, dir=0}) {
+
+    //Sound play setup 
+    const soundUrl = '/assets/hello.mp3';
+    const [play, { stop }] = useSound(
+        soundUrl,
+        { volume: 0.5 }
+    );
+
 
     // For popover button
     const [show, setShow] = useState(false);
     const [target, setTarget] = useState(null);
     const ref = useRef(null);
 
+    // Play sound when message pops up
+    useEffect(() => {
+        if(message) {
+            // setIsHovering(true);
+            play();
+        }
+
+        return () => {
+            // setIsHovering(false);
+            stop();
+        };
+    }, [message, play, stop]);
+
+    //Handle popover display
     const handleClick = (event) => {
         setShow(!show);
         setTarget(event.target);

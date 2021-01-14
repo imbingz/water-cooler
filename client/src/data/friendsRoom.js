@@ -7,6 +7,7 @@ const friendsRoom = [
         roomCreator: 'Atheon',
         roomUsers: [0,1,2,3,4,5],
         duration: '16min',
+        _id: 1
     },
     {
         // eslint-disable-next-line
@@ -16,6 +17,7 @@ const friendsRoom = [
         roomCreator: 'Scrota',
         roomUsers: [0,1,2,3,4,5],
         duration: '42min',
+        _id: 2
     },
     {
         // eslint-disable-next-line
@@ -25,6 +27,7 @@ const friendsRoom = [
         roomCreator: 'kingsfall',
         roomUsers: [0,1,2,3,4,5],
         duration: '34min',
+        _id: 3
     },
     {
         // eslint-disable-next-line
@@ -34,6 +37,7 @@ const friendsRoom = [
         roomCreator: 'Crota',
         roomUsers: [0,1,2,3,4,5],
         duration: '41min',
+        _id: 4
     },
     {
         // eslint-disable-next-line
@@ -43,6 +47,7 @@ const friendsRoom = [
         roomCreator: 'The-King',
         roomUsers: [0,1,2,3,4,5],
         duration: '19min',
+        _id: 5
     },
    
 ];

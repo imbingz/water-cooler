@@ -10,6 +10,11 @@ const dbArray = {
                 { new: true }
             );
             // console.log(user);
+
+            if (!user) {
+                throw new Error('User does not exist.');
+            }
+            
             return user;
         } catch (err) {
             console.log(array + ' Arr Push Error: ', err);
@@ -24,6 +29,11 @@ const dbArray = {
                 { new: true }
             );
             // console.log(user);
+
+            if (!user) {
+                throw new Error('User does not exist.');
+            }
+            
             return user;
         } catch (err) {
             console.log(array + ' Arr Pull Error: ', err);

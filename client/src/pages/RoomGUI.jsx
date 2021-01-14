@@ -1,8 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
 import GameRPG from '../components/GUIComponents/GameRPG';
-// import GameRPG from './depreciated/GameRPG';
-import './css/RoomGUI.css';
 
 function RoomGUI() {
     return (    

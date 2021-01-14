@@ -57,7 +57,7 @@
 	border: none;
 	text-align: center;
 	font-size: large;
-	font-weight: 500;
+	color: rgb(250, 250, 94);
 }
 
 .Header-logout-btn:hover,
@@ -74,5 +74,5 @@
 }
 
 .Header-title:hover {
-	color:white;
+	color: white;
 }
