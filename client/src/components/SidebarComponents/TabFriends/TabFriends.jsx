@@ -46,14 +46,14 @@ function TabFriends(props) {
             // renderOnFriends = onFriends;
             renderRoomInv = props.inpendingRooms;
     }
-
+    
     return (
         <Container className='ml-2 mr-3 mt-3 TabFriends-Cont'>
             {/* Requests */}
             <div className='d-flex justify-content-start'>
                 {/* Check if There Is Data in RenderImpending, Meaning User Has At Least One Invitations To Render header tag */}
                 { (renderInpending.length > 0) &&
-                    <h6 className='mr-5 Tabfriends-subtitle'>Invitations:</h6> 
+                    <h6 className='mr-5 Tabfriends-subtitle'>Friend Requests:</h6> 
                 }
             </div>
             <section className='d-flex flex-column justify-content-start TabFriends-section'>
@@ -67,6 +67,10 @@ function TabFriends(props) {
                     handleShow={handleShow}
                 />
 
+                {/* Check if There Is Data in RenderImpending, Meaning User Has At Least One Invitations To Render header tag */}
+                { (renderRoomInv.length > 0) &&
+                    <h6 className='mr-5 Tabfriends-subtitle'>Room Invitations:</h6> 
+                }
                 {/* Render Room Invites */}
                 <SidebarUsersCont
                     data={renderRoomInv}
@@ -96,7 +100,12 @@ function TabFriends(props) {
 
             {/* Offline Friends */}
             {/* <div><h6 className='Tabfriends-subtitle mt-4'>Offline Friends:</h6></div> */}
-            <div><h6 className='Tabfriends-subtitle mt-4'>Friends:</h6></div>
+            { (renderOffFriends.length > 0) &&
+                    <h6 className='mr-5 Tabfriends-subtitle'>Friends:</h6> 
+            }
+            { (renderOffFriends.length === 0) &&
+                    <h6 className='mr-5 Tabfriends-subtitle'>Use the Search Icon To Add Your Friends!</h6> 
+            }
             <section className='mr-3 TabFriends-section'>
                 <SidebarUsersCont
                     data={renderOffFriends}
