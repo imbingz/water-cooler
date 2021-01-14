@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Carousel, Col} from 'react-bootstrap';
-import roomStyles from '../../../data/roomStyles';
+import roomStyles from '../../../data/productionRoomStyles';
 import { toast } from 'react-toastify';
 import { useGlobalContext } from '../../../utils/GlobalContext';
 // import { v4 as uuidv4 } from 'uuid';
