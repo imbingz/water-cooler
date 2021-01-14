@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Carousel } from 'react-bootstrap';
-import features from '../../../data/production.features';
+import features from '../../../data/productionFeatures';
 
 
 function LandingCarousel() {
@@ -18,12 +18,12 @@ function LandingCarousel() {
             {
                 features.map((feature, i) => (
                     <Carousel.Item key={i} interval={3000} >
-                        <h3 className='text-center' style={{color:'#7f38eb' }}> {feature.title} </h3>
+                        <h3 className='text-center' style={{color:`${feature.color}` }}> {feature.title} </h3>
                         <img
                             className="d-block w-100"
                             src={feature.src}
                             alt={feature.title}
-                            style={{width: '70%', maxWidth: 650}}
+                            style={{width: '67%', maxWidth: 650}}
                         />
                         
                         <p className='text-center mt-3'> {feature.details} </p>
