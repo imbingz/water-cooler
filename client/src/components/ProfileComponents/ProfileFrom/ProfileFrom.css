@@ -1,25 +1,8 @@
-.Profile {
-	min-height: 100vh;
-	max-width: 900px;
-	margin: 0 3px;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-}
 
 .Profile-form {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-
-/* apply to all buttons on profile page */
-.Profile button:focus,
-.Profile button:active,
-.Profile button:hover {
-	outline: 0;
-	transform: scale(0.9);
 }
 
 /* User image edit and upload */
@@ -106,17 +89,6 @@
 
 /* media queries  */
 @media only screen and (max-width: 500px) {
-	.Profile label {
-		display: block;
-		font-size: 0.85rem;
-		font-weight: 400;
-		margin: 8px 0 0;
-	}
-
-	.Profile #email {
-		margin-left: 0;
-	}
-
 	.Profile-update-btn {
 		display: block;
 		margin: 25px 0;

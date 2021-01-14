@@ -103,8 +103,8 @@ const SidebarUsersCont = (props) => {
 
                     <div className='d-flex flex-row justify-content-start align-items-center mb-2' key={uuidv4()}>
                         <img
-                            src={friend.imageSrc || friend.roomStyle}
-                            alt={friend.username || friend.roomname}
+                            src={friend.imageSrc || friend.roomImg}
+                            alt={friend.username || friend.roomName}
                             style={{ width: 32, height: 32 }}
                         />
 
@@ -115,9 +115,9 @@ const SidebarUsersCont = (props) => {
                                 {friend.username.substring(0, 16)}
                             </p>
                         }
-                        { friend.roomname &&
+                        { friend.roomName &&
                             <p className='mx-2 my-0 SbUserCont-Text'>
-                                {friend.roomname.substring(0, 22)}
+                                {friend.roomName.substring(0, 22)}
                             </p>
                         }
 

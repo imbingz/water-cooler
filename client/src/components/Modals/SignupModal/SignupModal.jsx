@@ -2,12 +2,12 @@ import React, { useState, useRef } from 'react';
 import { Container, Modal, Row } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import LoginModal from '../LoginModal';
-import images from '../../../data/profileImages';
+import userIcons from '../../../data/productionUserIcons';
 import './SignupModal.css';
 
 function SignupModal(props) {
   
-    const [selectedImg, setSelectedImg] = useState('https://cdn130.picsart.com/246483773027202.jpg?type=webp&to=crop&r=256');
+    const [selectedImg, setSelectedImg] = useState('https://i.imgur.com/J3WVW32.png');
 
     const firstNameRef = useRef();
     const lastNameRef = useRef();
@@ -25,8 +25,8 @@ function SignupModal(props) {
         e.preventDefault();
 
         const firstName = firstNameRef.current.value;
-        const username = lastNameRef.current.value;
-        const lastName = usernameRef.current.value;
+        const username = usernameRef.current.value;
+        const lastName = lastNameRef.current.value;
         const email = emailRef.current.value;
         const password = passwordRef.current.value;
         const confirmPass = confirmPassRef.current.value;
@@ -141,10 +141,13 @@ function SignupModal(props) {
                             <Row className='d-flex flex-column justify-content-center align-items-center mt-4'>
                                 <h6 className='text-muted'>Choose Your Avatar</h6>
                                 <div className='d-flex flex-wrap justify-content-center mt-1 px-5'>
-                                    {images.map(image => (
+                                    {userIcons.map(image => (
                                         <img key={image.id}
                                             src={image.imageSrc} alt='default' className='SignupModal-image d-inline-block mr-2 mb-3'
-                                            onClick={()=>{setSelectedImg(image.imageSrc); console.log(image.imageSrc);}}
+                                            onClick={()=>{
+                                                setSelectedImg(image.imageSrc);
+                                                // console.log(image.imageSrc);
+                                            }}
                                         />
                                     ))}
                                 </div>

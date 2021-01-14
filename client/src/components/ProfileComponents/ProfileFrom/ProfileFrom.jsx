@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './ProfileFrom.css';
-import images from '../../../data/profileImages';
+import userIcons from '../../../data/productionUserIcons';
 
 const ProfileFrom = (props) => {
 
@@ -66,7 +66,7 @@ const ProfileFrom = (props) => {
                 });
             }
         } catch (error) {
-            toast.error('Somthing went wrong! Try again later', {
+            toast.error('Something went wrong! Try again later', {
                 position: toast.POSITION.TOP_CENTER
             });
             console.error(error);
@@ -135,7 +135,7 @@ const ProfileFrom = (props) => {
             </form>
             <div className='d-flex flex-wrap justify-content-center mt-5 px-5'>
                 {showImg && 
-                    images.map(image => (
+                    userIcons.map(image => (
                         <img key={image.id}
                             src={image.imageSrc} alt='default' className='Profile-image-options d-inline-block mr-2 mb-3'
                             onClick={()=>{setSelectedImg(image.imageSrc); console.log(image.imageSrc);}}
