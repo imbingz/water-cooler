@@ -25,10 +25,10 @@ function Game() {
 
     // tiles for our map - []
     const [tiles, setTiles] = useState([]);
-
     // set default tileSize 
     const [tileSize, setTileSize] = useState({ width: 32, height: 32});
-
+    const [{roomStyle}, ] = useGlobalContext();
+    const [tileset, setTileset] = useState(roomStyle);
   
     // Handle window resize event 
     useEffect(() => {
@@ -53,23 +53,8 @@ function Game() {
         };
     }, [dimensions]);
 
-    const tilesetData = require('../../../data/tilesets.json');
 
-    const tilesets = Object.keys(tilesetData).map(set => ({
-        type: 'group',
-        // name: set.split("-").join(" "),
-        name: set.replace(/-/g, ' '),
-        items: tilesetData[set].variants.map(variant => ({
-            value: `${set}/${variant}`,
-            label: variant
-        }))
-    }));
-
-    const [{roomStyle}, ] = useGlobalContext();
-
-    //manage tileset selection - with a default path to spring image
-    const [tileset, setTileset] = useState(`choose-a-tileset/${roomStyle}`);
-
+    // create tile []
     useEffect(() => {
         //underscore here only signify that this varialbe will only be used inside of this code block.
         const _tiles = [];
@@ -110,7 +95,6 @@ function Game() {
             <GUIProvider>
                 <Map
                     tileset={ tileset }
-                    tilesets={ tilesets }
                     tiles={ tiles }
                     setTiles={ setTiles }
                     setTileset={ setTileset }
