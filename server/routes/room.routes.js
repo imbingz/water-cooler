@@ -28,7 +28,8 @@ router
                 roomName: req.body.roomName,
                 roomDesc: req.body.roomDescription,
                 publicRoomId: req.body.publicRoomId,
-                roomCreator: req.body.userId
+                roomCreator: req.body.userId,
+                roomImg:req.body.roomImg
             })
             .then(data => {
                 for (let i = 0; i < req.body.roomFriends.length; i++) {
