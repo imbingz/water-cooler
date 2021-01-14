@@ -7,9 +7,6 @@ router
         // console.log(req.sessionID);
         // console.log('THIS IS THE SOCKET SESSION FROM THE SOCKET ROUTE');
         // console.log(req.sessionStore);
-        
-        const openSessions = req.sessionStore.sessions;
-        console.log('This is the session info', openSessions);
         res.json({ success: true, sessionID: req.sessionID });
     });
 

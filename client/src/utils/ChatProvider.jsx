@@ -1,11 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
-import { useGlobalContext } from '../utils/GlobalContext';
 import { useSocket } from './SocketProvider';
 
 const ChatContext = createContext();
-
-// localStorage.clear();
-
 
 export function useChat() {
     return useContext(ChatContext);
@@ -14,10 +10,11 @@ export function useChat() {
 export function ChatProvider({ children }) {
     const [lastChat, setLastChat] = useState('');
     const [roomChat, setRoomChat] = useState('');
-    const [state, dispatch] = useGlobalContext();
     const socket = useSocket();
     const roomPageUrl = document.URL;
     let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
+    const { v4: uuidv4 } = require('uuid');
+    const random = uuidv4;
 
     const populateChat = useCallback(
         async () => {
@@ -56,15 +53,16 @@ export function ChatProvider({ children }) {
         });
 
         socket.on('receive-chat', (message, roomId, userId, username, socketId) => {
-            if (socket.id === socketId) {
+            if (socket.id !== socketId) {
                 receiveChat(message, roomId, userId, username);
                 return;
             }
+            setLastChat(random);
             populateChat();
         });
 
         return () => socket.off('receive-chat');
-    }, [socket, dispatch, roomUrlId, lastChat, populateChat]);
+    }, [socket, roomUrlId, lastChat, populateChat, random]);
 
     const sendChat = (message, roomId, userId, username) => {
         socket.emit('send-chat', message, roomId, userId, username);
@@ -93,28 +91,6 @@ export function ChatProvider({ children }) {
             console.log({ err });
         }
     };
-
-    // const populateChat = async () => {
-    // try {
-    //     const response = await fetch(
-    //         '/api/chat/get',
-    //         {
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify({
-    //                 roomId: roomUrlId
-    //             }),
-    //             method: 'POST'
-    //         }
-    //     );
-    //     const json = await response.json();
-    //     console.log(json);
-    //     setRoomChat(json.data);
-    // } catch (err) {
-    //     console.log({ err });
-    // }
-    // };
 
     return (
         <ChatContext.Provider value={{ sendChat, roomChat }}>
