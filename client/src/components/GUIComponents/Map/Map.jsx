@@ -1,11 +1,13 @@
 import React from 'react';
 import Dropdown from 'react-dropdown';
-// import io from 'socket.io-client';
+
+import { useGUI } from '../../../utils/GUIProvider';
 // import Player from '../Player';
 import 'react-dropdown/style.css';
 
 function Map({ tiles, tileset, tilesets, setTileset, tileHeight, tileWidth }) {
-
+    const { player } = useGUI();
+    console.log(player);
     /******************************* ALEX  */
     // const [player, setPlayer] = React.useState(null);
     // const [players, setPlayers] = React.useState({});

@@ -1,13 +1,15 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useSocket } from './SocketProvider';
 
-const ChatContext = createContext();
+const GUIContext = createContext();
 
-export function useChat() {
-    return useContext(ChatContext);
+export function useGUI() {
+    return useContext(GUIContext);
 }
 
-export function ChatProvider({ children }) {
+export function GUIProvider({ children }) {
+    const [player, setPlayer] = useState('');
+    const [players, setPlayers] = useState({});
     const socket = useSocket();
     const roomPageUrl = document.URL;
     let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
@@ -18,18 +20,27 @@ export function ChatProvider({ children }) {
         if (socket == null) {
             return;
         }
+        
+        console.log(player);
 
         socket.on('set-id', id => {
             socket.id = id;
+            console.log('hit connect');
+            setPlayer({ id: socket.id, name: random });
+            console.log(`socket.id is ${socket.id}`);
         });
+
+        // socket.on('connect', () => {
+
+        // });
 
 
         return () => socket.off('receive-chat');
-    }, [socket]);
+    }, [socket, random, player]);
 
     return (
-        <ChatContext.Provider>
+        <GUIContext.Provider value={{ player }}>
             {children}
-        </ChatContext.Provider>
+        </GUIContext.Provider>
     );
 }

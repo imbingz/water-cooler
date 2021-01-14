@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '../../../utils/GlobalContext';
+import { GUIProvider } from '../../../utils/GUIProvider';
 import Map from '../Map';
 
 
@@ -106,15 +107,17 @@ function Game() {
 
             }}>
 
-            <Map
-                tileset={ tileset }
-                tilesets={ tilesets }
-                tiles={ tiles }
-                setTiles={ setTiles }
-                setTileset={ setTileset }
-                tileWidth={ tileSize.width}
-                tileHeight={ tileSize.height }
-            />
+            <GUIProvider>
+                <Map
+                    tileset={ tileset }
+                    tilesets={ tilesets }
+                    tiles={ tiles }
+                    setTiles={ setTiles }
+                    setTileset={ setTileset }
+                    tileWidth={ tileSize.width}
+                    tileHeight={ tileSize.height }
+                />
+            </GUIProvider>
         </div>
     );
 }
