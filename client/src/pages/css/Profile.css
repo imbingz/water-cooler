@@ -8,11 +8,6 @@
 	align-items: center;
 }
 
-.Profile-form {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
 
 /* apply to all buttons on profile page */
 .Profile button:focus,
@@ -22,48 +17,6 @@
 	transform: scale(0.9);
 }
 
-/* User image edit and upload */
-.Profile-img-wrapper {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	margin-right: 30px;
-}
-
-.Profile-image {
-	display: inline-block;
-	width: 150px;
-	height: 150px;
-	object-fit: cover;
-	border-radius: 50%;
-	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.Profile-image-options {
-	width: 50px;
-	height: 50px;
-	border-radius: 50%;
-}
-
-.Profile-image-options:hover {
-	cursor: pointer;
-	transform: scale(1.5);
-}
-
-.Profile-img-edit-btn {
-	border: none;
-	background-color: #fff;
-	outline: none;
-}
-
-.Profile-img-edit-btn:hover {
-	color: rgb(55, 5, 238);
-}
-
-/* User  Profile  input  */
-.Profile-input-group {
-	padding-top: 3rem;
-}
 
 .Profile label {
 	font-weight: 500;
