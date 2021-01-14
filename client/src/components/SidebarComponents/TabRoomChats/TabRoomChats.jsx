@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { BiSmile } from 'react-icons/bi';
 import { IoIosSend } from 'react-icons/io';
-import roomChats from '../../../data/roomChats';
-import {v4 as uuidv4} from 'uuid';
 import { useChat } from '../../../utils/ChatProvider';
 import './TabRoomChats.css';
 

@@ -58,14 +58,13 @@ router.put('/decline', async ({ body }, res) => {
 
 // * Find User's Friends, Inbound Requests, and Blocked Users
 router.post('/arrays', async ({ body }, res) => {
-    // console.log(body);
+    // console.log('Hit Friend Array API: ', body);
     try {
         // * Functions
         // !* this needs a try/catch block
         const processUsers = async (ids) => {
             // * Get DB Info for All IDs in idArray
             const returnedUsers = await db.User.find({ _id: { $in: ids } });
-            // console.log({ returnedUsers });
             // ** If no friends found, End Function
             if (!returnedUsers) {
                 console.log('No friends found');
@@ -92,16 +91,13 @@ router.post('/arrays', async ({ body }, res) => {
             });
 
             // ** Send Filtered Response to Client
-            // console.log({ response });
             res.json({ success: true, retUsers: response });
         };
 
         const processRooms = async (ids) => {
             // !* this needs a try/catch block
             // * Get DB Info for All IDs in idArray
-            // console.log({ids});
             const returnedRooms = await db.Room.find({ publicRoomId: { $in: ids } });
-            // console.log({ returnedRooms });
             // ** If no friends found, End Function
             if (!returnedRooms) {
                 console.log('No rooms found');
@@ -112,35 +108,30 @@ router.post('/arrays', async ({ body }, res) => {
         };
 
         
-        // console.log('Hit Friend Req API: ', body);
+        
         // * Find User's DB Info
         const user = await db.User.find({ _id: body.id });
-        // console.log({ user });
         // * Containers for Different Cases
         let idArray;
         switch (body.case) {
             case 'friends':
                 // ** Store Their Friends in a Variable
                 idArray = user[0].friends;
-                // console.log(idArray);  
                 processUsers(idArray);              
                 break;
             case 'inpending':
                 // ** Store Their inboundPendingFriends in a Variable
                 idArray = user[0].inboundPendingFriends;
-                // console.log({idArray});
                 processUsers(idArray);   
                 break;
             case 'inpendingRooms':
                 // ** Store Their inboundPendingFriends in a Variable
                 idArray = user[0].inboundPendingRooms;
-                // console.log({idArray});
                 processRooms(idArray);
                 break;
             case 'blocked':
                 // ** Store Their Blocked Users in a Variable
                 idArray = user[0].blocked;
-                // console.log({idArray});;
                 processUsers(idArray);   
                 break;
             default:
