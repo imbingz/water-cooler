@@ -16,7 +16,7 @@ function RoomCarousel() {
     const [{roomStyle}, dispatch] = useGlobalContext();
     const handleSetRoomStyle = (style) => {
         // console.log('img selected', style);
-        dispatch({type: 'setRoomStyle', payload: style.variants });
+        dispatch({type: 'setRoomStyle', payload: style.src });
         toast.dark(` 🥳 You selected ${style.title} style!!`, {
             position: toast.POSITION.TOP_CENTER
         });

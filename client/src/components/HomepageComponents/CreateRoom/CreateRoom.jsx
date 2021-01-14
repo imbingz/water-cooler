@@ -2,13 +2,14 @@ import React, { useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
 import { useGlobalContext } from '../../../utils/GlobalContext.js';
 import { Button, Col, Row } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import dummyFriendRooms from '../../../data/friends';
 
 // * CreateRoom Takes User Input To Create a Room. Prop Data is Used To Render The User's Friends
 function CreateRoom(props) {
     
     // eslint-disable-next-line
-    const [state, dispatch] = useGlobalContext();
+    const [{roomStyle}, dispatch] = useGlobalContext();
     const [roomFriends, setRoomFriends] = useState([]);
     const [roomName, setRoomName] = useState('');
     const [roomDescription, setRoomDescription] = useState('');
@@ -34,6 +35,15 @@ function CreateRoom(props) {
         const { v4: uuidv4 } = require('uuid');
         const roomUrlId = uuidv4();
         const userId = JSON.parse(localStorage.getItem('USER'))._id;
+
+
+        if (!roomName || !roomDescription || !roomStyle) {
+            toast.warning('Please select a Room style and fill all fields!', {
+                position: toast.POSITION.TOP_CENTER
+            });
+            return;
+        }
+
         try {
             const response = await fetch(
                 '/api/room/create',
@@ -46,7 +56,8 @@ function CreateRoom(props) {
                         roomDescription: roomDescription,
                         publicRoomId: roomUrlId,
                         userId: userId,
-                        roomFriends: roomFriends
+                        roomFriends: roomFriends,
+                        roomImg: roomStyle
                     }),
                     method: 'POST'
                 }
