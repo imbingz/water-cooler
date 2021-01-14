@@ -36,11 +36,11 @@ router
                             { _id: req.body.roomFriends[i] },
                             { $addToSet: { inboundPendingRooms: data.publicRoomId } }
                         )
-                        .then(success => {
-                            console.log(success);
+                        .then(update => {
+                            res.json({ success: true, update });
                         })
                         .catch(err => {
-                            console.log(err);
+                            res.json({ success: false } + err);
                         });
                 }
                 res.json({ success: true, data });

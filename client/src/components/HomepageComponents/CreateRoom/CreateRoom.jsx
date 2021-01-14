@@ -61,12 +61,9 @@ function CreateRoom(props) {
     };
 
     const addFriendToRoom = (friendId) => {
-        console.log(friendId);
         let friendArray = [];
         friendArray.push(...roomFriends, friendId);
-        console.log(friendArray);
         setRoomFriends(friendArray);
-
     };
 
     // * Render Dummy Or DB Data
