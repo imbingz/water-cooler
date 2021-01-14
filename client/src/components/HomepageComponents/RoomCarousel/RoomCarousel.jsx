@@ -15,8 +15,8 @@ function RoomCarousel() {
     // eslint-disable-next-line
     const [{roomStyle}, dispatch] = useGlobalContext();
     const handleSetRoomStyle = (style) => {
-        // console.log('img selected', style);
         dispatch({type: 'setRoomStyle', payload: style.src });
+        localStorage.setItem('roomImg', style.src);
         toast.dark(` 🥳 You selected ${style.title} style!!`, {
             position: toast.POSITION.TOP_CENTER
         });
