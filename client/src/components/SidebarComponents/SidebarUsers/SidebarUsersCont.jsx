@@ -84,9 +84,28 @@ const SidebarUsersCont = (props) => {
                 }
                 
                 break;
-            // ** Send User and Friend's IDs to Server To Process Accepting Room Invite
+            // ** Send User and Friend's IDs to Server To Process Declining Room Invite
             case 'room':
-                console.log('Manage Room Decline');
+                // try {
+                //     const request = await fetch('/api/room/decline', {
+                //         headers: { 'Content-Type': 'application/json' },
+                //         body: JSON.stringify({ pubRoomId: frenId, user: _id }),
+                //         method: 'PUT'
+                //     });
+                //     const status = await request.json();
+                //     console.log(status.success);
+                //     if (status.success) {
+                //         toast.warning('Declined Friend Request', {
+                //             position: toast.POSITION.TOP_RIGHT
+                //         });
+                //     } else {
+                //         toast.error('Failed to Decline Friend Request', {
+                //             position: toast.POSITION.TOP_RIGHT
+                //         });
+                //     }
+                // } catch (err) {
+                //     console.log({ err });
+                // }
                 break;
             default:
                 console.log('No Valid Type');

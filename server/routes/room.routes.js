@@ -1,6 +1,7 @@
 const db = require('../models');
 const router = require('express').Router();
 const { Room, User } = require('../models');
+const { dbArray } = require('../controllers/user-arrays');
 
 // populates rooms page with public rooms
 router
@@ -50,6 +51,14 @@ router
             }); 
     });
 
+// Decline Room Invite
+router 
+    .route('/decline')
+    .post(({ body }, res) => {
+        // ** Access User's db and Pull publicRoomID From 'inboundPendingRooms' Array
+        dbArray.pull('inboundPendingRooms', body.user, body.pubRoomId);
+    });
+
 // gathers rooms based on id
 router
     .route('/find')
@@ -77,6 +86,8 @@ router
             });
     });
 
+// * Get Information of the Users in a Room
+// !* { note: similar logic is in place in user.route, we could use that route instead but testing is needed } 
 router
     .route('/users')
     .post(async ({ body }, res) => {
