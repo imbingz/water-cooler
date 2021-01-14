@@ -121,6 +121,17 @@ function TabMembers(props) {
                 .then(data => {
                     console.log(data);
                 }))} */}
+
+            <section className='d-flex justify-content-end mt-3'>
+                <button 
+                    className='TabMembers-create-space-btn'
+                    onClick={() => console.log('create a spacee')}
+                >
+                    <span>Create A Social Space</span>
+                    <FaVideo size={20} style={{ fill: 'orangered', marginLeft: 10 }} />
+                    
+                </button>
+            </section>
             <section className='TabMembers-room-section pb-3'>
                 <div className='d-flex justify-content-between align-items-center my-3'>
                     <h5 className='mt-4 mb-3 TabMembers-room-header'>In Room

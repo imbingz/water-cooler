@@ -1,3 +1,22 @@
+.TabMembers-create-space-btn {
+	display: inline-block;
+	border: none;
+	width: 100%;
+	padding: 8px;
+	background-color: rgba(0, 0, 0);
+	color: white;
+	border-radius: 25px;
+}
+
+.TabMembers-create-space-btn:hover {
+	transform: scale(0.9);
+}
+
+.TabMembers-create-space-btn:focus,
+.TabMembers-create-space-btn:active {
+	outline: 0;
+}
+
 .TabMembers-room-section {
 	border-bottom: 1px solid white;
 }
