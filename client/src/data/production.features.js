@@ -6,7 +6,7 @@ const features = [
         details:'Times when we strike up casual conversations and learn interesting things about one another.'
     },
     // {
-    //     src: '/assets/images/gui.gif',
+    //     src: '/assets/images/landingimg/gui.gif',
     //     title: 'It Is Playful! So Much Fun! 🥳',
     //     details:'Walkaround the room, say hi to people and invite them to social space.'
     // },
