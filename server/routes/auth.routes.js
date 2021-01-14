@@ -4,7 +4,7 @@ const db = require('../models');
 const authRequired = require('../middlewares/authRequired');
 
 // api/user/signup
-router.post('/signup', async ({body}, res, next) => {
+router.post('/signup', async ({body}, res) => {
 
     try {
  
@@ -27,7 +27,7 @@ router.post('/signup', async ({body}, res, next) => {
     
     } catch (err) {
         console.error(err);
-        next(err);
+        res.status(500);
     }
 });
 
@@ -40,7 +40,7 @@ router.post('/login', passport.authenticate('local', {failureRedirect: '/'}), (r
 
 
 // api/user/login
-router.put('/profile', authRequired, async ({ body }, res, next) => {
+router.put('/profile', authRequired, async ({ body }, res) => {
     try{
         const savedUser = await db.User.findByIdAndUpdate({ _id: body.user._id }, body.user, { new: true });
 
@@ -52,12 +52,12 @@ router.put('/profile', authRequired, async ({ body }, res, next) => {
 
     } catch (err) {
         console.error(err);
-        next(err);
+        res.status(500);
     }
 });
 
 // api/user/logout
-router.get('/logout', (req, res, next) => {
+router.get('/logout', (req, res) => {
     if (req.session) {
         req.session.destroy();
         req.logout();
@@ -66,7 +66,7 @@ router.get('/logout', (req, res, next) => {
     else {
         const err = new Error('You are not logged in!');
         err.status = 403;
-        next(err);
+        res.status(403);
     }
 });
 

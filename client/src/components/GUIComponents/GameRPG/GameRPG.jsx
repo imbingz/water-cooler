@@ -25,16 +25,16 @@ function Game() {
     // tiles for our map - []
     const [tiles, setTiles] = useState([]);
 
- 
     // set default tileSize 
     const [tileSize, setTileSize] = useState({ width: 32, height: 32});
+
   
     // Handle window resize event 
     useEffect(() => {
         const debouncedHandleResize = debounce(() => {
             setDimensions({
-                height: window.innerHeight,
-                width: window.innerWidth
+                height: window.innerHeight >= 850 ? 850 : window.innerHeight,
+                width: window.innerWidth >= 1000 ? 1000 : window.innerWidth
             });
 
             setTileSize({
@@ -73,6 +73,7 @@ function Game() {
         //underscore here only signify that this varialbe will only be used inside of this code block.
         const _tiles = [];
         let id = 0;
+
         for (let y = 0; y < (window.innerHeight - 100); y = y + tileSize.height) {
             const row = [];
             for (let x = 0; x < (window.innerWidth > 1000 ? 1000 : (window.innerWidth - 100)); x = x + tileSize.width) {
@@ -102,6 +103,7 @@ function Game() {
                 overflow: 'hidden',
                 border: ' 1px solid lightgrey',
                 margin: '10px'
+
             }}>
 
             <Map

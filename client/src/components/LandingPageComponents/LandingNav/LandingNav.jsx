@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { Navbar, Button} from 'react-bootstrap';
-import LoginModal from '../Modals/LoginModal';
+import LoginModal from '../../Modals/LoginModal';
 
 
 function LandingNav() {
