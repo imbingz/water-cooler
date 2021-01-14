@@ -19,7 +19,7 @@ const RoomSchema = new mongoose.Schema({
     },
     roomImg: {
         type: String,
-        default: 'https://cdn.wallpapersafari.com/34/92/SClT0F.jpg'
+        default: ''
     },
     roomDesc: {
         type: String,

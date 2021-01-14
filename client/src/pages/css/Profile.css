@@ -1,6 +1,7 @@
 .Profile {
-	min-height: 100vh;
-	max-width: 900px;
+	/* min-height: 100vh;
+	max-width: 900px; */
+	padding-top: 40px;
 	margin: 0 3px;
 	display: flex;
 	flex-direction: column;
@@ -39,21 +40,6 @@
 	margin-left: 2.2rem;
 }
 
-.Profile-update-btn {
-	display: inline-block;
-	margin-top: 2.5rem;
-	margin-left: 6.5rem;
-	padding: 0.3rem 1.1rem;
-	border: none;
-	border-radius: 25px;
-	background-color: rgb(95, 5, 238);
-	font-size: medium;
-	color: #fff;
-}
-
-.Profile-update-btn:hover {
-	background-color: rgb(55, 5, 238);
-}
 
 /* User friend cards */
 
@@ -124,10 +110,5 @@
 
 	.Profile #email {
 		margin-left: 0;
-	}
-
-	.Profile-update-btn {
-		display: block;
-		margin: 25px 0;
 	}
 }
