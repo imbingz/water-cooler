@@ -58,7 +58,60 @@ router.put('/decline', async ({ body }, res) => {
 
 // * Find User's Friends, Inbound Requests, and Blocked Users
 router.post('/arrays', async ({ body }, res) => {
+    // console.log(body);
     try {
+        // * Functions
+        // !* this needs a try/catch block
+        const processUsers = async (ids) => {
+            // * Get DB Info for All IDs in idArray
+            const returnedUsers = await db.User.find({ _id: { $in: ids } });
+            // console.log({ returnedUsers });
+            // ** If no friends found, End Function
+            if (!returnedUsers) {
+                console.log('No friends found');
+                res.json({ success: false });
+                return;
+            }
+            // * Store Data To Send Back To Client
+            const response = [];
+
+            // * Loop Through Results to Store Relevant Data in an Object
+            returnedUsers.forEach(friends => {
+                let userParsed = {
+                    username: friends.username,
+                    firstName: friends.firstName,
+                    lastName: friends.lastName,
+                    imageSrc: friends.imageSrc,
+                    friendId: friends._id,
+                    activeRoom: friends.activeRoom,
+                    status: friends.status,
+                };
+
+                // *** Push Each Result to response
+                response.push(userParsed);
+            });
+
+            // ** Send Filtered Response to Client
+            // console.log({ response });
+            res.json({ success: true, retUsers: response });
+        };
+
+        const processRooms = async (ids) => {
+            // !* this needs a try/catch block
+            // * Get DB Info for All IDs in idArray
+            // console.log({ids});
+            const returnedRooms = await db.Room.find({ publicRoomId: { $in: ids } });
+            // console.log({ returnedRooms });
+            // ** If no friends found, End Function
+            if (!returnedRooms) {
+                console.log('No rooms found');
+                res.json({ success: false });
+                return;
+            }
+            res.json({ success: true, retRooms: returnedRooms });
+        };
+
+        
         // console.log('Hit Friend Req API: ', body);
         // * Find User's DB Info
         const user = await db.User.find({ _id: body.id });
@@ -69,54 +122,32 @@ router.post('/arrays', async ({ body }, res) => {
             case 'friends':
                 // ** Store Their Friends in a Variable
                 idArray = user[0].friends;
-                // console.log(idArray);                
+                // console.log(idArray);  
+                processUsers(idArray);              
                 break;
             case 'inpending':
                 // ** Store Their inboundPendingFriends in a Variable
                 idArray = user[0].inboundPendingFriends;
                 // console.log({idArray});
+                processUsers(idArray);   
+                break;
+            case 'inpendingRooms':
+                // ** Store Their inboundPendingFriends in a Variable
+                idArray = user[0].inboundPendingRooms;
+                // console.log({idArray});
+                processRooms(idArray);
                 break;
             case 'blocked':
                 // ** Store Their Blocked Users in a Variable
                 idArray = user[0].blocked;
                 // console.log({idArray});;
+                processUsers(idArray);   
                 break;
             default:
                 console.log('No case matched');
                 res.json({ success: false });
         }
 
-        // * Get DB Info for All IDs in idArray
-        const returnedUsers = await db.User.find({ _id: { $in: idArray } });
-        // console.log({ returnedUsers });
-        // ** If no friends found, End Function
-        if (!returnedUsers) {
-            console.log('No friends found');
-            res.json({ success: false });
-            return;
-        }
-        // * Store Data To Send Back To Client
-        const response = [];
-
-        // * Loop Through Results to Store Relevant Data in an Object
-        returnedUsers.forEach(friends => {
-            let userParsed = {
-                username: friends.username,
-                firstName: friends.firstName,
-                lastName: friends.lastName,
-                imageSrc: friends.imageSrc,
-                friendId: friends._id,
-                activeRoom: friends.activeRoom,
-                status: friends.status,
-            };
-
-            // *** Push Each Result to response
-            response.push(userParsed);
-        });
-
-        // ** Send Filtered Response to Client
-        // console.log({ response });
-        res.json({ success: true, retUsers: response });
     } catch (err) {
         console.log('/api/friends/array (' + body.case + ') error: ', err);
         res.json({ success: false });
@@ -138,7 +169,7 @@ router.put('/request', async ({ body }, res) => {
     } catch (err) {
         console.log('/api/friends/req error: ', err);
         res.json({ success: false });
-    } 
+    }
 });
 
 // * Unfriend Friend

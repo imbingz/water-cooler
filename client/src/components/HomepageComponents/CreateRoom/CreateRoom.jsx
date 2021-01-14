@@ -16,7 +16,7 @@ function CreateRoom(props) {
     const history = useHistory();
 
     useEffect(() => {
-        console.log(roomFriends)
+        // console.log(roomFriends);
         async function fetchRooms() {
             try {
                 const response = await fetch('/api/room');

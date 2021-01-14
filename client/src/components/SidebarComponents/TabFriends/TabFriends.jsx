@@ -44,7 +44,7 @@ function TabFriends(props) {
             renderInpending = props.inpending;
             renderOffFriends = props.offFriends;
             // renderOnFriends = onFriends;
-            // renderRoomInv = someStateOrSomething;
+            renderRoomInv = props.inpendingRooms;
     }
 
     return (
