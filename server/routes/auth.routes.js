@@ -33,9 +33,18 @@ router.post('/signup', async ({body}, res) => {
 
 
 // api/user/login
-router.post('/login', passport.authenticate('local', {failureRedirect: '/'}), (req, res) => {  
-
-    return res.status(200).json({success: true, user: req.user });
+router.post('/login', passport.authenticate('local', {failureRedirect: '/'}), async (req, res) => { 
+    try{
+        if (!req.user) {
+            const error = new Error('An Error occurred');
+            return error;
+        }
+        return res.status(200).json({success: true, user: req.user });
+    } catch (err) {
+        console.error(err);
+        res.status(500);
+    }
+    
 });
 
 
