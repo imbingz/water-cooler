@@ -18,7 +18,7 @@ function LandingCarousel() {
             {
                 features.map((feature, i) => (
                     <Carousel.Item key={i} interval={3000} >
-                        <h3 className='text-center' style={{color:'#7f38eb' }}> {feature.title} </h3>
+                        <h3 className='text-center' style={{color:`${feature.color}` }}> {feature.title} </h3>
                         <img
                             className="d-block w-100"
                             src={feature.src}
