@@ -23,7 +23,7 @@ function Tabnav() {
     const path = window.location.pathname;
     const roomCheck = path.includes('room');
     const spaceCheck = path.includes('space');
-    
+
 
     // * Collect and Parse Data for TabMembers
     // ** Store Data in State
@@ -92,7 +92,7 @@ function Tabnav() {
         setSpaceData(parsedSpaceData);
     };
 
-    
+
     // * Collect and Parse Data for TabFriends and TabDM
 
     // ** Store Data in State For TabFriends
@@ -100,9 +100,11 @@ function Tabnav() {
     const [offFriends, setOffFriends] = useState([]);
     // eslint-disable-next-line
     const [onFriends, setOnFriends] = useState([]);
-
+    
     // ** Store Data in State for TabDM
     const [allFriends, setAllFriends] = useState([]);
+    // ** Store Room Invite In State
+    const [inpendingRooms, setInpendingRooms] = useState([]);
 
     // ** Check User's DB For Any Changes in either friends or inboundPendingFriends by passing 'friends' or 'inpending'
     //    Then store updated array values in State
@@ -134,6 +136,10 @@ function Tabnav() {
                     // console.log('inpending: ', data.retUsers);
                     setInpending(data.retUsers);
                     break;
+                case 'inpendingRooms':
+                    // console.log('inpendingRooms: ', data.retRooms);
+                    setInpendingRooms(data.retRooms);
+                    break;
                 default:
                     console.log('No valid array');
                     break;
@@ -149,6 +155,7 @@ function Tabnav() {
         getRoomData();
         checkDBArrays('friends');
         checkDBArrays('inpending');
+        checkDBArrays('inpendingRooms');
     }, [checkDBArrays, getRoomData]);
 
 
@@ -158,7 +165,7 @@ function Tabnav() {
         // !* Hard coding style={{width: '325px'}} was causing responsiveness issues
         <div className='d-flex flex-column Tabnav-aside-tab'>
             <Tab.Container activeKey={activeKey} onSelect={setActiveKey} >
-                <Nav variant="tabs" className="justify-content-around bg-warning">                    
+                <Nav variant="tabs" className="justify-content-around bg-warning">
                     <Nav.Item>
                         <Nav.Link eventKey='friends' className='Tabnav-nav-link '>Friends</Nav.Link>
                     </Nav.Item >
@@ -190,14 +197,15 @@ function Tabnav() {
 
                 <Tab.Content className='plz-work'>
                     <Tab.Pane eventKey='friends'>
-                        <TabFriends 
+                        <TabFriends
                             inpending={inpending}
+                            inpendingRooms ={inpendingRooms}
                             offFriends={offFriends}
                             checkDBArrays={checkDBArrays}
                         />
                     </Tab.Pane>
                     <Tab.Pane eventKey='dms'>
-                        <TabDM 
+                        <TabDM
                             allFriends={allFriends}
                         />
                     </Tab.Pane>

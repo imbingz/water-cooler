@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
-// import { useHistory } from 'react-router-dom';
 import LandingNav from '../components/LandingPageComponents/LandingNav';
 import SignupModal from '../components//Modals/SignupModal';
 import LandingCarousel from '../components/LandingPageComponents/LandingCarousel';
 import './css/Landing.css';
 
 function Landing() {
-
     //Signup Modal 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -16,14 +14,14 @@ function Landing() {
     return (
         <>
             <LandingNav />
+
             <Container className=' px-5'>
                 
                 <Row className='d-flex justify-content-center mx-2 my-4'>             
                     <h3 className='text-center text-muted py-3'>  A Space To Bound & Connect </h3>
                       
                     <img src="/assets/demo/landing.gif" alt="demo" style={{width:'85%', maxWidth: 950}}/>               
-                </Row> 
-                
+                </Row>
                 
                 <Row className='my-5 d-flex justify-content-center align-item-center'>
                     <div >
@@ -44,8 +42,6 @@ function Landing() {
 
                     <LandingCarousel />
                 </Row> 
-
-                
 
                 <SignupModal show={show} onHide={() => handleClose (false)} />        
 

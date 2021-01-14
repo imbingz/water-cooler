@@ -245,12 +245,6 @@ const makeAsync = async () => {
         console.log(err);
     }
 
-
-
-
-
-
-
 };
 
 makeAsync();
