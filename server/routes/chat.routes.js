@@ -5,7 +5,7 @@ const { RoomChat } = require('../models');
 router
     .route('/create')
     .post((req, res) => {
-        console.log(req.body);
+        // console.log(req.body);
         RoomChat
             .create({
                 message: req.body.message,
