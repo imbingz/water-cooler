@@ -67,7 +67,7 @@ export function GUIProvider({ children }) {
 
     
     const emitMovement = (position) => {
-        socket.emit('movement', position)
+        socket.emit('movement', position);
     };
 
     return (
