@@ -1,6 +1,6 @@
 const db = require('../models');
 const router = require('express').Router();
-const { Room } = require('../models');
+const { Room, User } = require('../models');
 
 // populates rooms page with public rooms
 router
@@ -22,7 +22,6 @@ router
 router
     .route('/create')
     .post((req, res) => {
-        console.log('create');
         Room
             .create({
                 roomName: req.body.roomName,
@@ -31,11 +30,24 @@ router
                 roomCreator: req.body.userId
             })
             .then(data => {
+                for (let i = 0; i < req.body.roomFriends.length; i++) {
+                    User
+                        .findByIdAndUpdate(
+                            { _id: req.body.roomFriends[i] },
+                            { $addToSet: { inboundPendingRooms: data.publicRoomId } }
+                        )
+                        .then(update => {
+                            res.json({ success: true, update });
+                        })
+                        .catch(err => {
+                            res.json({ success: false } + err);
+                        });
+                }
                 res.json({ success: true, data });
             })
             .catch(err => {
                 res.json({ success: false } + err);
-            });
+            }); 
     });
 
 // gathers rooms based on id
@@ -54,7 +66,7 @@ router
 
 router
     .route('/findmany')
-    .post(({body}, res) => {
+    .post(({ body }, res) => {
         Room
             .find({ _id: { $in: body.ids } })
             .then(data => {
