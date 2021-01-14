@@ -1,7 +1,13 @@
 .carousel-indicators > li {
 	display: none;
+	
+}
+
+.RoomCarousel-img {
+	height: 80%;
 }
 
 .RoomCarousel-img:hover {
 	cursor: pointer;
+	
 }

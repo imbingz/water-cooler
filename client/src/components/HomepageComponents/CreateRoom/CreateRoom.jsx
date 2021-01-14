@@ -4,6 +4,7 @@ import { useGlobalContext } from '../../../utils/GlobalContext.js';
 import { Button, Col, Row } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import dummyFriendRooms from '../../../data/friends';
+import './CreateRoom.css';
 
 // * CreateRoom Takes User Input To Create a Room. Prop Data is Used To Render The User's Friends
 function CreateRoom(props) {
@@ -73,8 +74,23 @@ function CreateRoom(props) {
 
     const addFriendToRoom = (friendId) => {
         let friendArray = [];
-        friendArray.push(...roomFriends, friendId);
-        setRoomFriends(friendArray);
+        
+        if (roomFriends.includes(friendId)) {
+            console.log('includes');
+            let i = friendId.indexOf(friendId);
+            console.log(i);
+            friendArray.push(...roomFriends);
+            console.log(friendArray);
+            friendArray.splice(i, 1);
+            console.log(friendArray);
+            setRoomFriends(friendArray);
+        } else {
+            friendArray.push(...roomFriends, friendId);
+            setRoomFriends(friendArray);
+            // console.log(roomFriends, 1);
+        }
+        console.log(roomFriends, 2);
+        
     };
 
     // * Render Dummy Or DB Data
@@ -130,7 +146,14 @@ function CreateRoom(props) {
                                         key={friend.friendId}
                                         id={friend.friendId}
                                         className='d-flex flex-column align-items-center mr-1'
-                                        onClick={(e) => addFriendToRoom(e.currentTarget.id)}
+                                        onClick={(e) => {
+                                            addFriendToRoom(e.currentTarget.id);
+                                            if (e.target.parentElement.classList.contains('CreateRoomSelected')) {
+                                                e.target.parentElement.classList.remove('CreateRoomSelected');
+                                            } else {
+                                                e.target.parentElement.classList.add('CreateRoomSelected');
+                                            }
+                                        }}
                                     >
                                         <img src={friend.imageSrc} alt={friend.username} style={{ width: 48, height: 48, borderRadius: '50%' }} />
                                         <small>{friend.username.substr(0, 5)}</small>

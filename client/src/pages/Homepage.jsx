@@ -90,7 +90,7 @@ const Homepage = () => {
                 </Row>
             </Container>
 
-            <Container className='my-5 p-3' style={{backgroundColor: '#0af'}}> 
+            <Container className='p-3 HomeFriendRoomCont'> 
                 {/* FriendsRoom Component */}    
                 <FriendsRoom
                     roomsData={roomsData}
