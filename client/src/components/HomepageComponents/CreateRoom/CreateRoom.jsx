@@ -44,7 +44,6 @@ function CreateRoom(props) {
             return;
         }
 
-        console.log(roomName, roomDescription, roomStyle);
         try {
             const response = await fetch(
                 '/api/room/create',
