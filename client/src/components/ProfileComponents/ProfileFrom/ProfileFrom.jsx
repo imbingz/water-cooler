@@ -1,51 +1,61 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './ProfileFrom.css';
 import userIcons from '../../../data/productionUserIcons';
+import { useGlobalContext } from '../../../utils/GlobalContext';
 
 const ProfileFrom = (props) => {
-
+    const history = useHistory();
+    const [{ USER }, dispatch ] = useGlobalContext();
     const [selectedImg, setSelectedImg] = useState('');
     const [showImg, setShowImg] = useState(false);
 
-    const history = useHistory();
-    const firstNameRef = useRef();
-    const lastNameRef = useRef();
-    const usernameRef = useRef();
-    const emailRef = useRef();
-    const imgRef=useRef();
-
-  
+    const [ storedUser, setStoredUser] = useState({
+        firstName: '',
+        lastName: '',
+        username: '',
+        email:'',
+        imageSrc:''
+    });
+ 
     //pre-fill the user info
     useEffect(() => {
-        // need to change here to global context stored from Login
-        if (!props.storedUser) {
+
+        if (!USER) {
             return history.push('/login');
-        }
+        } 
 
-        firstNameRef.current.value = props.storedUser.firstName || '';
-        lastNameRef.current.value = props.storedUser.lastName || '';
-        usernameRef.current.value = props.storedUser.username || '';
-        emailRef.current.value = props.storedUser.email || '';
-        imgRef.current.currentSource = props.storedUser.imageSrc || '';
+        console.log('global USER inside useEffect is:', USER);
 
-        setSelectedImg(imgRef.current.currentSource);
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setStoredUser(USER);
+        setSelectedImg(USER.imageSrc);
+     
+       
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    //handle Profile Input Change
+    const handleInputChange = e => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setStoredUser({...storedUser, [name]:value});
+    };
+
+    // Handle update profile button click 
     const updateProfile = async e => {
         e.preventDefault();
 
         const user = {
-            _id: props.storedUser._id,
-            firstName: firstNameRef.current.value,
-            lastName: lastNameRef.current.value,
-            username: usernameRef.current.value,
-            email: emailRef.current.value,
+            _id: USER._id,
+            firstName: storedUser.firstName,
+            lastName: storedUser.lastName,
+            username: storedUser.username,
+            email: storedUser.email,
             imageSrc:selectedImg
         };
+
+        console.log('user obj to post', user);
 
         try {
             const response = await fetch('/api/user/profile', {
@@ -59,8 +69,15 @@ const ProfileFrom = (props) => {
             });
 
             const data = await response.json();
+
+
             if (data.user) {
-                //Notify user when update successful
+
+                localStorage.setItem('USER', JSON.stringify(data.user));
+                
+                //update globalContext USER with updated returned data
+                dispatch({ type: 'setUser', payload: data.user }); 
+              
                 toast.success('Your profile is updated successfully!!', {
                     position: toast.POSITION.TOP_CENTER
                 });
@@ -77,7 +94,10 @@ const ProfileFrom = (props) => {
         <section className='Profile-user'>
             <form className='Profile-form' onSubmit={updateProfile}>
                 <div className='Profile-img-group d-flex flex-column justify-content-center mr-4'>
-                    <img className='Profile-image' ref={imgRef} src={selectedImg} alt='avarta' />
+                    <img className='Profile-image' 
+                        src={selectedImg} 
+                        alt='avarta' 
+                    />
                     <button 
                         className='Profile-img-edit-btn' 
                         onClick={(e) => { 
@@ -95,7 +115,8 @@ const ProfileFrom = (props) => {
                             type='text'
                             id='firstName'
                             name='firstName'
-                            ref={firstNameRef}
+                            value={storedUser.firstName}
+                            onChange={handleInputChange}
                         />
                     </div>
                     <div className='Profile-form-group'>
@@ -104,8 +125,8 @@ const ProfileFrom = (props) => {
                             type='text'
                             id='lastName'
                             name='lastName'
-                            ref={lastNameRef}
-
+                            value={storedUser.lastName}
+                            onChange={handleInputChange}
                         />
                     </div>
                     <div className='Profile-form-group'>
@@ -115,7 +136,8 @@ const ProfileFrom = (props) => {
                             id='username'
                             name='username'
                             type='text'
-                            ref={usernameRef}
+                            value={storedUser.username}
+                            onChange={handleInputChange}
                         />
                     </div>
                     <div className='Profile-form-group'>
@@ -125,7 +147,8 @@ const ProfileFrom = (props) => {
                             type='email'
                             id='email'
                             name='email'
-                            ref={emailRef}
+                            value={storedUser.email}
+                            onChange={handleInputChange}
                         />
                     </div>
                     <button className='Profile-update-btn' type='submit'>
@@ -138,7 +161,7 @@ const ProfileFrom = (props) => {
                     userIcons.map(image => (
                         <img key={image.id}
                             src={image.imageSrc} alt='default' className='Profile-image-options d-inline-block mr-2 mb-3'
-                            onClick={()=>{setSelectedImg(image.imageSrc); console.log(image.imageSrc);}}
+                            onClick={()=>setSelectedImg(image.imageSrc)}
                         />
                     ))}
             </div>
