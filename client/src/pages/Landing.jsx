@@ -21,7 +21,7 @@ function Landing() {
                 <Row className='d-flex justify-content-center mx-2 my-4'>             
                     <h3 className='text-center text-muted py-3'>  A Space To Bound & Connect </h3>
                       
-                    <img src="/assets/demo/landing.gif" alt="demo" style={{width:'85%', maxWidth: 950}}/>               
+                    <img src="/assets/images/landingimg/landing.gif" alt="demo" style={{width:'85%', maxWidth: 950}}/>               
                 </Row> 
                 
                 
