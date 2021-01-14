@@ -8,7 +8,7 @@ router
     .route('/')
 
     .get((req, res) => {
-        console.log('/');
+        // console.log('/');
         Room
             .find({})
             .then(data => {
@@ -54,9 +54,13 @@ router
 // Decline Room Invite
 router 
     .route('/decline')
-    .post(({ body }, res) => {
+    .put(async ({ body }, res) => {
         // ** Access User's db and Pull publicRoomID From 'inboundPendingRooms' Array
-        dbArray.pull('inboundPendingRooms', body.user, body.pubRoomId);
+        const pullID = dbArray.pull('inboundPendingRooms', body.user, body.pubRoomId);
+        if (!pullID) {
+            res.json({ success: false });
+        }
+        res.json({ success: true });
     });
 
 // gathers rooms based on id

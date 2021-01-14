@@ -1,5 +1,6 @@
 import React from 'react';
 import { toast } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import './SidebarUsersCont.css';
 
@@ -16,19 +17,21 @@ const SidebarUsersCont = (props) => {
 
     // * Set States, State Helper Functions, and Other Variables
 
+    const history = useHistory();
+
     // !* Depreciated - We need to pull this from global context instead
     const { _id } = JSON.parse(localStorage.getItem('USER'));
 
     // * Functions
     // * Pass User's Friend's ID and They Type of Request To Make
-    const accept = async (frenId, type) => {
+    const accept = async (id, type) => {
         switch (type) {
             // ** Send User and Friend's IDs to Server To Process Accepting Friend Request
             case 'friend':
                 try {
                     const request = await fetch('/api/friends/accept', {
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ friend: frenId, user: _id }),
+                        body: JSON.stringify({ friend: id, user: _id }),
                         method: 'PUT'
                     });
                     const status = await request.json();
@@ -43,13 +46,40 @@ const SidebarUsersCont = (props) => {
                             position: toast.POSITION.TOP_RIGHT
                         });
                     }
+
+                    // *** Run Check DB to Update Render of Inbound and Friends Containers
+                    props.checkDBArrays('inpending');
+                    props.checkDBArrays('friends');
                 } catch (err) {
                     console.log({ err });
                 }
                 break;
             // ** Send User and Friend's IDs to Server To Process Accepting Room Invite
             case 'room':
-                console.log('Manage Room Accept');
+                history.push('/rooms/' + id);
+                try {
+                    const request = await fetch('/api/room/decline', {
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ pubRoomId: id, user: _id }),
+                        method: 'PUT'
+                    });
+                    const status = await request.json();
+                    
+                    if (status.success) {
+                        toast.success('Accepted Room Invite!', {
+                            position: toast.POSITION.TOP_RIGHT
+                        });
+                    } else {
+                        toast.error('Failed to Accept Room Invite', {
+                            position: toast.POSITION.TOP_RIGHT
+                        });
+                    }
+                    // ** Run checkDBArrays ti Update Render Of inbound Room Invites
+                    props.checkDBArrays('inpendingRooms');
+                } catch (err) {
+                    console.log({ err });
+                }
+
                 break;
             default:
                 console.log('No Valid Type');
@@ -58,18 +88,18 @@ const SidebarUsersCont = (props) => {
     };
 
     // * Pass User's Friend's ID and They Type of Request To Make for Declining Requests
-    const decline = async (frenId, type) => {
+    const decline = async (id, type) => {
         switch (type) {
             // * Send User and Friend's IDs to Server To Process Declining Friend Request
             case 'friend':
                 try {
                     const request = await fetch('/api/friends/decline', {
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ friend: frenId, user: _id }),
+                        body: JSON.stringify({ friend: id, user: _id }),
                         method: 'PUT'
                     });
                     const status = await request.json();
-                    console.log(status.success);
+
                     if (status.success) {
                         toast.warning('Declined Friend Request', {
                             position: toast.POSITION.TOP_RIGHT
@@ -79,6 +109,10 @@ const SidebarUsersCont = (props) => {
                             position: toast.POSITION.TOP_RIGHT
                         });
                     }
+
+                    // * Run Check DB to Update Render of Inbound Friends Containers
+                    props.checkDBArrays('inpending');
+
                 } catch (err) {
                     console.log({ err });
                 }
@@ -86,26 +120,30 @@ const SidebarUsersCont = (props) => {
                 break;
             // ** Send User and Friend's IDs to Server To Process Declining Room Invite
             case 'room':
-                // try {
-                //     const request = await fetch('/api/room/decline', {
-                //         headers: { 'Content-Type': 'application/json' },
-                //         body: JSON.stringify({ pubRoomId: frenId, user: _id }),
-                //         method: 'PUT'
-                //     });
-                //     const status = await request.json();
-                //     console.log(status.success);
-                //     if (status.success) {
-                //         toast.warning('Declined Friend Request', {
-                //             position: toast.POSITION.TOP_RIGHT
-                //         });
-                //     } else {
-                //         toast.error('Failed to Decline Friend Request', {
-                //             position: toast.POSITION.TOP_RIGHT
-                //         });
-                //     }
-                // } catch (err) {
-                //     console.log({ err });
-                // }
+                
+                try {
+                    const request = await fetch('/api/room/decline', {
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ pubRoomId: id, user: _id }),
+                        method: 'PUT'
+                    });
+                    const status = await request.json();
+                    
+                    if (status.success) {
+                        toast.warning('Declined Room Invite', {
+                            position: toast.POSITION.TOP_RIGHT
+                        });
+                    } else {
+                        toast.error('Failed to Decline Room Invite', {
+                            position: toast.POSITION.TOP_RIGHT
+                        });
+                    }
+
+                    // ** Run checkDBArrays ti Update Render Of inbound Room Invites
+                    props.checkDBArrays('inpendingRooms');
+                } catch (err) {
+                    console.log({ err });
+                }
                 break;
             default:
                 console.log('No Valid Type');
@@ -118,25 +156,25 @@ const SidebarUsersCont = (props) => {
         <>
             {/* Check If Data Has a Truthy Value then Render */}
             {props.data &&
-                props.data.map(friend => (
+                props.data.map(mapData => (
 
                     <div className='d-flex flex-row justify-content-start align-items-center mb-2' key={uuidv4()}>
                         <img
-                            src={friend.imageSrc || friend.roomImg}
-                            alt={friend.username || friend.roomName}
+                            src={mapData.imageSrc || mapData.roomImg}
+                            alt={mapData.username || mapData.roomName}
                             style={{ width: 32, height: 32 }}
                         />
 
                         {/* * Determine if Username or Room Name Should Render */}
                         {/* ** Check For Truthy Values In friend.username and friend.room to determine if the component received room or friend data, then use substring to limit their lengths */}
-                        { friend.username &&
+                        { mapData.username &&
                             <p className='mx-2 my-0 SbUserCont-Text'>
-                                {friend.username.substring(0, 16)}
+                                {mapData.username.substring(0, 16)}
                             </p>
                         }
-                        { friend.roomName &&
+                        { mapData.roomName &&
                             <p className='mx-2 my-0 SbUserCont-Text'>
-                                {friend.roomName.substring(0, 22)}
+                                {mapData.roomName.substring(0, 22)}
                             </p>
                         }
 
@@ -145,7 +183,7 @@ const SidebarUsersCont = (props) => {
                         {/* *** Check For False Value of isRequest and Type is Not DM To Render View Profile Button */}
                         {(!props.isRequest && props.type !== 'dm') &&
                             <button
-                                onClick={() => { props.handleShow(friend); props.handleFriendModal(friend); }}
+                                onClick={() => { props.handleShow(mapData); props.handleFriendModal(mapData); }}
                                 className='SbUserCont-btn profile d-inline-block ml-auto mb-3 px-2 py-1'
 
                             ><small>View Profile</small> </button>
@@ -166,11 +204,10 @@ const SidebarUsersCont = (props) => {
                         {/* *** Check for True Value of isRequest to Render Accept Button */}
                         {props.isRequest &&
                             <button
-                                onClick={async () => {
-                                    await accept(friend.friendId, props.type);
-                                    // *** Run Check DB to Update Render of Inbound and Friends Containers
-                                    props.checkDBArrays('inpending');
-                                    props.checkDBArrays('friends');
+                                onClick={() => {
+                                    accept(mapData.friendId ||
+                                        mapData.publicRoomId, 
+                                    props.type);
                                 }}
                                 className='SbUserCont-btn accept  d-inline-block mx-3 px-2'
                             ><small>Accept</small></button>
@@ -179,9 +216,10 @@ const SidebarUsersCont = (props) => {
                         {props.isRequest &&
                             <button
                                 onClick={async () => {
-                                    await decline(friend.friendId, props.type);
-                                    // * Run Check DB to Update Render of Inbound Friends Containers
-                                    props.checkDBArrays('inpending');
+                                    await decline(mapData.friendId || 
+                                        mapData.publicRoomId, 
+                                    props.type);
+                                    
                                 }}
                                 className='SbUserCont-btn decline  d-inline-block px-2'
                             ><small>Decline</small></button>
