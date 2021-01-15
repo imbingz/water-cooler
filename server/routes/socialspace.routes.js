@@ -44,6 +44,18 @@ router
             });
     });
 
+// Decline Space Invite
+router
+    .route('/decline')
+    .put(async ({ body }, res) => {
+        // ** Access User's db and Pull publicRoomID From 'inboundPendingRooms' Array
+        const pullID = dbArray.pull('inboundPendingSpaces', body.user, body.nextPubSpaceId);
+        if (!pullID) {
+            res.json({ success: false });
+        }
+        res.json({ success: true });
+    });
+
 // gathers social space based on id
 router
     .route('/find')
@@ -98,11 +110,9 @@ router
 router
     .route('/join')
     .put(async ({ body }, res) => {
-        console.log(body);
         try {
             // ** Access User's db and Pull publicRoomID From 'inboundPendingRooms' Array
             if (body.oldPubSpaceId) {
-                console.log('old pub');
                 const pullRoomFromOld = await SocialSpace
                     .findOneAndUpdate(
                         { publicSocialSpaceId: body.oldPubSpaceId },
@@ -110,7 +120,6 @@ router
                         { new: true }
                     );
                 if (!pullRoomFromOld) {
-                    console.log('hit');
                     res.json({ success: false });
                     return;
                 }
@@ -125,12 +134,13 @@ router
                     },
                     { new: true }
                 );
-            console.log(pushToNew);
 
             if (!pushToNew) {
                 res.json({ success: false });
                 return;
             }
+
+            dbArray.pull('inboundPendingSpaces', body.user, body.nextPubSpaceId);
 
             res.json({ success: true });
 

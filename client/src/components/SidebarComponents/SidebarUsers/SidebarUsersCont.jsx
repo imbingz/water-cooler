@@ -86,32 +86,30 @@ const SidebarUsersCont = (props) => {
 
                 break;
             case 'space':
-                console.log(id);
-                console.log(spaceId);
                 let request;
                 try {
                     // This Should work, just need to test
                     if (roomCheck) {
                         request = await fetch('/api/socialspace/join', {
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ 
+                            body: JSON.stringify({
                                 nextPubSpaceId: spaceId,
-                                user: _id 
+                                user: _id
                             }),
                             method: 'PUT'
                         });
                     } else {
                         request = await fetch('/api/socialspace/join', {
                             headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({ 
+                            body: JSON.stringify({
                                 nextPubSpaceId: spaceId,
                                 oldPubSpaceId: currentSpaceId,
-                                user: _id 
+                                user: _id
                             }),
                             method: 'PUT'
                         });
                     }
-                    
+
                     const status = await request.json();
 
                     if (status.success) {
@@ -123,8 +121,8 @@ const SidebarUsersCont = (props) => {
                             position: toast.POSITION.TOP_RIGHT
                         });
                     }
-                    // ** Run checkDBArrays ti Update Render Of inbound Room Invites
-                    props.checkDBArrays('inpendingRooms');
+
+                    props.checkDBArrays('inpendingSpaces');
                     history.push('/rooms/' + id + '/' + spaceId);
                 } catch (err) {
                     console.log({ err });
@@ -196,6 +194,31 @@ const SidebarUsersCont = (props) => {
                     console.log({ err });
                 }
                 break;
+            case 'space':
+
+                try {
+                    const request = await fetch('/api/socialspace/decline', {
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ nextPubSpaceId: spaceId, user: _id }),
+                        method: 'PUT'
+                    });
+                    const status = await request.json();
+                    if (status.success) {
+                        toast.warning('Declined Social Space Invite', {
+                            position: toast.POSITION.TOP_RIGHT
+                        });
+                    } else {
+                        toast.error('Failed to Decline Social Space Invite', {
+                            position: toast.POSITION.TOP_RIGHT
+                        });
+                    }
+
+                    // ** Run checkDBArrays ti Update Render Of inbound Space Invites
+                    props.checkDBArrays('inpendingSpaces');
+                } catch (err) {
+                    console.log({ err });
+                }
+                break;
             default:
                 toast.warning('No Valid Type', {
                     position: toast.POSITION.TOP_RIGHT
@@ -228,6 +251,11 @@ const SidebarUsersCont = (props) => {
                         { mapData.roomName &&
                             <p className='mx-2 my-0 SbUserCont-Text'>
                                 {mapData.roomName.substring(0, 22)}
+                            </p>
+                        }
+                        { mapData.socialSpaceName &&
+                            <p className='mx-2 my-0 SbUserCont-Text'>
+                                {mapData.socialSpaceName.substring(0, 22)}
                             </p>
                         }
 

@@ -227,7 +227,7 @@ function TabMembers(props) {
         default:
             renderRoomUsers = roomUsersData;
             renderSocialSpaces = props.spaceData;
-            renderSpaceInvites = dummySpaceInvites;
+            renderSpaceInvites = props.inpendingSpaces;
     }
 
     return (
@@ -256,16 +256,19 @@ function TabMembers(props) {
             </section>
             
             {/* Space Invites */}
-            <section className='TabMembers-room-section pb-3'>
-                <SidebarUsersCont
-                    data={renderSpaceInvites}
-                    isRequest={true}
-                    type="space"
-                    checkDBArrays={props.checkDBArrays}
-                    handleFriendModal={handleMembersProfileModal}
-                    handleShow={handleShow}
-                />
-            </section>
+            {(props.inpendingSpaces.length > 0) &&
+                <section className='TabMembers-room-section pb-3'>
+                    <h5 className='mt-4 mb-3 TabMembers-room-header'>Social Space Invites</h5>
+                    <SidebarUsersCont
+                        data={renderSpaceInvites}
+                        isRequest={true}
+                        type="space"
+                        checkDBArrays={props.checkDBArrays}
+                        handleFriendModal={handleMembersProfileModal}
+                        handleShow={handleShow}
+                    />
+                </section>
+            }
 
             {/* Container For Room Header, Leave/End Room, Render All Users in Room   */}
             <section className='TabMembers-room-section pb-3'>

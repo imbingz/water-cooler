@@ -22,7 +22,7 @@ function Tabnav() {
     // console.log(path.length);
     const roomCheck = path.includes('room');
     let roomID = path.substring(7);
-    
+
 
     if (path.length > 70) {
         roomID = roomID.substring(0, roomID.length - 37);
@@ -48,7 +48,7 @@ function Tabnav() {
             });
 
             const roomResponse = await roomRequest.json();
-          
+
             // *** If DB Req Is Successful, Store Room Data in State and Request Information for Social Spaces
             if (roomResponse.data) {
                 setRoomData(roomResponse.data);
@@ -77,7 +77,7 @@ function Tabnav() {
             });
 
             const response = await request.json();
-         
+
             // *** Create A New Object to Store Social Space Data with Response Data Containing 
             //      User's Information and Push Object To parsedSpaceData[]
             let socialSpace = {
@@ -100,11 +100,12 @@ function Tabnav() {
     const [offFriends, setOffFriends] = useState([]);
     // eslint-disable-next-line
     const [onFriends, setOnFriends] = useState([]);
-    
+
     // ** Store Data in State for TabDM
     const [allFriends, setAllFriends] = useState([]);
     // ** Store Room Invite In State
     const [inpendingRooms, setInpendingRooms] = useState([]);
+    const [inpendingSpaces, setInpendingSpaces] = useState([]);
 
     // ** Check User's DB For Any Changes in either friends or inboundPendingFriends by passing 'friends' or 'inpending'
     //    Then store updated array values in State
@@ -136,6 +137,9 @@ function Tabnav() {
                 case 'inpendingRooms':
                     setInpendingRooms(data.retRooms);
                     break;
+                case 'inpendingSpaces':
+                    setInpendingSpaces(data.retSpaces);
+                    break;
                 default:
                     console.log('No valid array');
                     break;
@@ -154,12 +158,13 @@ function Tabnav() {
         checkDBArrays('friends');
         checkDBArrays('inpending');
         checkDBArrays('inpendingRooms');
+        checkDBArrays('inpendingSpaces');
     }, [checkDBArrays, getRoomData, roomCheck]);
 
 
 
     return (
-        
+
         <div className='d-flex flex-column Tabnav-aside-tab'>
             <Tab.Container activeKey={activeKey} onSelect={setActiveKey} >
                 <Nav fill variant="tabs" className="justify-content-around bg-warning">
@@ -196,7 +201,7 @@ function Tabnav() {
                     <Tab.Pane eventKey='friends'>
                         <TabFriends
                             inpending={inpending}
-                            inpendingRooms ={inpendingRooms}
+                            inpendingRooms={inpendingRooms}
                             offFriends={offFriends}
                             checkDBArrays={checkDBArrays}
                         />
@@ -213,6 +218,8 @@ function Tabnav() {
                         <TabMembers
                             roomData={roomData}
                             spaceData={spaceData}
+                            inpendingSpaces={inpendingSpaces}
+                            checkDBArrays={checkDBArrays}
                         />
                     </Tab.Pane>
                 </Tab.Content>
