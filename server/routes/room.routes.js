@@ -8,7 +8,6 @@ router
     .route('/')
 
     .get((req, res) => {
-        // console.log('/');
         Room
             .find({})
             .then(data => {
@@ -67,6 +66,11 @@ router
                 roomImg: req.body.roomImg
             })
             .then(data => {
+                if (req.body.roomFriends.length <= 0) {
+                    console.log('does this fix it?');
+                    res.json({ success: true, data });
+                    return;
+                }
                 for (let i = 0; i < req.body.roomFriends.length; i++) {
                     User
                         .findByIdAndUpdate(
@@ -74,14 +78,15 @@ router
                             { $addToSet: { inboundPendingRooms: data.publicRoomId } }
                         )
                         .then(update => {
-                            res.json({ success: true, update });
+                            return update;
                         })
                         .catch(err => {
-                            res.json({ success: false } + err);
+                            return err;
                         });
                 }
                 dbArray.set('activeRoom', req.body.userId, data._id.toString());
                 res.json({ success: true, data });
+                return;
             })
             .catch(err => {
                 res.json({ success: false } + err);
@@ -177,14 +182,13 @@ router
     });
 
 // * Get Information of the Users in a Room
-// !* { note: similar logic is in place in user.route, we could use that route instead but testing is needed } 
 router
     .route('/users')
     .post(async ({ body }, res) => {
         try {
             // * Get DB Info for All IDs in idArray
             const roomUsers = await db.User.find({ _id: { $in: body.users } });
-            // console.log({ roomUsers });
+         
             // ** If no friends found, End Function
             if (!roomUsers) {
                 console.log('No users found');
@@ -204,14 +208,12 @@ router
                     friendId: friends._id,
                     status: friends.status
                 };
-                // console.log(userParsed);
-
+                
                 // *** Push Each Result to response
                 response.push(userParsed);
             });
 
             // ** Send Filtered Response to Client
-            // console.log({ response });
             res.json({ success: true, retUsers: response });
         } catch (err) {
             console.log('/api/room/users: ', err);

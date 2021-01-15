@@ -4,7 +4,6 @@ const { dbArray } = require('../controllers/user-arrays');
 
 // * Accepting Friend Request
 router.put('/accept', async ({ body }, res) => {
-    // console.log('Hit Accept Friend Req API: ', body);
     try {
         // ** Access User's Friend's Db and Push User's ID to 'friends' Array
         dbArray.push('friends', body.friend, body.user);
@@ -24,7 +23,6 @@ router.put('/accept', async ({ body }, res) => {
 
 // * Block User Request
 router.put('/block', async ({ body }, res) => {
-    // console.log('Hit Accept Friend Req API: ', body);
     try {
         // ** Access User's Friend's db and Pull User's ID From 'outboundPendingFriends' Array
         dbArray.pull('outboundPendingFriends', body.friend, body.user);
@@ -42,7 +40,6 @@ router.put('/block', async ({ body }, res) => {
 
 // * Decline Friend Request
 router.put('/decline', async ({ body }, res) => {
-    // console.log('Hit Decline Friend Req API: ', body);
     try {
         // ** Access User's Friend's db and Pull User's ID From 'outboundPendingFriends' array
         dbArray.pull('outboundPendingFriends', body.friend, body.user);
@@ -58,7 +55,6 @@ router.put('/decline', async ({ body }, res) => {
 
 // * Find User's Friends, Inbound Requests, and Blocked Users
 router.post('/arrays', async ({ body }, res) => {
-    // console.log('Hit Friend Array API: ', body);
     try {
         // * Functions
         // !* this needs a try/catch block
@@ -149,7 +145,6 @@ router.post('/arrays', async ({ body }, res) => {
 
 // * Send Friend Request
 router.put('/request', async ({ body }, res) => {
-    // console.log('Hit Send Friend Req API: ', body);
     try {
         // ** Find User's Friend's db and Push User's ID to 'inboundPendingFriends' Array
         dbArray.push('inboundPendingFriends', body.friend, body.user);
@@ -165,7 +160,6 @@ router.put('/request', async ({ body }, res) => {
 
 // * Unfriend Friend
 router.put('/unfriend', async ({ body }, res) => {
-    // console.log('Hit Accept Friend Req API: ', body);
     try {
         // ** Access User's Friend's Db and Pull User's ID From 'friends' Array
         dbArray.pull('friends', body.friend, body.user);

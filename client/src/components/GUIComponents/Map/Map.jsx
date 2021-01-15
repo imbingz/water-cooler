@@ -1,12 +1,11 @@
 import React from 'react';
 
-import { useGUI } from '../../../utils/GUIProvider';
-import Player from '../Player';
+// import { useGUI } from '../../../utils/GUIProvider';
+// import Player from '../Player';
 import 'react-dropdown/style.css';
 
 function Map({ tiles, tileset, tileHeight, tileWidth }) {
-    const { player, players, greeting, emitMovement } = useGUI();
-    console.log(player, players);
+    // const { player, players, emitMovement } = useGUI();
 
     return (
         <div
@@ -19,10 +18,7 @@ function Map({ tiles, tileset, tileHeight, tileWidth }) {
                 backgroundColor: 'white'
             }}>
 
-            <h6> {greeting} </h6>
-
-            {Object.keys(players).map(key => {
-                console.log(key, player.id);
+            {/* {Object.keys(players).map(key => {
                 if (key === player.id) {
                     return (
                         <Player
@@ -36,7 +32,7 @@ function Map({ tiles, tileset, tileHeight, tileWidth }) {
                 return (
                     <Player pos={players[key]} />
                 );
-            })}
+            })} */}
 
 
             {/* {/* display tiles using map */}

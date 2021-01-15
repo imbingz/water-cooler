@@ -48,11 +48,12 @@ router.post('/login', passport.authenticate('local', {failureRedirect: '/'}), as
 });
 
 
-// api/user/login
+// api/user/profile and profile update
 router.put('/profile', authRequired, async ({ body }, res) => {
     try{
-        const savedUser = await db.User.findByIdAndUpdate({ _id: body.user._id }, body.user, { new: true });
-
+        //update db and return updated obj
+        const savedUser = await db.User.findByIdAndUpdate( body.user._id, body.user, { new: true });
+        //return error if no user found  
         if (!savedUser) {
             return res.status(422).json({ error: 'Could not find this user' });
         }
@@ -86,7 +87,6 @@ router.post('/search', async ({ body }, res) => {
     try {
         // ** Search DB with Indexed Text Fields
         const query = await db.User.find({ $text: { $search: body.search } });
-        // console.log(query);
 
         // ** End Function if No Results
         if (query.length === 0) {
@@ -111,7 +111,6 @@ router.post('/search', async ({ body }, res) => {
             // *** Push Each Result to response
             response.push(user);
         }
-        // console.log(response);
 
         // ** Send Filtered Response to Client
         res.json({ success: true, query: response });

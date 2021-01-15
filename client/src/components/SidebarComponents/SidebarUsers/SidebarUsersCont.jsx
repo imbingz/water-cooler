@@ -27,7 +27,6 @@ const SidebarUsersCont = (props) => {
 
     const history = useHistory();
 
-    // !* Depreciated - We need to pull this from global context instead
     const { _id } = JSON.parse(localStorage.getItem('USER'));
 
     // * Functions
@@ -69,7 +68,11 @@ const SidebarUsersCont = (props) => {
                         method: 'PUT'
                     });
                     const status = await request.json();
+<<<<<<< HEAD
 
+=======
+                    // Check returned status and notify user
+>>>>>>> master
                     if (status.success) {
                         toast.success('Accepted Room Invite!', {
                             position: toast.POSITION.TOP_RIGHT
@@ -134,7 +137,9 @@ const SidebarUsersCont = (props) => {
 
                 break;
             default:
-                console.log('No Valid Type');
+                toast.warning('No Valid Type', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
                 break;
         }
     };
@@ -151,7 +156,7 @@ const SidebarUsersCont = (props) => {
                         method: 'PUT'
                     });
                     const status = await request.json();
-
+                    // Check returned status and notify user
                     if (status.success) {
                         toast.warning('Declined Friend Request', {
                             position: toast.POSITION.TOP_RIGHT
@@ -180,7 +185,11 @@ const SidebarUsersCont = (props) => {
                         method: 'PUT'
                     });
                     const status = await request.json();
+<<<<<<< HEAD
 
+=======
+                    // Check returned status and notify user
+>>>>>>> master
                     if (status.success) {
                         toast.warning('Declined Room Invite', {
                             position: toast.POSITION.TOP_RIGHT
@@ -198,7 +207,9 @@ const SidebarUsersCont = (props) => {
                 }
                 break;
             default:
-                console.log('No Valid Type');
+                toast.warning('No Valid Type', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
                 break;
         }
     };

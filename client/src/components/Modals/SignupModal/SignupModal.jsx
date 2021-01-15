@@ -161,15 +161,6 @@ function SignupModal(props) {
                                 </button>
                             </Row>
                         </form>
-                        {/* <p className='text-center mt-5 mb-0 text-muted'>
-				                Already have an account?
-                            <button 
-                                className='SignupModal-login-btn'
-                                noClick={handleShow}
-                            >
-                                <u>Login Here</u>
-                            </button> 
-                        </p> */}
                    
                     </Container>
                 </Modal.Body>
