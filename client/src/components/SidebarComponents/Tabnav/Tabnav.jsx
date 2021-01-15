@@ -31,11 +31,6 @@ function Tabnav() {
         // console.log(roomID);
     }
 
-    
-    // I'll have to search the db of the social space to get the room id again. Im thinking that room id wont change once they move to a space but we'll see
-    
-
-    
 
     // * Collect and Parse Data for TabMembers
     // ** Store Data in State
@@ -68,7 +63,6 @@ function Tabnav() {
                     method: 'POST'
                 });
                 const spaceResponse = await spacesRequest.json();
-                // console.log(spaceResponse);
                 parseSpaceResponse(spaceResponse.data);
             }
         } catch (err) {
@@ -164,7 +158,9 @@ function Tabnav() {
 
     // * On Page Load, Get Data For Friends, Friend Requests, Rooms, and Social Spaces
     useEffect(() => {
-        getRoomData();
+        if (roomCheck) {
+            getRoomData();
+        }
         checkDBArrays('friends');
         checkDBArrays('inpending');
         checkDBArrays('inpendingRooms');

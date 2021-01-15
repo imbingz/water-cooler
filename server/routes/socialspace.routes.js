@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { dbArray } = require('../controllers/user-arrays');
 const { Room, SocialSpace } = require('../models');
 
 // populates room with social spaces in the room
@@ -24,7 +25,7 @@ router
                 publicRoomId: req.body.publicRoomId,
                 publicSocialSpaceId: req.body.publicSocialSpaceId,
                 socialSpaceName: req.body.socialSpaceName,
-                socialSpaceUsers: [req.body.socialSpaceUsers.toString()]
+                user: [req.body.socialSpaceUsers.toString()]
             })
             // ** Once Create, add _id to parent room's socialSpaces Array
             .then(space => {
@@ -74,16 +75,19 @@ router
 router
     .route('/invite')
     .put(({ body }, res) => {
-        console.log('Hit /api/socialspace/invite', body);
+        // console.log('Hit /api/socialspace/invite', );
         try {
-            const pushFriendToSpace = SocialSpace
-                .findOneAndUpdate(
-                    { publicSocialSpaceId: body.spaceId },
-                    { $addToSet: { socialSpaceUsers: body.friendId } },
-                    { new: true }
-                );
-            console.log(pushFriendToSpace);
-
+            // SocialSpace
+            //     .findOneAndUpdate(
+            //         { publicSocialSpaceId: body.spaceId },
+            //         { $addToSet: { socialSpaceUsers: body.friendId } },
+            //         { new: true }
+            //     )
+            dbArray.push('inboundPendingSpaces', body.friendId, body.spaceId)
+                .then(data => {
+                    res.json({ success: true, data });
+                });
+            
         } catch (err) {
             res.json({ success: false });
             console.log(err);

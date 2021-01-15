@@ -158,7 +158,7 @@ function TabMembers(props) {
                 publicRoomId: props.roomData.publicRoomId,
                 publicSocialSpaceId: pubSpaceId,
                 socialSpaceName: spaceName,
-                socialSpaceUsers: USER._id,
+                user: USER._id,
             }),
             method: 'POST'
         });
@@ -250,7 +250,8 @@ function TabMembers(props) {
 
                 </button>
             </section>
-
+            
+            {/* Space Invites */}
             <section className='TabMembers-room-section pb-3'>
                 <SidebarUsersCont
                     data={renderSpaceInvites}

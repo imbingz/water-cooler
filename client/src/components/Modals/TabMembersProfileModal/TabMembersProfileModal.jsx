@@ -5,12 +5,14 @@ import {GoMail} from 'react-icons/go';
 function TabMembersProfileModal(props) {
 
     const path = window.location.pathname;
-    const spaceId = path.substring(7);
+    const spaceId = path.substring(44);
 
     const sendSpaceInvite = async (friendId) => {
+        console.log(friendId);
+        console.log(spaceId);
         const request = await fetch('/api/socialspace/invite', {
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ spaceId: spaceId, friendID: friendId }),
+            body: JSON.stringify({ spaceId: spaceId, friendId: friendId }),
             method: 'PUT'
         });
         const response = await request.json();

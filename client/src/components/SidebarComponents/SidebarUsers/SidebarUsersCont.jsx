@@ -35,8 +35,6 @@ const SidebarUsersCont = (props) => {
                         method: 'PUT'
                     });
                     const status = await request.json();
-                    console.log(status);
-                    // console.log(status.success);
                     if (status.success) {
                         toast.success('Added Friend!', {
                             position: toast.POSITION.TOP_RIGHT
@@ -181,7 +179,7 @@ const SidebarUsersCont = (props) => {
                         {/* * Determine What Button Options Should Render */}
                         {/* ** View Profile or View Chat */}
                         {/* *** Check For False Value of isRequest and Type is Not DM To Render View Profile Button */}
-                        {(!props.isRequest && props.type !== 'dm') &&
+                        {(!props.isRequest && props.type !== 'dm' && mapData.friendId !== _id) &&
                             <button
                                 onClick={() => { props.handleShow(mapData); props.handleFriendModal(mapData); }}
                                 className='SbUserCont-btn profile d-inline-block ml-auto mb-3 px-2 py-1'
