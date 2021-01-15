@@ -174,7 +174,6 @@ function TabMembers(props) {
     };
 
     const joinSpace = async (newSpaceId) => {
-        console.log(newSpaceId);
         try {
             const request = await fetch('/api/socialspace/join', {
                 headers: { 'Content-Type': 'application/json' },
@@ -197,7 +196,8 @@ function TabMembers(props) {
                 });
             }
             // ** Run checkDBArrays to Update Render Of inbound Room Invites
-            // history.push('/rooms/' + props.roomData.publicRoomId + '/' + spaceId);
+            dispatch({ type: 'setShowAside', payload: false });
+            history.push('/rooms/' + props.roomData.publicRoomId + '/' + newSpaceId);
         } catch (err) {
             console.log({ err });
         }

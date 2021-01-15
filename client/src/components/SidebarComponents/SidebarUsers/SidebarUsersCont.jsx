@@ -68,11 +68,6 @@ const SidebarUsersCont = (props) => {
                         method: 'PUT'
                     });
                     const status = await request.json();
-<<<<<<< HEAD
-
-=======
-                    // Check returned status and notify user
->>>>>>> master
                     if (status.success) {
                         toast.success('Accepted Room Invite!', {
                             position: toast.POSITION.TOP_RIGHT
@@ -185,11 +180,6 @@ const SidebarUsersCont = (props) => {
                         method: 'PUT'
                     });
                     const status = await request.json();
-<<<<<<< HEAD
-
-=======
-                    // Check returned status and notify user
->>>>>>> master
                     if (status.success) {
                         toast.warning('Declined Room Invite', {
                             position: toast.POSITION.TOP_RIGHT

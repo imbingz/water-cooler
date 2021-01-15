@@ -28,12 +28,6 @@ function Tabnav() {
         roomID = roomID.substring(0, roomID.length - 37);
         // console.log(roomID);
     }
-
-<<<<<<< HEAD
-    console.log(roomID);
-
-=======
->>>>>>> master
     // * Collect and Parse Data for TabMembers
     // ** Store Data in State
     //  Default state for roomData Needs to Send an Empty Array Since the jsx in Tab Members Uses .map
@@ -64,10 +58,6 @@ function Tabnav() {
                     method: 'POST'
                 });
                 const spaceResponse = await spacesRequest.json();
-<<<<<<< HEAD
-                console.log(spaceResponse);
-=======
->>>>>>> master
                 parseSpaceResponse(spaceResponse.data);
             }
         } catch (err) {
@@ -97,11 +87,6 @@ function Tabnav() {
                 socialSpaceUsers: response.retUsers
             };
             parsedSpaceData.push(socialSpace);
-<<<<<<< HEAD
-            console.log(parsedSpaceData);
-=======
-            
->>>>>>> master
         });
         // *** Store Parsed Information in State
         setSpaceData(parsedSpaceData);

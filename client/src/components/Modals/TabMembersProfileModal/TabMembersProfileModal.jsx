@@ -1,22 +1,32 @@
 import React from 'react';
 import { Modal, Container, Row, Button, Col } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 import {GoMail} from 'react-icons/go';
 
 function TabMembersProfileModal(props) {
 
     const path = window.location.pathname;
-    const spaceId = path.substring(44);
+    let spaceId = false;
+    if (path.length > 70) {
+        spaceId = path.substring(44);
+    }
 
     const sendSpaceInvite = async (friendId) => {
-        console.log(friendId);
-        console.log(spaceId);
         const request = await fetch('/api/socialspace/invite', {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ spaceId: spaceId, friendId: friendId }),
             method: 'PUT'
         });
         const response = await request.json();
-        console.log(response);
+        if (response.success) {
+            toast.success('Sent Social Space Invite!', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        } else {
+            toast.error('Failed to Send Social Space Invite', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        }
     };
 
     const {member} = props;
@@ -56,11 +66,13 @@ function TabMembersProfileModal(props) {
                             </Col>
                         </Row>            
                         <Row className='my-4'>
-                            <Button 
-                                onClick={() => { sendSpaceInvite(member.friendId); }}
-                                className='d-inline-block mx-2 px-3'
-                                variant='success'
-                            >Invite to SocialSpace</Button >
+                            {spaceId &&
+                                <Button 
+                                    onClick={() => { sendSpaceInvite(member.friendId); }}
+                                    className='d-inline-block mx-2 px-3'
+                                    variant='success'
+                                >Invite to SocialSpace</Button >
+                            }
                             <Button className='d-inline-block mx-2 px-3' variant='warning' size='sm'>DM Chat</Button >
                             <Button className='d-inline-block mx-2 px-3' variant='light' size='sm'>Unfriend</Button >
                         </Row>
