@@ -1,11 +1,10 @@
 import React from 'react';
-import Dropdown from 'react-dropdown';
 
 import { useGUI } from '../../../utils/GUIProvider';
 import Player from '../Player';
 import 'react-dropdown/style.css';
 
-function Map({ tiles, tileset, tilesets, setTileset, tileHeight, tileWidth }) {
+function Map({ tiles, tileset, tileHeight, tileWidth }) {
     const { player, players, greeting, emitMovement } = useGUI();
     console.log(player, players);
 
@@ -39,12 +38,6 @@ function Map({ tiles, tileset, tilesets, setTileset, tileHeight, tileWidth }) {
                 );
             })}
 
-            <div style={{ display: 'flex', justifyContent: 'center', padding: 10 }}>
-                <div style={{ padding: 8 }}><span> Choose Room Settings </span></div>
-                <div style={{ width: 200, marginLeft: 8 }}>
-                    <Dropdown options={tilesets} value={tileset} onChange={tileset => setTileset(tileset.value)} />
-                </div>
-            </div>
 
             {/* {/* display tiles using map */}
             {tiles.map((row, y) => (
@@ -56,7 +49,7 @@ function Map({ tiles, tileset, tilesets, setTileset, tileHeight, tileWidth }) {
                             style={{
                                 borderTop: '1px solid grey',
                                 borderRight: '1px solid grey',
-                                background: `url(/sprites/${tileset}.png)
+                                background: `url(${tileset})
 								-${x * 32}px -${y * 32}px
 								no-repeat`,
                                 width: tileWidth,

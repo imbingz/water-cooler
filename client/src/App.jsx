@@ -4,7 +4,7 @@ import { SocketProvider } from './utils/SocketProvider';
 import { ChatProvider } from './utils/ChatProvider';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import Footer from './components/Footer';
-import GameRPG from './pages/depreciated/GameRPG';
+// import GameRPG from './pages/depreciated/GameRPG';
 import Homepage from './pages/Homepage';
 import Landing from './pages/Landing';
 import Login from './pages/depreciated/Login';
@@ -88,7 +88,7 @@ function App() {
                                 {/* will be socialspace:id */}
                                 <Route exact path='/rooms/:id/:id' component={SocialSpace} />
                                 {/* Temporary Game Page  */}
-                                <Route exact path='/game' component={GameRPG} />
+                                {/* <Route exact path='/game' component={GameRPG} /> */}
                                 {/* Temporary RoomUser Page */}
                                 <Route exact path='/room' component={RoomGUI} />
                                 {/* Temporary Social Space Page  */}

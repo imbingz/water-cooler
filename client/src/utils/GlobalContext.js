@@ -8,7 +8,7 @@ const defaultState = {
     currentRoom: [],
     currentSocialSpace: [],
     showAside: false,
-    roomStyle:'',
+    roomStyle:localStorage.getItem('roomImg'),
     //global USER
     USER: JSON.parse(localStorage.getItem('USER'))
 };
