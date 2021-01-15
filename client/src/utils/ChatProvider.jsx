@@ -46,6 +46,7 @@ export function ChatProvider({ children }) {
         }
 
         populateChat();
+        console.log(lastChat);
 
         socket.on('set-id', id => {
             socket.id = id;
@@ -53,6 +54,7 @@ export function ChatProvider({ children }) {
 
         socket.on('receive-chat', (message, roomId, userId, username, socketId) => {
             if (socket.id === socketId) {
+                console.log('is this working?')
                 receiveChat(message, roomId, userId, username);
                 populateChat();
                 return;
@@ -60,10 +62,11 @@ export function ChatProvider({ children }) {
             const random = uuidv4();
             setLastChat(random);
             populateChat();
+            return;
         });
 
         return () => socket.off('receive-chat');
-    }, [socket, populateChat, uuidv4]);
+    }, [socket, populateChat, lastChat, uuidv4]);
 
     const sendChat = (message, roomId, userId, username) => {
         socket.emit('send-chat', message, roomId, userId, username);
