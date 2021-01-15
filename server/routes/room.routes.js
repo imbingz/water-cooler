@@ -8,7 +8,6 @@ router
     .route('/')
 
     .get((req, res) => {
-        // console.log('/');
         Room
             .find({})
             .then(data => {
@@ -92,14 +91,13 @@ router
     });
 
 // * Get Information of the Users in a Room
-// !* { note: similar logic is in place in user.route, we could use that route instead but testing is needed } 
 router
     .route('/users')
     .post(async ({ body }, res) => {
         try {
             // * Get DB Info for All IDs in idArray
             const roomUsers = await db.User.find({ _id: { $in: body.users } });
-            // console.log({ roomUsers });
+         
             // ** If no friends found, End Function
             if (!roomUsers) {
                 console.log('No users found');
@@ -119,14 +117,12 @@ router
                     friendId: friends._id,
                     status: friends.status
                 };
-                // console.log(userParsed);
-
+                
                 // *** Push Each Result to response
                 response.push(userParsed);
             });
 
             // ** Send Filtered Response to Client
-            // console.log({ response });
             res.json({ success: true, retUsers: response });
         } catch (err) {
             console.log('/api/room/users: ', err);
