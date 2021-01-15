@@ -54,7 +54,6 @@ export function ChatProvider({ children }) {
 
         socket.on('receive-chat', (message, roomId, userId, username, socketId) => {
             if (socket.id === socketId) {
-                console.log('is this working?')
                 receiveChat(message, roomId, userId, username);
                 populateChat();
                 return;
