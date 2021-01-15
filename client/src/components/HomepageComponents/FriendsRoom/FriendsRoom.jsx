@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import { useGlobalContext } from '../../../utils/GlobalContext';
 import dummyFriendRooms from '../../../data/friendsRoom';
+import './FriendsRoom.css';
 
 // * FriendsRoom Will Render Any Currently Open Rooms Hosted By a User's Friend Using prop Data From Homepage
 function FriendsRoom(props) {
@@ -62,7 +63,7 @@ function FriendsRoom(props) {
                     className='d-flex justify-content-center align-items-center mt-3'
                     style={{textAlign: 'center'}}
                 >
-                    <h5 >No Friends Are Hosting Rooms, Create One A Room and Your Friends Will See it Here!</h5> 
+                    <h5 >No Friends Are Hosting Rooms, Create A Room and Your Friends Will See it Here!</h5> 
                 </Row>
             }
             <Row className='d-flex flex-wrap justify-content-around align-items-sm-center'>
