@@ -70,7 +70,7 @@ function Tabnav() {
         } catch (err) {
             console.log({ err });
         }
-    }, []);
+    }, [roomID]);
 
     // ** Get User Information for Each Social Space and Parse Data for TabMembers To Render
     const parseSpaceResponse = (arr) => {
