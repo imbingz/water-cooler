@@ -64,7 +64,7 @@ io.on('connection', (socket) => {
 
     socket.on('disconnect', () => {
         socket.to(socket.room).broadcast.emit('user-disconnected');
-        delete players[socket.id];
+        // delete players[socket.id];
     });
 
 
