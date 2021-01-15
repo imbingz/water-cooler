@@ -26,7 +26,10 @@ function TabMembers(props) {
 
     // * Get the pubSpaceId from the URL
     const path = window.location.pathname;
-    let spaceId = path.substring(44);
+    let spaceId = false;
+    if (path.length > 70) {
+        spaceId = path.substring(44);
+    }
 
     // ** Manage State for Showing/Closing ProfileModal
     const [show, setShow] = useState(false);

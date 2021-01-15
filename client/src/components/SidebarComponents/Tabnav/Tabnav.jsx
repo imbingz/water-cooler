@@ -24,13 +24,14 @@ function Tabnav() {
     // console.log(path.length);
     const roomCheck = path.includes('room');
     let roomID = path.substring(7);
-    // console.log(roomID);
+    
 
     if (path.length > 70) {
         roomID = roomID.substring(0, roomID.length - 37);
         // console.log(roomID);
     }
 
+    console.log(roomID);
 
     // * Collect and Parse Data for TabMembers
     // ** Store Data in State
@@ -63,6 +64,7 @@ function Tabnav() {
                     method: 'POST'
                 });
                 const spaceResponse = await spacesRequest.json();
+                console.log(spaceResponse);
                 parseSpaceResponse(spaceResponse.data);
             }
         } catch (err) {
@@ -92,7 +94,7 @@ function Tabnav() {
                 socialSpaceUsers: response.retUsers
             };
             parsedSpaceData.push(socialSpace);
-            // console.log(parsedSpaceData);
+            console.log(parsedSpaceData);
         });
         // *** Store Parsed Information in State
         setSpaceData(parsedSpaceData);
@@ -164,7 +166,7 @@ function Tabnav() {
         checkDBArrays('friends');
         checkDBArrays('inpending');
         checkDBArrays('inpendingRooms');
-    }, [checkDBArrays, getRoomData]);
+    }, [checkDBArrays, getRoomData, roomCheck]);
 
 
 

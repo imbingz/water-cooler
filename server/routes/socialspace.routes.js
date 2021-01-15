@@ -25,7 +25,7 @@ router
                 publicRoomId: req.body.publicRoomId,
                 publicSocialSpaceId: req.body.publicSocialSpaceId,
                 socialSpaceName: req.body.socialSpaceName,
-                user: [req.body.socialSpaceUsers.toString()]
+                socialSpaceUsers: [req.body.user.toString()]
             })
             // ** Once Create, add _id to parent room's socialSpaces Array
             .then(space => {
@@ -87,40 +87,47 @@ router
                 .then(data => {
                     res.json({ success: true, data });
                 });
-            
+
         } catch (err) {
             res.json({ success: false });
             console.log(err);
         }
     });
 
-// Join A Space
+// Join A Space and/or Leave Current One
 router
     .route('/join')
     .put(async ({ body }, res) => {
+        console.log(body);
         try {
             // ** Access User's db and Pull publicRoomID From 'inboundPendingRooms' Array
-            const pullRoomFromOld = await SocialSpace
-                .findOneAndUpdate(
-                    { publicSocialSpaceId: body.oldPubSpaceId },
-                    { $pull: { socialSpaceUsers: body.user } },
-                    { new: true }
-                );
-
-            
+            if (body.oldPubSpaceId) {
+                console.log('old pub');
+                const pullRoomFromOld = await SocialSpace
+                    .findOneAndUpdate(
+                        { publicSocialSpaceId: body.oldPubSpaceId },
+                        { $pull: { socialSpaceUsers: body.user } },
+                        { new: true }
+                    );
+                if (!pullRoomFromOld) {
+                    console.log('hit');
+                    res.json({ success: false });
+                    return;
+                }
+            }
 
             const pushToNew = await SocialSpace
                 .findOneAndUpdate(
-                    { publicRoomId: body.nextPubSpaceId },
+                    { publicSocialSpaceId: body.nextPubSpaceId },
                     {
                         $addToSet:
-                            { roomUsers: body.user }
+                            { socialSpaceUsers: body.user }
                     },
                     { new: true }
-
                 );
+            console.log(pushToNew);
 
-            if (!pullRoomFromOld || !pushToNew) {
+            if (!pushToNew) {
                 res.json({ success: false });
                 return;
             }
