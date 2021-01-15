@@ -1,6 +1,4 @@
 .Profile {
-	/* min-height: 100vh;
-	max-width: 900px; */
 	padding-top: 40px;
 	margin: 0 3px;
 	display: flex;
@@ -9,7 +7,6 @@
 	align-items: center;
 }
 
-
 /* apply to all buttons on profile page */
 .Profile button:focus,
 .Profile button:active,
@@ -17,7 +14,6 @@
 	outline: 0;
 	transform: scale(0.9);
 }
-
 
 .Profile label {
 	font-weight: 500;
@@ -39,7 +35,6 @@
 	display: inline-block;
 	margin-left: 2.2rem;
 }
-
 
 /* User friend cards */
 

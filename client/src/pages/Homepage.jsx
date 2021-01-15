@@ -19,8 +19,7 @@ const Homepage = () => {
     
     // ** Check User's DB to Get Their Friend Data by passing 'friends'
     //    Then store updated array values in State
-    // !* checkDBArrays is Used in Many Places Across the App and Will be Moved to a Context Utility with a More 
-    //    Robust Switch Statement For Querying Many Types of DB Information With A Single Argument Passed To it
+  
     const checkDBArrays = useCallback(async (arr) => {
         try {
             // * Make Request For IDs Stored In A Users Mongo Document
@@ -31,7 +30,7 @@ const Homepage = () => {
             });
 
             const data = await response.json();
-            // console.log(data);
+      
             // ** Determine How To Manage Requested Data in switch
             switch (arr) {
                 case 'friends':
@@ -45,7 +44,6 @@ const Homepage = () => {
                             activeRooms.push(fren.activeRoom);
                         } 
                     });
-                    // console.log(activeRooms);
                     // ** Request Information For All Room IDs
                     const roomsRequest = await fetch('/api/room/findmany', {
                         headers: { 'Content-Type': 'application/json' },
