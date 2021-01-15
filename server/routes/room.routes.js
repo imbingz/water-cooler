@@ -25,22 +25,30 @@ router
     .put(async ({ body }, res) => {
         try {
             // ** Access User's db and Pull publicRoomID From 'inboundPendingRooms' Array
-            const pullRoomFromUser = dbArray.pull('inboundPendingRooms', body.user, body.pubRoomId);
+            const pullRoomFromUser = dbArray.pull(
+                'inboundPendingRooms',
+                body.user,
+                body.pubRoomId
+            );
+
             if (!pullRoomFromUser) {
                 res.json({ success: false });
             }
+
             await db.Room
                 .findOneAndUpdate(
                     { publicRoomId: body.pubRoomId },
-                    { $addToSet: 
-                        { roomUsers: body.user }},
+                    {
+                        $addToSet:
+                            { roomUsers: body.user }
+                    },
                     { new: true }
-            
+
                 );
 
             res.json({ success: true });
 
-        } catch(err) {
+        } catch (err) {
             console.log(err);
         }
     });
@@ -92,6 +100,22 @@ router
         res.json({ success: true });
     });
 
+// End a Room
+router
+    .route('/end')
+    .delete(async ({ body }, res) => {
+        console.log('hit');
+        const deleteRoom = await db.Room
+            .findOneAndDelete(
+                { publicRoomId: body.pubRoomId }
+            );
+        if (!deleteRoom) {
+            res.json({ success: false });
+            return;
+        }
+        res.json({ success: true });
+    });
+
 // gathers rooms based on id
 router
     .route('/find')
@@ -131,6 +155,26 @@ router
             .catch(err => {
                 res.json({ success: false } + err);
             });
+    });
+
+// Leave a Room
+router
+    .route('/leave')
+    .put(async ({ body }, res) => {
+        const pullIDFromRoom = await db.Room
+            .findOneAndUpdate(
+                { publicRoomId: body.pubRoomId },
+                {
+                    $pull:
+                        { roomUsers: body.user }
+                },
+                { new: true }
+            );
+        if (!pullIDFromRoom) {
+            res.json({ success: false });
+            return;
+        }
+        res.json({ success: true });
     });
 
 // * Get Information of the Users in a Room
