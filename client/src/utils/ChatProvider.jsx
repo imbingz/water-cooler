@@ -14,7 +14,6 @@ export function ChatProvider({ children }) {
     const roomPageUrl = document.URL;
     let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
     const { v4: uuidv4 } = require('uuid');
-    const random = uuidv4;
 
     const populateChat = useCallback(
         async () => {
@@ -53,16 +52,19 @@ export function ChatProvider({ children }) {
         });
 
         socket.on('receive-chat', (message, roomId, userId, username, socketId) => {
-            if (socket.id !== socketId) {
+            if (socket.id === socketId) {
                 receiveChat(message, roomId, userId, username);
+                populateChat();
                 return;
             }
+            const random = uuidv4();
             setLastChat(random);
             populateChat();
+            return;
         });
 
         return () => socket.off('receive-chat');
-    }, [socket, roomUrlId, lastChat, populateChat, random]);
+    }, [socket, populateChat, lastChat, uuidv4]);
 
     const sendChat = (message, roomId, userId, username) => {
         socket.emit('send-chat', message, roomId, userId, username);

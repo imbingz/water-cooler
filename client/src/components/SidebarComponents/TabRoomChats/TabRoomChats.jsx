@@ -45,7 +45,7 @@ function TabRoomChats() {
 
                 </section>
 
-                <section className='TabRoomChats-chat-footer pt-3 pl-4'>
+                <section className='TabRoomChats-chat-footer p-3'>
                     <form >
                         <label
                             htmlFor='room-chat-input'

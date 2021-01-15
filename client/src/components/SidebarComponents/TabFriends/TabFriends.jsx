@@ -48,12 +48,12 @@ function TabFriends(props) {
     }
     
     return (
-        <Container className='ml-2 mr-3 mt-3 TabFriends-Cont'>
+        <Container className='px-4 pb-0 TabFriends-Cont'>
             {/* Requests */}
             <div className='d-flex justify-content-start'>
                 {/* Check if There Is Data in RenderImpending, Meaning User Has At Least One Invitations To Render header tag */}
                 { (renderInpending.length > 0) &&
-                    <h6 className='mr-5 Tabfriends-subtitle'>Friend Requests:</h6> 
+                    <h6 className='my-4 Tabfriends-subtitle'>Friend Requests:</h6> 
                 }
             </div>
             <section className='d-flex flex-column justify-content-start TabFriends-section'>

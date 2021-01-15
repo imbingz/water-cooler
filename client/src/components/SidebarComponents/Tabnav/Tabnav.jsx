@@ -29,8 +29,6 @@ function Tabnav() {
         // I'll have to search the db of the social space to get the room id again. Im thinking that room id wont change once they move to a space but we'll see
     }
 
-    
-
     // * Collect and Parse Data for TabMembers
     // ** Store Data in State
     //  Default state for roomData Needs to Send an Empty Array Since the jsx in Tab Members Uses .map
@@ -164,23 +162,23 @@ function Tabnav() {
         
         <div className='d-flex flex-column Tabnav-aside-tab'>
             <Tab.Container activeKey={activeKey} onSelect={setActiveKey} >
-                <Nav variant="tabs" className="justify-content-around bg-warning">
+                <Nav fill variant="tabs" className="justify-content-around bg-warning">
                     <Nav.Item>
-                        <Nav.Link eventKey='friends' className='Tabnav-nav-link '>Friends</Nav.Link>
+                        <Nav.Link eventKey='friends' className='Tabnav-nav-link flex-grow'>Friends</Nav.Link>
                     </Nav.Item >
                     <Nav.Item>
-                        <Nav.Link eventKey='dms' className='Tabnav-nav-link '>DMs</Nav.Link>
+                        <Nav.Link eventKey='dms' className='Tabnav-nav-link flex-grow'>DMs</Nav.Link>
                     </Nav.Item>
 
                     {/* ** Check if User is in A Room or Social Space Before Rendering Tab Option */}
                     {(roomCheck || spaceCheck) &&
                         <Nav.Item>
-                            <Nav.Link eventKey='chats' className='Tabnav-nav-link'>Chats</Nav.Link>
+                            <Nav.Link eventKey='chats' className='Tabnav-nav-link flex-grow'>Chats</Nav.Link>
                         </Nav.Item>
                     }
                     {(roomCheck || spaceCheck) &&
                         <Nav.Item>
-                            <Nav.Link eventKey='members' className='Tabnav-nav-link '>Members</Nav.Link>
+                            <Nav.Link eventKey='members' className='Tabnav-nav-link flex-grow'>Members</Nav.Link>
                         </Nav.Item >
                     }
 
@@ -194,7 +192,7 @@ function Tabnav() {
 
                 </Nav>
 
-                <Tab.Content className='plz-work'>
+                <Tab.Content>
                     <Tab.Pane eventKey='friends'>
                         <TabFriends
                             inpending={inpending}

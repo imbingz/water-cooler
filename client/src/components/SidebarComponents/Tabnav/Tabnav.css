@@ -1,9 +1,18 @@
 .Tabnav-nav-link {
+	width: 100%;
 	color: #333333;
+	text-align: center;
+	font-size: 1em;
+	font-weight: bold;
 }
 
 .Tabnav-aside-tab {
 	height: 100vh;
 	overflow: scroll;
-	overflow-x: hidden;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+}
+
+.Tabnav-aside-tab::-webkit-scrollbar {
+	display: none;
 }
