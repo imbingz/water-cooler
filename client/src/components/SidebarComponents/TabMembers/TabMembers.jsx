@@ -152,7 +152,7 @@ function TabMembers(props) {
         const response = await request.json();
         if (response.success) {
             dispatch({type: 'setShowAside', payload: false});
-            history.push('/' + props.roomData.publicRoomId + '/' + pubSpaceId);
+            history.push('/rooms' + props.roomData.publicRoomId + '/' + pubSpaceId);
         }
     };
 

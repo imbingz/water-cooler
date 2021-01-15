@@ -5,11 +5,11 @@ export const GlobalContext = createContext();
 const defaultState = {
     rooms: [],
     socialSpaces: [],
-    roomID: '',
+    roomId: '',
     currentRoom: [],
     currentSocialSpace: [],
     showAside: false,
-    roomStyle:localStorage.getItem('roomImg'),
+    roomStyle: localStorage.getItem('roomImg'),
     //global USER
     USER: JSON.parse(localStorage.getItem('USER'))
 };
@@ -42,6 +42,11 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 USER: action.payload
+            };
+        case 'setRoomId':
+            return {
+                ...state,
+                roomID: action.payload
             };
         default: return state;
     }

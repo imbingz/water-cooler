@@ -21,16 +21,20 @@ function Tabnav() {
 
     // ** Variables To Determine It TabMembers and Tab Chat Should Render and Determines what the publicRoomId is
     const path = window.location.pathname;
+    console.log(path.length);
     const roomCheck = path.includes('room');
-    const spaceCheck = path.includes('space');
-    let roomID;
-    if (roomCheck) {
-        roomID = path.substring(7);
-    } else if (spaceCheck) {
-        console.log('space check', roomID);
-        // I'll have to search the db of the social space to get the room id again. Im thinking that room id wont change once they move to a space but we'll see
-    }
+    let roomID = path.substring(7);
     console.log(roomID);
+
+    if (path.length > 70) {
+        console.log('What');
+        roomID = roomID.substring(0, roomID.length - 37);
+        console.log(roomID);
+    }
+
+    
+    // I'll have to search the db of the social space to get the room id again. Im thinking that room id wont change once they move to a space but we'll see
+    
 
     
 
@@ -183,12 +187,12 @@ function Tabnav() {
                     </Nav.Item>
 
                     {/* ** Check if User is in A Room or Social Space Before Rendering Tab Option */}
-                    {(roomCheck || spaceCheck) &&
+                    {(roomCheck) &&
                         <Nav.Item>
                             <Nav.Link eventKey='chats' className='Tabnav-nav-link'>Chats</Nav.Link>
                         </Nav.Item>
                     }
-                    {(roomCheck || spaceCheck) &&
+                    {(roomCheck) &&
                         <Nav.Item>
                             <Nav.Link eventKey='members' className='Tabnav-nav-link '>Members</Nav.Link>
                         </Nav.Item >
