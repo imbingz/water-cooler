@@ -104,7 +104,6 @@ router
 router
     .route('/end')
     .delete(async ({ body }, res) => {
-        console.log('hit');
         const deleteRoom = await db.Room
             .findOneAndDelete(
                 { publicRoomId: body.pubRoomId }
