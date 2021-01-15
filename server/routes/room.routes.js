@@ -66,6 +66,11 @@ router
                 roomImg: req.body.roomImg
             })
             .then(data => {
+                if (req.body.roomFriends.length <= 0) {
+                    console.log('does this fix it?');
+                    res.json({ success: true, data });
+                    return;
+                }
                 for (let i = 0; i < req.body.roomFriends.length; i++) {
                     User
                         .findByIdAndUpdate(
@@ -73,14 +78,14 @@ router
                             { $addToSet: { inboundPendingRooms: data.publicRoomId } }
                         )
                         .then(update => {
-                            res.json({ success: true, update });
+                            return update;
                         })
                         .catch(err => {
-                            res.json({ success: false } + err);
+                            return err;
                         });
                 }
-
                 res.json({ success: true, data });
+                return;
             })
             .catch(err => {
                 res.json({ success: false } + err);

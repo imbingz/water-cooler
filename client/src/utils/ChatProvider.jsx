@@ -46,7 +46,6 @@ export function ChatProvider({ children }) {
         }
 
         populateChat();
-        console.log(lastChat);
 
         socket.on('set-id', id => {
             socket.id = id;
