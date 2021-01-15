@@ -17,13 +17,21 @@ const SidebarUsersCont = (props) => {
 
     // * Set States, State Helper Functions, and Other Variables
 
+    // Check if user is in a room or space
+    const path = window.location.pathname;
+    let currentSpaceId = path.substring(44);
+    let roomCheck = true;
+    if (path.length > 70) {
+        roomCheck = false;
+    }
+
     const history = useHistory();
 
     const { _id } = JSON.parse(localStorage.getItem('USER'));
 
     // * Functions
     // * Pass User's Friend's ID and They Type of Request To Make
-    const accept = async (id, type) => {
+    const accept = async (id, type, spaceId) => {
         switch (type) {
             // ** Send User and Friend's IDs to Server To Process Accepting Friend Request
             case 'friend':
@@ -34,7 +42,6 @@ const SidebarUsersCont = (props) => {
                         method: 'PUT'
                     });
                     const status = await request.json();
-                    // Check returned status and notify user
                     if (status.success) {
                         toast.success('Added Friend!', {
                             position: toast.POSITION.TOP_RIGHT
@@ -61,7 +68,6 @@ const SidebarUsersCont = (props) => {
                         method: 'PUT'
                     });
                     const status = await request.json();
-                    // Check returned status and notify user
                     if (status.success) {
                         toast.success('Accepted Room Invite!', {
                             position: toast.POSITION.TOP_RIGHT
@@ -79,6 +85,50 @@ const SidebarUsersCont = (props) => {
                 }
 
                 break;
+            case 'space':
+                let request;
+                try {
+                    // This Should work, just need to test
+                    if (roomCheck) {
+                        request = await fetch('/api/socialspace/join', {
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                nextPubSpaceId: spaceId,
+                                user: _id
+                            }),
+                            method: 'PUT'
+                        });
+                    } else {
+                        request = await fetch('/api/socialspace/join', {
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                nextPubSpaceId: spaceId,
+                                oldPubSpaceId: currentSpaceId,
+                                user: _id
+                            }),
+                            method: 'PUT'
+                        });
+                    }
+
+                    const status = await request.json();
+
+                    if (status.success) {
+                        toast.success('Accepted Social Space Invite!', {
+                            position: toast.POSITION.TOP_RIGHT
+                        });
+                    } else {
+                        toast.error('Failed to Accept Social Space Invite', {
+                            position: toast.POSITION.TOP_RIGHT
+                        });
+                    }
+
+                    props.checkDBArrays('inpendingSpaces');
+                    history.push('/rooms/' + id + '/' + spaceId);
+                } catch (err) {
+                    console.log({ err });
+                }
+
+                break;
             default:
                 toast.warning('No Valid Type', {
                     position: toast.POSITION.TOP_RIGHT
@@ -88,7 +138,7 @@ const SidebarUsersCont = (props) => {
     };
 
     // * Pass User's Friend's ID and They Type of Request To Make for Declining Requests
-    const decline = async (id, type) => {
+    const decline = async (id, type, spaceId) => {
         switch (type) {
             // * Send User and Friend's IDs to Server To Process Declining Friend Request
             case 'friend':
@@ -116,11 +166,11 @@ const SidebarUsersCont = (props) => {
                 } catch (err) {
                     console.log({ err });
                 }
-                
+
                 break;
             // ** Send User and Friend's IDs to Server To Process Declining Room Invite
             case 'room':
-                
+
                 try {
                     const request = await fetch('/api/room/decline', {
                         headers: { 'Content-Type': 'application/json' },
@@ -128,7 +178,6 @@ const SidebarUsersCont = (props) => {
                         method: 'PUT'
                     });
                     const status = await request.json();
-                    // Check returned status and notify user
                     if (status.success) {
                         toast.warning('Declined Room Invite', {
                             position: toast.POSITION.TOP_RIGHT
@@ -141,6 +190,31 @@ const SidebarUsersCont = (props) => {
 
                     // ** Run checkDBArrays ti Update Render Of inbound Room Invites
                     props.checkDBArrays('inpendingRooms');
+                } catch (err) {
+                    console.log({ err });
+                }
+                break;
+            case 'space':
+
+                try {
+                    const request = await fetch('/api/socialspace/decline', {
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ nextPubSpaceId: spaceId, user: _id }),
+                        method: 'PUT'
+                    });
+                    const status = await request.json();
+                    if (status.success) {
+                        toast.warning('Declined Social Space Invite', {
+                            position: toast.POSITION.TOP_RIGHT
+                        });
+                    } else {
+                        toast.error('Failed to Decline Social Space Invite', {
+                            position: toast.POSITION.TOP_RIGHT
+                        });
+                    }
+
+                    // ** Run checkDBArrays ti Update Render Of inbound Space Invites
+                    props.checkDBArrays('inpendingSpaces');
                 } catch (err) {
                     console.log({ err });
                 }
@@ -179,11 +253,16 @@ const SidebarUsersCont = (props) => {
                                 {mapData.roomName.substring(0, 22)}
                             </p>
                         }
+                        { mapData.socialSpaceName &&
+                            <p className='mx-2 my-0 SbUserCont-Text'>
+                                {mapData.socialSpaceName.substring(0, 22)}
+                            </p>
+                        }
 
                         {/* * Determine What Button Options Should Render */}
                         {/* ** View Profile or View Chat */}
                         {/* *** Check For False Value of isRequest and Type is Not DM To Render View Profile Button */}
-                        {(!props.isRequest && props.type !== 'dm') &&
+                        {(!props.isRequest && props.type !== 'dm' && mapData.friendId !== _id) &&
                             <button
                                 onClick={() => { props.handleShow(mapData); props.handleFriendModal(mapData); }}
                                 className='SbUserCont-btn profile d-inline-block ml-auto mb-3 px-2 py-1'
@@ -207,9 +286,12 @@ const SidebarUsersCont = (props) => {
                         {props.isRequest &&
                             <button
                                 onClick={() => {
-                                    accept(mapData.friendId ||
-                                        mapData.publicRoomId, 
-                                    props.type);
+                                    accept(
+                                        mapData.friendId ||
+                                        mapData.publicRoomId,
+                                        props.type,
+                                        mapData.publicSocialSpaceId,
+                                    );
                                 }}
                                 className='SbUserCont-btn accept  d-inline-block mx-3 px-2'
                             ><small>Accept</small></button>
@@ -218,10 +300,13 @@ const SidebarUsersCont = (props) => {
                         {props.isRequest &&
                             <button
                                 onClick={async () => {
-                                    await decline(mapData.friendId || 
-                                        mapData.publicRoomId, 
-                                    props.type);
-                                    
+                                    await decline(
+                                        mapData.friendId ||
+                                        mapData.publicRoomId,
+                                        props.type,
+                                        mapData.publicSocialSpaceId,
+                                    );
+
                                 }}
                                 className='SbUserCont-btn decline  d-inline-block px-2'
                             ><small>Decline</small></button>

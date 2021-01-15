@@ -49,15 +49,11 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin est s
 
 ### Routes
 
-#### Creating Rooms and Social Spaces
-
 #### Managing Friends
 
 ### Authentication
 
 ### GUI
-
-### Video and Chat
 
 ## Client
 
@@ -87,12 +83,17 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin est s
 ## Tests
 
 ## Bugs
+
 * If a user creates a room without entering in the required info for the database the room is not entered into the db but the user is still routed to a room using the uuid
 
 TabFriends passes prop data to ProfileModal that triggers a react warning
 
 ## Future Development
 
-## License
-
 ## Contributors
+
+### About Us
+
+### Reference
+
+## License

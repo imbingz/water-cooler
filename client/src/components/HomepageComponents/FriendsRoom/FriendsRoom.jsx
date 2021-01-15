@@ -3,13 +3,40 @@ import { Button, Card, Col, Row } from 'react-bootstrap';
 import { CgProfile } from 'react-icons/cg';
 import { IconContext } from 'react-icons';
 import { IoIosPeople } from 'react-icons/io';
+import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
+import { useGlobalContext } from '../../../utils/GlobalContext';
 import dummyFriendRooms from '../../../data/friendsRoom';
+import './FriendsRoom.css';
 
 // * FriendsRoom Will Render Any Currently Open Rooms Hosted By a User's Friend Using prop Data From Homepage
 function FriendsRoom(props) {
 
     const history = useHistory();
+
+    const [{ USER },] = useGlobalContext();
+
+    const joinRoom = async (pubRoomId) => {
+        try {
+            const request = await fetch('/api/room/accept', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pubRoomId: pubRoomId, user: USER._id }),
+                method: 'PUT'
+            });
+            const status = await request.json();
+            
+            if (!status.success) {
+                toast.error('Failed to Accept Room Invite', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+            } 
+            history.push('/rooms/' + pubRoomId);
+        } catch (err) {
+            console.log({ err });
+        }
+
+        
+    }
 
     // * Render Dummy Or DB Data
     // ** A Yes Value will Render The DOM with Data From Data Folder, Changing this to 'no' Will Render DOM with DB Data
@@ -36,7 +63,7 @@ function FriendsRoom(props) {
                     className='d-flex justify-content-center align-items-center mt-3'
                     style={{textAlign: 'center'}}
                 >
-                    <h5 >No Friends Are Hosting Rooms, Create One A Room and Your Friends Will See it Here!</h5> 
+                    <h5 >No Friends Are Hosting Rooms, Create A Room and Your Friends Will See it Here!</h5> 
                 </Row>
             }
             <Row className='d-flex flex-wrap justify-content-around align-items-sm-center'>
@@ -69,7 +96,7 @@ function FriendsRoom(props) {
                                                         size='sm'
                                                         variant='warning'
                                                         onClick={() => { 
-                                                            history.push('/rooms/' + room.publicRoomId);
+                                                            joinRoom(room.publicRoomId);
                                                         }}
                                                     >
                                                         Join Room

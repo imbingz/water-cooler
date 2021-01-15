@@ -84,6 +84,7 @@ router
                             return err;
                         });
                 }
+                dbArray.set('activeRoom', req.body.userId, data._id.toString());
                 res.json({ success: true, data });
                 return;
             })

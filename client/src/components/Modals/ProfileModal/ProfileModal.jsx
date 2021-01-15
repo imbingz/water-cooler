@@ -6,6 +6,10 @@ import { GoMail } from 'react-icons/go';
 
 function ProfileModal(props) {
 
+    const path = window.location.pathname;
+    // console.log(path.length);
+    const roomCheck = path.includes('room');
+
     // * Set States, State Helper Functions, and Other Variables
     const { checkdb, friend } = props;
     const { _id } = JSON.parse(localStorage.getItem('USER'));
@@ -40,7 +44,7 @@ function ProfileModal(props) {
         } catch (err) {
             console.log({ err });
         }
-    }, [ friend.friendId, _id ]);
+    }, [friend.friendId, _id]);
 
 
     // ** Manage Sending DM to Friend
@@ -51,7 +55,7 @@ function ProfileModal(props) {
     // * Listen To change of isFriend State. When True, friend.friendId will be defined
     //  // When False, Button Value will Change [ note: I need to find a way to set state back to true when the modal is closed, else all the friend's modals will show Removed ]
     useEffect(() => {
-        
+
         if (!isFriend) {
             setFriendButton(
                 <Button
@@ -63,7 +67,7 @@ function ProfileModal(props) {
                     size='sm'
                 >Removed</Button >
             );
-            
+
         } else {
             setFriendButton(
                 <Button
@@ -77,7 +81,7 @@ function ProfileModal(props) {
                     size='sm'
                 >Unfriend</Button >
             );
-            
+
         }
 
     }, [checkdb, friend.friendId, isFriend, unfriend,]);
@@ -118,7 +122,13 @@ function ProfileModal(props) {
                         </Row>
                         <Row className='my-4'>
                             {/* Invite Button */}
-                            <Button className='d-inline-block mx-2 px-3' size='sm' variant='success'>Invite</Button >
+                            {roomCheck &&
+                                <Button
+                                    className='d-inline-block mx-2 px-3'
+                                    size='sm'
+                                    variant='success'
+                                >Invite</Button >
+                            }
                             {/* Chat Button */}
                             <Button
                                 onClick={e => {
