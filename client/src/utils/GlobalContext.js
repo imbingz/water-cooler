@@ -5,6 +5,7 @@ export const GlobalContext = createContext();
 const defaultState = {
     rooms: [],
     socialSpaces: [],
+    roomID: '',
     currentRoom: [],
     currentSocialSpace: [],
     showAside: false,

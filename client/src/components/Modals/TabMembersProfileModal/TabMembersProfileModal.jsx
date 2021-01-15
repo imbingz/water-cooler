@@ -4,7 +4,23 @@ import {GoMail} from 'react-icons/go';
 
 function TabMembersProfileModal(props) {
 
+    const path = window.location.pathname;
+    const spaceId = path.substring(7);
+
+    const sendSpaceInvite = async (friendId) => {
+        console.log({spaceId});
+        console.log({friendId});
+        const request = await fetch('/api/socialspace/invite', {
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ spaceId: spaceId, friendID: friendId }),
+            method: 'PUT'
+        });
+        const response = await request.json();
+        console.log(response);
+    };
+
     const {member} = props;
+    // console.log(member);
     return (
         <>
             <Modal {...props} backdrop="static" keyboard={false} centered>
@@ -40,7 +56,11 @@ function TabMembersProfileModal(props) {
                             </Col>
                         </Row>            
                         <Row className='my-4'>
-                            <Button className='d-inline-block mx-2 px-3' sizee='sm' variant='success'>Invite to SocialSpace</Button >
+                            <Button 
+                                onClick={() => { sendSpaceInvite(member.friendId); }}
+                                className='d-inline-block mx-2 px-3'
+                                variant='success'
+                            >Invite to SocialSpace</Button >
                             <Button className='d-inline-block mx-2 px-3' variant='warning' size='sm'>DM Chat</Button >
                             <Button className='d-inline-block mx-2 px-3' variant='light' size='sm'>Unfriend</Button >
                         </Row>

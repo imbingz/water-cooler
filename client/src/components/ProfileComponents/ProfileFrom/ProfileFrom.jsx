@@ -26,7 +26,7 @@ const ProfileFrom = (props) => {
             return history.push('/login');
         } 
 
-        console.log('global USER inside useEffect is:', USER);
+        // console.log('global USER inside useEffect is:', USER);
 
         setStoredUser(USER);
         setSelectedImg(USER.imageSrc);
@@ -55,7 +55,7 @@ const ProfileFrom = (props) => {
             imageSrc:selectedImg
         };
 
-        console.log('user obj to post', user);
+        // console.log('user obj to post', user);
 
         try {
             const response = await fetch('/api/user/profile', {

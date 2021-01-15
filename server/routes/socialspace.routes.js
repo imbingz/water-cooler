@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { SocialSpace } = require('../models');
+const { Room, SocialSpace } = require('../models');
 
 // populates room with social spaces in the room
 router
@@ -25,8 +25,17 @@ router
                 publicSocialSpaceId: req.body.publicSocialSpaceId,
                 socialSpaceName: req.body.socialSpaceName
             })
-            .then(data => {
-                res.json({ success: true, data });
+            // ** Once Create, add _id to parent room's socialSpaces Array
+            .then(space => {
+                Room
+                    .findOneAndUpdate(
+                        { publicRoomId: req.body.publicRoomId },
+                        { $addToSet: { socialSpaces: space._id }},
+                        { new: true }
+                    )
+                    .then(room => {
+                        res.json({ success: true, space, room });
+                    });
             })
             .catch(err => {
                 res.json({ success: false } + err);
@@ -58,6 +67,26 @@ router
             .catch(err => {
                 res.json({ success: false } + err);
             });
+    });
+
+// Invite
+router
+    .route('/invite')
+    .put(({body}, res) => {
+        console.log('Hit /api/socialspace/invite', body);
+        try {
+            const pushFriendToSpace = SocialSpace
+                .findOneAndUpdate(
+                    { publicSocialSpaceId: body.spaceId },
+                    { $addToSet: { socialSpaceUsers: body.friendId } },
+                    { new: true }
+                );
+            console.log(pushFriendToSpace);
+
+        } catch(err) {
+            res.json({ success: false });
+            console.log(err);
+        }
     });
 
 // gathers social space based on publicSocialSpaceID

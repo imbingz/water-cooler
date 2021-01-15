@@ -27,9 +27,10 @@ function Tabnav() {
     if (roomCheck) {
         roomID = path.substring(7);
     } else if (spaceCheck) {
-        console.log('');
+        console.log('space check', roomID);
         // I'll have to search the db of the social space to get the room id again. Im thinking that room id wont change once they move to a space but we'll see
     }
+    console.log(roomID);
 
     
 
@@ -116,7 +117,7 @@ function Tabnav() {
 
     // ** Check User's DB For Any Changes in either friends or inboundPendingFriends by passing 'friends' or 'inpending'
     //    Then store updated array values in State
-    // !* This Should be Moved to a Sidebar Context Along with Associated States
+    // !* This Should be Moved to a dbContext Along with Associated States
     const checkDBArrays = useCallback(async (arr) => {
         try {
             const response = await fetch('/api/friends/arrays', {

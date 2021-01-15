@@ -8,6 +8,7 @@ import TabMembersProfileModal from '../../Modals/TabMembersProfileModal';
 import { useGlobalContext } from '../../../utils/GlobalContext';
 import dummyRoomMembers from '../../../data/friends';
 import dummySocialSpaces from '../../../data/socialSpaces';
+import dummySpaceInvites from '../../../data/friendsRoom';
 import { v4 as uuidv4 } from 'uuid';
 import './TabMembers.css';
 
@@ -136,6 +137,29 @@ function TabMembers(props) {
         }
     };
 
+    const createSocialSpace = async () => {
+        const pubSpaceId = uuidv4();
+        const request = await fetch('/api/socialspace/create', {
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                publicRoomId: props.roomData.publicRoomId,
+                publicSocialSpaceId: pubSpaceId,
+                socialSpaceName: 'Bob Grey'
+            }),
+            method: 'POST'
+        });
+
+        const response = await request.json();
+        if (response.success) {
+            dispatch({type: 'setShowAside', payload: false});
+            history.push('/' + props.roomData.publicRoomId + '/' + pubSpaceId);
+        }
+    };
+
+    const joinSpace = (spaceId) => {
+        console.log(spaceId);
+    };
+
     // * On Page Load, Check DB for Any Changes in User's friend and inboundPendingFriends Arrays 
     useEffect(() => {
         getRoomUsers();
@@ -148,21 +172,20 @@ function TabMembers(props) {
     let dummyData = 'no';
     let renderRoomUsers;
     let renderSocialSpaces;
-    // let renderOffFriends;
-    // let renderOnFriends;
-    // let renderRoomInv;
+    let renderSpaceInvites;
 
     switch (dummyData) {
         case 'yes':
             renderRoomUsers = dummyRoomMembers;
             renderSocialSpaces = dummySocialSpaces;
+            renderSpaceInvites = dummySpaceInvites;
 
             break;
         default:
             renderRoomUsers = roomUsersData;
             renderSocialSpaces = props.spaceData;
+            renderSpaceInvites = dummySpaceInvites;
     }
-
 
     return (
         <Container className='d-flex flex-column pl-4 mr-2 pb-5'>
@@ -170,12 +193,23 @@ function TabMembers(props) {
             <section className='d-flex justify-content-end mt-3'>
                 <button 
                     className='TabMembers-create-space-btn'
-                    onClick={() => { console.log('Create Space'); }}
+                    onClick={() => { createSocialSpace(); }}
                 >
                     <span>Create A Social Space</span>
                     <FaVideo size={20} style={{ fill: 'orangered', marginLeft: 10 }} />
                     
                 </button>
+            </section>
+
+            <section className='TabMembers-room-section pb-3'>
+                <SidebarUsersCont
+                    data={renderSpaceInvites}
+                    isRequest={true}
+                    type="space"
+                    checkDBArrays={props.checkDBArrays}
+                    handleFriendModal={handleMembersProfileModal}
+                    handleShow={handleShow}
+                />
             </section>
 
             {/* Container For Room Header, Leave/End Room, Render All Users in Room   */}
@@ -226,12 +260,16 @@ function TabMembers(props) {
                 {
                     renderSocialSpaces.length > 0 &&
                     renderSocialSpaces.map(socialSpace => (
+                        
                         <div key={uuidv4()}>
                             <div className='d-flex justify-content-between align-items-center my-3'>
                                 <h6 className='TabMembers-space-name my-3'>
                                     SocialSpace: {socialSpace.socialSpaceName}
                                 </h6>
-                                <button className='TabMembers-join-btn' >
+                                <button 
+                                    className='TabMembers-join-btn'
+                                    onClick={() => {joinSpace(socialSpace.publicSocialSpaceId);}}
+                                >
                                     <span>Join</span>
                                     <FaVideo size={20} style={{ fill: 'orangered', marginLeft: 5 }} />
                                 </button>
@@ -253,7 +291,9 @@ function TabMembers(props) {
                 }
             </section>
 
-            <TabMembersProfileModal show={show} onHide={() => handleClose(false)}
+            <TabMembersProfileModal 
+                show={show} 
+                onHide={() => handleClose(false)}
                 member={tabMembersProfile}
             />
 
