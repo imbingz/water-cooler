@@ -193,7 +193,7 @@ function TabMembers(props) {
                     position: toast.POSITION.TOP_RIGHT
                 });
             }
-            // ** Run checkDBArrays ti Update Render Of inbound Room Invites
+            // ** Run checkDBArrays to Update Render Of inbound Room Invites
             // history.push('/rooms/' + props.roomData.publicRoomId + '/' + spaceId);
         } catch (err) {
             console.log({ err });

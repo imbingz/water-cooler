@@ -80,7 +80,6 @@ router
                             res.json({ success: false } + err);
                         });
                 }
-                console.log(data._id.toString());
                 dbArray.set('activeRoom', req.body.userId, data._id.toString());
                 res.json({ success: true, data });
             })

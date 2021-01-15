@@ -5,7 +5,6 @@ export const GlobalContext = createContext();
 const defaultState = {
     rooms: [],
     socialSpaces: [],
-    roomId: '',
     currentRoom: [],
     currentSocialSpace: [],
     showAside: false,
@@ -42,11 +41,6 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 USER: action.payload
-            };
-        case 'setRoomId':
-            return {
-                ...state,
-                roomID: action.payload
             };
         default: return state;
     }
