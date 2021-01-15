@@ -22,6 +22,9 @@ function TabMembers(props) {
 
     const history = useHistory();
 
+    const [spaceName, setSpaceName] = useState('');
+
+    // * Get the pubSpaceId from the URL
     const path = window.location.pathname;
     let spaceId = path.substring(44);
 
@@ -100,9 +103,9 @@ function TabMembers(props) {
             // *** Send pubRoomId and User ID to Server
             const request = await fetch('/api/room/leave', {
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                     pubRoomId: props.roomData.publicRoomId,
-                    user: USER._id 
+                    user: USER._id
                 }),
                 method: 'PUT'
             });
@@ -110,7 +113,7 @@ function TabMembers(props) {
             const response = await request.json();
             // *** If Successful, Close the Sidebar and Route to Home Screen 
             if (response.success) {
-                dispatch({type: 'setShowAside', payload: false});
+                dispatch({ type: 'setShowAside', payload: false });
                 history.push('/');
             }
         } catch (err) {
@@ -124,7 +127,7 @@ function TabMembers(props) {
             // *** Send pubRoomId and User ID to Server
             const request = await fetch('/api/room/end', {
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                     pubRoomId: props.roomData.publicRoomId
                 }),
                 method: 'DELETE'
@@ -133,7 +136,7 @@ function TabMembers(props) {
             const response = await request.json();
             // *** If Successful, Close the Sidebar and Route to Home Screen 
             if (response.success) {
-                dispatch({type: 'setShowAside', payload: false});
+                dispatch({ type: 'setShowAside', payload: false });
                 history.push('/');
             }
         } catch (err) {
@@ -142,14 +145,19 @@ function TabMembers(props) {
     };
 
     const createSocialSpace = async () => {
-        
+        if (!spaceName) {
+            toast.error('You Must Name Your Social Space', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+            return;
+        }
         const pubSpaceId = uuidv4();
         const request = await fetch('/api/socialspace/create', {
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
+            body: JSON.stringify({
                 publicRoomId: props.roomData.publicRoomId,
                 publicSocialSpaceId: pubSpaceId,
-                socialSpaceName: 'Bob Grey',
+                socialSpaceName: spaceName,
                 socialSpaceUsers: USER._id,
             }),
             method: 'POST'
@@ -157,7 +165,7 @@ function TabMembers(props) {
 
         const response = await request.json();
         if (response.success) {
-            dispatch({type: 'setShowAside', payload: false});
+            dispatch({ type: 'setShowAside', payload: false });
             history.push('/rooms/' + props.roomData.publicRoomId + '/' + pubSpaceId);
         }
     };
@@ -167,15 +175,15 @@ function TabMembers(props) {
         try {
             const request = await fetch('/api/socialspace/join', {
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 
+                body: JSON.stringify({
                     nextPubSpaceId: newSpaceId,
                     oldPubSpaceId: spaceId,
-                    user: USER._id 
+                    user: USER._id
                 }),
                 method: 'PUT'
             });
             const status = await request.json();
-            
+
             if (status.success) {
                 toast.success('Joined Social Space!', {
                     position: toast.POSITION.TOP_RIGHT
@@ -222,14 +230,24 @@ function TabMembers(props) {
     return (
         <Container className='d-flex flex-column pl-4 mr-2 pb-5'>
             {/* Create Social Space Button */}
-            <section className='d-flex justify-content-end mt-3'>
-                <button 
-                    className='TabMembers-create-space-btn'
+            <section className='d-flex justify-content-end mt-3 row'>
+                <input
+                    className='px-2 col'
+                    required
+                    id="spaceName"
+                    type='text'
+                    name='spaceName'
+                    placeholder='Name a New Social Space'
+                    value={spaceName}
+                    onChange={(e) => setSpaceName(e.target.value)}
+                />
+                <button
+                    className='TabMembers-create-space-btn col'
                     onClick={() => { createSocialSpace(); }}
                 >
                     <span>Create A Social Space</span>
                     <FaVideo size={20} style={{ fill: 'orangered', marginLeft: 10 }} />
-                    
+
                 </button>
             </section>
 
@@ -247,11 +265,11 @@ function TabMembers(props) {
             {/* Container For Room Header, Leave/End Room, Render All Users in Room   */}
             <section className='TabMembers-room-section pb-3'>
                 {/* If User is Not Host, Show Leave Room Button with Appropriate Logic */}
-                { (USER._id !== props.roomData.roomCreator) &&
+                {(USER._id !== props.roomData.roomCreator) &&
                     <div className='d-flex justify-content-between align-items-center my-3'>
                         <h5 className='mt-4 mb-3 TabMembers-room-header'>In Room: {props.roomData.roomName}
                         </h5>
-                        <button 
+                        <button
                             className='TabMembers-exit-btn'
                             onClick={() => { handleLeaveRoom(); }}
                         >
@@ -262,11 +280,11 @@ function TabMembers(props) {
                 }
 
                 {/* If User is Host, Show End Room Button with Appropriate Logic */}
-                { (USER._id === props.roomData.roomCreator) &&
+                {(USER._id === props.roomData.roomCreator) &&
                     <div className='d-flex justify-content-between align-items-center my-3'>
                         <h5 className='mt-4 mb-3 TabMembers-room-header'>In Room: {props.roomData.roomName}
                         </h5>
-                        <button 
+                        <button
                             className='TabMembers-exit-btn'
                             onClick={() => { handleEndRoom(); }}
                         >
@@ -292,15 +310,15 @@ function TabMembers(props) {
                 {
                     renderSocialSpaces.length > 0 &&
                     renderSocialSpaces.map(socialSpace => (
-                        
+
                         <div key={uuidv4()}>
                             <div className='d-flex justify-content-between align-items-center my-3'>
                                 <h6 className='TabMembers-space-name my-3'>
                                     SocialSpace: {socialSpace.socialSpaceName}
                                 </h6>
-                                <button 
+                                <button
                                     className='TabMembers-join-btn'
-                                    onClick={() => {joinSpace(socialSpace.publicSocialSpaceId);}}
+                                    onClick={() => { joinSpace(socialSpace.publicSocialSpaceId); }}
                                 >
                                     <span>Join</span>
                                     <FaVideo size={20} style={{ fill: 'orangered', marginLeft: 5 }} />
@@ -316,15 +334,15 @@ function TabMembers(props) {
                                     handleFriendModal={handleMembersProfileModal}
                                     handleShow={handleShow}
                                 />
-                                
+
                             </article>
                         </div>
                     ))
                 }
             </section>
 
-            <TabMembersProfileModal 
-                show={show} 
+            <TabMembersProfileModal
+                show={show}
                 onHide={() => handleClose(false)}
                 member={tabMembersProfile}
             />

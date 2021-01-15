@@ -21,15 +21,14 @@ function Tabnav() {
 
     // ** Variables To Determine It TabMembers and Tab Chat Should Render and Determines what the publicRoomId is
     const path = window.location.pathname;
-    console.log(path.length);
+    // console.log(path.length);
     const roomCheck = path.includes('room');
     let roomID = path.substring(7);
-    console.log(roomID);
+    // console.log(roomID);
 
     if (path.length > 70) {
-        console.log('What');
         roomID = roomID.substring(0, roomID.length - 37);
-        console.log(roomID);
+        // console.log(roomID);
     }
 
     

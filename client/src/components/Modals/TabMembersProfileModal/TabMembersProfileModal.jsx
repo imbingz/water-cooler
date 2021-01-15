@@ -8,8 +8,6 @@ function TabMembersProfileModal(props) {
     const spaceId = path.substring(7);
 
     const sendSpaceInvite = async (friendId) => {
-        console.log({spaceId});
-        console.log({friendId});
         const request = await fetch('/api/socialspace/invite', {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ spaceId: spaceId, friendID: friendId }),
