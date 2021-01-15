@@ -57,7 +57,7 @@ export function ChatProvider({ children }) {
                 populateChat();
                 return;
             }
-            const random = uuidv4;
+            const random = uuidv4();
             setLastChat(random);
             populateChat();
         });
