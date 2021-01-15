@@ -16,6 +16,8 @@ const Homepage = () => {
     // * Store Data in State For Use in CreateRoom and FriendRoom Components
     const [allFriends, setAllFriends] = useState([]);
     const [roomsData, setRoomsData] = useState([]);
+    const [roomHost, setRoomHost] = useState([]);
+
     
     // ** Check User's DB to Get Their Friend Data by passing 'friends'
     //    Then store updated array values in State
@@ -40,9 +42,11 @@ const Homepage = () => {
                     setAllFriends(friends);
                     // ** Check For and Store Active Rooms IDs
                     const activeRooms = [];
+                    const activeHosts = [];
                     friends.forEach(fren => {
                         if (fren.activeRoom) {
                             activeRooms.push(fren.activeRoom);
+                            activeHosts.push(fren.username);
                         } 
                     });
                     // console.log(activeRooms);
@@ -53,8 +57,10 @@ const Homepage = () => {
                         method: 'POST'
                     });
                     const roomsResponse = await roomsRequest.json();
+                    console.log(roomsResponse.data);
                     // ** Store Returned Data in State
                     setRoomsData(roomsResponse.data);
+                    setRoomHost(activeHosts);
                     break;
                 default:
                     console.log('No valid array');
@@ -94,6 +100,7 @@ const Homepage = () => {
                 {/* FriendsRoom Component */}    
                 <FriendsRoom
                     roomsData={roomsData}
+                    roomHost={roomHost}
                 />
             </Container>
         </Container>

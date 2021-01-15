@@ -4,10 +4,13 @@ import { Button, Card, Col, Row } from 'react-bootstrap';
 import { CgProfile } from 'react-icons/cg';
 import { IconContext } from 'react-icons';
 import { IoIosPeople } from 'react-icons/io';
+import { useHistory } from 'react-router-dom';
 import dummyFriendRooms from '../../../data/friendsRoom';
 
 // * FriendsRoom Will Render Any Currently Open Rooms Hosted By a User's Friend Using prop Data From Homepage
 function FriendsRoom(props) {
+
+    const history = useHistory();
 
     // * Render Dummy Or DB Data
     // ** A Yes Value will Render The DOM with Data From Data Folder, Changing this to 'no' Will Render DOM with DB Data
@@ -39,7 +42,7 @@ function FriendsRoom(props) {
             <Row className='d-flex flex-wrap justify-content-around align-items-sm-center'>
 
                 {renderRooms &&
-                    renderRooms.map(room => (
+                    renderRooms.map((room, index) => (
                         <div className="my-3" key={room._id}>
                             <Col className='mb-4'>
                                 <Card style={{ width: '325px' }} className='p-4'>
@@ -53,7 +56,7 @@ function FriendsRoom(props) {
                                             <div className='d-flex flex-row justify-content-between'>
                                                 <div>
                                                     <i><CgProfile /> </i>
-                                                    <span>{room.roomCreator} </span>
+                                                    <span>{props.roomHost[index]} </span>
                                                 </div>
                                                 {/* !* We have no logic to check room duration in place and this will remain disabled for future development */}
                                                 {/* <div>
@@ -70,7 +73,10 @@ function FriendsRoom(props) {
                                                     <Button
                                                         size='sm'
                                                         variant='warning'
-                                                        onClick={() => { console.log('handleJoinRoom'); }}
+                                                        onClick={() => { 
+                                                            console.log('handleJoinRoom', room.publicRoomId); 
+                                                            history.push('/rooms/' + room.publicRoomId);
+                                                        }}
                                                     >
                                                         Join Room
                                                     </Button>
