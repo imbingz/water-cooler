@@ -18,6 +18,40 @@ router
             });
     });
 
+// Accept a Room Invite
+router
+    .route('/accept')
+    .put(async ({ body }, res) => {
+        try {
+            // ** Access User's db and Pull publicRoomID From 'inboundPendingRooms' Array
+            const pullRoomFromUser = dbArray.pull(
+                'inboundPendingRooms',
+                body.user,
+                body.pubRoomId
+            );
+
+            if (!pullRoomFromUser) {
+                res.json({ success: false });
+            }
+
+            await db.Room
+                .findOneAndUpdate(
+                    { publicRoomId: body.pubRoomId },
+                    {
+                        $addToSet:
+                            { roomUsers: body.user }
+                    },
+                    { new: true }
+
+                );
+
+            res.json({ success: true });
+
+        } catch (err) {
+            console.log(err);
+        }
+    });
+
 // creates room
 router
     .route('/create')
@@ -25,10 +59,11 @@ router
         Room
             .create({
                 roomName: req.body.roomName,
+                roomUsers: [req.body.userId],
                 roomDesc: req.body.roomDescription,
                 publicRoomId: req.body.publicRoomId,
                 roomCreator: req.body.userId,
-                roomImg:req.body.roomImg
+                roomImg: req.body.roomImg
             })
             .then(data => {
                 for (let i = 0; i < req.body.roomFriends.length; i++) {
@@ -44,15 +79,16 @@ router
                             res.json({ success: false } + err);
                         });
                 }
+
                 res.json({ success: true, data });
             })
             .catch(err => {
                 res.json({ success: false } + err);
-            }); 
+            });
     });
 
 // Decline Room Invite
-router 
+router
     .route('/decline')
     .put(async ({ body }, res) => {
         // ** Access User's db and Pull publicRoomID From 'inboundPendingRooms' Array
@@ -63,12 +99,41 @@ router
         res.json({ success: true });
     });
 
+// End a Room
+router
+    .route('/end')
+    .delete(async ({ body }, res) => {
+        const deleteRoom = await db.Room
+            .findOneAndDelete(
+                { publicRoomId: body.pubRoomId }
+            );
+        if (!deleteRoom) {
+            res.json({ success: false });
+            return;
+        }
+        res.json({ success: true });
+    });
+
 // gathers rooms based on id
 router
     .route('/find')
     .post((req, res) => {
         Room
             .findOne({ _id: req.body.id })
+            .then(data => {
+                res.json({ success: true, data });
+            })
+            .catch(err => {
+                res.json({ success: false } + err);
+            });
+    });
+
+// gathers rooms based on public id
+router
+    .route('/findpublic')
+    .post((req, res) => {
+        Room
+            .findOne({ publicRoomId: req.body.id })
             .then(data => {
                 res.json({ success: true, data });
             })
@@ -88,6 +153,26 @@ router
             .catch(err => {
                 res.json({ success: false } + err);
             });
+    });
+
+// Leave a Room
+router
+    .route('/leave')
+    .put(async ({ body }, res) => {
+        const pullIDFromRoom = await db.Room
+            .findOneAndUpdate(
+                { publicRoomId: body.pubRoomId },
+                {
+                    $pull:
+                        { roomUsers: body.user }
+                },
+                { new: true }
+            );
+        if (!pullIDFromRoom) {
+            res.json({ success: false });
+            return;
+        }
+        res.json({ success: true });
     });
 
 // * Get Information of the Users in a Room

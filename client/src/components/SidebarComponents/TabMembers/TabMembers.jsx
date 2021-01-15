@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { BiExit } from 'react-icons/bi';
 import { FaVideo } from 'react-icons/fa';
+import { useHistory } from 'react-router-dom';
 import SidebarUsersCont from '../SidebarUsers';
 import TabMembersProfileModal from '../../Modals/TabMembersProfileModal';
 import { useGlobalContext } from '../../../utils/GlobalContext';
@@ -13,10 +14,12 @@ import './TabMembers.css';
 // * Tab Members Renders Data Collected From TabNav to Display Where Each User Is In the Room
 // !* There is Currently No Logic To Check Which Users Are Only in a Room and Not a Social Space, So All Users Will Render In Room
 function TabMembers(props) {
-  
+
     // * Set States, State Helper Functions, and Other Variables
 
-    const [{ USER },] = useGlobalContext();
+    const [{ USER, }, dispatch] = useGlobalContext();
+
+    const history = useHistory();
 
     // ** Manage State for Showing/Closing ProfileModal
     const [show, setShow] = useState(false);
@@ -86,6 +89,53 @@ function TabMembers(props) {
         }
     }, [props.roomData.roomUsers]);
 
+    // ** Request to the DB that User is Removed from roomUsers Array and Routed To Home
+    const handleLeaveRoom = async () => {
+        try {
+            // *** Send pubRoomId and User ID to Server
+            const request = await fetch('/api/room/leave', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    pubRoomId: props.roomData.publicRoomId,
+                    user: USER._id 
+                }),
+                method: 'PUT'
+            });
+
+            const response = await request.json();
+            // *** If Successful, Close the Sidebar and Route to Home Screen 
+            if (response.success) {
+                dispatch({type: 'setShowAside', payload: false});
+                history.push('/');
+            }
+        } catch (err) {
+            console.log({ err });
+        }
+    };
+
+    // ** Request to the DB that User is Removed from roomUsers Array and Routed To Home
+    const handleEndRoom = async () => {
+        try {
+            // *** Send pubRoomId and User ID to Server
+            const request = await fetch('/api/room/end', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    pubRoomId: props.roomData.publicRoomId
+                }),
+                method: 'DELETE'
+            });
+
+            const response = await request.json();
+            // *** If Successful, Close the Sidebar and Route to Home Screen 
+            if (response.success) {
+                dispatch({type: 'setShowAside', payload: false});
+                history.push('/');
+            }
+        } catch (err) {
+            console.log({ err });
+        }
+    };
+
     // * On Page Load, Check DB for Any Changes in User's friend and inboundPendingFriends Arrays 
     useEffect(() => {
         getRoomUsers();
@@ -116,25 +166,53 @@ function TabMembers(props) {
 
     return (
         <Container className='d-flex flex-column pl-4 mr-2 pb-5'>
+
+            {/* Create Social Space Button */}
+
             <section className='d-flex justify-content-end mt-3'>
                 <button 
                     className='TabMembers-create-space-btn'
-                    onClick={() => console.log('create a spacee')}
+                    onClick={() => { console.log('Create Space'); }}
                 >
                     <span>Create A Social Space</span>
                     <FaVideo size={20} style={{ fill: 'orangered', marginLeft: 10 }} />
                 </button>
             </section>
+
+            {/* Container For Room Header, Leave/End Room, Render All Users in Room   */}
             <section className='TabMembers-room-section pb-3'>
-                <div className='d-flex justify-content-between align-items-center my-3'>
-                    <h5 className='mt-4 mb-3 TabMembers-room-header'>In Room
-                    </h5>
-                    <button className='TabMembers-exit-btn' >
-                        <span>Leave Room</span>
-                        <BiExit size={23} style={{ fill: 'orangered', marginLeft: 5 }} />
-                    </button>
-                </div>
-                {/* Room Users */}
+                {/* If User is Not Host, Show Leave Room Button with Appropriate Logic */}
+                { (USER._id !== props.roomData.roomCreator) &&
+                    <div className='d-flex justify-content-between align-items-center my-3'>
+                        <h5 className='mt-4 mb-3 TabMembers-room-header'>In Room: {props.roomData.roomName}
+                        </h5>
+                        <button 
+                            className='TabMembers-exit-btn'
+                            onClick={() => { handleLeaveRoom(); }}
+                        >
+                            <span>Leave Room</span>
+                            <BiExit size={23} style={{ fill: 'orangered', marginLeft: 5 }} />
+                        </button>
+                    </div>
+                }
+
+                {/* If User is Host, Show End Room Button with Appropriate Logic */}
+                { (USER._id === props.roomData.roomCreator) &&
+                    <div className='d-flex justify-content-between align-items-center my-3'>
+                        <h5 className='mt-4 mb-3 TabMembers-room-header'>In Room: {props.roomData.roomName}
+                        </h5>
+                        <button 
+                            className='TabMembers-exit-btn'
+                            onClick={() => { handleEndRoom(); }}
+                        >
+                            <span>End Room</span>
+                            <BiExit size={23} style={{ fill: 'orangered', marginLeft: 5 }} />
+                        </button>
+                    </div>
+                }
+
+                {/* Render Room Room Users */}
+
                 <SidebarUsersCont
                     data={renderRoomUsers}
                     type=""
@@ -144,9 +222,12 @@ function TabMembers(props) {
                     handleShow={handleShow}
                 />
 
+
                 {/* 'View Profile modal is at the end */}
 
             </section>
+
+            {/* Container For Social Space Headers, Join Space, Render All Users in Instanced Space   */}
             <section>
                 {
                     renderSocialSpaces.length > 0 &&
