@@ -17,11 +17,19 @@ function Tabnav() {
     // ** For Rendering a Tab, Default to Friends Tab
     const [activeKey, setActiveKey] = useState('friends');
 
-    // ** Variables To Determine It TabMembers and Tab Chat Should Render
+    // ** Variables To Determine It TabMembers and Tab Chat Should Render and Determines what the publicRoomId is
     const path = window.location.pathname;
     const roomCheck = path.includes('room');
     const spaceCheck = path.includes('space');
+    let roomID;
+    if (roomCheck) {
+        roomID = path.substring(7);
+    } else if (spaceCheck) {
+        console.log('');
+        // I'll have to search the db of the social space to get the room id again. Im thinking that room id wont change once they move to a space but we'll see
+    }
 
+    
 
     // * Collect and Parse Data for TabMembers
     // ** Store Data in State
@@ -36,14 +44,14 @@ function Tabnav() {
     const getRoomData = useCallback(async (roomId) => {
         try {
             // *** Make Post Req By Sending Room ID
-            const roomRequest = await fetch('/api/room/find', {
+            const roomRequest = await fetch('/api/room/findpublic', {
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: '5ffea352af50db836c5cbdbc' }),
+                body: JSON.stringify({ id: roomID }),
                 method: 'POST'
             });
 
             const roomResponse = await roomRequest.json();
-         
+          
             // *** If DB Req Is Successful, Store Room Data in State and Request Information for Social Spaces
             if (roomResponse.data) {
                 setRoomData(roomResponse.data);
@@ -58,7 +66,7 @@ function Tabnav() {
         } catch (err) {
             console.log({ err });
         }
-    }, []);
+    }, [roomID]);
 
     // ** Get User Information for Each Social Space and Parse Data for TabMembers To Render
     const parseSpaceResponse = (arr) => {

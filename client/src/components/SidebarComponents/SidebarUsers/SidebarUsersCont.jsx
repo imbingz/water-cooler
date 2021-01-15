@@ -54,9 +54,8 @@ const SidebarUsersCont = (props) => {
                 break;
             // ** Send User and Friend's IDs to Server To Process Accepting Room Invite
             case 'room':
-                history.push('/rooms/' + id);
                 try {
-                    const request = await fetch('/api/room/decline', {
+                    const request = await fetch('/api/room/accept', {
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ pubRoomId: id, user: _id }),
                         method: 'PUT'
@@ -74,6 +73,7 @@ const SidebarUsersCont = (props) => {
                     }
                     // ** Run checkDBArrays ti Update Render Of inbound Room Invites
                     props.checkDBArrays('inpendingRooms');
+                    history.push('/rooms/' + id);
                 } catch (err) {
                     console.log({ err });
                 }
