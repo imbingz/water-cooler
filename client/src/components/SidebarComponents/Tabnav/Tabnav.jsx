@@ -53,7 +53,7 @@ function Tabnav() {
             });
 
             const roomResponse = await roomRequest.json();
-            console.log(roomResponse.data);
+            // console.log(roomResponse.data);
             // *** If DB Req Is Successful, Store Room Data in State and Request Information for Social Spaces
             if (roomResponse.data) {
                 setRoomData(roomResponse.data);
