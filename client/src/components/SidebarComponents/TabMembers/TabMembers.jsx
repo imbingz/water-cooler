@@ -14,6 +14,7 @@ import './TabMembers.css';
 // * Tab Members Renders Data Collected From TabNav to Display Where Each User Is In the Room
 // !* There is Currently No Logic To Check Which Users Are Only in a Room and Not a Social Space, So All Users Will Render In Room
 function TabMembers(props) {
+
     // * Set States, State Helper Functions, and Other Variables
 
     const [{ USER, }, dispatch] = useGlobalContext();
@@ -35,7 +36,7 @@ function TabMembers(props) {
     // * Functions
     // ** Check User's DB For Any Changes in either friends or inboundPendingFriends by passing 'friends' or 'inpending'
     //    Then store updated array values in State
-    // !* This Should be Moved to a Sidebar Context Along with Associated States
+
     const checkDBArrays = useCallback(async (arr) => {
         try {
             const response = await fetch('/api/friends/arrays', {
@@ -47,7 +48,6 @@ function TabMembers(props) {
             const data = await response.json();
             switch (arr) {
                 case 'friends':
-                    // console.log('friends: ', data.retUsers);
                     const friends = data.retUsers;
                     const offline = [];
                     const online = [];
@@ -82,7 +82,7 @@ function TabMembers(props) {
             });
 
             const response = await request.json();
-            // console.log(response);
+       
             setRoomUsersData(response.retUsers);
         } catch (err) {
             console.log({ err });
@@ -166,7 +166,9 @@ function TabMembers(props) {
 
     return (
         <Container className='d-flex flex-column pl-4 mr-2 pb-5'>
+
             {/* Create Social Space Button */}
+
             <section className='d-flex justify-content-end mt-3'>
                 <button 
                     className='TabMembers-create-space-btn'
@@ -174,7 +176,6 @@ function TabMembers(props) {
                 >
                     <span>Create A Social Space</span>
                     <FaVideo size={20} style={{ fill: 'orangered', marginLeft: 10 }} />
-                    
                 </button>
             </section>
 
@@ -211,6 +212,7 @@ function TabMembers(props) {
                 }
 
                 {/* Render Room Room Users */}
+
                 <SidebarUsersCont
                     data={renderRoomUsers}
                     type=""
@@ -219,6 +221,10 @@ function TabMembers(props) {
                     handleFriendModal={handleMembersProfileModal}
                     handleShow={handleShow}
                 />
+
+
+                {/* 'View Profile modal is at the end */}
+
             </section>
 
             {/* Container For Social Space Headers, Join Space, Render All Users in Instanced Space   */}

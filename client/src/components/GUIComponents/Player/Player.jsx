@@ -3,8 +3,8 @@ import Sprite from '../Sprite';
 import UseKeyPress from '../../../utils/useKeyPress';
 
 export default function Player(props) {
-    console.log('player props', props);
-    const { pos, emitPos } = props;
+ 
+    const { pos, emitPos, message } = props;
     const [dir, setDir] = useState(0);
     const [step, setStep] = useState();
 
@@ -29,9 +29,7 @@ export default function Player(props) {
     //use custom hook for keydown event - pass fn
     if (emitPos) {
         UseKeyPress(e => {
-
             if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
-                console.log(e.key);
                 walk(e.key.replace('Arrow', '').toLowerCase());
             }
             //prevent browser from scrolling when downarrow key pressed
@@ -56,7 +54,8 @@ export default function Player(props) {
 
     //move function
     function move(dir) {
-        //use modifier to perform some math on the current x, y position to change the position which will then move the character  
+        //use modifier to perform some math on the current x, y position 
+        //to change the position which will then move the character  
         emitPos({
             x: pos.x + modifier[dir].x,
             y: pos.y + modifier[dir].y,
@@ -70,7 +69,7 @@ export default function Player(props) {
                 step={ step }
                 dir={ dir }
                 position={ pos }
-                message={pos.message}
+                message={message}
             />
         </div>
     );

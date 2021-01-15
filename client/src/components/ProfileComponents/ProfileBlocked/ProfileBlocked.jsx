@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './ProfileBlocked.css';
-// import friends from '../../data/friends';
 
 const ProfileBlocked = (props) => {
 
@@ -26,7 +25,7 @@ const ProfileBlocked = (props) => {
                 });
 
                 const data = await response.json();
-                // console.log(data.retUsers);
+                
                 setBlocked(data.retUsers);
             } catch (err) {
                 console.log({ err });
