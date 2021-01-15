@@ -4,7 +4,7 @@ const dbArray = {
     push: async (array, queryId, insertId) => {
         // console.log(array, queryId, insertId);
         try {
-            const user = await db.User.findByIdAndUpdate( // eslint-disable-line no-unused-vars 
+            const user = await db.User.findByIdAndUpdate( 
                 { _id: queryId },
                 { $addToSet: { [array]: insertId } },
                 { new: true }
@@ -23,7 +23,7 @@ const dbArray = {
     },
     pull: async (array, queryId, insertId) => {
         try {
-            const user = await db.User.findByIdAndUpdate( // eslint-disable-line no-unused-vars 
+            const user = await db.User.findByIdAndUpdate( 
                 { _id: queryId },
                 { $pull: { [array]: insertId } },
                 { new: true }

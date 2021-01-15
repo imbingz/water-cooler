@@ -21,6 +21,7 @@ function Tabnav() {
 
     // ** Variables To Determine It TabMembers and Tab Chat Should Render
     const path = window.location.pathname;
+    const roomID = path.substring(7);
     const roomCheck = path.includes('room');
     const spaceCheck = path.includes('space');
 
@@ -38,14 +39,14 @@ function Tabnav() {
     const getRoomData = useCallback(async (roomId) => {
         try {
             // *** Make Post Req By Sending Room ID
-            const roomRequest = await fetch('/api/room/find', {
+            const roomRequest = await fetch('/api/room/findpublic', {
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ id: '5ffea352af50db836c5cbdbc' }),
+                body: JSON.stringify({ id: roomID }),
                 method: 'POST'
             });
 
             const roomResponse = await roomRequest.json();
-            // console.log(roomResponse.data);
+            console.log(roomResponse.data);
             // *** If DB Req Is Successful, Store Room Data in State and Request Information for Social Spaces
             if (roomResponse.data) {
                 setRoomData(roomResponse.data);
