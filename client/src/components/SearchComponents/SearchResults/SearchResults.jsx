@@ -6,11 +6,11 @@ import './SearchResults.css';
 const SearchResults = () => { 
 
     // move the context wrapper to where SearchResults is called
-
+  
     return (
         <SearchContext.Consumer>
             {(context) => {
-                // console.log({context});
+               
                 return (
                     // * Map Through Users Returned From the DB
                     context.searchResults.map((returnedUser) => (
@@ -32,7 +32,6 @@ const SearchResults = () => {
                                 blocked={returnedUser.blocked}
                                 friends={returnedUser.friends}
                                 friendId={returnedUser.friendId}
-                                // We can deleted this to use global context in search button
                                 userId={context.userID} 
                             />
                         </article>

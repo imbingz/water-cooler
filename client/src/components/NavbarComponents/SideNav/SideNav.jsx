@@ -3,7 +3,6 @@ import { CgMenu } from 'react-icons/cg';
 import { IconContext } from 'react-icons';
 import { Link, useHistory } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
-// import NavSearch from '../NavSearch/NavSearch';
 import { useGlobalContext } from '../../../utils/GlobalContext';
 import './SideNav.css';
 
@@ -40,14 +39,10 @@ function SideNav() {
     return (
         <header>
             <IconContext.Provider value={{ color: '#fff' }}>
-                {/* !* Stick='top' caused the sidebar to render underneath the header */}
                 <Navbar sticky=''
                     className="justify-content-between align-items-top bg-secondary"
                 >
                     <div className=''>
-                        {/* <Link to='/profile' className='Header-profile-icon'>
-                            <BsPeopleCircle />
-                        </Link> */}
                         <Link to='#' className='Header-menu-bars'>
                             <CgMenu onClick={showSidebar} />
                         </Link>

@@ -12,12 +12,10 @@ function Tabnav() {
 
     // * Set States, State Helper Functions, and Other Variables
 
-    // !* Depreciated - We need to pull this from global context instead
     const { _id } = JSON.parse(localStorage.getItem('USER'));
 
     // ** For Rendering a Tab, Default to Friends Tab
     const [activeKey, setActiveKey] = useState('friends');
-
 
     // ** Variables To Determine It TabMembers and Tab Chat Should Render
     const path = window.location.pathname;
@@ -45,18 +43,16 @@ function Tabnav() {
             });
 
             const roomResponse = await roomRequest.json();
-            // console.log(roomResponse.data);
+         
             // *** If DB Req Is Successful, Store Room Data in State and Request Information for Social Spaces
             if (roomResponse.data) {
                 setRoomData(roomResponse.data);
-
                 const spacesRequest = await fetch('/api/socialspace/findmany', {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ ids: roomResponse.data.socialSpaces }),
                     method: 'POST'
                 });
                 const spaceResponse = await spacesRequest.json();
-                // console.log(spaceResponse);
                 parseSpaceResponse(spaceResponse.data);
             }
         } catch (err) {
@@ -76,7 +72,7 @@ function Tabnav() {
             });
 
             const response = await request.json();
-            // console.log(response.retUsers);
+         
             // *** Create A New Object to Store Social Space Data with Response Data Containing 
             //      User's Information and Push Object To parsedSpaceData[]
             let socialSpace = {
@@ -86,7 +82,7 @@ function Tabnav() {
                 socialSpaceUsers: response.retUsers
             };
             parsedSpaceData.push(socialSpace);
-            // console.log(parsedSpaceData);
+            
         });
         // *** Store Parsed Information in State
         setSpaceData(parsedSpaceData);
@@ -108,7 +104,7 @@ function Tabnav() {
 
     // ** Check User's DB For Any Changes in either friends or inboundPendingFriends by passing 'friends' or 'inpending'
     //    Then store updated array values in State
-    // !* This Should be Moved to a Sidebar Context Along with Associated States
+
     const checkDBArrays = useCallback(async (arr) => {
         try {
             const response = await fetch('/api/friends/arrays', {
@@ -120,7 +116,6 @@ function Tabnav() {
             const data = await response.json();
             switch (arr) {
                 case 'friends':
-                    // console.log('friends: ', data.retUsers);
                     const friends = data.retUsers;
                     setAllFriends(friends);
                     const offline = [];
@@ -130,14 +125,11 @@ function Tabnav() {
                     });
                     setOffFriends(offline);
                     setOnFriends(online);
-                    // console.log({offline});
                     break;
                 case 'inpending':
-                    // console.log('inpending: ', data.retUsers);
                     setInpending(data.retUsers);
                     break;
                 case 'inpendingRooms':
-                    // console.log('inpendingRooms: ', data.retRooms);
                     setInpendingRooms(data.retRooms);
                     break;
                 default:
@@ -160,9 +152,8 @@ function Tabnav() {
 
 
 
-
     return (
-        // !* Hard coding style={{width: '325px'}} was causing responsiveness issues
+        
         <div className='d-flex flex-column Tabnav-aside-tab'>
             <Tab.Container activeKey={activeKey} onSelect={setActiveKey} >
                 <Nav variant="tabs" className="justify-content-around bg-warning">

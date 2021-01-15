@@ -16,7 +16,6 @@ function NavSearch() {
     const handleShow = () => setShow(true);
      
     // * Connect to DB with User's Search
-    //  // We should be able to place this in a use effect, listening to changes in search query so we can pull results as users type; Partial matches in Mongo needs to work firsts
     const searchDB = async () => {
         try{
             const response = await fetch('/api/user/search', {
@@ -33,15 +32,12 @@ function NavSearch() {
             }
             // ** If Results Are Found, set State To Trigger SearchResults.jsx
             setSearchResults(data.query);
-            // console.log(data.query);
-            // setSearchQuery('');
         } catch (err) {
             console.log({ err });
         }
     };
 
     // * Listen to Page Load To Get User ID from Local Storage
-    //  // Should this happen/be stored in global context?
     useEffect(() => {
         if (localStorage.getItem('USER') !==null ) {
             const { _id } = JSON.parse(localStorage.getItem('USER'));
@@ -49,7 +45,6 @@ function NavSearch() {
         }
     }, []);
 
-    // const search = <SearchContext.Provider><Search/><SearchContextProvider>
     // add contexts to where the component is referenced
 
     return (

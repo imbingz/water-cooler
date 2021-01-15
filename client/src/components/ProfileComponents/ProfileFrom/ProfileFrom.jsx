@@ -55,8 +55,6 @@ const ProfileFrom = (props) => {
             imageSrc:selectedImg
         };
 
-        console.log('user obj to post', user);
-
         try {
             const response = await fetch('/api/user/profile', {
                 headers: {
@@ -70,19 +68,21 @@ const ProfileFrom = (props) => {
 
             const data = await response.json();
 
-
+            //Check if return data is successful first
             if (data.user) {
 
                 localStorage.setItem('USER', JSON.stringify(data.user));
                 
                 //update globalContext USER with updated returned data
                 dispatch({ type: 'setUser', payload: data.user }); 
-              
+                
+                //Notify user upon success update
                 toast.success('Your profile is updated successfully!!', {
                     position: toast.POSITION.TOP_CENTER
                 });
             }
         } catch (error) {
+            //Notify user if error
             toast.error('Something went wrong! Try again later', {
                 position: toast.POSITION.TOP_CENTER
             });

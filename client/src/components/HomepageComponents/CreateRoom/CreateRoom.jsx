@@ -8,7 +8,6 @@ import dummyFriendRooms from '../../../data/friends';
 // * CreateRoom Takes User Input To Create a Room. Prop Data is Used To Render The User's Friends
 function CreateRoom(props) {
     
-    // eslint-disable-next-line
     const [{roomStyle}, dispatch] = useGlobalContext();
     const [roomFriends, setRoomFriends] = useState([]);
     const [roomName, setRoomName] = useState('');
@@ -17,7 +16,6 @@ function CreateRoom(props) {
     const history = useHistory();
 
     useEffect(() => {
-        // console.log(roomFriends);
         async function fetchRooms() {
             try {
                 const response = await fetch('/api/room');
