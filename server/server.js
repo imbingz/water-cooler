@@ -73,16 +73,16 @@ io.on('connection', (socket) => {
             data.x = 0;
         }
 
-        if (data.x > 800) {
-            data.x = 800;
+        if (data.x > 750) {
+            data.x = 750;
         }
 
         if (data.y < 0) {
             data.y = 0;
         }
 
-        if (data.y > 600) {
-            data.y = 600;
+        if (data.y > 585) {
+            data.y = 585;
         }
 
         players[socket.id] = data;
