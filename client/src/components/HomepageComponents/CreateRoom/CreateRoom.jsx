@@ -12,7 +12,7 @@ function CreateRoom(props) {
     // eslint-disable-next-line
     const [{roomStyle}, dispatch] = useGlobalContext();
     const [roomFriends, setRoomFriends] = useState([]);
-    const [roomName, setRoomName] = useState('');
+    const [roomName, setRoomName] = useState([]);
     const [roomDescription, setRoomDescription] = useState('');
 
     const history = useHistory();

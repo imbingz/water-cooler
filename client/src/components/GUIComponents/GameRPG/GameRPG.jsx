@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '../../../utils/GlobalContext';
-import { GUIProvider } from '../../../utils/GUIProvider';
+// import { GUIProvider } from '../../../utils/GUIProvider';
 import Map from '../Map';
 
 
 //For the map responsiveness 
-function debounce(fn,ms) {
+function debounce(fn, ms) {
     let timer;
     return _ => {
         clearTimeout(timer);
@@ -18,7 +18,7 @@ function debounce(fn,ms) {
 
 function Game() {
 
-    const [dimensions, setDimensions] = useState({ 
+    const [dimensions, setDimensions] = useState({
         height: window.innerHeight,
         width: window.innerWidth
     });
@@ -26,10 +26,10 @@ function Game() {
     // tiles for our map - []
     const [tiles, setTiles] = useState([]);
     // set default tileSize 
-    const [tileSize, setTileSize] = useState({ width: 32, height: 32});
-    const [{roomStyle}, ] = useGlobalContext();
+    const [tileSize, setTileSize] = useState({ width: 32, height: 32 });
+    const [{ roomStyle },] = useGlobalContext();
     const [tileset, setTileset] = useState(roomStyle);
-  
+
     // Handle window resize event 
     useEffect(() => {
         const debouncedHandleResize = debounce(() => {
@@ -39,17 +39,17 @@ function Game() {
             });
 
             setTileSize({
-                height: (window.innerHeight > 1000 ? 1000 : window.innerHeight) /38 + 5,
-                width:  (window.innerWidth > 850 ? 850 : window.innerWidth) /38 + 5
+                height: (window.innerHeight > 1000 ? 1000 : window.innerHeight) / 38 + 5,
+                width: (window.innerWidth > 850 ? 850 : window.innerWidth) / 38 + 5
             });
         }, 100);
-  
+
         window.addEventListener('resize', debouncedHandleResize);
-  
+
         //clean up
         return _ => {
             window.removeEventListener('resize', debouncedHandleResize);
-      
+
         };
     }, [dimensions]);
 
@@ -68,7 +68,7 @@ function Game() {
                     id: id++,
                     x,
                     y,
-                    v: { x: -32, y: -32 } 
+                    v: { x: -32, y: -32 }
                 });
             }
 
@@ -83,7 +83,7 @@ function Game() {
         <div
             style={{
                 position: 'relative',
-                width:  (window.innerWidth > 1000) ? 1000 : (window.innerWidth - 100),
+                width: (window.innerWidth > 1000) ? 1000 : (window.innerWidth - 100),
                 height: window.innerHeight - 100,
                 backgroundColor: 'white',
                 overflow: 'hidden',
@@ -92,16 +92,16 @@ function Game() {
 
             }}>
 
-            <GUIProvider>
-                <Map
-                    tileset={ tileset }
-                    tiles={ tiles }
-                    setTiles={ setTiles }
-                    setTileset={ setTileset }
-                    tileWidth={ tileSize.width}
-                    tileHeight={ tileSize.height }
-                />
-            </GUIProvider>
+            {/* <GUIProvider> */}
+            <Map
+                tileset={tileset}
+                tiles={tiles}
+                setTiles={setTiles}
+                setTileset={setTileset}
+                tileWidth={tileSize.width}
+                tileHeight={tileSize.height}
+            />
+            {/* </GUIProvider> */}
         </div>
     );
 }
