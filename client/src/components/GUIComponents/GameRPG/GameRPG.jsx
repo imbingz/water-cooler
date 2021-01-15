@@ -28,7 +28,6 @@ function Game() {
     // set default tileSize 
     const [tileSize, setTileSize] = useState({ width: 32, height: 32});
     const [{roomStyle}, ] = useGlobalContext();
-    const [tileset, setTileset] = useState(roomStyle);
   
     // Handle window resize event 
     useEffect(() => {
@@ -60,9 +59,9 @@ function Game() {
         const _tiles = [];
         let id = 0;
 
-        for (let y = 0; y < (window.innerHeight - 100); y = y + tileSize.height) {
+        for (let y = 0; y < (dimensions.height - 100); y = y + tileSize.height) {
             const row = [];
-            for (let x = 0; x < (window.innerWidth > 1000 ? 1000 : (window.innerWidth - 100)); x = x + tileSize.width) {
+            for (let x = 0; x < (dimensions.width > 1000 ? 1000 : (window.innerWidth - 100)); x = x + tileSize.width) {
                 //push the row an obj with x, y, id
                 row.push({
                     id: id++,
@@ -83,8 +82,8 @@ function Game() {
         <div
             style={{
                 position: 'relative',
-                width:  (window.innerWidth > 1000) ? 1000 : (window.innerWidth - 100),
-                height: window.innerHeight - 100,
+                width:  (dimensions.width > 1000) ? 1000 : (dimensions.width - 100),
+                height: dimensions.height - 100,
                 backgroundColor: 'white',
                 overflow: 'hidden',
                 border: ' 1px solid lightgrey',
@@ -94,10 +93,8 @@ function Game() {
 
             <GUIProvider>
                 <Map
-                    tileset={ tileset }
+                    tileset={ roomStyle }
                     tiles={ tiles }
-                    setTiles={ setTiles }
-                    setTileset={ setTileset }
                     tileWidth={ tileSize.width}
                     tileHeight={ tileSize.height }
                 />
