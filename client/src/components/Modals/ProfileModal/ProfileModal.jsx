@@ -4,14 +4,11 @@ import { toast } from 'react-toastify';
 import { GoMail } from 'react-icons/go';
 
 
-// !* Invite Button Needs the Same Logic For Inviting a User To a Room, 
-//  This Button May be Cut From Phase II Sprint
 function ProfileModal(props) {
 
     // * Set States, State Helper Functions, and Other Variables
     const { checkdb, friend } = props;
     const { _id } = JSON.parse(localStorage.getItem('USER'));
-    // console.log(_id);
     // ** Used To Conditionally Render Unfriend Button
     // eslint-disable-next-line
     const [isFriend, setIsFriend] = useState(true);
@@ -72,10 +69,8 @@ function ProfileModal(props) {
                 <Button
                     onClick={async (e) => {
                         e.preventDefault();
-                        // console.log(friend.friendId);
                         await unfriend(friend.friendId);
                         checkdb('friends');
-                        // setIsFriend(false);
                     }}
                     className='d-inline-block mx-2 px-3'
                     variant='light'
@@ -93,8 +88,6 @@ function ProfileModal(props) {
 
                 <Modal.Header closeButton>
                     {/* USE ON HIDE TO CLOSE MODAL AND ALSO SET VALUE TO TRUE */}
-                    {/* <button closeButton>x</button> */}
-                    {/* <Modal.Title ></Modal.Title> */}
                 </Modal.Header>
 
                 <Modal.Body>

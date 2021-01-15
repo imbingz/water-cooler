@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-import {Carousel, Col} from 'react-bootstrap';
 import roomStyles from '../../../data/productionRoomStyles';
+import {Carousel, Col} from 'react-bootstrap';
 import { toast } from 'react-toastify';
 import { useGlobalContext } from '../../../utils/GlobalContext';
-// import { v4 as uuidv4 } from 'uuid';
 import './RoomCarousel.css';
 
 function RoomCarousel() {
@@ -14,6 +13,7 @@ function RoomCarousel() {
     };
     // eslint-disable-next-line
     const [{roomStyle}, dispatch] = useGlobalContext();
+    
     const handleSetRoomStyle = (style) => {
         dispatch({type: 'setRoomStyle', payload: style.src });
         localStorage.setItem('roomImg', style.src);
@@ -21,8 +21,6 @@ function RoomCarousel() {
             position: toast.POSITION.TOP_CENTER
         });
     };
-
-    // console.log('roomStyle', roomStyle);
 
     return (
         <Col xs={12} lg={5} md={6} className='pb-3' >   

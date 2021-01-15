@@ -82,9 +82,6 @@ UserSchema.methods.isValidPassword = async function(password) {
     return compare;
 };
 
-// UserSchema.methods.setFullName = function () {
-//     this.fullName = this.firstName + " " + this.lastName;
-// }
 
 UserSchema.index({ 
     username: 'text',
@@ -94,6 +91,5 @@ UserSchema.index({
 });
 
 const User = mongoose.model('User', UserSchema);
-// User.createIndexes();
 
 module.exports = User;

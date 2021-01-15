@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Card, Col, Row } from 'react-bootstrap';
-// import { MdAvTimer } from 'react-icons/md';
 import { CgProfile } from 'react-icons/cg';
 import { IconContext } from 'react-icons';
 import { IoIosPeople } from 'react-icons/io';
@@ -24,10 +23,11 @@ function FriendsRoom(props) {
         default:
             renderRooms = props.roomsData;
     }
-
+   
     return (
 
         <IconContext.Provider value={{ color: '#84f', size: 20 }}>
+
             { (renderRooms.length > 0) &&
                 <Row className='d-flex justify-content-center align-items-center mt-3'> <h5 >Join A Friend's Room</h5> </Row>
             }
@@ -58,11 +58,6 @@ function FriendsRoom(props) {
                                                     <i><CgProfile /> </i>
                                                     <span>{props.roomHost[index]} </span>
                                                 </div>
-                                                {/* !* We have no logic to check room duration in place and this will remain disabled for future development */}
-                                                {/* <div>
-                                                <i><MdAvTimer /> </i>
-                                                <span> {room.duration}</span>
-                                            </div> */}
                                             </div>
                                             <div className='d-flex flex-row justify-content-between'>
                                                 <div>
@@ -95,42 +90,3 @@ function FriendsRoom(props) {
 }
 
 export default FriendsRoom;
-
-
-// ** funtion routeToRoom used to route a user to an aleady created room **
-// const routeToRoom = async (e) => {
-//     e.preventDefault();
-//     try {
-//         const response = await fetch(
-//             '/api/room/find',
-//             {
-//                 headers: {
-//                     'Content-Type': 'application/json'
-//                 },
-//                 body: JSON.stringify({
-//                     id: document.activeElement.parentElement.id
-//                 }),
-//                 method: 'POST'
-//             }
-//         );
-//         const json = await response.json();
-//         const roomUrlId = json.data.publicRoomId;
-//         history.push('/rooms/' + roomUrlId);
-//     } catch (err) {
-//         console.log({ err });
-//     }
-// };
-
-// ** usage of routeToRoom
-// <div>
-// <h3>Open Rooms</h3>
-// <ul>
-//     {state.rooms.map(room => (
-//         <li id={room._id} key={room._id}>
-//             <button onClick={routeToRoom}>
-//                 {room.roomName}
-//             </button>
-//         </li>
-//     ))}
-// </ul>
-// </div>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { AiFillHome } from 'react-icons/ai';
 import { BsSearch, BsFillPersonFill } from 'react-icons/bs';
 import { Link } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
@@ -22,7 +21,6 @@ function Footer() {
                         < BsSearch size={23} style={{ fill: 'white' }} className='Footer-icon' />
                     </i>
                 </div>
-                {/* <div> <Link to="/">< AiFillHome size={ 27 } style={ { fill: 'white' } }/> </Link></div> */}
                 <a style={{ fontFamily: 'Great Vibes' }} className='Header-title' href="/">
                     <img style={{ width: 36, height: 36 }} src="/assets/images/logo-50.png" alt="water cooler logo" />
                 </a>

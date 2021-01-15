@@ -1,16 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button, Overlay, Popover } from 'react-bootstrap';
+import { useGlobalContext } from '../../../utils/GlobalContext';
 import useSound from 'use-sound';
 
 function Sprite({position, message, step=0, dir=0}) {
 
+    const [{ USER }, ] = useGlobalContext();
     //Sound play setup 
     const soundUrl = '/assets/hello.mp3';
     const [play, { stop }] = useSound(
         soundUrl,
         { volume: 0.5 }
     );
-
 
     // For popover button
     const [show, setShow] = useState(false);
@@ -20,12 +21,9 @@ function Sprite({position, message, step=0, dir=0}) {
     // Play sound when message pops up
     useEffect(() => {
         if(message) {
-            // setIsHovering(true);
             play();
         }
-
         return () => {
-            // setIsHovering(false);
             stop();
         };
     }, [message, play, stop]);
@@ -57,10 +55,14 @@ function Sprite({position, message, step=0, dir=0}) {
                 <div
                     style={ {
                         padding: '0px 30px',
-                        zIndex: 100
+                        zIndex: 100,
                     } }    
                 >
-                    userName
+                    <strong 
+                        style={{ backgroundColor: 'white'}}
+                    > 
+                        {USER.username} 
+                    </strong>
                  
                 </div>
 
