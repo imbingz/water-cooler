@@ -14,10 +14,9 @@ import './TabMembers.css';
 // * Tab Members Renders Data Collected From TabNav to Display Where Each User Is In the Room
 // !* There is Currently No Logic To Check Which Users Are Only in a Room and Not a Social Space, So All Users Will Render In Room
 function TabMembers(props) {
-    console.log(props);
     // * Set States, State Helper Functions, and Other Variables
 
-    const [{ USER, showAside }, dispatch] = useGlobalContext();
+    const [{ USER, }, dispatch] = useGlobalContext();
 
     const history = useHistory();
 

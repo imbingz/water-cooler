@@ -19,12 +19,19 @@ function Tabnav() {
     const [activeKey, setActiveKey] = useState('friends');
 
 
-    // ** Variables To Determine It TabMembers and Tab Chat Should Render
+    // ** Variables To Determine It TabMembers and Tab Chat Should Render and Determines what the publicRoomId is
     const path = window.location.pathname;
-    const roomID = path.substring(7);
     const roomCheck = path.includes('room');
     const spaceCheck = path.includes('space');
+    let roomID;
+    if (roomCheck) {
+        roomID = path.substring(7);
+    } else if (spaceCheck) {
+        console.log('');
+        // I'll have to search the db of the social space to get the room id again. Im thinking that room id wont change once they move to a space but we'll see
+    }
 
+    
 
     // * Collect and Parse Data for TabMembers
     // ** Store Data in State
