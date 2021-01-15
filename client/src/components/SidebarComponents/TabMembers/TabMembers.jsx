@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { BiExit } from 'react-icons/bi';
 import { FaVideo } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 import { useHistory } from 'react-router-dom';
 import SidebarUsersCont from '../SidebarUsers';
 import TabMembersProfileModal from '../../Modals/TabMembersProfileModal';
@@ -20,6 +21,9 @@ function TabMembers(props) {
     const [{ USER, }, dispatch] = useGlobalContext();
 
     const history = useHistory();
+
+    const path = window.location.pathname;
+    let spaceId = path.substring(44);
 
     // ** Manage State for Showing/Closing ProfileModal
     const [show, setShow] = useState(false);
@@ -138,13 +142,15 @@ function TabMembers(props) {
     };
 
     const createSocialSpace = async () => {
+        
         const pubSpaceId = uuidv4();
         const request = await fetch('/api/socialspace/create', {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ 
                 publicRoomId: props.roomData.publicRoomId,
                 publicSocialSpaceId: pubSpaceId,
-                socialSpaceName: 'Bob Grey'
+                socialSpaceName: 'Bob Grey',
+                socialSpaceUsers: USER._id,
             }),
             method: 'POST'
         });
@@ -152,12 +158,38 @@ function TabMembers(props) {
         const response = await request.json();
         if (response.success) {
             dispatch({type: 'setShowAside', payload: false});
-            history.push('/rooms' + props.roomData.publicRoomId + '/' + pubSpaceId);
+            history.push('/rooms/' + props.roomData.publicRoomId + '/' + pubSpaceId);
         }
     };
 
-    const joinSpace = (spaceId) => {
-        console.log(spaceId);
+    const joinSpace = async (newSpaceId) => {
+        console.log(newSpaceId);
+        try {
+            const request = await fetch('/api/socialspace/join', {
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    nextPubSpaceId: newSpaceId,
+                    oldPubSpaceId: spaceId,
+                    user: USER._id 
+                }),
+                method: 'PUT'
+            });
+            const status = await request.json();
+            
+            if (status.success) {
+                toast.success('Joined Social Space!', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+            } else {
+                toast.error('Failed to Join Social Space', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+            }
+            // ** Run checkDBArrays ti Update Render Of inbound Room Invites
+            // history.push('/rooms/' + props.roomData.publicRoomId + '/' + spaceId);
+        } catch (err) {
+            console.log({ err });
+        }
     };
 
     // * On Page Load, Check DB for Any Changes in User's friend and inboundPendingFriends Arrays 

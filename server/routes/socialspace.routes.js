@@ -23,14 +23,15 @@ router
             .create({
                 publicRoomId: req.body.publicRoomId,
                 publicSocialSpaceId: req.body.publicSocialSpaceId,
-                socialSpaceName: req.body.socialSpaceName
+                socialSpaceName: req.body.socialSpaceName,
+                socialSpaceUsers: [req.body.socialSpaceUsers.toString()]
             })
             // ** Once Create, add _id to parent room's socialSpaces Array
             .then(space => {
                 Room
                     .findOneAndUpdate(
                         { publicRoomId: req.body.publicRoomId },
-                        { $addToSet: { socialSpaces: space._id }},
+                        { $addToSet: { socialSpaces: space._id } },
                         { new: true }
                     )
                     .then(room => {
@@ -58,7 +59,7 @@ router
 
 router
     .route('/findmany')
-    .post(({body}, res) => {
+    .post(({ body }, res) => {
         SocialSpace
             .find({ _id: { $in: body.ids } })
             .then(data => {
@@ -72,7 +73,7 @@ router
 // Invite
 router
     .route('/invite')
-    .put(({body}, res) => {
+    .put(({ body }, res) => {
         console.log('Hit /api/socialspace/invite', body);
         try {
             const pushFriendToSpace = SocialSpace
@@ -83,8 +84,46 @@ router
                 );
             console.log(pushFriendToSpace);
 
-        } catch(err) {
+        } catch (err) {
             res.json({ success: false });
+            console.log(err);
+        }
+    });
+
+// Join A Space
+router
+    .route('/join')
+    .put(async ({ body }, res) => {
+        try {
+            // ** Access User's db and Pull publicRoomID From 'inboundPendingRooms' Array
+            const pullRoomFromOld = await SocialSpace
+                .findOneAndUpdate(
+                    { publicSocialSpaceId: body.oldPubSpaceId },
+                    { $pull: { socialSpaceUsers: body.user } },
+                    { new: true }
+                );
+
+            
+
+            const pushToNew = await SocialSpace
+                .findOneAndUpdate(
+                    { publicRoomId: body.nextPubSpaceId },
+                    {
+                        $addToSet:
+                            { roomUsers: body.user }
+                    },
+                    { new: true }
+
+                );
+
+            if (!pullRoomFromOld || !pushToNew) {
+                res.json({ success: false });
+                return;
+            }
+
+            res.json({ success: true });
+
+        } catch (err) {
             console.log(err);
         }
     });
