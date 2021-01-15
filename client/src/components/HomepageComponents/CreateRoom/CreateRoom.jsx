@@ -76,20 +76,14 @@ function CreateRoom(props) {
         let friendArray = [];
         
         if (roomFriends.includes(friendId)) {
-            console.log('includes');
             let i = friendId.indexOf(friendId);
-            console.log(i);
             friendArray.push(...roomFriends);
-            console.log(friendArray);
             friendArray.splice(i, 1);
-            console.log(friendArray);
             setRoomFriends(friendArray);
         } else {
             friendArray.push(...roomFriends, friendId);
             setRoomFriends(friendArray);
-            // console.log(roomFriends, 1);
         }
-        console.log(roomFriends, 2);
         
     };
 

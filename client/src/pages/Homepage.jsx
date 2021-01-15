@@ -57,7 +57,6 @@ const Homepage = () => {
                         method: 'POST'
                     });
                     const roomsResponse = await roomsRequest.json();
-                    console.log(roomsResponse.data);
                     // ** Store Returned Data in State
                     setRoomsData(roomsResponse.data);
                     setRoomHost(activeHosts);

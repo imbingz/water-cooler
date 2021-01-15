@@ -74,7 +74,6 @@ function FriendsRoom(props) {
                                                         size='sm'
                                                         variant='warning'
                                                         onClick={() => { 
-                                                            console.log('handleJoinRoom', room.publicRoomId); 
                                                             history.push('/rooms/' + room.publicRoomId);
                                                         }}
                                                     >
