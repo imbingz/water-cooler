@@ -142,7 +142,7 @@ function CreateRoom(props) {
                                     <div
                                         key={friend.friendId}
                                         id={friend.friendId}
-                                        className='d-flex flex-column align-items-center mr-1'
+                                        className='d-flex flex-column align-items-center mr-1 CreateRoom-frnd-wrapper'
                                         onClick={(e) => {
                                             // ** Check If Selection Styling Has Already Been Applied and Remove If True
                                             addFriendToRoom(e.currentTarget.id);
@@ -153,7 +153,7 @@ function CreateRoom(props) {
                                             }
                                         }}
                                     >
-                                        <img src={friend.imageSrc} alt={friend.username} style={{ width: 48, height: 48, borderRadius: '50%' }} />
+                                        <img className='CreateRoom-frnd-img' src={friend.imageSrc} alt={friend.username} style={{ width: 48, height: 48, borderRadius: '50%' }} />
                                         <small>{friend.username.substr(0, 5)}</small>
                                     </div>
                                 ))
@@ -164,7 +164,7 @@ function CreateRoom(props) {
                 </Row>
                 {/* Button Container */}
                 <Row >
-                    <Col className='mt-3'>
+                    <Col className='mt-4'>
                         <Button
                             className='border-0'
                             size='sm'

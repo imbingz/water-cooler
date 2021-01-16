@@ -1,3 +1,8 @@
+.Landing-gif {
+	border: 3px solid rgb(252, 249, 243);
+	border-radius: 3px;
+}
+
 .Landing-btn {
 	border: none;
 	border-radius: 5px;

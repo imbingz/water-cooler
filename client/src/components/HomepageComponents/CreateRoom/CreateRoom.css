@@ -1,3 +1,16 @@
 .CreateRoomSelected {
-  color: red;
+	color: red;
+}
+
+.CreateRoom-frnd-wrapper {
+	padding: 5px;
+}
+
+.CreateRoom-frnd-img {
+	margin-right: 3px;
+}
+
+.CreateRoom-frnd-img:hover {
+	transform: scale(1.2);
+	border: 3px solid red;
 }
