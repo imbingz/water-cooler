@@ -36,9 +36,11 @@ app.use(routes);
 // const players = {};
 
 io.on('connection', (socket) => {
-    console.log(socket.id);
 
-    socket.emit('set-id', socket.id);
+    socket.on('set-id', sessionId => {
+        socket.id = sessionId;
+        console.log(socket.id);
+    });
 
     socket.on('send-chat', (message, roomId, userId, username) => {
         console.log('emitting chat');

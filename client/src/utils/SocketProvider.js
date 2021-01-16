@@ -68,18 +68,6 @@ export function SocketProvider({ children }) {
         createSocket();
     }, [sessionId]);
 
-    useEffect(() => {
-        const assignSocketId = () => {
-            if (!socket) {
-                return;
-            }
-            console.log('running assign socket ID');
-            socket.id = sessionId;
-            return () => socket.close();
-        };
-        assignSocketId();
-    });
-
     return (
         <SocketContext.Provider value={{ socket, sessionId }}>
             {children}

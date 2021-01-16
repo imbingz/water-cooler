@@ -9,83 +9,102 @@ export function useChat() {
 
 export function ChatProvider({ children }) {
     const { socket, sessionId } = useSocket();
-
-    const [currentSocket, setCurrentSocket] = useState(socket);
-    // const [timeReceived, setTimeRecieved] = useState();
+    const [chatReceived, setChatReceived] = useState();
     const [roomChat, setRoomChat] = useState([]);
 
+    const roomPageUrl = document.URL;
+    const roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
+
+    const populateChat = useCallback(
+        async () => {
+            try {
+                const response = await fetch(
+                    '/api/chat/get',
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            roomId: roomUrlId
+                        }),
+                        method: 'POST'
+                    }
+                );
+                const json = await response.json();
+                setRoomChat(json.data);
+            } catch (err) {
+                console.log({ err });
+            }
+        }, [roomUrlId]);
+        
+    const receiveChat = useCallback(
+        async (received) => {
+            try {
+                const response = await fetch(
+                    '/api/chat/create',
+                    {
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: received.message,
+                            roomId: received.roomId,
+                            userId: received.userId,
+                            username: received.username
+                        }),
+                        method: 'POST'
+                    }
+                );
+                await response.json();
+            } catch (err) {
+                console.log({ err });
+            }
+            populateChat();
+        }, [populateChat]
+    );
+
+
     useEffect(() => {
-        if (!currentSocket) {
+        if (!socket) {
             return;
         }
+        populateChat();
 
-        currentSocket.on('set-id', id => {
-            console.log(id);
-            setCurrentSocket(socket);
-        });
-
-        currentSocket.on('receive-chat', (message, roomId, userId, username, socketId) => {
-            console.log('received chat');
-            receiveChat(message, roomId, userId, username, socketId);
-        });
-    });
+        socket.emit('set-id', sessionId);
+    }, [socket, sessionId, populateChat]);
 
     const sendChat = (message, roomId, userId, username) => {
         console.log('sent message');
         socket.emit('send-chat', message, roomId, userId, username);
     };
 
-    const receiveChat = async (message, roomId, userId, username) => {
-        try {
-            const response = await fetch(
-                '/api/chat/create',
-                {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        message: message,
-                        roomId: roomId,
-                        userId: userId,
-                        username: username
-                    }),
-                    method: 'POST'
-                }
-            );
-            const json = await response.json();
-            console.log(json);
-        } catch (err) {
-            console.log({ err });
+    useEffect(() => {
+        if (!socket) {
+            return;
         }
-    };
-    // const populateChat = useCallback(
-    //     async () => {
-    //         try {
-    //             const response = await fetch(
-    //                 '/api/chat/get',
-    //                 {
-    //                     headers: {
-    //                         'Content-Type': 'application/json'
-    //                     },
-    //                     body: JSON.stringify({
-    //                         roomId: roomUrlId
-    //                     }),
-    //                     method: 'POST'
-    //                 }
-    //             );
-    //             const json = await response.json();
-    //             setRoomChat(json.data);
-    //             setLastChat('');
-    //         } catch (err) {
-    //             console.log({ err });
-    //         }
-    //     },
-    //     [setRoomChat, roomUrlId],
-    // );
 
+        socket.on('receive-chat', (message, roomId, userId, username, socketId) => {
+            const receivedAt = Date.now();
+            const received = {
+                message: message,
+                roomId: roomId,
+                userId: userId,
+                username: username,
+                socketId: socketId,
+                receivedAt: receivedAt
+            };
+            console.log(received);
+            setChatReceived(received);
+            if (sessionId === socketId) {
+                receiveChat(received);
+            }
+            populateChat();
+        });
+        return () => socket.off('receive-chat');
+    }, [socket, sessionId, receiveChat, populateChat]);
 
     return (
-        <ChatContext.Provider value={{ sendChat, roomChat }}>
+        <ChatContext.Provider value={{ sendChat, roomChat, chatReceived }}>
             {children}
         </ChatContext.Provider>
     );
