@@ -13,9 +13,10 @@ function ProfileModal(props) {
     // * Set States, State Helper Functions, and Other Variables
     const { checkdb, friend } = props;
     const { _id } = JSON.parse(localStorage.getItem('USER'));
+
     // ** Used To Conditionally Render Unfriend Button
-    // eslint-disable-next-line
     const [isFriend, setIsFriend] = useState(true);
+    
     // ** Store Unfriend Button jsx In State [ note: friend.friendId is undefined on first render ]
     const [friendButton, setFriendButton] = useState(
         <Button
@@ -28,7 +29,6 @@ function ProfileModal(props) {
     // * Functions
     // ** Send User and Friend's IDs to Server To Process Unfriending
     const unfriend = useCallback(async (id) => {
-        console.log(friend.friendId);
         try {
             const request = await fetch('/api/friends/unfriend', {
                 headers: { 'Content-Type': 'application/json' },
@@ -44,16 +44,18 @@ function ProfileModal(props) {
         } catch (err) {
             console.log({ err });
         }
-    }, [friend.friendId, _id]);
+    }, [_id]);
 
 
     // ** Manage Sending DM to Friend
-    const sendMessage = () => {
-        console.log('sendMessage will definitely do something eventually');
-    };
+    // !* DMs moved to future sprint
+    // const sendMessage = () => {
+    //     console.log('sendMessage will definitely do something eventually');
+    // };
 
     // * Listen To change of isFriend State. When True, friend.friendId will be defined
     //  // When False, Button Value will Change [ note: I need to find a way to set state back to true when the modal is closed, else all the friend's modals will show Removed ]
+    // *! This is terrible and needs can just be conditionally rendered in the jsx return. Burn this
     useEffect(() => {
 
         if (!isFriend) {
@@ -75,6 +77,7 @@ function ProfileModal(props) {
                         e.preventDefault();
                         await unfriend(friend.friendId);
                         checkdb('friends');
+                        setIsFriend(false);
                     }}
                     className='d-inline-block mx-2 px-3'
                     variant='light'
@@ -130,7 +133,8 @@ function ProfileModal(props) {
                                 >Invite</Button >
                             }
                             {/* Chat Button */}
-                            <Button
+                            {/* !* DMs Moved to Future Sprint */}
+                            {/* <Button
                                 onClick={e => {
                                     e.preventDefault();
                                     sendMessage();
@@ -138,9 +142,9 @@ function ProfileModal(props) {
                                 className='d-inline-block mx-2 px-3'
                                 variant='warning'
                                 size='sm'
-                            >Chat</Button >
+                            >Chat</Button > */}
                             {/* Unfriend */}
-                            {friendButton}
+                            { friendButton }
                         </Row>
                     </Container>
                 </Modal.Body>

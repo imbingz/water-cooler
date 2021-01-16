@@ -170,9 +170,10 @@ function Tabnav() {
                     <Nav.Item>
                         <Nav.Link eventKey='friends' className='Tabnav-nav-link flex-grow'>Friends</Nav.Link>
                     </Nav.Item >
-                    <Nav.Item>
+                    {/* !* DMs moved to future sprint */}
+                    {/* <Nav.Item>
                         <Nav.Link eventKey='dms' className='Tabnav-nav-link flex-grow'>DMs</Nav.Link>
-                    </Nav.Item>
+                    </Nav.Item> */}
 
                     {/* ** Check if User is in A Room or Social Space Before Rendering Tab Option */}
                     {(roomCheck) &&
@@ -185,15 +186,6 @@ function Tabnav() {
                             <Nav.Link eventKey='members' className='Tabnav-nav-link flex-grow'>Members</Nav.Link>
                         </Nav.Item >
                     }
-
-                    {/* !* These two Container Will Always Render Members and Chat, Even When Not in a Room or Space for Development */}
-                    {/* <Nav.Item className='Tabnav-nav-item'>
-                        <Nav.Link eventKey='chats' className='Tabnav-nav-link'>Chats</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item className='Tabnav-nav-item' >
-                        <Nav.Link eventKey='members' className='Tabnav-nav-link'>Members</Nav.Link>
-                    </Nav.Item > */}
-
                 </Nav>
 
                 <Tab.Content>
