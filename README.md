@@ -1,6 +1,6 @@
 # Water Cooler
 ## Deployed Heroku Link
-https://water-cooler-main.herokuapp.com/
+[WaterCooler](https://water-cooler-main.herokuapp.com/)
 ## Description
 
 This is a full-stack web application that utilizes MongoDB, Express JS, Node JS, and React JS and allows users to create a Room and/or Social Space where they can walk around and socialize as if they would in real life, message (both public and private) and video others. The app also enables users to send friend requests, invite others to Room and Social Space, accept/decline requests and invitations and block others. 
@@ -28,7 +28,7 @@ Authentication – Express-session, passport-local, bcrypt
 Testing – react-testing-library, jest, supertest
 
 ```
-## Usage (User Stuff and Whatnot)
+## Usage
 
  ## Installation
   Access to GitHub.com and a code editor such as vscode is necessary. Click the GitHub link provided above to the APP REPO. Click on the green button that says Clone or Download and Choose how you would like to download: using the SSH/HTTPS keys or download the zip file. If using SSH/HTTPS Key: You will copy the link shown and open up either terminal (mac: pre-installed) or gitbash (pc: must be installed). Once the application is open, you will type git clone paste url here. If using Download ZIP: Click on Download Zip. Locate the file and double click it to unzip the file. Locate the unzipped folder and open it. 
@@ -42,7 +42,6 @@ Testing – react-testing-library, jest, supertest
 * [Available Scripts](#Available-Scripts)
 * [Dependencies/Packages](#Dependencies/Packages)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin est sit amet lacus pulvinar, mollis tincidunt mauris pharetra. Sed id ipsum est. Nam faucibus metus et nisl placerat hendrerit. Sed congue elit nunc, et pulvinar lacus placerat non. Vestibulum lacinia scelerisque orci at luctus. Sed orci massa, rutrum id finibus eget, venenatis hendrerit neque. Proin vel libero in nisi auctor mollis eget non arcu.
 
 ### Available Scripts
 
@@ -53,7 +52,7 @@ These are some of the key scripts used during development. Linting rules and tes
 | npm start:server | begins server using nodemon |
 | npm start:client | begin React server in dev mode |
 | npm lint | uses eslint to check for linting errors |
-| npm lint:fix | if an issue occors with eslint, this script can resolve the issue |
+| npm lint:fix | if an issue occurs with eslint, this script can resolve the issue |
 | npm test:server | run tests for the server |
 | npm test:client | run tests for the client |
 
@@ -223,8 +222,8 @@ TabFriends passes prop data to ProfileModal that triggers a react warning
 [React-Testing-Library](https://testing-library.com/docs/react-testing-library/intro/) 
 [Jest Testing Library](https://jestjs.io/docs/en/getting-started)
 [Supertest Testing Library](https://www.npmjs.com/package/supertest)
-[Mongoose Testing Document] (https://mongoosejs.com/docs/jest.html) 
-[Connecting Jest and Mongoose](https://zellwk.com/blog/jest-and-mongoose/) 
+[Mongoose Testing Document](https://mongoosejs.com/docs/jest.html)
+[Connecting Jest and Mongoose](https://zellwk.com/blog/jest-and-mongoose/)
 [React-Toastify](https://www.npmjs.com/package/react-toastify)
 [Raect-icons](https://react-icons.github.io/react-icons/)
 [Use-sound](https://www.npmjs.com/package/use-sound)
