@@ -5,7 +5,7 @@ import { useChat } from '../../../utils/ChatProvider';
 import './TabRoomChats.css';
 
 function TabRoomChats() {
-    const [messageInput, setMessageValue] = useState('');
+    const [messageInput, setMessageValue] = useState();
     const roomPageUrl = document.URL;
     const roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
     const userId = JSON.parse(localStorage.getItem('USER'))._id;
@@ -29,15 +29,15 @@ function TabRoomChats() {
                 <section className='TabRoomChats-chat-body mt-3 mx-3'>
                     {roomChat &&
                         roomChat.map((chat) => (
-                            <div key={chat._id} className={chat.username===username ? 'TabDmChats-chat-you' : ''}>
+                            <div key={chat._id} className={chat.username === username ? 'TabDmChats-chat-you' : ''}>
                                 <p className=' mb-1 text-muted TabRoomChats-chat-username'>
-                                    {chat.username===username ? 'You' : chat.username}
+                                    {chat.username === username ? 'You' : chat.username}
                                     <small className='ml-1'>
                                         {chat.timestamp}
                                     </small>
                                 </p>
-                                <p className={chat.username===username ? 'TabRoomChats-chat-msg-you px-3 py-1' : 'TabRoomChats-chat-msg px-3 py-1'}>
-                                    {chat.message} 
+                                <p className={chat.username === username ? 'TabRoomChats-chat-msg-you px-3 py-1' : 'TabRoomChats-chat-msg px-3 py-1'}>
+                                    {chat.message}
                                 </p>
                             </div>
                         ))
@@ -46,17 +46,18 @@ function TabRoomChats() {
                 </section>
 
                 <section className='TabRoomChats-chat-footer p-3'>
-                    <form >
+                    <form
+                        onSubmit={sendMessage}>
                         <label
                             htmlFor='room-chat-input'
                         >
-                            <BiSmile size={25} style={{fill: 'black'}}/>
+                            <BiSmile size={25} style={{ fill: 'black' }} />
                         </label>
 
-                        <input 
+                        <input
                             required
                             className='TabRoomChats-chat-input'
-                            type="text" 
+                            type="text"
                             id='room-chat-input'
                             name='messageInput'
                             value={messageInput}
@@ -64,14 +65,13 @@ function TabRoomChats() {
                             placeholder='Type a message'
                         />
 
-                        <button 
+                        <button
                             className='TabRoomChats-chat-btn'
                             type='submit'
-                            onClick={sendMessage}
                         >
-                            <IoIosSend size={23} style={{fill: '#08f'}}/>
+                            <IoIosSend size={23} style={{ fill: '#08f' }} />
                         </button>
-       
+
                     </form>
                 </section>
 

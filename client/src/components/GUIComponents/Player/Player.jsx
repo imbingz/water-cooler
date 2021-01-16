@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import Sprite from '../Sprite';
 import UseKeyPress from '../../../utils/useKeyPress';
 
-export default function Player(props) {
- 
+function Player(props) {
+
     const { pos, emitPos, message } = props;
     const [dir, setDir] = useState(0);
     const [step, setStep] = useState();
@@ -14,11 +14,8 @@ export default function Player(props) {
         right: 2,
         up: 3
     };
-
     const stepSize = 16;
-
     const maxSteps = 3;
-
     const modifier = {
         down: { x: 0, y: stepSize },
         left: { x: -stepSize, y: 0 },
@@ -56,6 +53,7 @@ export default function Player(props) {
     function move(dir) {
         //use modifier to perform some math on the current x, y position 
         //to change the position which will then move the character  
+        // emitPos({
         emitPos({
             x: pos.x + modifier[dir].x,
             y: pos.y + modifier[dir].y,
@@ -69,8 +67,10 @@ export default function Player(props) {
                 step={ step }
                 dir={ dir }
                 position={ pos }
-                message={message}
+                message={ message }
             />
         </div>
     );
 }
+
+export default Player;

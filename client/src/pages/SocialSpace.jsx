@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useGlobalContext } from '../utils/GlobalContext';
-import Chat from '../components/Chat';
 
 const SocialSpace = () => {
     const [state, dispatch] = useGlobalContext();
@@ -54,7 +53,6 @@ const SocialSpace = () => {
             </div>
             <div>
                 <h3>Chats</h3>
-                <Chat></Chat>
             </div>
         </>
     );
