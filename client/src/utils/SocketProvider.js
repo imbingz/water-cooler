@@ -31,6 +31,23 @@ export function SocketProvider({ children }) {
             } catch (err) {
                 console.log(err);
             }
+            return async () => {
+                try {
+                    const response = await fetch(
+                        '/api/user/logout',
+                        {
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            method: 'POST'
+                        }
+                    );
+                    const json = await response.json();
+                    console.log(json);
+                } catch (err) {
+                    console.log(err);
+                }
+            };
         };
         getSessionId();
     }, [USER._id]);
@@ -58,6 +75,7 @@ export function SocketProvider({ children }) {
             }
             console.log('running assign socket ID');
             socket.id = sessionId;
+            return () => socket.close();
         };
         assignSocketId();
     });

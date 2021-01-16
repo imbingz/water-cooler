@@ -36,12 +36,12 @@ app.use(routes);
 // const players = {};
 
 io.on('connection', (socket) => {
-    socket.id = socket.handshake.query.id;
-    console.log(socket.id, 'SET SOCKET.ID ON SERVER.JS');
+    console.log(socket.id);
 
     socket.emit('set-id', socket.id);
 
     socket.on('send-chat', (message, roomId, userId, username) => {
+        console.log('emitting chat');
         socket.broadcast.emit('receive-chat', message, roomId, userId, username, socket.id);
     });
 
