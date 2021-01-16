@@ -30,20 +30,20 @@ function TabFriends(props) {
     let dummyData = 'no';
     let renderInpending;
     let renderOffFriends;
-    // let renderOnFriends;
+    let renderOnFriends;
     let renderRoomInv;
     
     switch(dummyData) {
         case 'yes': 
             renderInpending = dummyFriends;
             renderOffFriends = dummyFriends;
-            // renderOnFriends = dummyFriends;
+            renderOnFriends = dummyFriends;
             renderRoomInv = dummyFriendsRoom;
             break;
         default: 
             renderInpending = props.inpending;
             renderOffFriends = props.offFriends;
-            // renderOnFriends = onFriends;
+            renderOnFriends = props.onFriends;
             renderRoomInv = props.inpendingRooms;
     }
     
@@ -86,26 +86,21 @@ function TabFriends(props) {
 
             {/* Friends */}
             {/* Online Friends */}
-            {/* <div><h6 className='Tabfriends-subtitle mt-4'>Online Friends:</h6></div>
+            <div><h6 className='Tabfriends-subtitle mt-4'>Online Friends:</h6></div>
             <section className='mb-4 mr-3 TabFriends-section'>
                 <SidebarUsersCont
                     data={renderOnFriends}
                     isRequest={false}
                     type="friend"
-                    checkDBArrays={checkDBArrays}
+                    checkDBArrays={props.checkDBArrays}
                     handleFriendModal={handleFriendModal}
                     handleShow={handleShow}
                 />
-            </section> */}
+            </section>
 
             {/* Offline Friends */}
-            {/* <div><h6 className='Tabfriends-subtitle mt-4'>Offline Friends:</h6></div> */}
-            { (renderOffFriends.length > 0) &&
-                    <h6 className='mr-5 Tabfriends-subtitle'>Friends:</h6> 
-            }
-            { (renderOffFriends.length === 0) &&
-                    <h6 className='mr-5 Tabfriends-subtitle'>Use the Search Icon To Add Your Friends!</h6> 
-            }
+            <div><h6 className='Tabfriends-subtitle mt-4'>Offline Friends:</h6></div>
+            
             <section className='mr-3 TabFriends-section'>
                 <SidebarUsersCont
                     data={renderOffFriends}
