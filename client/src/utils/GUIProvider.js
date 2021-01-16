@@ -1,50 +1,49 @@
-// import React, { createContext, useContext, useState, useEffect } from 'react';
-// import { useSocket } from './SocketProvider';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { useGlobalContext } from '../utils/GlobalContext';
+import { useSocket } from './SocketProvider';
 
-// const GUIContext = createContext();
+const GUIContext = createContext();
 
-// export function useGUI() {
-//     return useContext(GUIContext);
-// }
+export function useGUI() {
+    return useContext(GUIContext);
+}
 
-// export function GUIProvider({ children }) {
-//     const [player, setPlayer] = useState('');
-//     const [players, setPlayers] = useState({});
-//     const socket = useSocket();
-//     const { v4: uuidv4 } = require('uuid');
-//     const random = uuidv4;
+export function GUIProvider({ children }) {
+    const [{ USER },] = useGlobalContext();
+    const username = USER.name;
+    const [player, setPlayer] = useState('');
+    const [players, setPlayers] = useState({});
+    const { socket, sessionId } = useSocket();
 
-//     useEffect(() => {
-//         if (socket == null) {
-//             return;
-//         }
+    useEffect(() => {
+        if (!socket) {
+            return;
+        }
+        socket.emit('set-id', sessionId);
 
-//         socket.on('set-id', id => {
-//             socket.id = id;
-//             setPlayer({ id: socket.id, name: random });
-//         });
+        setPlayer({ id: sessionId, name: username });
+    }, [socket, sessionId, username]);
 
-//         socket.on('connect_error', err => {
-//             console.log(err);
-//         });
 
-//         socket.on('state', (state) => {
-//             if (!state) { return; } 
-//             const { players } = state;
-//             setPlayers(players);
-//         });
+    useEffect(() => {
 
-//         return () => socket.off('receive-chat');
-//     }, [socket, random, player]);
+        socket.on('state', (state) => {
+            if (!state) { return; } 
+            const { players } = state;
+            setPlayers(players);
+        });
+
+        return () => socket.off('receive-chat');
+    }, [socket, random, player]);
 
     
-//     const emitMovement = (position) => {
-//         socket.emit('movement', position);
-//     };
+    const emitMovement = (position) => {
+        socket.emit('movement', position);
+    };
 
-//     return (
-//         <GUIContext.Provider value={{ player, players, emitMovement }}>
-//             {children}
-//         </GUIContext.Provider>
-//     );
-// }
+    return (
+        <GUIContext.Provider value={{ player, players, emitMovement }}>
+            {children}
+        </GUIContext.Provider>
+    );
+}
