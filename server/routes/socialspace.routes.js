@@ -149,6 +149,27 @@ router
         }
     });
 
+// Leave Space
+router
+    .route('/leave')
+    .put(async ({ body }, res) => {
+        const pullIDFromSpace = 
+        await SocialSpace
+            .findOneAndUpdate(
+                { publicSocialSpaceId: body.pubSpaceId },
+                {
+                    $pull:
+                        { socialSpaceUsers: body.user }
+                },
+                { new: true }
+            );
+        if (!pullIDFromSpace) {
+            res.json({ success: false });
+            return;
+        }
+        res.json({ success: true });
+    });
+
 // gathers social space based on publicSocialSpaceID
 router
     .route('/:id')

@@ -73,7 +73,8 @@ function TabMembersProfileModal(props) {
                                     variant='success'
                                 >Invite to SocialSpace</Button >
                             }
-                            <Button className='d-inline-block mx-2 px-3' variant='warning' size='sm'>DM Chat</Button >
+                            {/* !* DMs Moved to Future Sprint */}
+                            {/* <Button className='d-inline-block mx-2 px-3' variant='warning' size='sm'>DM Chat</Button > */}
                             <Button className='d-inline-block mx-2 px-3' variant='light' size='sm'>Unfriend</Button >
                         </Row>
                     </Container>
