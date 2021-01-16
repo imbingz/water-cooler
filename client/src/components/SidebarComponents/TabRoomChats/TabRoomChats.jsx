@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BiSmile } from 'react-icons/bi';
 import { IoIosSend } from 'react-icons/io';
-import { SocketUse } from '../../../utils/SocketUseProvider';
+import { useChat } from '../../../utils/ChatProvider';
 import './TabRoomChats.css';
 
 function TabRoomChats() {
@@ -10,7 +10,7 @@ function TabRoomChats() {
     const roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
     const userId = JSON.parse(localStorage.getItem('USER'))._id;
     const username = JSON.parse(localStorage.getItem('USER')).username;
-    const { sendChat, roomChat } = SocketUse();
+    const { sendChat, roomChat } = useChat();
 
     const sendMessage = async (e) => {
         e.preventDefault();

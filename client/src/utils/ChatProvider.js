@@ -1,16 +1,16 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useSocket } from './SocketProvider';
 
-const SocketUseContext = createContext();
+const ChatContext = createContext();
 
-export function SocketUse() {
-    return useContext(SocketUseContext);
+export function useChat() {
+    return useContext(ChatContext);
 }
 
-export function SocketUseProvider({ children }) {
+export function ChatProvider({ children }) {
     const [lastChat, setLastChat] = useState('');
     const [roomChat, setRoomChat] = useState('');
-    const {socket} = useSocket();
+    const { socket } = useSocket();
     const roomPageUrl = document.URL;
     let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
     const { v4: uuidv4 } = require('uuid');
@@ -95,8 +95,8 @@ export function SocketUseProvider({ children }) {
     };
 
     return (
-        <SocketUseContext.Provider value={{ sendChat, roomChat }}>
+        <ChatContext.Provider value={{ sendChat, roomChat }}>
             {children}
-        </SocketUseContext.Provider>
+        </ChatContext.Provider>
     );
 }

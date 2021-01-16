@@ -13,7 +13,7 @@ import SideNav from './components/NavbarComponents/SideNav';
 import Slider from './components/SidebarComponents/Slider';
 import { Container } from 'react-bootstrap';
 import { ToastContainer, Zoom } from 'react-toastify';
-import { SocketUseProvider } from './utils/SocketUseProvider';
+import { ChatProvider } from './utils/ChatProvider';
 import { SocketProvider } from './utils/SocketProvider';
 import { useGlobalContext } from './utils/GlobalContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -23,7 +23,6 @@ import './App.css';
 function App() {
 
     const [{ USER },] = useGlobalContext();
-
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -48,21 +47,15 @@ function App() {
                     </Route>
                 </main>
             </Router>
-        );
-    
+        ); 
     }
-
 
     return (
         <Router>
-          
             <SocketProvider>
-                <SocketUseProvider>
-                  
+                <ChatProvider>
                     <SideNav />
-                    
                     <ToastContainer transition={Zoom} autoClose={3000} />
-
                     <main>
                         <Slider />
                         <Container>
@@ -76,10 +69,8 @@ function App() {
                         </Container>
                     </main>
                     <Footer />
-                 
-                </SocketUseProvider>
+                </ChatProvider>
             </SocketProvider>
-
         </Router>
     );
 }

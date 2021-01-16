@@ -14,7 +14,6 @@ export function SocketProvider({ children }) {
     const [sessionId, setSessionId] = useState();
 
     useEffect(() => {
-        console.log('getting the sessionID');
         const getSessionId = async () => {
             try {
                 const response = await fetch(
@@ -36,7 +35,6 @@ export function SocketProvider({ children }) {
     }, [USER._id]);
 
     useEffect(() => {
-        console.log('creating a new socket');
         const createSocket = () => {
             const newSocket = io(
                 '/',
