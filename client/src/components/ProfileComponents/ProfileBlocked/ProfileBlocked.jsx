@@ -35,7 +35,7 @@ const ProfileBlocked = (props) => {
             }
         };
         checkDBArray('blocked');
-    }, [props.id]);
+    }, [USER._id]);
 
     return (
 
