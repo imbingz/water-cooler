@@ -1,6 +1,10 @@
 # Water Cooler
 ## Deployed Heroku Link
 [WaterCooler](https://water-cooler-main.herokuapp.com/)
+
+readme still under constriction construction 👷‍♂️
+
+
 ## Description
 
 This is a full-stack web application that utilizes MongoDB, Express JS, Node JS, and React JS and allows users to create a Room and/or Social Space where they can walk around and socialize as if they would in real life, message (both public and private) and video others. The app also enables users to send friend requests, invite others to Room and Social Space, accept/decline requests and invitations and block others. 
@@ -126,7 +130,7 @@ These are some of the key scripts used during development. Linting rules and tes
 &NewLine;
 &NewLine;
 
-![Database Map](../assets/DB_Map-01.png)
+![Database Map](./assets/DB_Map-01.png)
 
 #### Models
 
@@ -160,7 +164,7 @@ Initially we started to test how to use socket for multiple player(sprite) separ
 
 ### Components
 
-![Component Map](../assets/component_map-02.jpg)
+![Component Map](./assets/component_map-02.jpg)
 
 
 * [GUI Components](#GUI-Components)
