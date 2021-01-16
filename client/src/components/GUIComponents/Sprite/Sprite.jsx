@@ -3,7 +3,7 @@ import { Button, Overlay, Popover } from 'react-bootstrap';
 import { useGlobalContext } from '../../../utils/GlobalContext';
 import useSound from 'use-sound';
 
-function Sprite({/*position,*/ message, step = 0, dir = 0 }) {
+function Sprite({position, message, step = 0, dir = 0 }) {
 
     const [{ USER },] = useGlobalContext();
     //Sound play setup 
@@ -12,11 +12,6 @@ function Sprite({/*position,*/ message, step = 0, dir = 0 }) {
         soundUrl,
         { volume: 0.5 }
     );
-
-    const position = {
-        y: 50,
-        x: 80
-    };
 
     // For popover button
     const [show, setShow] = useState(false);
@@ -55,7 +50,6 @@ function Sprite({/*position,*/ message, step = 0, dir = 0 }) {
                     zIndex: 100,
                 }}
             >
-
                 <div
                     style={{
                         padding: '0px 30px',
@@ -67,7 +61,6 @@ function Sprite({/*position,*/ message, step = 0, dir = 0 }) {
                     >
                         {USER.username}
                     </strong>
-
                 </div>
 
                 {
