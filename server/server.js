@@ -33,7 +33,7 @@ app.use(passport.session());
 app.use(routes);
 
 
-const players = {};
+// const players = {};
 
 io.on('connection', (socket) => {
     socket.id = socket.handshake.query.id;
@@ -45,58 +45,46 @@ io.on('connection', (socket) => {
         socket.broadcast.emit('receive-chat', message, roomId, userId, username, socket.id);
     });
 
-    players[socket.id] = {
-        x: 0, y: 0
-    };
+    // players[socket.id] = {
+    //     x: 0, y: 0
+    // };
 
-    io.sockets.emit('state', { players });
-
-    socket.on('check-room', (roomUrlId, name) => {
-        if (roomUrlId === socket.room) {
-            return;
-        }
-        socket.leave(socket.room);
-        socket.join(roomUrlId);
-        socket.room = roomUrlId;
-        socket.to(socket.room).broadcast.emit('user-connected', roomUrlId, name);
-
-    });
+    // io.sockets.emit('state', { players });
+    
+    // socket.on('movement', (data) => {
+    //     if (data.x < 0) {
+    //         data.x = 0;
+    //     }
+    //     if (data.x > 750) {
+    //         data.x = 750;
+    //     }
+    //     if (data.y < 0) {
+    //         data.y = 0;
+    //     }
+    //     if (data.y > 585) {
+    //         data.y = 585;
+    //     }
+    //     players[socket.id] = data;
+    //     let message;
+    //     // players is an obj of player with random key n{ x, y }positions as value
+    //     if (players) {
+    //         let playerPositions = Object.values(players);
+    //         for (let i = 0; !message && i < playerPositions.length; i++) {
+    //             for (let j = i + 1; !message && j < playerPositions.length; j++) {
+                    
+    //                 if (Math.abs(playerPositions[i].x - playerPositions[j].x) <= 32 && Math.abs(playerPositions[i].y - playerPositions[j].y) <= 32) {
+    //                     playerPositions[i].message = 'Hey, like to chat?';
+    //                     playerPositions[j].message = 'Hello , genius';
+    //                 }
+    //             }
+    //         }
+    //     }
+    //     socket.emit('state', { players, message });
+    // });
 
     socket.on('disconnect', () => {
         socket.to(socket.room).broadcast.emit('user-disconnected');
-        delete players[socket.id];
-    });
-
-
-    socket.on('movement', (data) => {
-        if (data.x < 0) {
-            data.x = 0;
-        }
-        if (data.x > 750) {
-            data.x = 750;
-        }
-        if (data.y < 0) {
-            data.y = 0;
-        }
-        if (data.y > 585) {
-            data.y = 585;
-        }
-        players[socket.id] = data;
-        let message;
-        // players is an obj of player with random key n{ x, y }positions as value
-        if (players) {
-            let playerPositions = Object.values(players);
-            for (let i = 0; !message && i < playerPositions.length; i++) {
-                for (let j = i + 1; !message && j < playerPositions.length; j++) {
-
-                    if (Math.abs(playerPositions[i].x - playerPositions[j].x) <= 32 && Math.abs(playerPositions[i].y - playerPositions[j].y) <= 32) {
-                        playerPositions[i].message = 'Hey, like to chat?';
-                        playerPositions[j].message = 'Hello , genius';
-                    }
-                }
-            }
-        }
-        socket.emit('state', { players, message });
+        // delete players[socket.id];
     });
 });
 

@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import Sprite from '../Sprite';
-import { useGUI } from '../../../utils/GUIProvider';
+// import { useGUI } from '../../../utils/GUIProvider';
 import UseKeyPress from '../../../utils/useKeyPress';
 
 function Player() {
 
-    const { player, players, emitMovement } = useGUI();
+    // const { player, players, emitMovement } = useGUI();
     // const { pos, emitPos, message } = props;
     const [dir, setDir] = useState(0);
     const [step, setStep] = useState();
-    const key = 123456;
-    const pos = players[key];
-    const emitPos = (pos) => {
-        emitMovement(pos);
-    };
+    // const key = 123456;
+    // const pos = players[key];
+    // const emitPos = (pos) => {
+    //     emitMovement(pos);
+    // };
     let message = 'hey fam';
 
     // {{Object.keys(players).map(key => {
@@ -48,15 +48,15 @@ function Player() {
     };
 
     //use custom hook for keydown event - pass fn
-    if (emitPos) {
-        UseKeyPress(e => {
-            if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
-                walk(e.key.replace('Arrow', '').toLowerCase());
-            }
-            //prevent browser from scrolling when downarrow key pressed
-            e.preventDefault();
-        });
-    }
+    // if (emitPos) {
+    //     UseKeyPress(e => {
+    //         if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
+    //             walk(e.key.replace('Arrow', '').toLowerCase());
+    //         }
+    //         //prevent browser from scrolling when downarrow key pressed
+    //         e.preventDefault();
+    //     });
+    // }
 
     //walk function
     function walk(dir) {
@@ -77,10 +77,10 @@ function Player() {
     function move(dir) {
         //use modifier to perform some math on the current x, y position 
         //to change the position which will then move the character  
-        emitPos({
-            x: pos.x + modifier[dir].x,
-            y: pos.y + modifier[dir].y,
-        });
+        // emitPos({
+        //     x: pos.x + modifier[dir].x,
+        //     y: pos.y + modifier[dir].y,
+        // });
 
     }
 
@@ -89,7 +89,7 @@ function Player() {
             <Sprite
                 step={step}
                 dir={dir}
-                position={pos}
+                // position={pos}
                 message={message}
             />
         </div>
