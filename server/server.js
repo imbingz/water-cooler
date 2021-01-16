@@ -42,7 +42,6 @@ io.on('connection', (socket) => {
     });
 
     socket.on('send-chat', (message, roomId, userId, username) => {
-        console.log('emitting chat');
         socket.broadcast.emit('receive-chat', message, roomId, userId, username, socket.id);
     });
 
@@ -71,6 +70,7 @@ io.on('connection', (socket) => {
 
         if (data.y > 585) {
             data.y = 585;
+        }
 
         players[sessionId] = data;
 
@@ -97,7 +97,7 @@ io.on('connection', (socket) => {
             socket.to(socket.room).broadcast.emit('user-disconnected');
             delete players[sessionId];
         });
-    });
+    });   
 
     if (process.env.NODE_ENV === 'production') {
         app.use(express.static('client/build'));
@@ -109,3 +109,4 @@ io.on('connection', (socket) => {
     http.listen(PORT, () => {
         console.log('Server is running on PORT: ' + PORT);
     });
+});
