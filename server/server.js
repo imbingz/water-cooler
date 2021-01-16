@@ -36,8 +36,13 @@ const players = {};
 
 io.on('connection', (socket) => {
 
+    const sessionId = socket.handshake.query.sessionId;
+
+    console.log(sessionId, 'this is the server session ID');
+
     socket.on('set-id', sessionId => {
         socket.id = sessionId;
+        console.log(sessionId);
         console.log(socket.id);
     });
 
@@ -98,15 +103,16 @@ io.on('connection', (socket) => {
             delete players[sessionId];
         });
     });   
+    
+});
 
-    if (process.env.NODE_ENV === 'production') {
-        app.use(express.static('client/build'));
-        app.get('*', (req, res) => {
-            res.sendFile(path.join(__dirname, '../client/build/index.html'));
-        });
-    }
-
-    http.listen(PORT, () => {
-        console.log('Server is running on PORT: ' + PORT);
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../client/build/index.html'));
     });
+}
+
+http.listen(PORT, () => {
+    console.log('Server is running on PORT: ' + PORT);
 });
