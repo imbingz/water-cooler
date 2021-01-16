@@ -209,6 +209,32 @@ function TabMembers(props) {
         }
     };
 
+    const leaveSpace = async (spaceId) => {
+        const request = await fetch('/api/socialspace/leave', {
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                pubSpaceId: spaceId,
+                user: USER._id
+            }),
+            method: 'PUT'
+        });
+        const status = await request.json();
+        console.log(status);
+
+        if (status.success) {
+            toast.success('Left Social Space!', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        } else {
+            toast.error('Failed to Leave Social Space', {
+                position: toast.POSITION.TOP_RIGHT
+            });
+        }
+        // ** Run checkDBArrays to Update Render Of inbound Room Invites
+        dispatch({ type: 'setShowAside', payload: false });
+        history.push('/rooms/' + props.roomData.publicRoomId);
+    }
+
     // * On Page Load, Check DB for Any Changes in User's friend and inboundPendingFriends Arrays 
     useEffect(() => {
         getRoomUsers();
@@ -335,13 +361,24 @@ function TabMembers(props) {
                                 <h6 className='TabMembers-space-name my-3'>
                                     SocialSpace: {socialSpace.socialSpaceName}
                                 </h6>
-                                <button
-                                    className='TabMembers-join-btn'
-                                    onClick={() => { joinSpace(socialSpace.publicSocialSpaceId); }}
-                                >
-                                    <span>Join</span>
-                                    <FaVideo size={20} style={{ fill: 'orangered', marginLeft: 5 }} />
-                                </button>
+                                { (socialSpace.publicSocialSpaceId === spaceId) &&
+                                    <button
+                                        className='TabMembers-join-btn'
+                                        onClick={() => { leaveSpace(socialSpace.publicSocialSpaceId); }}
+                                    >
+                                        <span>Leave</span>
+                                        <FaVideo size={20} style={{ fill: 'orangered', marginLeft: 5 }} />
+                                    </button>
+                                }  
+                                { (socialSpace.publicSocialSpaceId === !spaceId) &&
+                                    <button
+                                        className='TabMembers-join-btn'
+                                        onClick={() => { joinSpace(socialSpace.publicSocialSpaceId); }}
+                                    >
+                                        <span>Join</span>
+                                        <FaVideo size={20} style={{ fill: 'orangered', marginLeft: 5 }} />
+                                    </button>
+                                }
                             </div>
                             {/* Social Space Users */}
                             <article>

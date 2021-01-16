@@ -27,7 +27,7 @@ function TabRoomChats() {
             <article className='TabRoomChats-chat-wrapper d-flex flex-column'>
 
                 <section className='TabRoomChats-chat-body mt-3 mx-3'>
-                    {
+                    {roomChat &&
                         roomChat.map((chat) => (
                             <div key={chat._id} className={chat.username===username ? 'TabDmChats-chat-you' : ''}>
                                 <p className=' mb-1 text-muted TabRoomChats-chat-username'>

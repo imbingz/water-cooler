@@ -91,7 +91,6 @@ UserSchema.index({
     username: 'text',
     firstName: 'text',
     lastName: 'text',
-    email: 'text'
 });
 
 const User = mongoose.model('User', UserSchema);
