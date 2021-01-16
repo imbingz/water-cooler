@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './ProfileFrom.css';
-import userIcons from '../../../data/productionUserIcons';
 import { useGlobalContext } from '../../../utils/GlobalContext';
+import userIcons from '../../../data/productionUserIcons';
 
 const ProfileFrom = (props) => {
     const history = useHistory();
@@ -26,7 +26,7 @@ const ProfileFrom = (props) => {
             return history.push('/login');
         } 
 
-        console.log('global USER inside useEffect is:', USER);
+        // console.log('global USER inside useEffect is:', USER);
 
         setStoredUser(USER);
         setSelectedImg(USER.imageSrc);

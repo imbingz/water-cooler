@@ -20,15 +20,12 @@ function Tabnav() {
     // ** Variables To Determine It TabMembers and Tab Chat Should Render and Determines what the publicRoomId is
     const path = window.location.pathname;
     const roomCheck = path.includes('room');
-    const spaceCheck = path.includes('space');
-    let roomID;
-    if (roomCheck) {
-        roomID = path.substring(7);
-    } else if (spaceCheck) {
-        console.log('');
-        // I'll have to search the db of the social space to get the room id again. Im thinking that room id wont change once they move to a space but we'll see
+    let roomID = path.substring(7);
+    // If Path is Longer than 70, We are in a Social Space and Need to Adjust the substring
+    // !* There ought to be a better way of doing this 😅
+    if (path.length > 70) {
+        roomID = roomID.substring(0, roomID.length - 37);
     }
-
     // * Collect and Parse Data for TabMembers
     // ** Store Data in State
     //  Default state for roomData Needs to Send an Empty Array Since the jsx in Tab Members Uses .map
@@ -37,6 +34,7 @@ function Tabnav() {
             roomUsers: []
         });
     const [spaceData, setSpaceData] = useState([]);
+    const [inpendingSpaces, setInpendingSpaces] = useState([]);
 
     // ** Request Information for Current Room and It's Social Spaces
     const getRoomData = useCallback(async (roomId) => {
@@ -49,7 +47,7 @@ function Tabnav() {
             });
 
             const roomResponse = await roomRequest.json();
-          
+
             // *** If DB Req Is Successful, Store Room Data in State and Request Information for Social Spaces
             if (roomResponse.data) {
                 setRoomData(roomResponse.data);
@@ -78,7 +76,7 @@ function Tabnav() {
             });
 
             const response = await request.json();
-         
+
             // *** Create A New Object to Store Social Space Data with Response Data Containing 
             //      User's Information and Push Object To parsedSpaceData[]
             let socialSpace = {
@@ -88,7 +86,6 @@ function Tabnav() {
                 socialSpaceUsers: response.retUsers
             };
             parsedSpaceData.push(socialSpace);
-            
         });
         // *** Store Parsed Information in State
         setSpaceData(parsedSpaceData);
@@ -102,7 +99,7 @@ function Tabnav() {
     const [offFriends, setOffFriends] = useState([]);
     // eslint-disable-next-line
     const [onFriends, setOnFriends] = useState([]);
-    
+
     // ** Store Data in State for TabDM
     const [allFriends, setAllFriends] = useState([]);
     // ** Store Room Invite In State
@@ -110,7 +107,7 @@ function Tabnav() {
 
     // ** Check User's DB For Any Changes in either friends or inboundPendingFriends by passing 'friends' or 'inpending'
     //    Then store updated array values in State
-
+    // !* This Should be Moved to a dbContext Along with Associated States
     const checkDBArrays = useCallback(async (arr) => {
         try {
             const response = await fetch('/api/friends/arrays', {
@@ -138,6 +135,9 @@ function Tabnav() {
                 case 'inpendingRooms':
                     setInpendingRooms(data.retRooms);
                     break;
+                case 'inpendingSpaces':
+                    setInpendingSpaces(data.retSpaces);
+                    break;
                 default:
                     console.log('No valid array');
                     break;
@@ -150,16 +150,20 @@ function Tabnav() {
 
     // * On Page Load, Get Data For Friends, Friend Requests, Rooms, and Social Spaces
     useEffect(() => {
-        getRoomData();
+        // ** Get Room Data Should Only Run In A Room
+        if (roomCheck) {
+            getRoomData();
+        }
         checkDBArrays('friends');
         checkDBArrays('inpending');
         checkDBArrays('inpendingRooms');
-    }, [checkDBArrays, getRoomData]);
+        checkDBArrays('inpendingSpaces');
+    }, [checkDBArrays, getRoomData, roomCheck]);
 
 
 
     return (
-        
+
         <div className='d-flex flex-column Tabnav-aside-tab'>
             <Tab.Container activeKey={activeKey} onSelect={setActiveKey} >
                 <Nav fill variant="tabs" className="justify-content-around bg-warning">
@@ -171,12 +175,12 @@ function Tabnav() {
                     </Nav.Item>
 
                     {/* ** Check if User is in A Room or Social Space Before Rendering Tab Option */}
-                    {(roomCheck || spaceCheck) &&
+                    {(roomCheck) &&
                         <Nav.Item>
                             <Nav.Link eventKey='chats' className='Tabnav-nav-link flex-grow'>Chats</Nav.Link>
                         </Nav.Item>
                     }
-                    {(roomCheck || spaceCheck) &&
+                    {(roomCheck) &&
                         <Nav.Item>
                             <Nav.Link eventKey='members' className='Tabnav-nav-link flex-grow'>Members</Nav.Link>
                         </Nav.Item >
@@ -196,7 +200,7 @@ function Tabnav() {
                     <Tab.Pane eventKey='friends'>
                         <TabFriends
                             inpending={inpending}
-                            inpendingRooms ={inpendingRooms}
+                            inpendingRooms={inpendingRooms}
                             offFriends={offFriends}
                             checkDBArrays={checkDBArrays}
                         />
@@ -213,6 +217,8 @@ function Tabnav() {
                         <TabMembers
                             roomData={roomData}
                             spaceData={spaceData}
+                            inpendingSpaces={inpendingSpaces}
+                            checkDBArrays={checkDBArrays}
                         />
                     </Tab.Pane>
                 </Tab.Content>

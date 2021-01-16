@@ -42,8 +42,11 @@ h4 {
 	font-size: 0.875rem;
 }
 
+/* Don't ask Me Why I put this here 😅 */
 .HomeFriendRoomCont {
 	background-color: #0af;
+	min-height: 200px;
 	margin-top: 3rem;
 	margin-bottom: 5rem;
+	/* border-radius: 25px; */
 }

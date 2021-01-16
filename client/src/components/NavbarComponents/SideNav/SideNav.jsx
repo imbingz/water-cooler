@@ -20,7 +20,6 @@ function SideNav() {
 
             const data = await response.json();
 
-            console.log(data);
             // useGlobal Context
             if (data.success) {
                 localStorage.removeItem('USER');

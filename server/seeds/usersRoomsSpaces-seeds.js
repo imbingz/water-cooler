@@ -1,6 +1,7 @@
 require('../config/db')();
 
 const db = require('../models');
+const { v4: uuidv4 } = require('uuid');
 
 const makeAsync = async () => {
     try {
@@ -155,7 +156,7 @@ const makeAsync = async () => {
         await db.Room.insertMany([
             {
                 roomName: 'Room Name One',
-                publicRoomId: '12345',
+                publicRoomId: uuidv4(),
                 roomUsers: [userIdArr[1], userIdArr[2], userIdArr[5]],
                 roomCreator: userIdArr[0],
                 roomImg: 'assets/images/roomImg/cafe-doubled.png',
@@ -164,7 +165,7 @@ const makeAsync = async () => {
             }, 
             {
                 roomName: 'Room Name Two',
-                publicRoomId: '52341',
+                publicRoomId: uuidv4(),
                 roomUsers: [userIdArr[4]],
                 roomCreator: userIdArr[3],
                 roomImg: 'assets/images/roomImg/casino-doubled.png',
@@ -173,7 +174,7 @@ const makeAsync = async () => {
             },
             {
                 roomName: 'Room Name Three',
-                publicRoomId: '31245',
+                publicRoomId: uuidv4(),
                 roomUsers: [userIdArr[7], userIdArr[8]],
                 roomCreator: userIdArr[6],
                 roomImg: 'assets/images/roomImg/cafe-doubled.png',
@@ -184,30 +185,32 @@ const makeAsync = async () => {
 
         // * Room User IDs in Array
         const roomIdArr = [];
+        const pubRoomId = [];
         const rooms = await db.Room.find({});
         rooms.forEach(room => {
             roomIdArr.push(room._id.toString());
+            pubRoomId.push(room.publicRoomId);
         });
         // console.log(roomIdArr);
 
         // * Social Space Seed Data using userIdArr
         await db.SocialSpace.insertMany([
             {
-                publicRoomId: '12345',
+                publicRoomId: pubRoomId[0],
                 socialSpaceName: 'Space Name One',
-                publicSocialSpaceId: 'some public space id',
+                publicSocialSpaceId: uuidv4(),
                 socialSpaceUsers: [userIdArr[1], userIdArr[3]],
             },
             {
-                publicRoomId: '14235',
+                publicRoomId: pubRoomId[0],
                 socialSpaceName: 'Space Name Two',
-                publicSocialSpaceId: 'some public space id',
+                publicSocialSpaceId: uuidv4(),
                 socialSpaceUsers: [userIdArr[5]],
             },
             {
-                publicRoomId: '13425',
+                publicRoomId: pubRoomId[2],
                 socialSpaceName: 'Space Name Three',
-                publicSocialSpaceId: 'some public space id',
+                publicSocialSpaceId: uuidv4(),
                 socialSpaceUsers: [userIdArr[2], userIdArr[8], userIdArr[7]],
             },
         ]);
@@ -222,13 +225,24 @@ const makeAsync = async () => {
 
         // * Populate Each Room With Social Spaces
         for (let i = 0; i < roomIdArr.length; i++) {
-            await db.Room.findOneAndUpdate(
-                { _id:  roomIdArr[i]},
-                { $set: { socialSpaces: spaceIdArr } },
-                { new: true }
-            )
-                // .then(data => console.log(data))
-                .catch(err => console.log(err));
+            if (i === 0) {
+                await db.Room.findOneAndUpdate(
+                    { _id:  roomIdArr[i]},
+                    { $set: { socialSpaces: [ spaceIdArr[0], spaceIdArr[1] ] } },
+                    { new: true }
+                )
+                    // .then(data => console.log(data))
+                    .catch(err => console.log(err));
+            }
+            if (i === 2) {
+                await db.Room.findOneAndUpdate(
+                    { _id:  roomIdArr[i]},
+                    { $set: { socialSpaces: [ spaceIdArr[2] ] } },
+                    { new: true }
+                )
+                    // .then(data => console.log(data))
+                    .catch(err => console.log(err));
+            }
         }
 
         // * Give First Three Users an Active Room
