@@ -110,9 +110,34 @@ TabFriends passes prop data to ProfileModal that triggers a react warning
 ## Future Development
 
 ## Contributors
-
+[Diego Hernandez](https://github.com/Diegopiehttps://github.com/Diegopie)
+[Diana Schull](https://github.com/dianalynshull)
+[Bing Z](https://github.com/imbingz)
 ### About Us
 
 ### Reference
+[Github](github.com)
+[vscode editor]()
+[React JS](https://reactjs.org/)
+[socket.io](https://socket.io/)
+[socket.io - client](https://socket.io/docs/v3/client-api/)
+[Raect-Bootstrap](https://react-bootstrap.github.io/)
+[passport and passport-local](http://www.passportjs.org/packages/passport-local/)
+[express session](https://www.npmjs.com/package/express-session)
+[bcryptjs](https://www.npmjs.com/package/bcryptjs)
+[React-Testing-Library](https://testing-library.com/docs/react-testing-library/intro/) 
+[Jest Testing Library](https://jestjs.io/docs/en/getting-started)
+[Supertest Testing Library](https://www.npmjs.com/package/supertest)
+[Mongoose Testing Document] (https://mongoosejs.com/docs/jest.html) 
+[Connecting Jest and Mongoose](https://zellwk.com/blog/jest-and-mongoose/) 
+[React-Toastify](https://www.npmjs.com/package/react-toastify)
+[Raect-icons](https://react-icons.github.io/react-icons/)
+[Use-sound](https://www.npmjs.com/package/use-sound)
+[canva.com](https://www.canva.com/)
+[Heroku](https://dashboard.heroku.com/apps)
+[Youtube - Socket.io Chat](https://youtu.be/tBr-PybP_9c)
+[Youtube - RPG Game](https://www.youtube.com/watch?v=DqpPgK13oEM&t=127s)
+[Article - Use Socket for Multiplayer-Games](https://theinternetbutton.asciinaut.sh/blog/how-to-use-socket-io-not-the-chat)
+[Atlassian-Jira](https://www.atlassian.com/software/jira)
 
 ## License
