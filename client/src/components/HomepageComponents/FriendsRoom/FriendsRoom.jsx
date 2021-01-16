@@ -54,7 +54,7 @@ function FriendsRoom(props) {
     return (
 
         <IconContext.Provider value={{ color: '#84f', size: 20 }}>
-
+            {/* Check If There Are Any Rooms To Render and Display Appropriate Message */}
             { (renderRooms.length > 0) &&
                 <Row className='d-flex justify-content-center align-items-center mt-3'> <h5 >Join A Friend's Room</h5> </Row>
             }
@@ -66,6 +66,7 @@ function FriendsRoom(props) {
                     <h5 >No Friends Are Hosting Rooms, Create A Room and Your Friends Will See it Here!</h5> 
                 </Row>
             }
+            {/* Container For User Friend's Rooms */}
             <Row className='d-flex flex-wrap justify-content-around align-items-sm-center'>
 
                 {renderRooms &&

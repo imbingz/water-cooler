@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './ProfileFrom.css';
-import userIcons from '../../../data/productionUserIcons';
 import { useGlobalContext } from '../../../utils/GlobalContext';
+import userIcons from '../../../data/productionUserIcons';
 
 const ProfileFrom = (props) => {
     const history = useHistory();

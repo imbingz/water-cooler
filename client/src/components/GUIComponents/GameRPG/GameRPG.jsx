@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import Map from '../Map';
 import { useGlobalContext } from '../../../utils/GlobalContext';
 // import { GUIProvider } from '../../../utils/GUIProvider';
-import Map from '../Map';
 
 
 //For the map responsiveness 
@@ -16,7 +16,7 @@ function debounce(fn, ms) {
     };
 }
 
-function Game() {
+function  Game() {
     const [{ roomStyle },] = useGlobalContext();
     const [dimensions, setDimensions] = useState({ width: 825, height: 625 });
     const tileSize = { width: 32, height: 32 };

@@ -19,14 +19,12 @@ function Tabnav() {
 
     // ** Variables To Determine It TabMembers and Tab Chat Should Render and Determines what the publicRoomId is
     const path = window.location.pathname;
-    // console.log(path.length);
     const roomCheck = path.includes('room');
     let roomID = path.substring(7);
-
-
+    // If Path is Longer than 70, We are in a Social Space and Need to Adjust the substring
+    // !* There ought to be a better way of doing this 😅
     if (path.length > 70) {
         roomID = roomID.substring(0, roomID.length - 37);
-        // console.log(roomID);
     }
     // * Collect and Parse Data for TabMembers
     // ** Store Data in State
@@ -36,6 +34,7 @@ function Tabnav() {
             roomUsers: []
         });
     const [spaceData, setSpaceData] = useState([]);
+    const [inpendingSpaces, setInpendingSpaces] = useState([]);
 
     // ** Request Information for Current Room and It's Social Spaces
     const getRoomData = useCallback(async (roomId) => {
@@ -105,7 +104,6 @@ function Tabnav() {
     const [allFriends, setAllFriends] = useState([]);
     // ** Store Room Invite In State
     const [inpendingRooms, setInpendingRooms] = useState([]);
-    const [inpendingSpaces, setInpendingSpaces] = useState([]);
 
     // ** Check User's DB For Any Changes in either friends or inboundPendingFriends by passing 'friends' or 'inpending'
     //    Then store updated array values in State
@@ -152,6 +150,7 @@ function Tabnav() {
 
     // * On Page Load, Get Data For Friends, Friend Requests, Rooms, and Social Spaces
     useEffect(() => {
+        // ** Get Room Data Should Only Run In A Room
         if (roomCheck) {
             getRoomData();
         }
