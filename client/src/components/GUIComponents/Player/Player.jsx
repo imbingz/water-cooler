@@ -14,7 +14,7 @@ function Player(props) {
         right: 2,
         up: 3
     };
-    const stepSize = 16;
+    const stepSize = 32;
     const maxSteps = 3;
     const modifier = {
         down: { x: 0, y: stepSize },
