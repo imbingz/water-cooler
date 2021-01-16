@@ -14,7 +14,7 @@ function Player(props) {
         right: 2,
         up: 3
     };
-    const stepSize = 16;
+    const stepSize = 32;
     const maxSteps = 3;
     const modifier = {
         down: { x: 0, y: stepSize },
@@ -29,8 +29,6 @@ function Player(props) {
             if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
                 walk(e.key.replace('Arrow', '').toLowerCase());
             }
-            //prevent browser from scrolling when downarrow key pressed
-            e.preventDefault();
         });
     }
 
