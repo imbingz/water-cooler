@@ -20,23 +20,30 @@ export function GUIProvider({ children }) {
             return;
         }
         socket.emit('set-id', sessionId);
-
         setPlayer({ id: sessionId, name: username });
     }, [socket, sessionId, username]);
 
 
     useEffect(() => {
+        if (!socket) {
+            return;
+        }
 
         socket.on('state', (state) => {
-            if (!state) { return; } 
+            if (!state) { return; }
             const { players } = state;
             setPlayers(players);
         });
 
-        return () => socket.off('receive-chat');
-    }, [socket, random, player]);
+        return () => socket.off('state');
+    }, [socket, player]);
 
-    
+    useEffect(() => {
+        if (player) {
+            console.log(`hit player useEffect(): ${JSON.stringify(player)}`);
+        }
+    });
+
     const emitMovement = (position) => {
         socket.emit('movement', position);
     };
