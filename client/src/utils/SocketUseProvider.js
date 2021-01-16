@@ -10,7 +10,7 @@ export function SocketUse() {
 export function SocketUseProvider({ children }) {
     const [lastChat, setLastChat] = useState('');
     const [roomChat, setRoomChat] = useState('');
-    const socket = useSocket();
+    const {socket} = useSocket();
     const roomPageUrl = document.URL;
     let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
     const { v4: uuidv4 } = require('uuid');

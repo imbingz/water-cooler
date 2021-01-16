@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { useGlobalContext } from '../utils/GlobalContext';
 import io from 'socket.io-client';
 
 const SocketContext = createContext();
@@ -9,11 +10,13 @@ export function useSocket() {
 
 // takes ID to send up to server
 export function SocketProvider({ children }) {
+    const [{ USER }] = useGlobalContext();
     const [socket, setSocket] = useState();
-    // sets up socket when page is initially loaded or if the id changes
-    useEffect(() => {
+    const [sessionId, setSessionId] = useState();
 
-        async function sessionId() {
+    useEffect(() => {
+        console.log('getting the sessionID');
+        const getSessionId = async () => {
             try {
                 const response = await fetch(
                     '/api/socket/id',
@@ -24,26 +27,31 @@ export function SocketProvider({ children }) {
                         method: 'POST'
                     }
                 );
-                const json = await response.json();
-                const id = json.sessionID;
-                const newSocket = io(
-                    '/',
-                    { query: { id }}
-                );
-                setSocket(newSocket);
-                // if useEffect runs again it closes this socket
-                return () => newSocket.close();
+                const { sessionID } = await response.json();
+                setSessionId(sessionID);
             } catch (err) {
-                console.log({ err });
+                console.log(err);
             }
-        }
-        sessionId();
-    }, []);
+        };
+        getSessionId();
+    }, [USER._id]);
+
+    useEffect(() => {
+        console.log('creating a new socket');
+        const createSocket = () => {
+            const newSocket = io(
+                '/',
+                { query: { sessionId }}
+            );
+            setSocket(newSocket);
+            return () => newSocket.close();
+        };
+        createSocket();
+    }, [sessionId]);
 
     return (
-        <SocketContext.Provider value={socket}>
+        <SocketContext.Provider value={{ socket, sessionId }}>
             {children}
         </SocketContext.Provider>
     );
 }
-
