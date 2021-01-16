@@ -8,7 +8,6 @@ export function useSocket() {
     return useContext(SocketContext);
 }
 
-// takes ID to send up to server
 export function SocketProvider({ children }) {
     const [{ USER }] = useGlobalContext();
     const [socket, setSocket] = useState();
