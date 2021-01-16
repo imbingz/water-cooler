@@ -219,7 +219,6 @@ function TabMembers(props) {
             method: 'PUT'
         });
         const status = await request.json();
-        console.log(status);
 
         if (status.success) {
             toast.success('Left Social Space!', {
