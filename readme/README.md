@@ -2,7 +2,7 @@
 ## Deployed Heroku Link
 https://water-cooler-main.herokuapp.com/
 ## Description
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin est sit amet lacus pulvinar, mollis tincidunt mauris pharetra. Sed id ipsum est. Nam faucibus metus et nisl placerat hendrerit. Sed congue elit nunc, et pulvinar lacus placerat non. Vestibulum lacinia scelerisque orci at luctus. Sed orci massa, rutrum id finibus eget, venenatis hendrerit neque. Proin vel libero in nisi auctor mollis eget non arcu.
+This is a full-stack web application that utilizes MongoDB, Express JS, Node JS, and React JS and allows users to create a Room and/or Social Space where they can walk around and socialize as if they would in real life, message (both public and private) and video others. The app also enables users to send friend requests, invite others to Room and Social Space, accept/decline requests and invitations and block others. 
 
 
 ## Table of Contents
