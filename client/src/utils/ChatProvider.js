@@ -32,10 +32,11 @@ export function ChatProvider({ children }) {
                 );
                 const json = await response.json();
                 setRoomChat(json.data);
+                console.log(chatReceived);
             } catch (err) {
                 console.log({ err });
             }
-        }, [roomUrlId]);
+        }, [roomUrlId, chatReceived]);
         
     const receiveChat = useCallback(
         async (received) => {
@@ -74,7 +75,6 @@ export function ChatProvider({ children }) {
     }, [socket, sessionId, populateChat]);
 
     const sendChat = (message, roomId, userId, username) => {
-        console.log('sent message');
         socket.emit('send-chat', message, roomId, userId, username);
     };
 
@@ -93,7 +93,6 @@ export function ChatProvider({ children }) {
                 socketId: socketId,
                 receivedAt: receivedAt
             };
-            console.log(received);
             setChatReceived(received);
             if (sessionId === socketId) {
                 receiveChat(received);
@@ -104,7 +103,7 @@ export function ChatProvider({ children }) {
     }, [socket, sessionId, receiveChat, populateChat]);
 
     return (
-        <ChatContext.Provider value={{ sendChat, roomChat, chatReceived }}>
+        <ChatContext.Provider value={{ sendChat, roomChat }}>
             {children}
         </ChatContext.Provider>
     );
