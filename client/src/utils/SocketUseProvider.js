@@ -3,16 +3,13 @@ import { useSocket } from './SocketProvider';
 
 const SocketUseContext = createContext();
 
-export function useSocketUse() {
+export function SocketUse() {
     return useContext(SocketUseContext);
 }
 
 export function SocketUseProvider({ children }) {
     const [lastChat, setLastChat] = useState('');
     const [roomChat, setRoomChat] = useState('');
-    const [player, setPlayer] = useState('');
-    const [players, setPlayers] = useState({});
-
     const socket = useSocket();
     const roomPageUrl = document.URL;
     let roomUrlId = roomPageUrl.substring((roomPageUrl.length) - 36);
@@ -44,7 +41,7 @@ export function SocketUseProvider({ children }) {
     );
 
     useEffect(() => {
-        if (!socket) {
+        if (socket == null) {
             return;
         }
 
@@ -52,7 +49,6 @@ export function SocketUseProvider({ children }) {
 
         socket.on('set-id', id => {
             socket.id = id;
-            setPlayer({ id: socket.id, name: 'diana' });
         });
 
         socket.on('receive-chat', (message, roomId, userId, username, socketId) => {
@@ -67,12 +63,8 @@ export function SocketUseProvider({ children }) {
             return;
         });
 
-        socket.on('state', (state) => {
-            if (!state) { return; } 
-            const { players } = state;
-            setPlayers(players);
-        });
-    }, [socket, populateChat, lastChat, uuidv4, player]);
+        return () => socket.off('receive-chat');
+    }, [socket, populateChat, lastChat, uuidv4]);
 
     const sendChat = (message, roomId, userId, username) => {
         socket.emit('send-chat', message, roomId, userId, username);
@@ -102,12 +94,8 @@ export function SocketUseProvider({ children }) {
         }
     };
 
-    const emitMovement = (position) => {
-        socket.emit('movement', position);
-    };
-
     return (
-        <SocketUseContext.Provider value={{ sendChat, roomChat, player, players, emitMovement }}>
+        <SocketUseContext.Provider value={{ sendChat, roomChat }}>
             {children}
         </SocketUseContext.Provider>
     );

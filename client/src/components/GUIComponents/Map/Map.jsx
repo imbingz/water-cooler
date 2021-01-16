@@ -1,5 +1,5 @@
 import React from 'react';
-import { SocketUseProvider } from '../../../utils/SocketUseProvider';
+import { GUIProvider } from '../../../utils/GUIProvider';
 import Player from '../Player';
 import 'react-dropdown/style.css';
 
@@ -16,9 +16,9 @@ function Map({ tiles, tileset, tileHeight, tileWidth }) {
                 backgroundColor: 'white'
             }}>
 
-            <SocketUseProvider>
+            <GUIProvider>
                 <Player />
-            </SocketUseProvider>
+            </GUIProvider>
 
             {/* {/* display tiles using map */}
             {tiles.map((row, y) => (
