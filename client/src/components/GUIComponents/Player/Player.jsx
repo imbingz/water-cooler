@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import Sprite from '../Sprite';
-import { useGUI } from '../../../utils/GUIProvider';
+import { useSocketUse } from '../../../utils/SocketUseProvider';
 import UseKeyPress from '../../../utils/useKeyPress';
 
 function Player() {
 
-    const { player, players, emitMovement } = useGUI();
+    const { player, players, emitMovement } = useSocketUse();
     // const { pos, emitPos, message } = props;
     const [dir, setDir] = useState(0);
     const [step, setStep] = useState();
