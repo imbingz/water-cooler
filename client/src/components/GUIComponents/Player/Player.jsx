@@ -29,8 +29,6 @@ function Player(props) {
             if (e.keyCode === 37 || e.keyCode === 38 || e.keyCode === 39 || e.keyCode === 40) {
                 walk(e.key.replace('Arrow', '').toLowerCase());
             }
-            //prevent browser from scrolling when downarrow key pressed
-            e.preventDefault();
         });
     }
 
