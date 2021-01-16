@@ -6,7 +6,7 @@ This is a full-stack web application that utilizes MongoDB, Express JS, Node JS,
 
 
 ## Table of Contents
-
+* [Technologies](#Technologies)
 * [Usage](#Usage)
 * [Development](#Development)
 * [Server](#Server)
@@ -17,6 +17,16 @@ This is a full-stack web application that utilizes MongoDB, Express JS, Node JS,
 * [License](#License)
 * [Contributors](#Contributors)
 
+## Technologies
+
+```
+Frontend – React, socket.io-client, Bootstrap, React-icons, React-Toastify, use-sound, uuid 
+Backend – Node, express, socket.io	
+Database – Mongodb, Mongoose
+Authentication – Express-session, passport-local, bcrypt
+Testing – react-testing-library, jest, supertest
+
+```
 ## Usage (User Stuff and Whatnot)
 
  ## Installation
