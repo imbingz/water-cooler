@@ -3,15 +3,20 @@ import { Button, Overlay, Popover } from 'react-bootstrap';
 import { useGlobalContext } from '../../../utils/GlobalContext';
 import useSound from 'use-sound';
 
-function Sprite({position, message, step=0, dir=0}) {
+function Sprite({/*position,*/ message, step = 0, dir = 0 }) {
 
-    const [{ USER }, ] = useGlobalContext();
+    const [{ USER },] = useGlobalContext();
     //Sound play setup 
     const soundUrl = '/assets/hello.mp3';
     const [play, { stop }] = useSound(
         soundUrl,
         { volume: 0.5 }
     );
+
+    const position = {
+        y: 50,
+        x: 80
+    };
 
     // For popover button
     const [show, setShow] = useState(false);
@@ -20,7 +25,7 @@ function Sprite({position, message, step=0, dir=0}) {
 
     // Play sound when message pops up
     useEffect(() => {
-        if(message) {
+        if (message) {
             play();
         }
         return () => {
@@ -33,37 +38,36 @@ function Sprite({position, message, step=0, dir=0}) {
         setShow(!show);
         setTarget(event.target);
     };
-   
 
     return (
         // set image position n size
         <>
             <div
-                style={ {
+                style={{
                     position: 'absolute',
                     top: position.y,
                     left: position.x,
                     height: '32px',
                     width: '32px',
                     backgroundImage: 'url(\'/sprites/skins/m2.png\')',
-                    backgroundPosition: `-${step*32}px -${step*32}px`,
+                    backgroundPosition: `-${step * 32}px -${step * 32}px`,
                     backgroundRepeat: 'no-repeat',
                     zIndex: 100,
-                } }
+                }}
             >
-                
+
                 <div
-                    style={ {
+                    style={{
                         padding: '0px 30px',
                         zIndex: 100,
-                    } }    
+                    }}
                 >
-                    <strong 
-                        style={{ backgroundColor: 'white'}}
-                    > 
-                        {USER.username} 
+                    <strong
+                        style={{ backgroundColor: 'white' }}
+                    >
+                        {USER.username}
                     </strong>
-                 
+
                 </div>
 
                 {
@@ -83,15 +87,15 @@ function Sprite({position, message, step=0, dir=0}) {
                                         <Button variant='secondary' size='sm'>Maybe later</Button>
                                     </Popover.Title>
                                     <Popover.Content>
-                                        <Button variant='warning' size='sm'>Yes, ready 😇 </Button> 
+                                        <Button variant='warning' size='sm'>Yes, ready 😇 </Button>
                                     </Popover.Content>
                                 </Popover>
                             </Overlay>
                         </div>
-                    ) 
+                    )
                 }
-               
-            </div>  
+
+            </div>
         </>
     );
 }

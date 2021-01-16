@@ -1,12 +1,36 @@
 import React, { useState } from 'react';
 import Sprite from '../Sprite';
+import { useGUI } from '../../../utils/GUIProvider';
 import UseKeyPress from '../../../utils/useKeyPress';
 
-export default function Player(props) {
- 
-    const { pos, emitPos, message } = props;
+function Player() {
+
+    const { player, players, emitMovement } = useGUI();
+    // const { pos, emitPos, message } = props;
     const [dir, setDir] = useState(0);
     const [step, setStep] = useState();
+    const key = 123456;
+    const pos = players[key];
+    const emitPos = (pos) => {
+        emitMovement(pos);
+    };
+    let message = 'hey fam';
+
+    // {{Object.keys(players).map(key => {
+    //     if (key === player.id) {
+    //         return (
+    //             <Player
+    //                 pos={players[key]}
+    //                 emitPos={pos => emitMovement(pos)}
+    //                 message={players[key].message}
+    //             />
+    //         );
+    //     }
+
+    //     return (
+    //         <Player pos={players[key]} />
+    //     );
+    // })
 
     const directions = {
         down: 0,
@@ -14,11 +38,8 @@ export default function Player(props) {
         right: 2,
         up: 3
     };
-
     const stepSize = 16;
-
     const maxSteps = 3;
-
     const modifier = {
         down: { x: 0, y: stepSize },
         left: { x: -stepSize, y: 0 },
@@ -66,11 +87,13 @@ export default function Player(props) {
     return (
         <div>
             <Sprite
-                step={ step }
-                dir={ dir }
-                position={ pos }
+                step={step}
+                dir={dir}
+                position={pos}
                 message={message}
             />
         </div>
     );
 }
+
+export default Player;

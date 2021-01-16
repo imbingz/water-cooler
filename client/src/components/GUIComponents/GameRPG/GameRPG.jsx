@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useGlobalContext } from '../../../utils/GlobalContext';
-// import { GUIProvider } from '../../../utils/GUIProvider';
 import Map from '../Map';
-
 
 //For the map responsiveness 
 function debounce(fn, ms) {
@@ -23,8 +21,6 @@ function Game() {
     // tiles for our map - []
     const [tiles, setTiles] = useState([]);
 
-
-
     // Handle window resize event 
     useEffect(() => {
         const debouncedHandleResize = debounce(() => {
@@ -43,7 +39,6 @@ function Game() {
 
         };
     }, [dimensions]);
-
 
     // create tile []
     useEffect(() => {
@@ -67,7 +62,6 @@ function Game() {
         }
 
         setTiles(_tiles);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -85,14 +79,12 @@ function Game() {
 
             }}>
 
-            {/* <GUIProvider> */}
             <Map
                 tileset={roomStyle}
                 tiles={tiles}
                 tileWidth={tileSize.width}
                 tileHeight={tileSize.height}
             />
-            {/* </GUIProvider> */}
         </div>
     );
 }
