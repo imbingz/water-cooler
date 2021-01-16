@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Container, Row } from 'react-bootstrap';
+import LandingCarousel from '../components/LandingPageComponents/LandingCarousel';
 import LandingNav from '../components/LandingPageComponents/LandingNav';
 import SignupModal from '../components//Modals/SignupModal';
-import LandingCarousel from '../components/LandingPageComponents/LandingCarousel';
 import './css/Landing.css';
 
 function Landing() {

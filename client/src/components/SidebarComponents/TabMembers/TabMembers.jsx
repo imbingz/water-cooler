@@ -23,10 +23,13 @@ function TabMembers(props) {
 
     const history = useHistory();
 
+    // ** Store value of User Social Space Name
     const [spaceName, setSpaceName] = useState('');
 
     // * Get the pubSpaceId from the URL
     const path = window.location.pathname;
+    // ** Variable is Set to False To Prevent Certain JSX From Rendering 
+    // It will be Given a Truthy Value by Storing the Social Space ID When In a Space
     let spaceId = false;
     if (path.length > 70) {
         spaceId = path.substring(44);
@@ -147,6 +150,7 @@ function TabMembers(props) {
         }
     };
 
+    // * Send Data To Create a Social Space and Route User To that Space
     const createSocialSpace = async () => {
         if (!spaceName) {
             toast.error('You Must Name Your Social Space', {
@@ -173,6 +177,8 @@ function TabMembers(props) {
         }
     };
 
+    // * Send Data To DB To Join A Space and Conditionally Remove User From Previous Space If They Were in One,
+    //   Then Route to Space
     const joinSpace = async (newSpaceId) => {
         try {
             const request = await fetch('/api/socialspace/join', {
