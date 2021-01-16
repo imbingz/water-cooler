@@ -14,6 +14,7 @@ export function SocketProvider({ children }) {
     const [sessionId, setSessionId] = useState();
 
     useEffect(() => {
+        console.log('getting session id');
         const getSessionId = async () => {
             try {
                 const response = await fetch(
@@ -35,6 +36,10 @@ export function SocketProvider({ children }) {
     }, [USER._id]);
 
     useEffect(() => {
+        if (!sessionId) {
+            return;
+        }
+        console.log('running create socket');
         const createSocket = () => {
             const newSocket = io(
                 '/',
@@ -45,6 +50,17 @@ export function SocketProvider({ children }) {
         };
         createSocket();
     }, [sessionId]);
+
+    useEffect(() => {
+        const assignSocketId = () => {
+            if (!socket) {
+                return;
+            }
+            console.log('running assign socket ID');
+            socket.id = sessionId;
+        };
+        assignSocketId();
+    });
 
     return (
         <SocketContext.Provider value={{ socket, sessionId }}>
