@@ -1,11 +1,13 @@
 # Water Cooler
-
+## Deployed Heroku Link
+[WaterCooler](https://water-cooler-main.herokuapp.com/)
 ## Description
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin est sit amet lacus pulvinar, mollis tincidunt mauris pharetra. Sed id ipsum est. Nam faucibus metus et nisl placerat hendrerit. Sed congue elit nunc, et pulvinar lacus placerat non. Vestibulum lacinia scelerisque orci at luctus. Sed orci massa, rutrum id finibus eget, venenatis hendrerit neque. Proin vel libero in nisi auctor mollis eget non arcu.
+This is a full-stack web application that utilizes MongoDB, Express JS, Node JS, and React JS and allows users to create a Room and/or Social Space where they can walk around and socialize as if they would in real life, message (both public and private) and video others. The app also enables users to send friend requests, invite others to Room and Social Space, accept/decline requests and invitations and block others. 
+
 
 ## Table of Contents
-
+* [Technologies](#Technologies)
 * [Usage](#Usage)
 * [Development](#Development)
 * [Server](#Server)
@@ -16,16 +18,30 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin est s
 * [License](#License)
 * [Contributors](#Contributors)
 
-## Usage (User Stuff and Whatnot)
+## Technologies
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin est sit amet lacus pulvinar, mollis tincidunt mauris pharetra. Sed id ipsum est. Nam faucibus metus et nisl placerat hendrerit. Sed congue elit nunc, et pulvinar lacus placerat non. Vestibulum lacinia scelerisque orci at luctus. Sed orci massa, rutrum id finibus eget, venenatis hendrerit neque. Proin vel libero in nisi auctor mollis eget non arcu.
+```
+Frontend – React, socket.io-client, Bootstrap, React-icons, React-Toastify, use-sound, uuid 
+Backend – Node, express, socket.io	
+Database – Mongodb, Mongoose
+Authentication – Express-session, passport-local, bcrypt
+Testing – react-testing-library, jest, supertest
+
+```
+## Usage
+
+ ## Installation
+  Access to GitHub.com and a code editor such as vscode is necessary. Click the GitHub link provided above to the APP REPO. Click on the green button that says Clone or Download and Choose how you would like to download: using the SSH/HTTPS keys or download the zip file. If using SSH/HTTPS Key: You will copy the link shown and open up either terminal (mac: pre-installed) or gitbash (pc: must be installed). Once the application is open, you will type git clone paste url here. If using Download ZIP: Click on Download Zip. Locate the file and double click it to unzip the file. Locate the unzipped folder and open it. 
+
+  ## How to Use
+  In order to use this APP, you need terminal (mac: pre-installed) or gitbash (pc: must be installed). You also need to download and install [node.js](https://nodejs.org/en/) and [npm](www.npmjs.com) or [yarn](https://yarnpkg.com/) package manager. Open the cloned REPO in your favorite code editor, and then in terminal, enter the command “npm install“ or “yarn install”  to install the dependencies. You will also need to signup for a free account at [mongodb.com](https://www.mongodb.com/) or a mongodb local datase such as [Robo3T](https://robomongo.org/download). Now you are ready to start using  the app by entering “npm start” on your terminal or gitbash. If you just want to try how the app works, you can go to the link [here](https://water-cooler-main.herokuapp.com/)
+
 
 ## Development
 
 * [Available Scripts](#Available-Scripts)
 * [Dependencies/Packages](#Dependencies/Packages)
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc sollicitudin est sit amet lacus pulvinar, mollis tincidunt mauris pharetra. Sed id ipsum est. Nam faucibus metus et nisl placerat hendrerit. Sed congue elit nunc, et pulvinar lacus placerat non. Vestibulum lacinia scelerisque orci at luctus. Sed orci massa, rutrum id finibus eget, venenatis hendrerit neque. Proin vel libero in nisi auctor mollis eget non arcu.
 
 ### Available Scripts
 
@@ -36,7 +52,7 @@ These are some of the key scripts used during development. Linting rules and tes
 | npm start:server | begins server using nodemon |
 | npm start:client | begin React server in dev mode |
 | npm lint | uses eslint to check for linting errors |
-| npm lint:fix | if an issue occors with eslint, this script can resolve the issue |
+| npm lint:fix | if an issue occurs with eslint, this script can resolve the issue |
 | npm test:server | run tests for the server |
 | npm test:client | run tests for the client |
 
@@ -144,10 +160,8 @@ Initially we started to test how to use socket for multiple player(sprite) separ
 
 ### Components
 
-&NewLine;
-&NewLine;
-
 ![Component Map](../assets/component_map-02.jpg)
+
 
 * [GUI Components](#GUI-Components)
 * [Sidebar](#Sidebar)
@@ -190,9 +204,35 @@ TabFriends passes prop data to ProfileModal that triggers a react warning
 ## Future Development
 
 ## Contributors
-
+[Diego Hernandez](https://github.com/Diegopiehttps://github.com/Diegopie)
+[Diana Schull](https://github.com/dianalynshull)
+[Bing Z](https://github.com/imbingz)
 ### About Us
 
 ### Reference
+[Github](github.com)
+[vscode editor]()
+[React JS](https://reactjs.org/)
+[socket.io](https://socket.io/)
+[socket.io - client](https://socket.io/docs/v3/client-api/)
+[Raect-Bootstrap](https://react-bootstrap.github.io/)
+[passport and passport-local](http://www.passportjs.org/packages/passport-local/)
+[express session](https://www.npmjs.com/package/express-session)
+[bcryptjs](https://www.npmjs.com/package/bcryptjs)
+[React-Testing-Library](https://testing-library.com/docs/react-testing-library/intro/) 
+[Jest Testing Library](https://jestjs.io/docs/en/getting-started)
+[Supertest Testing Library](https://www.npmjs.com/package/supertest)
+[Mongoose Testing Document](https://mongoosejs.com/docs/jest.html)
+[Connecting Jest and Mongoose](https://zellwk.com/blog/jest-and-mongoose/)
+[React-Toastify](https://www.npmjs.com/package/react-toastify)
+[Raect-icons](https://react-icons.github.io/react-icons/)
+[Use-sound](https://www.npmjs.com/package/use-sound)
+[canva.com](https://www.canva.com/)
+[Heroku](https://dashboard.heroku.com/apps)
+[Youtube - Socket.io Chat](https://youtu.be/tBr-PybP_9c)
+[Youtube - RPG Game](https://www.youtube.com/watch?v=DqpPgK13oEM&t=127s)
+[Article - Use Socket for Multiplayer-Games](https://theinternetbutton.asciinaut.sh/blog/how-to-use-socket-io-not-the-chat)
+[Atlassian-Jira](https://www.atlassian.com/software/jira)
+[MongoDB Atlas](https://www.mongodb.com/)
 
 ## License
