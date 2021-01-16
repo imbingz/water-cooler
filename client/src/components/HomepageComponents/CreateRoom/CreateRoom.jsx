@@ -1,8 +1,8 @@
 import React, { useState, useEffect} from 'react';
 import { useHistory } from 'react-router-dom';
-import { useGlobalContext } from '../../../utils/GlobalContext.js';
 import { Button, Col, Row } from 'react-bootstrap';
 import { toast } from 'react-toastify';
+import { useGlobalContext } from '../../../utils/GlobalContext.js';
 import dummyFriendRooms from '../../../data/friends';
 import './CreateRoom.css';
 
@@ -72,13 +72,15 @@ function CreateRoom(props) {
 
     const addFriendToRoom = (friendId) => {
         let friendArray = [];
-        
+        // ** Check if User has Already Been Placed in roomFriends State
         if (roomFriends.includes(friendId)) {
+            // *** Find Copy roomFriends in New Array, Find Index Value User is In, Remove User From Array, then setRoomFriends State
             let i = friendId.indexOf(friendId);
             friendArray.push(...roomFriends);
             friendArray.splice(i, 1);
             setRoomFriends(friendArray);
         } else {
+            // *** Copy roomFriends State, Push New User, and Set State
             friendArray.push(...roomFriends, friendId);
             setRoomFriends(friendArray);
         }
@@ -102,6 +104,7 @@ function CreateRoom(props) {
         <Col xs={12} lg={7} md={6} className='pl-2 pb-3'>
             <form>
                 <Row>
+                    {/* Room Name Input */}
                     <Col xs={12} md={6} className='d-flex flex-column align-middle pt-2'>
                         <label htmlFor="roomName" className='font-weight-bold'>Room Name: </label>
                         <input
@@ -110,11 +113,12 @@ function CreateRoom(props) {
                             id="roomName"
                             type='text'
                             name='roomName'
-                            placeholder='Destiny 2 ...'
+                            placeholder='Name Your Room'
                             value={roomName}
                             onChange={(e) => setRoomName(e.target.value)}
                         />
                     </Col>
+                    {/* Room Description Input */}
                     <Col xs={12} md={6} className='d-flex flex-column align-middle pt-2'>
                         <label htmlFor="inputRoomDescription" className='font-weight-bold'>Room Description: </label>
                         <textarea className='px-2'
@@ -122,12 +126,13 @@ function CreateRoom(props) {
                             id='inputRoomDescription'
                             type='text'
                             name='inputRoomDescription'
-                            placeholder='Everything Destiny ...'
+                            placeholder='Add a Description'
                             value={roomDescription}
                             onChange={(e) => setRoomDescription(e.target.value)}
                         />
                     </Col>
                 </Row>
+                {/* Invite Friend Container */}
                 <Row>
                     <Col>
                         <p className='font-weight-bold pt-3' >Invite Friends</p>
@@ -139,6 +144,7 @@ function CreateRoom(props) {
                                         id={friend.friendId}
                                         className='d-flex flex-column align-items-center mr-1'
                                         onClick={(e) => {
+                                            // ** Check If Selection Styling Has Already Been Applied and Remove If True
                                             addFriendToRoom(e.currentTarget.id);
                                             if (e.target.parentElement.classList.contains('CreateRoomSelected')) {
                                                 e.target.parentElement.classList.remove('CreateRoomSelected');
@@ -156,6 +162,7 @@ function CreateRoom(props) {
                         </div>
                     </Col>
                 </Row>
+                {/* Button Container */}
                 <Row >
                     <Col className='mt-3'>
                         <Button
