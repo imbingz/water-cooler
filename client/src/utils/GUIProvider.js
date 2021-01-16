@@ -10,8 +10,7 @@ export function useGUI() {
 export function GUIProvider({ children }) {
     const [player, setPlayer] = useState('');
     const [players, setPlayers] = useState({});
-    const [socketId, setSocketId] = useState();
-    const { socket } = useSocket();
+    const socket = useSocket();
     const { v4: uuidv4 } = require('uuid');
     const random = uuidv4;
 

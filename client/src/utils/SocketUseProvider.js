@@ -1,13 +1,13 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { useSocket } from './SocketProvider';
 
-const ChatContext = createContext();
+const SocketUseContext = createContext();
 
-export function useChat() {
-    return useContext(ChatContext);
+export function SocketUse() {
+    return useContext(SocketUseContext);
 }
 
-export function ChatProvider({ children }) {
+export function SocketUseProvider({ children }) {
     const [lastChat, setLastChat] = useState('');
     const [roomChat, setRoomChat] = useState('');
     const socket = useSocket();
@@ -95,8 +95,8 @@ export function ChatProvider({ children }) {
     };
 
     return (
-        <ChatContext.Provider value={{ sendChat, roomChat }}>
+        <SocketUseContext.Provider value={{ sendChat, roomChat }}>
             {children}
-        </ChatContext.Provider>
+        </SocketUseContext.Provider>
     );
 }

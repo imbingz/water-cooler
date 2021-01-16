@@ -8,7 +8,7 @@ export function useSocket() {
 }
 
 // takes ID to send up to server
-export function SocketProvider({ id, children }) {
+export function SocketProvider({ children }) {
     const [socket, setSocket] = useState();
     // sets up socket when page is initially loaded or if the id changes
     useEffect(() => {
@@ -38,7 +38,7 @@ export function SocketProvider({ id, children }) {
             }
         }
         sessionId();
-    }, [id]);
+    }, []);
 
     return (
         <SocketContext.Provider value={socket}>
