@@ -204,8 +204,8 @@ TabFriends passes prop data to ProfileModal that triggers a react warning
 ## Future Development
 
 ## Contributors
-[Diego Hernandez](https://github.com/Diegopiehttps://github.com/Diegopie)
-[Diana Schull](https://github.com/dianalynshull)
+[Diego Hernandez](https://github.com/Diegopiehttps://github.com/Diegopie) <br>
+[Diana Schull](https://github.com/dianalynshull)<br>
 [Bing Z](https://github.com/imbingz)
 ### About Us
 
