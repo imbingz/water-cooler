@@ -126,7 +126,7 @@ These are some of the key scripts used during development. Linting rules and tes
 &NewLine;
 &NewLine;
 
-![Database Map](../assets/DB_Map-01.png)
+![Database Map](./assets/DB_Map-01.png)
 
 #### Models
 
@@ -160,7 +160,7 @@ Initially we started to test how to use socket for multiple player(sprite) separ
 
 ### Components
 
-![Component Map](../assets/component_map-02.jpg)
+![Component Map](./assets/component_map-02.jpg)
 
 
 * [GUI Components](#GUI-Components)
