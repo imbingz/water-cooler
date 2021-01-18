@@ -1,13 +1,13 @@
 .Sidenav-menu {
 	background-color: rgba(241, 245, 248);
-	width: 430px;
+	width: 325px;
 	height: 100%;
 	display: flex;
 	justify-content: center;
-	position: fixed;
+	/* position: fixed;
 	top: 80;
 	top: 0;
-	left: -100%;
+	left: -100%; */
 	transition: 850ms;
 	z-index: 1000;
 }
@@ -30,8 +30,23 @@
 	padding-right: 1rem;
 }
 
+.main-col {
+	max-height: 100vh;
+	overflow: scroll;
+	scrollbar-width: none;
+}
+
 @media only screen and (max-width: 800px) {
 	.Sidenav-menu {
 		width: 325px;
+		height: 100vh;
+		display: flex;
+		justify-content: center;
+		position: fixed;
+		top: 80;
+		top: 0;
+		left: -100%;
+		transition: 850ms;
+		z-index: 1000;
 	}
 }

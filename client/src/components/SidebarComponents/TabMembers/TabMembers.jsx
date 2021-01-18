@@ -265,9 +265,9 @@ function TabMembers(props) {
         <Container className='d-flex flex-column pl-4 mr-2 pb-5'>
 
             {/* Create Social Space Button */}
-            <section className='d-flex justify-content-end mt-3 row'>
+            <section className='d-flex justify-content-center mt-3 row'>
                 <input
-                    className='px-2 col'
+                    className='Tabmember-space-input mb-2 pl-3'
                     required
                     id="spaceName"
                     type='text'
@@ -277,7 +277,7 @@ function TabMembers(props) {
                     onChange={(e) => setSpaceName(e.target.value)}
                 />
                 <button
-                    className='TabMembers-create-space-btn col'
+                    className='TabMembers-create-space-btn'
                     onClick={() => { createSocialSpace(); }}
                 >
                     <span>Create A Social Space</span>
@@ -305,8 +305,8 @@ function TabMembers(props) {
             <section className='TabMembers-room-section pb-3'>
                 {/* If User is Not Host, Show Leave Room Button with Appropriate Logic */}
                 {(USER._id !== props.roomData.roomCreator) &&
-                    <div className='d-flex justify-content-between align-items-center my-3'>
-                        <h5 className='mt-4 mb-3 TabMembers-room-header'>In Room: {props.roomData.roomName}
+                    <div className='d-flex justify-content-between align-items-center'>
+                        <h5 className='TabMembers-room-header'>In Room: {props.roomData.roomName}
                         </h5>
                         <button
                             className='TabMembers-exit-btn'

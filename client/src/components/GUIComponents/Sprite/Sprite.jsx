@@ -71,7 +71,7 @@ function Sprite({position, message, step = 0, dir = 0 }) {
                             <Overlay
                                 show={show}
                                 target={target}
-                                placement="bottom"
+                                placement="right"
                                 container={ref.current}
                                 containerPadding={20}
                             >

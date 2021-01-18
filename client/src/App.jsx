@@ -11,7 +11,7 @@ import Loading from './components/Loading';
 import LoginModal from './components/Modals/LoginModal';
 import SideNav from './components/NavbarComponents/SideNav';
 import Slider from './components/SidebarComponents/Slider';
-import { Container } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { ToastContainer, Zoom } from 'react-toastify';
 import { GUIProvider } from './utils/GUIProvider';
 import { ChatProvider } from './utils/ChatProvider';
@@ -56,21 +56,25 @@ function App() {
             <SocketProvider>
                 <GUIProvider>
                     <ChatProvider>
-                        <SideNav />
-                        <ToastContainer transition={Zoom} autoClose={3000} />
-                        <main>
+                        <Row >
                             <Slider />
-                            <Container>
-                                <Switch>
-                                    <Route exact path='/' component={Homepage} />
-                                    <Route exact path='/profile' component={Profile} />
-                                    <Route exact path='/rooms/:id' component={RoomGUI} />
-                                    <Route exact path='/rooms/:id/:id' component={SocialSpace} />
-                                    <Route exact path='/space' component={Space} />
-                                </Switch>
-                            </Container>
-                        </main>
-                        <Footer />
+                            <Col md className='mx-0 px-0 main-col'>
+                                <SideNav />
+                                <ToastContainer transition={Zoom} autoClose={3000} />      
+                                <main>
+                                    <Container>
+                                        <Switch>
+                                            <Route exact path='/' component={Homepage} />
+                                            <Route exact path='/profile' component={Profile} />
+                                            <Route exact path='/rooms/:id' component={RoomGUI} />
+                                            <Route exact path='/rooms/:id/:id' component={SocialSpace} />
+                                            <Route exact path='/space' component={Space} />
+                                        </Switch>
+                                    </Container>
+                                </main>
+                                <Footer />
+                            </Col>
+                        </Row>
                     </ChatProvider>
                 </GUIProvider>
             </SocketProvider>

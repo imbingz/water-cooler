@@ -53,7 +53,7 @@ function TabFriends(props) {
             <div className='d-flex justify-content-start'>
                 {/* Check if There Is Data in RenderImpending, Meaning User Has At Least One Invitations To Render header tag */}
                 { (renderInpending.length > 0) &&
-                    <h6 className='my-4 Tabfriends-subtitle'>Friend Requests:</h6> 
+                    <h6 className='mt-4 mb-3 Tabfriends-subtitle'>Friend Requests:</h6> 
                 }
             </div>
             <section className='d-flex flex-column justify-content-start TabFriends-section'>
@@ -101,7 +101,7 @@ function TabFriends(props) {
             {/* Offline Friends */}
             {/* <div><h6 className='Tabfriends-subtitle mt-4'>Offline Friends:</h6></div> */}
             { (renderOffFriends.length > 0) &&
-                    <h6 className='mr-5 Tabfriends-subtitle'>Friends:</h6> 
+                    <h6 className='mr-5  mb-3 Tabfriends-subtitle'>Friends:</h6> 
             }
             { (renderOffFriends.length === 0) &&
                     <h6 className='mr-5 Tabfriends-subtitle'>Use the Search Icon To Add Your Friends!</h6> 

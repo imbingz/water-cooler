@@ -234,7 +234,7 @@ const SidebarUsersCont = (props) => {
             {props.data &&
                 props.data.map(mapData => (
 
-                    <div className='d-flex flex-row justify-content-start align-items-center mb-2' key={uuidv4()}>
+                    <div className='d-flex flex-row justify-content-start align-items-center mb-3' key={uuidv4()}>
                         <img
                             src={mapData.imageSrc || mapData.roomImg}
                             alt={mapData.username || mapData.roomName}
@@ -245,17 +245,17 @@ const SidebarUsersCont = (props) => {
                         {/* ** Check For Truthy Values In friend.username and friend.room to determine if the component received room or friend data, then use substring to limit their lengths */}
                         { mapData.username &&
                             <p className='mx-2 my-0 SbUserCont-Text'>
-                                {mapData.username.substring(0, 16)}
+                                {mapData.username.substring(0, 15)}
                             </p>
                         }
                         { mapData.roomName &&
                             <p className='mx-2 my-0 SbUserCont-Text'>
-                                {mapData.roomName.substring(0, 22)}
+                                {mapData.roomName.substring(0, 15)}
                             </p>
                         }
                         { mapData.socialSpaceName &&
                             <p className='mx-2 my-0 SbUserCont-Text'>
-                                {mapData.socialSpaceName.substring(0, 22)}
+                                {mapData.socialSpaceName.substring(0, 15)}
                             </p>
                         }
 
@@ -265,7 +265,7 @@ const SidebarUsersCont = (props) => {
                         {(!props.isRequest && props.type !== 'dm' && mapData.friendId !== _id) &&
                             <button
                                 onClick={() => { props.handleShow(mapData); props.handleFriendModal(mapData); }}
-                                className='SbUserCont-btn profile d-inline-block ml-auto mb-3 px-2 py-1'
+                                className='SbUserCont-btn profile d-inline-block ml-auto px-2 py-1'
 
                             ><small>View Profile</small> </button>
                         }
@@ -276,7 +276,7 @@ const SidebarUsersCont = (props) => {
                                 onClick={() => {
                                     props.showSidebar();
                                 }}
-                                className='SbUserCont-btn profile d-inline-block ml-auto mb-3 px-2 py-1'
+                                className='SbUserCont-btn profile d-inline-block ml-auto px-2 py-1'
 
                             ><small>View Chat</small> </button>
                         }

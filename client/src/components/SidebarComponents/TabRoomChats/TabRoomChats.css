@@ -34,26 +34,26 @@
 	background-color: rgb(164, 250, 157);
 	border-radius: 25px;
 	padding: 3px;
-
 }
 
 .TabRoomChats-chat-footer {
 	background-color: rgb(230, 227, 227);
-	width: 430px;
+	width: 308px;
 	transition: 350ms;
 	position: fixed;
 	left: 0;
 	bottom: 0;
-	margin-bottom: 60px;
+	margin-bottom: 35px;
+	z-index: 100;
 }
 
 .TabRoomChats-chat-input {
-	width: 300px;
-	padding: 5px 10px;
+	width: 215px;
+	padding: 5px;
 	border: 0;
 	border-radius: 25px;
 	display: inline-block;
-	margin: 0 10px;
+	margin: 0 4px;
 }
 .TabRoomChats-chat-input:focus {
 	outline: 0;
