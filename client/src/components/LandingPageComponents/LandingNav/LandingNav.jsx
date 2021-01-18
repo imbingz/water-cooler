@@ -13,12 +13,13 @@ function LandingNav() {
     return (
         <>
             <Navbar sticky='top' 
-                className="justify-content-around align-items-top bg-secondary"
+                className="justify-content-around align-items-top"
+                style={{backgroundColor: '#7f38eb'}}
             >
                 <div>
                     <img style={{width: 40, height: 40}} src="/assets/images/logo-50.png" alt="water cooler logo"/>
                 </div>
-                <h2 style={{fontFamily:'Great Vibes'}} className='mb-0 pt-2'>Water Cooler</h2>
+                <h2 style={{fontFamily:'Great Vibes', color: 'white'}} className='mb-0 pt-2'>Water Cooler</h2>
                 <div>
                     <Button variant='warning'
                         size='sm'

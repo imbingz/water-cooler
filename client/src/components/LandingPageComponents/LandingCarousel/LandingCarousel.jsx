@@ -26,7 +26,7 @@ function LandingCarousel() {
                             style={{width: '67%', maxWidth: 650}}
                         />
                         
-                        <p className='text-center mt-3'> {feature.details} </p>
+                        <p className='text-center mt-3  mb-0 pb-5' style={{color: 'white'}}> {feature.details} </p>
                                               
                     </Carousel.Item>
                 ))
