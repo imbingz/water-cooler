@@ -1,5 +1,7 @@
 .CreateRoomSelected {
 	color: red;
+	font-weight: bolder;
+	transform: scale(1.15);
 }
 
 .CreateRoom-frnd-wrapper {
@@ -11,6 +13,5 @@
 }
 
 .CreateRoom-frnd-img:hover {
-	transform: scale(1.2);
 	border: 3px solid red;
 }
