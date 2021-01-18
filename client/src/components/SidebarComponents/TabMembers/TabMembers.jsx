@@ -232,7 +232,7 @@ function TabMembers(props) {
         // ** Run checkDBArrays to Update Render Of inbound Room Invites
         dispatch({ type: 'setShowAside', payload: false });
         history.push('/rooms/' + props.roomData.publicRoomId);
-    }
+    };
 
     // * On Page Load, Check DB for Any Changes in User's friend and inboundPendingFriends Arrays 
     useEffect(() => {
