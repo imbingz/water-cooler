@@ -94,7 +94,7 @@ db.User.insertMany([
         activeRoom: '',
     },
     {
-        email: 'theleviathanlairone@space.com',
+        email: 'leviathanlair1@space.com',
         password: 'eaterofworlds',
         username: 'hydra',
         firstName: 'Argos',
@@ -109,7 +109,7 @@ db.User.insertMany([
         activeRoom: '',
     },
     {
-        email: 'theleviathanlairtwo@space.com',
+        email: 'leviathanlair2@space.com',
         password: 'spireofstars',
         username: 'somecabal',
         firstName: 'Val Cauor',
