@@ -39,7 +39,7 @@ function SideNav() {
         <header>
             <IconContext.Provider value={{ color: '#fff' }}>
                 <Navbar sticky=''
-                    className="justify-content-between align-items-top bg-secondary"
+                    className="justify-content-between align-items-top  SideNav-Navbar"
                 >
                     <div className=''>
                         <Link to='#' className='Header-menu-bars'>

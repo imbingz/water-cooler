@@ -1,3 +1,8 @@
+.SideNav-Navbar {
+	/* background-color: rgba(127, 56, 235, 0.6); */
+	background-color: #bcbfc1;
+}
+
 .Header-navbar {
 	background-color: darkgray;
 	height: 80px;
@@ -57,14 +62,14 @@
 	border: none;
 	text-align: center;
 	font-size: large;
-	color: rgb(250, 250, 94);
+	color: rgb(55, 5, 238);
 }
 
 .Header-logout-btn:hover,
 .Header-logout-btn:focus {
 	outline: 0;
 	transform: scale(0.9);
-	color: rgb(55, 5, 238);
+	color: rgb(4, 39, 236);
 }
 
 .Header-title {
