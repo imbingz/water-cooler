@@ -11,8 +11,9 @@
 }
 
 .Landing-start-btn {
-	background-color: yellowgreen;
+	background-color: rgb(170, 252, 6);
 	font-size: 1rem;
+	color: black;
 }
 
 .Landing-btn:hover,
