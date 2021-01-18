@@ -16,7 +16,7 @@ function SideNav() {
     const history = useHistory();
     const handleLogout = async () => {
         try {
-            const response = await fetch('api/user/logout');
+            const response = await fetch('/api/user/logout');
 
             const data = await response.json();
 
