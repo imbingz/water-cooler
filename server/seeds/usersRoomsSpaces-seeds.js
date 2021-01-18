@@ -3,12 +3,15 @@ require('../config/db')();
 const db = require('../models');
 const { v4: uuidv4 } = require('uuid');
 
+
+// db.User.collection.drop();
+
 const makeAsync = async () => {
     try {
         // * Create User Seed Data
-        await db.User.insertMany([
+        await db.User.create([
             {
-                email: 'atheon@demo.com',
+                email: 'atheon@test.com',
                 password: '1234',
                 username: 'Atheon',
                 firstName: 'Atheon',
@@ -24,7 +27,7 @@ const makeAsync = async () => {
             },
             {
                 email: 'crota@test.com',
-                password: 'crotasend',
+                password: '1234',
                 username: 'Scrota',
                 firstName: 'Crota',
                 lastName: 'Gibson',
@@ -38,8 +41,8 @@ const makeAsync = async () => {
                 activeRoom: '',
             },
             {
-                email: 'dreadnaught@saturn.com',
-                password: 'kingsfall',
+                email: 'dreadnaught@test.com',
+                password: '1234',
                 username: 'Auryx',
                 firstName: 'Oryx',
                 lastName: 'Clarke',
@@ -53,7 +56,7 @@ const makeAsync = async () => {
                 activeRoom: '',
             },
             {
-                email: 'dreadnaught7@saturn.com',
+                email: 'dreadnaught7@test.com',
                 password: 'kingsfalls',
                 username: 'Auryous',
                 firstName: 'Frazier',
@@ -68,7 +71,7 @@ const makeAsync = async () => {
                 activeRoom: '',
             },
             {
-                email: 'plaguelands@earth.com',
+                email: 'plaguelands@test.com',
                 password: 'wrathofthemachine',
                 username: 'Spider',
                 firstName: 'Aksis',
@@ -83,7 +86,7 @@ const makeAsync = async () => {
                 activeRoom: '',
             },
             {
-                email: 'theleviathan@space.com',
+                email: 'leviathan@test.com',
                 password: 'thelaviathan',
                 username: 'Rich',
                 firstName: 'Emperor',
@@ -98,7 +101,7 @@ const makeAsync = async () => {
                 activeRoom: '',
             },
             {
-                email: 'hydra@space.com',
+                email: 'hydra@test.com',
                 password: 'eaterofworlds',
                 username: 'hydra',
                 firstName: 'Argos',
@@ -113,7 +116,7 @@ const makeAsync = async () => {
                 activeRoom: '',
             },
             {
-                email: 'barnett@space.com',
+                email: 'barnett@test.com',
                 password: 'spireofstars',
                 username: 'somecabal',
                 firstName: 'Val Cauor',
@@ -128,7 +131,7 @@ const makeAsync = async () => {
                 activeRoom: '',
             },
             {
-                email: 'dreamingcity@abc.com',
+                email: 'dreamcity@test.com',
                 password: 'lastwish',
                 username: 'Riven',
                 firstName: 'Riven',

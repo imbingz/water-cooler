@@ -2,10 +2,12 @@ require('../config/db')();
 
 const db = require('../models');
 
-db.User.insertMany([
+db.User.collection.drop();
+
+db.User.create([
     {
         email: 'ishtarsink@venus.com',
-        password: 'vaultofglass',
+        password: '1234',
         username: 'Atheon',
         firstName: 'Atheon',
         lastName: 'Times-Conflux',
@@ -20,7 +22,7 @@ db.User.insertMany([
     },
     {
         email: 'oceanofstorms@moon.com',
-        password: 'crotasend',
+        password: '1234',
         username: 'Scrota',
         firstName: 'Crota',
         lastName: 'Son-of-Oryx',
@@ -35,7 +37,7 @@ db.User.insertMany([
     },
     {
         email: 'dreadnaught@saturn.com',
-        password: 'kingsfall',
+        password: '1234',
         username: 'Auryx',
         firstName: 'Oryx',
         lastName: 'The-Taken-King',
@@ -50,7 +52,7 @@ db.User.insertMany([
     },
     {
         email: 'dreadnaught7@saturn.com',
-        password: 'kingsfalls',
+        password: '1234',
         username: 'Auryous',
         firstName: 'Oryx-Raid',
         lastName: 'The-King',
@@ -65,7 +67,7 @@ db.User.insertMany([
     },
     {
         email: 'plaguelands@earth.com',
-        password: 'wrathofthemachine',
+        password: '1234',
         username: 'Spider',
         firstName: 'Aksis',
         lastName: 'Archon-Prime',
@@ -80,7 +82,7 @@ db.User.insertMany([
     },
     {
         email: 'theleviathan@space.com',
-        password: 'thelaviathan',
+        password: '1234',
         username: 'Rich',
         firstName: 'Emperor',
         lastName: 'Calus',
@@ -95,7 +97,7 @@ db.User.insertMany([
     },
     {
         email: 'leviathanlair1@space.com',
-        password: 'eaterofworlds',
+        password: '1234',
         username: 'hydra',
         firstName: 'Argos',
         lastName: 'Planetary Core',
@@ -110,7 +112,7 @@ db.User.insertMany([
     },
     {
         email: 'leviathanlair2@space.com',
-        password: 'spireofstars',
+        password: '1234',
         username: 'somecabal',
         firstName: 'Val Cauor',
         lastName: 'no name',
@@ -125,7 +127,7 @@ db.User.insertMany([
     },
     {
         email: 'dreamingcity@unknownspace.com',
-        password: 'lastwish',
+        password: '1234',
         username: 'Riven',
         firstName: 'Riven',
         lastName: 'Of a Thousand Voices',
