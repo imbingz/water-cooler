@@ -24,6 +24,7 @@ function Map({ tiles, tileset, tileHeight, tileWidth }) {
                             pos={players[key]}
                             emitPos={pos => emitMovement(pos)}
                             message={players[key].message}
+                            username={players[key].username}
                         />
                     );
                 }

@@ -4,7 +4,7 @@ import UseKeyPress from '../../../utils/useKeyPress';
 
 function Player(props) {
 
-    const { pos, emitPos, message } = props;
+    const { pos, emitPos, username, message } = props;
     const [dir, setDir] = useState(0);
     const [step, setStep] = useState();
 
@@ -66,6 +66,7 @@ function Player(props) {
                 dir={ dir }
                 position={ pos }
                 message={ message }
+                username={ username }
             />
         </div>
     );

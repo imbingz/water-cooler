@@ -10,7 +10,7 @@ export function useGUI() {
 
 export function GUIProvider({ children }) {
     const [{ USER },] = useGlobalContext();
-    const username = USER.name;
+    const username = USER.username;
     const [player, setPlayer] = useState('');
     const [players, setPlayers] = useState({});
     const { socket, sessionId } = useSocket();
@@ -20,7 +20,7 @@ export function GUIProvider({ children }) {
             return;
         }
         socket.emit('set-id', sessionId);
-        setPlayer({ id: sessionId, name: username });
+        setPlayer({ id: sessionId, username });
     }, [socket, sessionId, username]);
 
 
@@ -39,10 +39,14 @@ export function GUIProvider({ children }) {
     }, [socket, player]);
 
     useEffect(() => {
-        if (player) {
-            console.log(`hit player useEffect(): ${JSON.stringify(player)}`);
+        if(!socket ) {return;} 
+        if ( player.id) {
+            socket.emit('new player', player);
         }
-    });
+
+        return () => socket.off('new player');
+        
+    }, [player, socket]);
 
     const emitMovement = (position) => {
         socket.emit('movement', position);

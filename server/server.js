@@ -14,6 +14,8 @@ const io = require('socket.io')(http, {
     }
 });
 
+
+
 require('./config/db')();
 
 const PORT = process.env.PORT || 5000;
@@ -32,36 +34,40 @@ app.use(passport.session());
 // Routes
 app.use(routes);
 
+
 const players = {};
 
 io.on('connection', (socket) => {
 
     const sessionId = socket.handshake.query.sessionId;
 
-    console.log(sessionId, 'this is the server session ID');
-
     socket.on('set-id', sessionId => {
         socket.id = sessionId;
-        console.log(sessionId);
-        console.log(socket.id);
     });
 
     socket.on('send-chat', (message, roomId, userId, username) => {
         socket.broadcast.emit('receive-chat', message, roomId, userId, username, socket.id);
     });
 
-    players[sessionId] = {
-        x: 0, y: 0
-    };
+    socket.on('new player', player => {
+        console.log(`server new player is: ${JSON.stringify(player)}`);
 
-    io.sockets.emit('state', { players });
+        players[sessionId] = {
+            x: 0, y: 0, 
+            username: player.username
+        };
+
+        io.sockets.emit('state', { players });
+
+        console.log('players emit from sockets', players);
+        
+    });
 
     socket.on('movement', (data) => {
 
-        console.log('movement called', { data });
-        console.log({players});
+        // console.log('movement called', { data });
 
-       
+        // set player movement boundaries 
         if (data.x < 0) {
             data.x = 10;
         }
@@ -78,26 +84,29 @@ io.on('connection', (socket) => {
             data.y = 575;
         }
 
-        players[sessionId] = data;
+        // update players original position with movement data emitted from frontend 
+        players[sessionId].x= data.x;
+        players[sessionId].y=data.y;
+
 
         let message;
 
         if (players) {
             let playerPositions = Object.values(players);
+            
             for (let i = 0; !message && i < playerPositions.length; i++) {
                 for (let j = i + 1; !message && j < playerPositions.length; j++) {
                    
                     if (Math.abs(playerPositions[i].x - playerPositions[j].x) <= 32 && Math.abs(playerPositions[i].y - playerPositions[j].y) <= 32) {
                         playerPositions[i].message = 'Hey, like to chat?';
-                        playerPositions[j].message = 'Hello , genius';
+                        playerPositions[j].message = 'Hello, like to chat?';
                     }
                 }
             }
         }
 
-        players[sessionId] = data;
-
-        socket.emit('state', { players, message });
+        // players is obj of each player that has x, y, username and message as property keys. send all that back to frontend to render Player ---> to Sprite
+        socket.emit('state', { players });
 
         socket.on('disconnect', () => {
             socket.to(socket.room).broadcast.emit('user-disconnected');
