@@ -3,7 +3,7 @@
 [WaterCooler](https://thawing-sands-06990.herokuapp.com/) https://thawing-sands-06990.herokuapp.com/
 ## Description
 
-This is a full-stack web application that utilizes MongoDB, Express JS, Node JS, and React JS and allows users to create a Room and/or Social Space where they can walk around and socialize as if they would in real life, message (both public and private) and video others. The app also enables users to send friend requests, invite others to Room and Social Space, accept/decline requests and invitations and block others. 
+This is a full-stack web application that utilizes MongoDB, Express JS, Node JS, React JS and socket.io/-client and allows users to create a Room and/or Social Space where they can walk around and socialize as if they would in real life, message (both public and private) and video others. The app also enables users to send friend requests, invite others to Room and Social Space, accept/decline requests and invitations and block others. 
 
 
 ## Table of Contents
