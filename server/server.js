@@ -61,20 +61,21 @@ io.on('connection', (socket) => {
         console.log('movement called', { data });
         console.log({players});
 
-        if (data.x > 750) {
-            data.x = 750;
+       
+        if (data.x < 0) {
+            data.x = 10;
         }
 
-        if (data.x > 800) {
-            data.x = 800;
+        if (data.x > 768) {
+            data.x = 768;
         }
 
         if (data.y < 0) {
-            data.y = 0;
+            data.y = 10;
         }
 
-        if (data.y > 585) {
-            data.y = 585;
+        if (data.y > 575) {
+            data.y = 575;
         }
 
         players[sessionId] = data;
