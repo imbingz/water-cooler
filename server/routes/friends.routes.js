@@ -80,6 +80,7 @@ router.post('/arrays', async ({ body }, res) => {
                     friendId: friends._id,
                     activeRoom: friends.activeRoom,
                     status: friends.status,
+                    email:friends.email
                 };
 
                 // *** Push Each Result to response

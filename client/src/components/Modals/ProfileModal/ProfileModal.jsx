@@ -14,6 +14,8 @@ function ProfileModal(props) {
     const { checkdb, friend } = props;
     const { _id } = JSON.parse(localStorage.getItem('USER'));
 
+    console.log('friend prop inside profile Modal:', friend);
+    
     // ** Used To Conditionally Render Unfriend Button
     const [isFriend, setIsFriend] = useState(true);
     
@@ -57,7 +59,6 @@ function ProfileModal(props) {
     //  // When False, Button Value will Change [ note: I need to find a way to set state back to true when the modal is closed, else all the friend's modals will show Removed ]
     // *! This is terrible and needs can just be conditionally rendered in the jsx return. Burn this
     useEffect(() => {
-
         if (!isFriend) {
             setFriendButton(
                 <Button
@@ -89,6 +90,8 @@ function ProfileModal(props) {
 
     }, [checkdb, friend.friendId, isFriend, unfriend,]);
 
+    
+
     return (
         <>
             <Modal {...props} backdrop="static" keyboard={false} centered>
@@ -106,7 +109,7 @@ function ProfileModal(props) {
                                 <img src={friend.imageSrc} alt={friend.username} style={{ width: 75, height: 75, borderRadius: 50 }} />
                             </Col>
 
-                            <Col className='ml-2' xs='auto'>
+                            <Col className='ml-4' xs='auto'>
                                 <Row className='d-flex flex-row justify-content-start'>
                                     <h6 className='pt-1'> {friend.firstName} </h6>
                                     <h6 className='pt-1 mx-2'>  {friend.lastName} </h6>
