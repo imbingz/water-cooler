@@ -15,7 +15,7 @@ function Footer() {
 
     return (
         <footer>
-            <Navbar bg='secondary' fixed='bottom' className="Footer justify-content-around">
+            <Navbar fixed='bottom' className="Footer justify-content-around py-0" style={{backgroundColor: 'rgba(0, 0, 0, 0.9)'}}>
                 <div>
                     <i onClick={handleShow} >
                         < BsSearch size={23} style={{ fill: 'white' }} className='Footer-icon' />
