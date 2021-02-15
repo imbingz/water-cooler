@@ -7,6 +7,7 @@ This is a full-stack web application that utilizes MongoDB, Express JS, Node JS,
 
 
 ## Table of Contents
+* [Screeshots](#Screenshots)
 * [Technologies](#Technologies)
 * [Usage](#Usage)
 * [Development](#Development)
@@ -18,6 +19,8 @@ This is a full-stack web application that utilizes MongoDB, Express JS, Node JS,
 * [License](#License)
 * [Contributors](#Contributors)
 
+## Screenshots
+<kbd>![desktop views](./client/public/assets/demo/demo.gif)</kbd>
 ## Technologies
 
 ```
